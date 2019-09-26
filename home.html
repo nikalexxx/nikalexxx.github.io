@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Page Title</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <script src="main.js"></script>
+  <style>
+    @font-face {
+      font-family: 'Cousine-Bold';
+      src: local('Couine-Bold'),
+      url('Cousine-Bold.ttf') format("truetype");
+    }
+    @font-face {
+      font-family: 'Monoton';
+      src: local('Monoton'),
+      url('Monoton-Regular.ttf') format("truetype");
+    }
+  </style>
+</head>
+
+<body>
+  <div style="width: 500px; height: 500px; background-color:#292d34;font-family: Monoton">
+    <svg viewBox='0 0 100 100'>
+      <defs>
+        <mask id='mask-1' x='0' y='0' width='100' height='100'>
+          <!-- Тут меняем #000 на #fff -->
+          <rect id='main-rect' x='0' y='0' width='100' height='100' fill='#000' />
+          <!-- Тут меняем #fff на #000 -->
+          <text id='text' 
+            x='50' 
+            y='50' 
+            text-anchor="middle" 
+            alignment-baseline="middle"
+            style="font-size: 10px"
+            fill='#fff'
+          >
+          ALEXANDR
+          </text>
+          <text id='text' 
+            x='50' 
+            y='65' 
+            text-anchor="middle" 
+            alignment-baseline="middle"
+            style="font-size: 10px"
+            fill='#fff'
+          >
+          NIKOLAICHEV
+          </text>
+        </mask>
+      </defs>
+      <image width='100' height='100' xlink:href='star.png' mask='url(#mask-1)' />
+    </svg>
+  </div>
+</body>
+
+</html>
