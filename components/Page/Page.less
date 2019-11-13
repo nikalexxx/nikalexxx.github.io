@@ -1,0 +1,59 @@
+@import '../../css/variables.css';
+
+.page {
+    display: grid;
+    grid-template-areas:
+        'header header'
+        'menu content'
+        'footer footer';
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+
+    & > * {
+        padding: 10px;
+    }
+
+    &__header {
+        grid-area: header;
+        // box-shadow: 0 5px 3px black;
+        background-color: var(--color-menu);
+        position: relative;
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    &__header-shadow {
+        // grid-area: shadow;
+        // position: sticky;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,0));
+        height: 5px;
+        // width: 100%;
+        position: absolute;
+        z-index: 1000;
+    }
+
+    &__menu {
+        grid-area: menu;
+        background-color: var(--color-menu);
+    }
+
+    &__content {
+        grid-area: content;
+        position: relative;
+        overflow-y: scroll;
+    }
+
+    &__footer {
+        background-color: var(--color-menu);
+        grid-area: footer;
+    }
+    &__current {
+        background-color: var(--color-menu-folder);
+    }
+}

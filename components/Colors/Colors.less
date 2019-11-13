@@ -1,0 +1,135 @@
+@import '../../css/variables.css';
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: #292d34;
+    color: var(--color-syntax-gray);
+}
+
+.colors {
+    &__area {
+        &_color {
+            &_area {
+                background-color: var(--color-area);
+            }
+
+            &_menu {
+                background-color: var(--color-menu);
+            }
+
+            &_menu-active {
+                background-color: var(--color-menu-active);
+            }
+
+            &_menu-hover {
+                background-color: var(--color-menu-hover);
+            }
+
+            &_menu-folder {
+                background-color: var(--color-menu-folder);
+            }
+
+            &_element-active {
+                background-color: var(--color-element-active);
+            }
+
+            &_string-number {
+                background-color: var(--color-string-number);
+            }
+
+            &_syntax-variable {
+                background-color: var(--color-syntax-variable);
+            }
+
+            &_syntax-number {
+                background-color: var(--color-syntax-number);
+            }
+
+            &_syntax-operator {
+                background-color: var(--color-syntax-operator);
+            }
+
+            &_syntax-gray {
+                background-color: var(--color-syntax-gray);
+            }
+
+            &_syntax-dark-gray {
+                background-color: var(--color-syntax-dark-gray);
+            }
+
+            &_syntax-keyword {
+                background-color: var(--color-syntax-keyword);
+            }
+
+            &_syntax-class {
+                background-color: var(--color-syntax-class);
+            }
+
+            &_syntax-function {
+                background-color: var(--color-syntax-function);
+            }
+
+            &_syntax-string {
+                background-color: var(--color-syntax-string);
+            }
+
+            &_syntax-inline {
+                background-color: var(--color-syntax-inline);
+            }
+
+            &_input-text {
+                background-color: var(--color-input-text);
+            }
+
+            &_input-area {
+                background-color: var(--color-input-area);
+            }
+
+            &_md-link {
+                background-color: var(--color-md-link);
+            }
+
+            &_atom-link {
+                background-color: var(--color-atom-link);
+            }
+
+            &_atom-button {
+                background-color: var(--color-atom-button);
+            }
+
+            &_atom-button-hover {
+                background-color: var(--color-atom-button-hover);
+            }
+
+            &_atom-black-line {
+                background-color: var(--color-atom-black-line);
+            }
+        }
+    }
+}
+
+
+.colors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-gap: .5em;
+    text-align: center;
+}
+
+.colors>div {
+    height: 100px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+.colors__area {
+    border-radius: 1em;
+    /* border: solid 1px #abb2de; */
+}
+
+.colors__name {
+    font-size: 2em;
+    position: relative;
+    top: calc(50% - .5em);
+}
