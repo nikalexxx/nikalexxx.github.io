@@ -4,10 +4,13 @@ const map = {
 		"colors": {
 			":color": {}
 		}
-  },
-  "sandbox": {
-    ":id": {}
-  }
+    },
+    "sandbox": {
+        ":id": {}
+    },
+    "games": {
+        "gameOfLife": {}
+    }
 };
 
 export default map;

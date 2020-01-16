@@ -1,12 +1,14 @@
 import {
     block,
     E,
-    cssImport,
+    css,
     style,
     Component
 } from '../../utils/index.js';
 
-cssImport('components/Colors/Colors.less');
+import {Breadcrumbs} from '../index.js';
+
+css(import.meta.url, 'Colors.less');
 
 const colors = [
     'area',
@@ -37,45 +39,33 @@ const colors = [
 
 const b = block('colors');
 
-const Colors = Component.Colors(({didMount}) => {
-    const colorsRootElement = E.div.class(b())(
-        colors.map(color =>
-            E.div(
-                E.div.class(b('area', {color}))(
-                    E.div.class(b('name'))
-                ),
-                E.div(color)
-            )
+const Colors = Component.Colors(() => {
+    return () => E.div(
+        Breadcrumbs.items([['Дизайн', 'design'], ['Цвета']]),
+        E.div.class(b())(
+            colors.map(color => {
+                const code = getComputedStyle(document.documentElement).getPropertyValue(`--color-${color}`).trim();
+                const rgb = (s => [s.slice(0,2), s.slice(2,4),s.slice(4)].map(hex => parseInt(hex, 16)))(code.slice(1))
+                const v = Math.max(...rgb);
+                const contrast = v > 162 ? 'black' : 'white';
+                const border = v > 38 && v < 78 ? 'solid 1px #abb2de' : '';
+                const colorNode = E.div(
+                    E.div
+                        .class(b('area', {color}))
+                        .style(style({
+                            border,
+                            color: contrast
+                        }))
+                    (
+                        E.div.class(b('name'))(code)
+                    ),
+                    E.div(color)
+                );
+                return colorNode;
+            })
         )
     );
-
-    didMount((props, state) => {
-        // console.log({didMountData: {props, state}, colorsRootElement});
-        window.setTimeout(() => renderColors(colorsRootElement), 100);
-    });
-
-    return () => {
-        return colorsRootElement;
-    }
 });
 
-function renderColors(colorsRootElement) {
-    const colorNodes = colorsRootElement.children;
-    // console.log(colorNodes);
-    for (const colorNode of (colorNodes)) {
-        const areaNode = colorNode.children[0];
-        const css = window.getComputedStyle(areaNode);
-        const color = css.backgroundColor;
-        const rgb = ((color.split('(')[1] || '').split(')')[0] || '').split(',').map(e => Number(e.trim()));
-        const code = '#' + rgb.map(x => x.toString(16)).join('');
-        const v = Math.max(...rgb);
-        const contrast = v > 162 ? 'black' : 'white';
-        const border = v > 38 && v < 78 ? 'solid 1px #abb2de' : '';
-        const nameNode = areaNode.children[0];
-        areaNode.style.border = border;
-        nameNode.style.color = contrast;
-        nameNode.innerHTML = code;
-    }
-}
 
 export default Colors;

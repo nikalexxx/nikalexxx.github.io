@@ -1,8 +1,11 @@
 import {
     E,
     block,
-    Component
+    Component,
+    css
 } from '../../utils/index.js';
+
+css(import.meta.url, 'GameOfLife.less');
 
 const b = block('game-of-life');
 // console.log('game of life!!!!!!!!!')
@@ -128,6 +131,7 @@ const Game = Component.Game(({
 
     function draw() {
         const {H, W} = getState();
+        console.log(ctx);
         for (let k = 0; k < H * W; k++) {
             if (+fieldState[k] !== !data[k * 4 + 1]) {
                 data[k * 4] = fieldState[k] ? 255 : 0;
@@ -197,14 +201,14 @@ const Game = Component.Game(({
         rule[type] = list;
     }
 
-    return (props, state) => {
+    return () => {
         const {
             stop,
             H,
             W,
             i,
             size
-        } = state;
+        } = getState();
         return E.div.class(b())(
             E.canvas.id('field').width(W).height(H),
             E.p('Поколение ', E.span.id('old')(i)),

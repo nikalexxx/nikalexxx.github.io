@@ -58,9 +58,8 @@ export const getRouterState = (routes) => {
 }
 
 export const RouteLink = Component.RouteLink(({props: {href, children}}) => {
-    return ({href, children}) => {
-        const link = E.a.href(href)(children);
-        link.addEventListener('click', (event) => {
+    return () => {
+        const onLinkClick = (event) => {
             event.preventDefault();
             if (href === '/') {
                 pushState({stack: []}, '', '/');
@@ -72,19 +71,19 @@ export const RouteLink = Component.RouteLink(({props: {href, children}}) => {
             pushState({
                 stack: href.split('/')
             }, '', '?/' + href);
-        });
-        return link;
+        };
+        return E.a.href(href).onClick(onLinkClick)(children);
     };
 })
 
 
-export const Switch = Component.Switch(({props, state, setState, initState}) => {
+export const Switch = Component.Switch(({props, getState, setState, initState}) => {
     initState(getRouterState(props.routes));
     window.addEventListener('historyUpdate', function () {
         setState(getRouterState(props.routes));
     });
-    return (...[, state]) => {
-        const {path, routes} = state;
+    return () => {
+        const {path, routes} = getState();
         return routes[path];
     }
 });

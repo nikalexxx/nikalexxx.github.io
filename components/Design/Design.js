@@ -1,22 +1,29 @@
 import {
     block,
     E,
-    cssImport,
     style,
     Component,
-    RouteLink
+    RouteLink,
+    css
 } from '../../utils/index.js';
+import {
+    Button
+} from '../../blocks/index.js';
 
-cssImport('components/Colors/Colors.less');
+css(import.meta.url, 'Design.less');
 
 const b = block('design');
 
 const Design = Component.Design(() => {
     return () => {
-        return [
+        return E.div.class(b())(
             E.h2('Дизайн'),
-            RouteLink.href('design/colors')('Colors')
-        ];
+            RouteLink.href('design/colors')(
+                Button(
+                    E.div.style(style({padding: '64px'}))('Цвета')
+                )
+            )
+        );
     }
 });
 

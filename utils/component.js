@@ -1,10 +1,11 @@
-import {
-    E
-} from './element.js';
+import {E} from './element.js';
+import {getClone} from './clone.js';
 import {
     getChildren
 } from './children.js';
 import style from './style.js';
+import {log} from './logger.js';
+import {elementSymbol, componentSymbol} from './symbols.js';
 
 const set = state => arg => {
     let newObject;
@@ -28,16 +29,6 @@ function getProps(element) {
     return props;
 }
 
-function logger(f) {
-    if (window.componentLogger) {
-        if (typeof f === 'function') {
-            f();
-        } else {
-            console.log(f);
-        }
-    }
-}
-
 function logAdd(element) {
     console.log('%c + ', style({
         color: 'green',
@@ -58,7 +49,7 @@ function getElem(component) {
         fragment.append(...component.map(e => getElem(e)));
         return fragment;
     }
-    return typeof component === 'function' ? component() : component;
+    return (typeof component === 'function') ? component() : component;
 }
 
 function isTypeChanged(element, newElement) {
@@ -75,19 +66,27 @@ function isTypeChanged(element, newElement) {
 }
 
 function componentConstructor(componentName) {
+    const handlerErrors = new Proxy({}, {
+        get(target, name) {
+            if (!(name in target)) {
+                target[name] = {};
+            }
+            return target[name];
+        }
+    })
 
     return function (makeComponent) {
         const create = (props = {}, children = []) => {
             // уникальный идентификатор для созданного элемента
-            const componentSymbol = Symbol(componentName);
+            const componentNameSymbol = Symbol(componentName);
 
             function didMountEvent(element, source) {
                 // console.group(`didMount[${source}]`);
                 // console.log(element);
                 // console.groupEnd();
-                element.dispatchEvent(new CustomEvent('didMount', {
+                window.dispatchEvent(new CustomEvent('didMount', {
                     detail: {
-                        componentSymbol
+                        componentNameSymbol: element[componentSymbol].componentNameSymbol
                     }
                 }));
             }
@@ -96,69 +95,147 @@ function componentConstructor(componentName) {
                 // console.group(`willUnmount[${source}]`);
                 // console.log(element);
                 // console.groupEnd();
-                element.dispatchEvent(new CustomEvent('willUnmount', {
+                window.dispatchEvent(new CustomEvent('willUnmount', {
                     detail: {
-                        componentSymbol
+                        componentNameSymbol: element[componentSymbol].componentNameSymbol
                     }
                 }));
             }
 
             // обновление DOM
-            function update(element, newElement) {
+            function update(getElements) {
+                const [element, newElement] = getElements();
                 if (!element) {
                     throw new Error(`Element is ${element}`);
                 }
-                const parent = element.parentNode;
-                element.remove();
-                parent.append(newElement);
-                return;
+                const newElementSource = newElement;
                 const change = isTypeChanged(element, newElement);
+                // console.log('update', {change, element, newElement});
                 if (change) {
-                    logger(() => console.group('replace'));
-                    logger(() => logRemove(element));
+                    log.component(() => console.group('replace'));
+                    log.component(() => logRemove(element));
                     if (newElement) {
-                        logger(() => logAdd(newElement));
-                        element.replaceWith(newElement);
-                        if (newElement.dataset.component) {
+                        log.component(() => logAdd(newElement));
+                        if (componentSymbol in element) {
+                            willUnmountEvent(element, 'replace');
+                        }
+                        // console.log({element, newElement});
+                        if (componentSymbol in newElement) {
                             didMountEvent(newElement, 'replace');
                         }
+                        delete element[elementSymbol];
+                        delete element[componentSymbol];
+                        element.replaceWith(newElement);
                     } else {
                         element.remove();
                     }
-                    logger(() => console.groupEnd());
+                    log.component(() => console.groupEnd());
                 } else {
-                    changeChildren(element, newElement);
+                    if (componentSymbol in newElement) {
+                        // element[componentSymbol].element = element;
+                        // console.log({data: newElement[componentSymbol], element});
+                        newElement[componentSymbol].element = element;
+                        element[componentSymbol] = newElement[componentSymbol];
+                    }
+                    // if (newElement.parentNode) {
+                        // if (componentSymbol in newElement.parentNode) {
+                    //         element.parentNode[componentSymbol] = newElement.parentNode[componentSymbol];
+                    //         element.parentNode[componentSymbol].element = element.parentNode;
+                            // newElement.parentNode[componentSymbol].element = element.parentNode;
+                        // }
+                    //     changeProps(element.parentNode, newElement.parentNode);
+                    // }
                     changeProps(element, newElement);
+                    changeChildren(element, newElement);
+
                 }
             }
 
             function changeProps(element, newElement) {
-                const elementProps = getProps(element);
-                const newElementProps = getProps(newElement);
-                const list = [...new Set([...Object.keys(elementProps), ...Object.keys(newElementProps)])];
+                const elementProps = (element[elementSymbol] || {}).props || {};
+                const newElementProps = (newElement[elementSymbol] || {}).props || {};
+                const list = [...new Set([
+                    ...Object.keys(elementProps),
+                    ...Object.keys(newElementProps)
+                ])];
+                // console.log({element, newElement, elementProps: Object.keys(elementProps), newElementProps: Object.keys(newElementProps), list});
+                log.component.props(() => {
+                    const table = {};
+                    for (const prop of list) {
+                        if (elementProps[prop] !== newElementProps[prop]) {
+                            const oldProp = elementProps[prop];
+                            const newProp = newElementProps[prop];
+                            table[prop] = {
+                                oldProp,
+                                newProp
+                            };
+                        }
+                    }
+                    if (Object.keys(table).length) {
+                        console.table(table);
+                    }
+                });
+                log.component.props(() => console.group('props'));
                 for (const prop of list) {
                     if (prop in elementProps) {
                         if (prop in newElementProps) {
                             if (elementProps[prop] !== newElementProps[prop]) {
-                                element.setAttribute(prop, newElementProps[prop]); // изменение
+                                if (prop.slice(0, 2) === 'on') {
+                                    const eventName = prop[2].toLowerCase() + prop.slice(3);
+                                    element.removeEventListener(eventName, elementProps[prop], false);
+                                    element.addEventListener(eventName, newElementProps[prop], false);
+                                } else {
+                                    element.setAttribute(prop, newElementProps[prop]); // изменение
+                                }
+                                element[elementSymbol].props[prop] = newElement[elementSymbol].props[prop];
+                                log.component.props(() => console.group(prop));
+                                log.component.props(() => {
+                                    logRemove(elementProps[prop]);
+                                    logAdd(newElementProps[prop]);
+                                });
+                                log.component.props(() => console.groupEnd());
                                 if (prop === 'data-component') {
-                                    willUnmountEvent(element, `change prop ${newElementProps[prop]}`);
-                                    didMountEvent(element, `change prop ${newElementProps[prop]}`);
+                                    willUnmountEvent(element, `change prop ${elementProps[prop]}`);
+                                    didMountEvent(element[componentSymbol].element, `change prop ${newElementProps[prop]}`);
                                 }
                             }
                         } else {
-                            element.removeAttribute(prop); // удаление
+                            if (prop.slice(0, 2) === 'on') {
+                                const eventName = prop[2].toLowerCase() + prop.slice(3);
+                                element.removeEventListener(eventName, elementProps[prop], false);
+                                log.component.props(`remove listener for ${eventName}`, elementProps[prop]);
+                            } else {
+                                element.removeAttribute(prop); // удаление
+                            }
+                            log.component.props(() => console.group(prop));
+                            log.component.props(() => {
+                                logRemove(elementProps[prop]);
+                            });
+                            log.component.props(() => console.groupEnd());
+                            delete element[elementSymbol].props[prop];
                             if (prop === 'data-component') {
                                 willUnmountEvent(element, `remove prop ${elementProps[prop]}`);
                             }
                         }
                     } else {
-                        element.setAttribute(prop, newElementProps[prop]); // добавление
+                        element[elementSymbol].props[prop] = newElement[elementSymbol].props[prop];
+                        if (prop.slice(0, 2) === 'on') {
+                            const eventName = prop[2].toLowerCase() + prop.slice(3);
+                            element.addEventListener(eventName, newElementProps[prop], false);
+                        } else {
+                            element.setAttribute(prop, newElementProps[prop]); // добавление
+                        }
+                        log.component.props(() => console.group(prop));
+                        log.component.props(() => {
+                            logAdd(newElementProps[prop]);
+                        });
+                        log.component.props(() => console.groupEnd());
                         if (prop === 'data-component') {
-                            didMountEvent(element, `add prop ${newElementProps[prop]}`);
+                            didMountEvent(element[componentSymbol].element, `add prop ${newElementProps[prop]}`);
                         }
                     }
                 }
+                log.component.props(() => console.groupEnd());
             }
 
             // рекурсивное обновление поддерева
@@ -171,7 +248,7 @@ function componentConstructor(componentName) {
                 const newChildNodes = Array.from(newElement.childNodes);
                 if (max > 0) {
                     for (let i = 0; i < min; i++) {
-                        update(element.childNodes[i], newChildNodes[i]);
+                        update(() => [element.childNodes[i], newChildNodes[i]]);
                     }
                     if (diff > 0) {
                         removeChildren(element, min, max);
@@ -180,7 +257,7 @@ function componentConstructor(componentName) {
                     }
                 } else if (element.nodeType === 3) {
                     element.replaceWith(newElement); // заменяем текстовые узлы
-                    logger(() => {
+                    log.component(() => {
                         logRemove(element);
                         logAdd(newElement);
                     });
@@ -192,44 +269,74 @@ function componentConstructor(componentName) {
                 for (let i = start; i < end; i++) {
                     list.push(element.childNodes[i]);
                 }
-                logger(() => console.group('remove'));
+                log.component(() => console.group('remove'));
                 for (const child of list) {
-                    logger(() => logRemove(child));
+                    log.component(() => logRemove(child));
                     element.removeChild(child);
                     if (element.dataset.component) {
                         willUnmountEvent(element, 'remove');
                     }
                 }
-                logger(() => console.groupEnd());
+                log.component(() => console.groupEnd());
             }
 
             function addChildren(element, newChildNodes, min, max) {
-                logger(() => console.group('add'));
+                log.component(() => console.group('add'));
                 const list = [];
                 for (let i = min; i < max; i++) {
                     const node = newChildNodes[i];
                     list.push(node);
-                    if (node.dataset.component) {
+                    if (node && (node.dataset||{}).component) {
                         didMountEvent(node, 'add');
                     }
-                    logger(() => logAdd(node));
+                    log.component(() => logAdd(node));
                 }
                 element.append(...list);
-                logger(() => console.groupEnd());
+                log.component(() => console.groupEnd());
             }
 
             // состояние компонента
             let state = {};
 
             // элемент DOM, который будет возвращён
-            let element = E.div['data-component'](componentName)();
+            // TODO: инлайн компоненты, вложенные в одном узле, у списка это родитель
+            const element = E.div['data-component'](componentName)();
+            element[componentSymbol] = {
+                componentName,
+                componentNameSymbol,
+                props,
+                element
+            };
 
             // вызванные обработчики
-            const handlers = [];
+            let handlerIndex = 0;
+            const handlers = new Proxy({}, {
+                get(target, name) {
+                    if (!(name in target)) {
+                        target[name] = {
+                            count: 0,
+                            indexes: [],
+                        };
+                        target[name].bump = () => {
+                            handlerIndex++;
+                            target[name].count++;
+                            target[name].indexes.push(handlerIndex);
+                        }
+                    }
+                    return target[name];
+                }
+            });
+            // TODO: отслеживать вызовы и гарантировать порядок
 
             function initState(startState) {
+                if (handlers.initState.count !== 0) {
+                    if (!handlerErrors.initState.count) {
+                        handlerErrors.initState.count = 1;
+                        console.error(new Error('Повторный вызов инициализации состояния'));
+                    }
+                }
+                handlers.initState.bump();
                 state = startState;
-                handlers.push('initState');
             }
 
             function setState(newState) {
@@ -238,23 +345,33 @@ function componentConstructor(componentName) {
             }
             const getState = () => state;
 
-            element[componentSymbol] = true;
+            const stateClass = () => state;
+            stateClass.set = setState;
+            stateClass.init = initState;
+
+            element[componentNameSymbol] = true;
 
             const didMount = callback => {
-                const didMountListener = element.addEventListener('didMount', event => {
-                    // if (event.detail.componentSymbol === componentSymbol) {
-                        logger(() => {
-                            console.group('didMount -- event!!!');
-                            console.log(element);
-                            console.log(componentName);
-                            console.log(event);
-                            console.groupEnd();
+                function onDidMount(event) {
+                    // console.log('DIDMOUNT', event);
+                    if (event.detail.componentNameSymbol === componentNameSymbol) {
+                        log.component(() => {
+                            // console.group('didMount -- event!!!');
+                            // console.log(element[componentSymbol].element);
+                            // console.log(componentName);
+                            // console.log(event);
+                            // console.log(callback);
+                            // console.groupEnd();
                         });
-                        callback(props, state);
+                        callback();
                         // window.removeEventListener(didMountListener);
-                    // }
-                });
-                handlers.push('didMount');
+                    }
+                }
+
+                handlers.didMount.bump();
+                const didMountListener = window.addEventListener('didMount', onDidMount, false);
+                element[elementSymbol].props.onDidMount = onDidMount;
+                element[elementSymbol].eventListeners.didMount = [onDidMount];
             }
 
             let firstAppend = true;
@@ -267,7 +384,7 @@ function componentConstructor(componentName) {
                 // console.log({mutations, observer});
                 // console.log('didMount', firstAppend, componentName, element);
                 // console.log(handlers);
-                if (element && element.closest('html')) {
+                if (element[componentSymbol].element.closest('html')) {
                     // element = false;
                     // const componentDOMSymbol = Symbol('componentDOMSymbol');
                     // if(!storage[componentDOMSymbol]) { // первый рендер
@@ -283,9 +400,9 @@ function componentConstructor(componentName) {
                     // console.log({storage});
                     // storage[componentDOMSymbol].first = false;
                     if (firstAppend) {
-                        element.dispatchEvent(new CustomEvent('didMount', {
+                        window.dispatchEvent(new CustomEvent('didMount', {
                             detail: {
-                                [componentSymbol]: true
+                                componentNameSymbol: componentNameSymbol
                             }
                         }));
                         firstAppend = false;
@@ -312,13 +429,26 @@ function componentConstructor(componentName) {
                 initState,
                 getState,
                 setState,
+                state: stateClass,
                 didMount
             });
 
-            function rerender() {
-                update(element.firstChild, getElem(render(props, state)));
+            const getRenderElem = function() {
+                const elem = render();
+                return getClone(getElem(elem));
             }
-            element.append(getElem(render(props, state)));
+            function rerender() {
+                const renderElem = getRenderElem();
+                // console.log('rerender', componentName, element[componentSymbol].element.firstChild, renderElem);
+
+                // console.log(componentName, {element, child: element[componentSymbol].element.firstChild, render: renderElem});
+                // console.log(componentName, {elem: getRenderElem()});
+                update(() => [element[componentSymbol].element.firstChild, renderElem]);
+            }
+            // element.append(E.p());
+            // update(() => [element[componentSymbol].element.firstChild, getRenderElem()]);
+            // console.log(componentName, {elem: getRenderElem()});
+            element.append(getRenderElem());
             return element;
         }
 
