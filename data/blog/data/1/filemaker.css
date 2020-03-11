@@ -1,0 +1,79 @@
+.program {
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 2em;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    font-family: Menlo, Calibri, Helvetica, Arial, sans-serif;
+    color: black;
+}
+
+.block {
+    border: 1px solid #ccc;
+}
+
+.line {
+    margin: 0;
+}
+
+.line:hover {
+    background-color: #e8f0fb;
+}
+
+.n {
+    background-color: #f0f0f0;
+    color: gray;
+    padding-left: .5em;
+    padding-right: .5em;
+    text-align: right;
+}
+
+.string {
+    color: #789543;
+}
+
+.variable {
+    color: #d0452c;
+}
+
+.keyword {
+    color: #309de4;
+}
+
+.field {
+    color: #b64db4;
+}
+
+.operator {
+    color: #42a5af;
+}
+
+.boolean {
+    color: #e68300;
+}
+
+.number {
+    color: #e68300;
+}
+
+.get {
+    color: #e68300;
+}
+
+.q {
+    color: #b64db4;
+}
+
+.function {
+    color: #3269d5;
+}
+
+.comment {
+    color: #18902a;
+}
+
+.disabled {
+    color: #c6c3c3;
+}
