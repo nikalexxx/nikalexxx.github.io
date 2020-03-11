@@ -55,8 +55,9 @@ const Post = Component.Post(({props, getState, setState, initState, didMount}) =
         const template = E.div.class(b('content'));
         let elem;
         if (type === 'html') {
-            elem = template();
-            elem.innerHTML = text;
+            const iframe = E.iframe.src(`/data/blog/data/${id}/index.${type}`).style('width: 100%; border:none; object-fit: fill; height: 100vh;')
+            // elem.innerHTML = text;
+            elem = template(iframe);
         } else if (type === 'js') {
             elem = template(text);
         } else {
