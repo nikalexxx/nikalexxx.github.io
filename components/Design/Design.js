@@ -20,7 +20,13 @@ const Design = Component.Design(() => {
             E.h2('Дизайн'),
             RouteLink.href('design/colors')(
                 Button(
-                    E.div.style(style({padding: '64px'}))('Цвета')
+                    E.div.style(style({padding: '24px', fontSize: '64px', fontWeight: '500'}))(
+                        E.span.style('color: #bc514a')('Ц'),
+                        E.span.style('color: #99c27c')('в'),
+                        E.span.style('color: #65b0ed')('е'),
+                        E.span.style('color: #c57bdb')('т'),
+                        E.span.style('color: #d0996a')('а'),
+                    )
                 )
             )
         );

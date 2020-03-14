@@ -30,7 +30,7 @@ const Post = Component.Post(({props, getState, setState, initState, didMount}) =
                 // console.log(e.clone().blob());
                 return e.blob()
             }).then(data => {
-                return data.text();
+                return 'html' || data.text();
 
             }).then(text => {
                 // console.log(text);
@@ -55,8 +55,11 @@ const Post = Component.Post(({props, getState, setState, initState, didMount}) =
         const template = E.div.class(b('content'));
         let elem;
         if (type === 'html') {
-            const iframe = E.iframe.src(`/data/blog/data/${id}/index.${type}`).style('width: 100%; border:none; object-fit: fill; height: 100vh;')
-            // elem.innerHTML = text;
+            const iframe = E.iframe.id(`iframe-post-${id}`).src(`/data/blog/data/${id}/index.${type}`).style('width: 100%; border:none; object-fit: fill; height: 100vh;')
+            setTimeout(() => {
+                const iframeElem = document.getElementById(`iframe-post-${id}`);
+                iframeElem.style.height = (iframeElem.contentWindow.document.body.clientHeight + 100) + 'px';
+            }, 300)
             elem = template(iframe);
         } else if (type === 'js') {
             elem = template(text);
