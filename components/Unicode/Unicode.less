@@ -1,0 +1,19 @@
+.unicode {
+    padding: 16px;
+
+    &__table {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+        border-top: 1px dashed gray;
+        border-left: 1px dashed gray;
+        text-align: center;
+        line-height: 40px;
+        font-size: 20px;
+
+        & > div {
+            height: 40px;
+            border-bottom: 1px dashed gray;
+            border-right: 1px dashed gray;
+        }
+    }
+}

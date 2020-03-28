@@ -1,4 +1,4 @@
-import {E} from './element.js';
+import {E, DOM, getNode, diffElements, patchDOM} from './element.js';
 import {getClone} from './clone.js';
 import {
     getChildren
@@ -102,211 +102,18 @@ function componentConstructor(componentName) {
                 }));
             }
 
-            // обновление DOM
-            function update(getElements) {
-                const [element, newElement] = getElements();
-                if (!element) {
-                    throw new Error(`Element is ${element}`);
-                }
-                const newElementSource = newElement;
-                const change = isTypeChanged(element, newElement);
-                // console.log('update', {change, element, newElement});
-                if (change) {
-                    log.component(() => console.group('replace'));
-                    log.component(() => logRemove(element));
-                    if (newElement) {
-                        log.component(() => logAdd(newElement));
-                        if (componentSymbol in element) {
-                            willUnmountEvent(element, 'replace');
-                        }
-                        // console.log({element, newElement});
-                        if (componentSymbol in newElement) {
-                            didMountEvent(newElement, 'replace');
-                        }
-                        delete element[elementSymbol];
-                        delete element[componentSymbol];
-                        element.replaceWith(newElement);
-                    } else {
-                        element.remove();
-                    }
-                    log.component(() => console.groupEnd());
-                } else {
-                    if (componentSymbol in newElement) {
-                        // element[componentSymbol].element = element;
-                        // console.log({data: newElement[componentSymbol], element});
-                        newElement[componentSymbol].element = element;
-                        element[componentSymbol] = newElement[componentSymbol];
-                    }
-                    // if (newElement.parentNode) {
-                        // if (componentSymbol in newElement.parentNode) {
-                    //         element.parentNode[componentSymbol] = newElement.parentNode[componentSymbol];
-                    //         element.parentNode[componentSymbol].element = element.parentNode;
-                            // newElement.parentNode[componentSymbol].element = element.parentNode;
-                        // }
-                    //     changeProps(element.parentNode, newElement.parentNode);
-                    // }
-                    changeProps(element, newElement);
-                    changeChildren(element, newElement);
-
-                }
-            }
-
-            function changeProps(element, newElement) {
-                const elementProps = (element[elementSymbol] || {}).props || {};
-                const newElementProps = (newElement[elementSymbol] || {}).props || {};
-                const list = [...new Set([
-                    ...Object.keys(elementProps),
-                    ...Object.keys(newElementProps)
-                ])];
-                // console.log({element, newElement, elementProps: Object.keys(elementProps), newElementProps: Object.keys(newElementProps), list});
-                log.component.props(() => {
-                    const table = {};
-                    for (const prop of list) {
-                        if (elementProps[prop] !== newElementProps[prop]) {
-                            const oldProp = elementProps[prop];
-                            const newProp = newElementProps[prop];
-                            table[prop] = {
-                                oldProp,
-                                newProp
-                            };
-                        }
-                    }
-                    if (Object.keys(table).length) {
-                        console.table(table);
-                    }
-                });
-                log.component.props(() => console.group('props'));
-                for (const prop of list) {
-                    if (prop in elementProps) {
-                        if (prop in newElementProps) {
-                            if (elementProps[prop] !== newElementProps[prop]) {
-                                if (prop.slice(0, 2) === 'on') {
-                                    const eventName = prop[2].toLowerCase() + prop.slice(3);
-                                    element.removeEventListener(eventName, elementProps[prop], false);
-                                    element.addEventListener(eventName, newElementProps[prop], false);
-                                } else {
-                                    element.setAttribute(prop, newElementProps[prop]); // изменение
-                                }
-                                element[elementSymbol].props[prop] = newElement[elementSymbol].props[prop];
-                                log.component.props(() => console.group(prop));
-                                log.component.props(() => {
-                                    logRemove(elementProps[prop]);
-                                    logAdd(newElementProps[prop]);
-                                });
-                                log.component.props(() => console.groupEnd());
-                                if (prop === 'data-component') {
-                                    willUnmountEvent(element, `change prop ${elementProps[prop]}`);
-                                    didMountEvent(element[componentSymbol].element, `change prop ${newElementProps[prop]}`);
-                                }
-                            }
-                        } else {
-                            if (prop.slice(0, 2) === 'on') {
-                                const eventName = prop[2].toLowerCase() + prop.slice(3);
-                                element.removeEventListener(eventName, elementProps[prop], false);
-                                log.component.props(`remove listener for ${eventName}`, elementProps[prop]);
-                            } else {
-                                element.removeAttribute(prop); // удаление
-                            }
-                            log.component.props(() => console.group(prop));
-                            log.component.props(() => {
-                                logRemove(elementProps[prop]);
-                            });
-                            log.component.props(() => console.groupEnd());
-                            delete element[elementSymbol].props[prop];
-                            if (prop === 'data-component') {
-                                willUnmountEvent(element, `remove prop ${elementProps[prop]}`);
-                            }
-                        }
-                    } else {
-                        element[elementSymbol].props[prop] = newElement[elementSymbol].props[prop];
-                        if (prop.slice(0, 2) === 'on') {
-                            const eventName = prop[2].toLowerCase() + prop.slice(3);
-                            element.addEventListener(eventName, newElementProps[prop], false);
-                        } else {
-                            element.setAttribute(prop, newElementProps[prop]); // добавление
-                        }
-                        log.component.props(() => console.group(prop));
-                        log.component.props(() => {
-                            logAdd(newElementProps[prop]);
-                        });
-                        log.component.props(() => console.groupEnd());
-                        if (prop === 'data-component') {
-                            didMountEvent(element[componentSymbol].element, `add prop ${newElementProps[prop]}`);
-                        }
-                    }
-                }
-                log.component.props(() => console.groupEnd());
-            }
-
-            // рекурсивное обновление поддерева
-            function changeChildren(element, newElement) {
-                const elementChildLength = element.childNodes.length;
-                const newElementChildLength = newElement.childNodes.length;
-                const max = Math.max(elementChildLength, newElementChildLength);
-                const min = Math.min(elementChildLength, newElementChildLength);
-                const diff = elementChildLength - newElementChildLength;
-                const newChildNodes = Array.from(newElement.childNodes);
-                if (max > 0) {
-                    for (let i = 0; i < min; i++) {
-                        update(() => [element.childNodes[i], newChildNodes[i]]);
-                    }
-                    if (diff > 0) {
-                        removeChildren(element, min, max);
-                    } else {
-                        addChildren(element, newChildNodes, min, max);
-                    }
-                } else if (element.nodeType === 3) {
-                    element.replaceWith(newElement); // заменяем текстовые узлы
-                    log.component(() => {
-                        logRemove(element);
-                        logAdd(newElement);
-                    });
-                }
-            }
-
-            function removeChildren(element, start, end) {
-                const list = [];
-                for (let i = start; i < end; i++) {
-                    list.push(element.childNodes[i]);
-                }
-                log.component(() => console.group('remove'));
-                for (const child of list) {
-                    log.component(() => logRemove(child));
-                    element.removeChild(child);
-                    if (element.dataset.component) {
-                        willUnmountEvent(element, 'remove');
-                    }
-                }
-                log.component(() => console.groupEnd());
-            }
-
-            function addChildren(element, newChildNodes, min, max) {
-                log.component(() => console.group('add'));
-                const list = [];
-                for (let i = min; i < max; i++) {
-                    const node = newChildNodes[i];
-                    list.push(node);
-                    if (node && (node.dataset||{}).component) {
-                        didMountEvent(node, 'add');
-                    }
-                    log.component(() => logAdd(node));
-                }
-                element.append(...list);
-                log.component(() => console.groupEnd());
-            }
-
             // состояние компонента
             let state = {};
 
+            // предыдущее состояние
+            let prevState = {};
+
             // элемент DOM, который будет возвращён
             // TODO: инлайн компоненты, вложенные в одном узле, у списка это родитель
-            const element = E.div['data-component'](componentName)();
-            element[componentSymbol] = {
-                componentName,
-                componentNameSymbol,
-                props,
-                element
-            };
+            // структура цепочки компонентов в элементе
+            // [компонент, который возвращает массив] > [аналогично, только вложенный] > возвращает компонент > который возвращает этот элемент
+
+            let element = {};
 
             // вызванные обработчики
             let handlerIndex = 0;
@@ -339,15 +146,44 @@ function componentConstructor(componentName) {
                 state = startState;
             }
 
+            let changedStateFields = {};
+
             function setState(newState) {
+                prevState = state;
+                const newStateObject = typeof newState === 'function' ? newState(state) : newState;
+                const change = {};
+                for (const field of Object.keys(newStateObject)) {
+                    change[field] = true;
+                }
+                changedStateFields = change;
+                console.log({changedStateFields});
                 state = set(state)(newState);
                 rerender();
             }
-            const getState = () => state;
+
+            const changeState = (...names) => {
+                for (const name of names) {
+                    if (changedStateFields[name]) {
+                        return true;
+                    }
+                }
+                return false;
+            }
 
             const stateClass = () => state;
             stateClass.set = setState;
             stateClass.init = initState;
+            stateClass.onChange = changeState; // позволит писать _update(state.onChange('name', 'age'))
+            // в перспективе что-то вроде _related(['name', 'age'])
+            // идея - писать в метаинформации объектов state данные о своём state - имя, компонент и т.д.
+            // тогда при обновлении мы посмотрим, и если поля из state.set не имеют отношения к полям, от котрых зависит обновление, то элемент не обновляется
+            // более общий вопрос, как отследить зависимость от некоторого значения из состояния?
+
+            // можно связать свойство элемента со значением свойства, если передавать не само значение, а функцию, что передаёт значение. То есть не Person.age(state.age+1) а Person.age(() => state.age+1). До вызова функции мы посмотрим мету у элемента, а при вызове у значения. Но так будет не так удобно писать, поэтому это может сделать препроцессор? нежелательно!!! к тожу же если передавать просто функцию, профит исчезнет. Не пойдёт!
+            // в общем случае задача почти неразрешима
+            // можно проксировать хоть насквозь, но передай в другую функцию и ничего не выйдет
+            // опять же можно немного подхачить и использовать препроцессор для отслеживания явного применения, он должен быть достаточно умным, чтобы отслеживать зависимости применения переменных;
+            // но можно сделать зависимость от ввода или слуйность и препроцессор такое не поймает
 
             element[componentNameSymbol] = true;
 
@@ -370,8 +206,8 @@ function componentConstructor(componentName) {
 
                 handlers.didMount.bump();
                 const didMountListener = window.addEventListener('didMount', onDidMount, false);
-                element[elementSymbol].props.onDidMount = onDidMount;
-                element[elementSymbol].eventListeners.didMount = [onDidMount];
+                // element[elementSymbol].props.onDidMount = onDidMount;
+                // element[elementSymbol].eventListeners.didMount = [onDidMount];
             }
 
             let firstAppend = true;
@@ -384,7 +220,7 @@ function componentConstructor(componentName) {
                 // console.log({mutations, observer});
                 // console.log('didMount', firstAppend, componentName, element);
                 // console.log(handlers);
-                if (element[componentSymbol].element.closest('html')) {
+                if (element.dom && element.dom.ref.closest('html')) {
                     // element = false;
                     // const componentDOMSymbol = Symbol('componentDOMSymbol');
                     // if(!storage[componentDOMSymbol]) { // первый рендер
@@ -406,7 +242,7 @@ function componentConstructor(componentName) {
                             }
                         }));
                         firstAppend = false;
-                        // mo.disconnect();
+                        mo.disconnect();
                     }
                     // }
                 } else {
@@ -422,34 +258,73 @@ function componentConstructor(componentName) {
             });
 
 
-            const nodes = getChildren(children);
-            props.children = nodes;
+            props.children = children;
             const render = makeComponent({
                 props,
-                initState,
-                getState,
-                setState,
                 state: stateClass,
-                didMount
+                hooks: {
+                    didMount
+                }
             });
 
-            const getRenderElem = function() {
-                const elem = render();
-                return getClone(getElem(elem));
-            }
             function rerender() {
-                const renderElem = getRenderElem();
-                // console.log('rerender', componentName, element[componentSymbol].element.firstChild, renderElem);
+                console.time();
+                const newElement = getNode(render());
+                const dom = element.dom;
+                const componentData = element.component;
+                const diffElement = diffElements(element, newElement);
+                // новые элементы создаются без привязки к странице
 
-                // console.log(componentName, {element, child: element[componentSymbol].element.firstChild, render: renderElem});
-                // console.log(componentName, {elem: getRenderElem()});
-                update(() => [element[componentSymbol].element.firstChild, renderElem]);
+                element = newElement;
+                element.component = componentData;
+                // console.log('update:', componentName, {element, dom});
+
+                if (dom) { // есть dom
+                    // получить их diff, TODO: учитывая static
+                    // console.log({dom, diffElement});
+                    element.dom = dom;
+                    // надо перепривязать к dom всех потомков
+                    patchDOM(dom.ref, diffElement);
+                }
+                console.timeEnd();
             }
-            // element.append(E.p());
-            // update(() => [element[componentSymbol].element.firstChild, getRenderElem()]);
-            // console.log(componentName, {elem: getRenderElem()});
-            element.append(getRenderElem());
-            return element;
+
+            element = getNode(render()); // первый рендер
+
+            if (Array.isArray(element)) {
+                for (const item of element) {
+                    setComponentData(item, {array: true})
+                }
+            } else {
+                setComponentData(element);
+            }
+
+            function setComponentData(element, {array = false} = {}) {
+                if (!element.component) {
+                    element.component = {level: 0};
+                }
+                const level = element.component.level;
+                element.component[String(level)] = {
+                    array,
+                    name: componentName,
+                    props,
+                    state
+                }
+                element.component.level++;
+            }
+
+            // первое присоединение dom
+            // if (!element.dom) {
+                // element.dom = {};
+            // }
+            // const dom = DOM(element);
+            // element.dom.ref = dom;
+            // if (element.dom.parent) {
+            //     element.dom.parent.append(dom);
+            // }
+
+            // console.log('render:', componentName, {element});
+            return () => element;
         }
 
         function stableElement(props) {

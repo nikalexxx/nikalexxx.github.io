@@ -77,13 +77,13 @@ export const RouteLink = Component.RouteLink(({props: {href, children}}) => {
 })
 
 
-export const Switch = Component.Switch(({props, getState, setState, initState}) => {
-    initState(getRouterState(props.routes));
+export const Switch = Component.Switch(({props, state}) => {
+    state.init(getRouterState(props.routes));
     window.addEventListener('historyUpdate', function () {
-        setState(getRouterState(props.routes));
+        state.set(getRouterState(props.routes));
     });
     return () => {
-        const {path, routes} = getState();
+        const {path, routes} = state();
         return routes[path];
     }
 });

@@ -15,7 +15,9 @@ import {
     Design,
     Blog,
     Post,
-    About
+    About,
+    Projects,
+    Unicode
 } from '../index.js';
 import {Button} from '../../blocks/index.js'
 import MyComponent from '../../MyComponent.js';
@@ -39,13 +41,15 @@ const routes = params => ({
     ),
     'gameOfLife': GameOfLife,
     'blog': Blog,
-    'blog/:id': Post.id(params.id)
+    'blog/:id': Post.id(params.id),
+    'projects': Projects,
+    'projects/unicode': Unicode
 })
 
-const Menu = Component.Menu(({setState, initState}) => {
+const Menu = Component.Menu(({state}) => {
     const path = () => getRouterState(routes).path;
-    initState({i: 0});
-    window.addEventListener('historyUpdate', () => setState(prev => ({i: prev.i++})));
+    state.init({i: 0});
+    window.addEventListener('historyUpdate', () => state.set(prev => ({i: prev.i++})));
     function renderLink(href, title) {
         const current = href === path();
         // console.log(href, path());
@@ -60,8 +64,9 @@ const Menu = Component.Menu(({setState, initState}) => {
         renderLink('about', 'Кто я?'),
         // renderLink('book', 'Книга'),
         renderLink('design', 'Дизайн'),
+        renderLink('projects', 'Проекты'),
         // renderLink('gameOfLife', 'Игра Жизнь'),
-        // renderLink('my/ok', 'тест')
+        renderLink('my/ok', 'тест')
     )
 });
 
