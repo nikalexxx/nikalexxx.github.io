@@ -10,7 +10,7 @@ import {
     Button
 } from '../../blocks/index.js';
 
-css(import.meta.url, 'Design.less');
+import './Design.less';
 
 const b = block('design');
 

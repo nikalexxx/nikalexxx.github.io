@@ -13,7 +13,7 @@ import {Button} from '../../blocks/index.js';
 import {Breadcrumbs} from '../index.js';
 import {createBook} from '../../utils/book.js';
 
-css(import.meta.url, 'Post.less');
+import './Post.less';
 
 const b = block('post');
 
@@ -24,7 +24,7 @@ const Post = Component.Post(({props, getState, setState, initState, didMount}) =
     didMount(() => {
         const {id} = props;
         const {type} = blog[id];
-        const path = `/data/blog/data/${id}/index.${type}`;
+        const path = `../data/blog/data/${id}/index.${type}`;
         if (type === 'html') {
             fetch(path).then(e => {
                 // console.log(e.clone().blob());

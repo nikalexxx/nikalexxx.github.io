@@ -25,6 +25,7 @@ a[href^=http]::after {
     transform: rotate(45deg) scaleY(1.5);
     vertical-align: super;
     line-height: 0;
+    margin-left: 2px;
 }
 
 p, h1, h2, h3, h4, h5, h6 {

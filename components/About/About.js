@@ -8,7 +8,7 @@ import {
 } from '../../utils/index.js';
 import {Button} from '../../blocks/index.js';
 
-css(import.meta.url, 'About.less');
+import './About.less';
 
 const b = block('about');
 

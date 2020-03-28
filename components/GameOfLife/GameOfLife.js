@@ -5,7 +5,7 @@ import {
     css
 } from '../../utils/index.js';
 
-css(import.meta.url, 'GameOfLife.less');
+import './GameOfLife.less';
 
 const b = block('game-of-life');
 // console.log('game of life!!!!!!!!!')

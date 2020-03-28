@@ -1,0 +1,26 @@
+{
+  "name": "nikalexxx.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -Rf build;parcel build index.js --out-dir build --out-file index.${npm_package_version}.js; node html-gen.js ${npm_package_version}",
+    "dev": "parcel watch index.js --out-dir build --out-file index.${npm_package_version}.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikalexxx/nikalexxx.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikalexxx/nikalexxx.github.io/issues"
+  },
+  "homepage": "https://github.com/nikalexxx/nikalexxx.github.io#readme",
+  "devDependencies": {
+    "less": "^3.11.1",
+    "parcel-bundler": "^1.12.4"
+  }
+}
