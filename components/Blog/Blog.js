@@ -11,7 +11,7 @@ import {
 import blog from '../../data/blog/index.js';
 import {Button} from '../../blocks/index.js';
 
-css(import.meta.url, 'Blog.less');
+import './Blog.less';
 
 const b = block('blog');
 

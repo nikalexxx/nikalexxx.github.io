@@ -22,7 +22,7 @@ import MyComponent from '../../MyComponent.js';
 import map from '../../map.js';
 import {book} from '../../utils/book.js';
 
-css(import.meta.url, 'Page.less');
+import './Page.less';
 
 const b = block('page');
 

@@ -8,7 +8,7 @@ import {
     style
 } from '../../utils/index.js';
 
-css(import.meta.url, 'Breadcrumbs.less');
+import './Breadcrumbs.less';
 
 const b = block('breadcrumbs');
 

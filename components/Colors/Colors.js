@@ -8,7 +8,7 @@ import {
 
 import {Breadcrumbs} from '../index.js';
 
-css(import.meta.url, 'Colors.less');
+import './Colors.less';
 
 const colors = [
     'area',

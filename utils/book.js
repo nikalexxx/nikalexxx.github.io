@@ -6,7 +6,38 @@ export function createBook(f) {
         to: type => {
             const types = {
                 html: () => ({
-                    V: E,
+                    V: (strings, ...elements) => {
+                        const stringElements = strings.map(s => {
+                            const result = [];
+                            const brs = s.match(/\n\n+/g);
+                            if (!brs) {
+                                return s;
+                            }
+                            let tail = s;
+                            let i;
+                            for (const br of brs) {
+                                i = tail.indexOf(br);
+                                const subbrs = [];
+                                if (br.length === 2) {
+                                    subbrs.push(E.br())
+                                } else {
+                                    for (let j = 0; j < 2 * br.length - 4; j++) {
+                                        subbrs.push(E.br());
+                                    }
+                                }
+                                result.push(tail.slice(0, i), ...subbrs);
+                                tail = tail.slice(i + br.length);
+                            }
+                            result.push(tail);
+
+                            return result;
+                        })
+                        const list = [...stringElements[0]];
+                        for (let i = 1; i < strings.length; i++) {
+                            list.push(elements[i-1], ...stringElements[i]);
+                        }
+                        return list;
+                    },
                     b: t => E.b(t),
                     i: t => E.i(t),
                     code: t => E.code(t),
@@ -54,19 +85,19 @@ export function createBook(f) {
     }
 }
 
-const bookTemplate = createBook(({b, i, h, code, n, p, img, a, V}) =>
-V`
-${h(1)('Header')}
-${p(V`
-${b('жирный')} текст ${n}
-${i('курсивный')} текст
-${img('../assets/images/favicon/favicon-32x32.png', 'favicon')}
-`)}
-блок ${code('программного кода')} ${n}
-${a('https://github.com')('Гитхаб')} - ссылка
-`);
+// const bookTemplate = createBook(({b, i, h, code, n, p, img, a, V}) =>
+// V`
+// ${h(1)('Header')}
+// ${p(V`
+// ${b('жирный')} текст ${n}
+// ${i('курсивный')} текст
+// ${img('../assets/images/favicon/favicon-32x32.png', 'favicon')}
+// `)}
+// блок ${code('программного кода')} ${n}
+// ${a('https://github.com')('Гитхаб')} - ссылка
+// `);
 
-export const book = bookTemplate.to('html');
+// export const book = bookTemplate.to('html');
 
 // console.log(bookTemplate.to('markdown'));
 
