@@ -24,7 +24,7 @@ const Post = Component.Post(({props, state, hooks: {didMount}}) => {
     didMount(() => {
         const {id} = props;
         const {type} = blog[id];
-        const path = `../data/blog/data/${id}/index.${type}`;
+        const path = `../data/blog/data/${id}/index.${type}?r=${String(Math.random()).slice(2)}`;
         if (type === 'html') {
             fetch(path).then(e => {
                 // console.log(e.clone().blob());
