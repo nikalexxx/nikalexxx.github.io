@@ -156,7 +156,7 @@ function componentConstructor(componentName) {
                     change[field] = true;
                 }
                 changedStateFields = change;
-                console.log({changedStateFields});
+                // console.log({changedStateFields});
                 state = set(state)(newState);
                 rerender();
             }
@@ -268,14 +268,20 @@ function componentConstructor(componentName) {
             });
 
             function rerender() {
-                console.time();
+                // console.time('get node');
                 const newElement = getNode(render());
+                // console.timeEnd('get node');
                 const dom = element.dom;
                 const componentData = element.component;
+                // console.time('diff');
                 const diffElement = diffElements(element, newElement);
+                // console.log({diffElement});
+                // console.timeEnd('diff');
+
                 // новые элементы создаются без привязки к странице
 
                 element = newElement;
+                // BUG: не сохраняется новый вид элемента
                 element.component = componentData;
                 // console.log('update:', componentName, {element, dom});
 
@@ -284,9 +290,10 @@ function componentConstructor(componentName) {
                     // console.log({dom, diffElement});
                     element.dom = dom;
                     // надо перепривязать к dom всех потомков
+                    // console.time('patch DOM');
                     patchDOM(dom.ref, diffElement);
+                    // console.timeEnd('patch DOM');
                 }
-                console.timeEnd();
             }
 
             element = getNode(render()); // первый рендер

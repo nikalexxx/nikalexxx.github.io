@@ -26,6 +26,11 @@ export const raw = value => {
     if (isPrimitive(value)) {
         return value;
     }
+    // return {
+    //     ...value,
+    //     [D.raw]: true,
+    //     [D.new]: value
+    // }
     value[D.raw] = true;
     value[D.new] = value;
     return value;

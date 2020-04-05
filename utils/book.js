@@ -1,5 +1,6 @@
 import {E} from './element.js';
 import { consoleStyle, _b, _i, _pre, _h } from './consoleStyle.js';
+import {Component} from './index.js';
 
 export function createBook(f) {
     return {
@@ -41,11 +42,13 @@ export function createBook(f) {
                     b: t => E.b(t),
                     i: t => E.i(t),
                     code: t => E.code(t),
+                    pre: t => E.pre(t),
                     h: l => t => E[`h${l}`](t),
                     n: E.br,
                     p: t => E.p(t),
                     img: (src, alt) => E.img.src(src).alt(alt),
-                    a: href => text => E.a.href(href)(text)
+                    a: href => text => E.a.href(href)(text),
+                    external: f => f(E, Component)
                 }),
                 markdown: () => ({
                     V: (strings, ...elements) => {

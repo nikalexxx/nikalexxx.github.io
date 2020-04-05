@@ -12,11 +12,13 @@ import {
 
 import {Breadcrumbs} from '../index.js';
 
-css(import.meta.url, 'Unicode.less');
+import './Unicode.less';
 
 const b = block('unicode');
 
-const limit = 1000;
+const limit = 5000;
+const max = 65535;
+const count = (max - (max % limit)) / limit + 1;
 
 function getUnicodeList(start, end) {
     const table = [];
@@ -31,18 +33,29 @@ const Unicode = Component.Unicode(({state}) => {
 
     return () => {
         const start = state().i;
+        const startI = start * limit;
+        const end = start * limit + limit;
+        const endI = end > max ? max : end;
         return E.div(
             Breadcrumbs.items([['Проекты', 'projects'], ['Юникод']]),
-            E.div._update(start < 50).style`margin: 16px 0`([...(new Array(100)).keys()].map(i =>
-                E.div.onClick(() => state.set({i})).style(`display: inline-block;margin: 1px;`)(
-                    Button(E.span.style(`color: ${i === start ? 'red' : 'black'};`)(`${i}`))
+            E.div.class(b())._forceUpdate(true)
+            (
+                E.div.class(b('menu'))([...(new Array(count)).keys()].map(i =>
+                    E.div
+                        .class(b('button-container'))
+                        .onClick(() => state.set({i}))
+                    (
+                        Button(E.span.class(b('button', {active: i === start}))(`${i}`))
+                    )
+                )),
+                E.div(
+                    E.h2('Юникод'),
+                    E.p(E`Пока представлена только ${E.a.href('https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane')('основная многоязычная плоскость')}`),
+                    E.br,
+                    E.p(`Cимволы ${startI} - ${endI}`),
+                    E.br,
+                    E.div._forceUpdate(true).class(b('table'))(getUnicodeList(startI, endI))
                 )
-            )),
-            E.div.class(b())(
-                E.h2('Юникод'),
-                E.p(`Cимволы ${start * limit} - ${start * limit + limit}`),
-                E.br,
-                E.div._forceUpdate(true).class(b('table'))(getUnicodeList(start * limit, start * limit + limit))
             )
         );
     }

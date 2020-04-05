@@ -34,11 +34,24 @@ const routes = params => ({
     'book': E.div(book),
     'design': Design,
     'design/colors': Colors,
-    'my/:state': E.div(
-        MyComponent.state(params.state),
-        MyComponent.state('ok'),
-        MyComponent.state('error'),
-    ),
+    // 'my/:state': E.div(
+    //     MyComponent.state(params.state),
+    //     MyComponent.state('ok'),
+    //     MyComponent.state('error'),
+    //     E.ul(
+    //         E.li`Карта кода`,
+    //         E.li`Доделать движок`,
+    //         E.li`Задизайнить юникод`,
+    //         E.li`Меню для мобильной версии`,
+    //         E.li`Таблица стандартной модели`,
+    //         E.li`Игра Жизнь`,
+    //         E.li`Светлая тема`,
+    //         E.li`Формат электронной книги`,
+    //         E.li`Калькулятор`,
+    //         E.li`Построитель графиков`,
+    //         E.li`Схема метро(позже интерактивная)`
+    //     )
+    // ),
     'gameOfLife': GameOfLife,
     'blog': Blog,
     'blog/:id': Post.id(params.id),
@@ -64,17 +77,17 @@ const Menu = Component.Menu(({state}) => {
         renderLink('about', 'Кто я?'),
         // renderLink('book', 'Книга'),
         renderLink('design', 'Дизайн'),
-        renderLink('projects', 'Проекты'),
+        renderLink('projects', 'Проекты')
         // renderLink('gameOfLife', 'Игра Жизнь'),
-        renderLink('my/ok', 'тест')
+        // renderLink('my/ok', 'тест')
     )
 });
 
 const Page = E.div.class(b())(
-    E.div.class(b('header-menu'))(
-        E.div('Alexandr Nikolaichev'),
-        E.div.class(b('scroll-top')).onClick(() => window.scrollTo({top: 0}))('▲ ▲ ▲')
-    ),
+    // E.div.class(b('header-menu'))(
+    //     E.div('Alexandr Nikolaichev'),
+    //     E.div.class(b('scroll-top')).onClick(() => window.scrollTo({top: 0}))('▲ ▲ ▲')
+    // ),
     E.header.class(b('header'))(
         RouteLink.href('/')(
             E.h1.style(style({textAlign: 'center'}))('Александр Николаичев')

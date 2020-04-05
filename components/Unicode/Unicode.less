@@ -16,4 +16,20 @@
             border-right: 1px dashed gray;
         }
     }
+
+    &__button-container {
+        display: inline-block;
+        margin: 1px;
+        min-width: 2em;
+
+        & > * {
+            width: 100%;
+        }
+    }
+
+    &__button {
+        &_active {
+            color: var(--color-syntax-inline);
+        }
+    }
 }

@@ -78,7 +78,7 @@ const Post = Component.Post(({props, state, hooks: {didMount}}) => {
                 minute: 'numeric',
                 second: 'numeric'
             })),
-            elem
+            E.div(elem)
         );
     }
 });

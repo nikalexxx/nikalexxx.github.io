@@ -246,8 +246,14 @@ const diffFunctionStructure = t => t(Function)(({params}) =>
     })(t(diffStructure))
 );
 
-
-
+/*
+Использовать хэши от пропсов и потомков
+в случае тектсовых нод - от значений
+можно вычислить уже на этапе создания элемента из кода
+хэш используем в качестве ключа элемента
+рассмотреть случай коллизий
+*/
+let i = 0;
 export function diffElements(A, B) {
     // console.log({A, B});
     if (!B) {
@@ -282,7 +288,10 @@ export function diffElements(A, B) {
     if ('_update' in B.props && !B.props._update) {
         return {};
     }
+    // console.time('diff props');
     const diffProps = diff(A.props, B.props);
+    // console.timeEnd('diff props');
+    // console.time('diff events');
     const diffEventListeners = diff(A.eventListeners, B.eventListeners);
     for (const eventName of Object.keys(diffEventListeners)) {
         if (diffEventListeners[eventName] === diff.symbols.delete) {
@@ -292,6 +301,9 @@ export function diffElements(A, B) {
             diffEventListeners[diff.symbols.meta].deleteListeners[eventName] = A.eventListeners[eventName];
         }
     }
+    // console.timeEnd('diff events');
+    // const kc = 'diff children' + i;
+    // console.time(kc);
 
     const diffChildren = {};
     for (const key of Object.keys(B.children)) {
@@ -301,14 +313,21 @@ export function diffElements(A, B) {
     }
     for (const key of Object.keys(A.children)) {
         if (key in B.children) {
+            i++;
+            const k = 'children diff for key ' + key + i;
+            // console.time(k);
             const diffItems = diffElements(A.children[key], B.children[key]); // сравниваем рекурсивно
             if (isPrimitive(diffItems) || diffItems === diff.symbols.delete || Object.keys(diffItems).length > 0) {
                 diffChildren[key] = diffItems; // непустые добавляем
             }
+            // console.timeEnd(k);
         } else {
             diffChildren[key] = diff.symbols.delete; // удаляем старые ключи
         }
     }
+    // console.timeEnd(kc);
+    // console.time('diff result');
+
     const result = {};
     if (Object.keys(diffProps).length > 0) {
         result.props = diffProps;
@@ -320,6 +339,8 @@ export function diffElements(A, B) {
         result.children = diffChildren;
     }
     result[diff.symbols.new] = B;
+    // console.timeEnd('diff result');
+
     return result;
 }
 
@@ -423,9 +444,12 @@ const getElement = namespace => new Proxy(strToArray, {
                 return create(name, props, children);
             }, {
                 get(target, prop) {
-                    return function (value) {
+                    return function (value, ...items) {
                         if (prop === '_props') {
                             return stableElement(name, {...props, ...value});
+                        }
+                        if (Array.isArray(value) && 'raw' in value) {
+                            return stableElement(name, {...props, [prop]: strToArray(value, ...items).join('')});
                         }
                         return stableElement(name, {...props, [prop]: value});
                     }
