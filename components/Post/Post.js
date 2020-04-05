@@ -17,8 +17,8 @@ import './Post.less';
 
 const b = block('post');
 
-const Post = Component.Post(({props, getState, setState, initState, didMount}) => {
-    initState({
+const Post = Component.Post(({props, state, hooks: {didMount}}) => {
+    state.init({
         text: null
     })
     didMount(() => {
@@ -34,15 +34,15 @@ const Post = Component.Post(({props, getState, setState, initState, didMount}) =
 
             }).then(text => {
                 // console.log(text);
-                setState({text: text});
+                state.set({text: text});
             });
         } else if (type === 'js') {
             import(path).then(data => {
                 // console.log(data);
-                setState({text: createBook(data.default).to('html')})
+                state.set({text: createBook(data.default).to('html')})
             }).catch(e => {
                 console.error(e);
-                setState({text: 'Ошибка загрузки контента'});
+                state.set({text: 'Ошибка загрузки контента'});
             });
         }
     })
@@ -50,7 +50,7 @@ const Post = Component.Post(({props, getState, setState, initState, didMount}) =
     return () => {
         const {id} = props;
         const {type} = blog[id];
-        const {text} = getState();
+        const {text} = state();
         const {title, creationTime} = blog[id];
         const template = E.div.class(b('content'));
         let elem;
@@ -78,7 +78,7 @@ const Post = Component.Post(({props, getState, setState, initState, didMount}) =
                 minute: 'numeric',
                 second: 'numeric'
             })),
-            elem
+            E.div(elem)
         );
     }
 });

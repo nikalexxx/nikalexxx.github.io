@@ -15,7 +15,7 @@ import './Blog.less';
 
 const b = block('blog');
 
-const Blog = Component.Blog(({getState, setState, initState}) => {
+const Blog = Component.Blog(() => {
     const total = Object.keys(blog).length;
     // console.log(`total ${total}`);
 

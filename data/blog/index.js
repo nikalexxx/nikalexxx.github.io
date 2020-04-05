@@ -16,5 +16,11 @@ export default {
         creationTime: '2020-03-28T22:01:49',
         title: 'Отказ от нативных es6 модулей в пользу Parcel',
         tags: ['es6', 'parcel']
+    },
+    3: {
+        type: 'js',
+        creationTime: '2020-04-04T19:38:53',
+        title: 'Переписал движок сайта на virtual DOM',
+        tags: ['js', 'virtual dom']
     }
 }

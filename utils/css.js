@@ -1,4 +1,4 @@
-import {E} from './element.js';
+import {E, DOM} from './element.js';
 const getDirPath = fileUrl => (new URL(fileUrl)).pathname.split('/').slice(0, -1).join('/');
 export default function(sourceUrl, relativePath) {
     const type = relativePath.split('.').slice(-1)[0];
@@ -10,18 +10,19 @@ export default function(sourceUrl, relativePath) {
     const fullPath = sourcePath + (pathRelative ? relativePath.replace(/^\.\.?/, '') : '/' + relativePath);
 
     return new Promise(resolve => {
-        const link = E.link
+        const link = DOM(E.link
             .rel(`stylesheet${type === 'less' ? '/less' : ''}`)
             .type('text/css')
-            .href(fullPath)();
+            .href(fullPath)());
         if (type === 'less') {
             if (!document.head.querySelector('script[src="less.js"]')) {
                 const less = E.script.src('less.js')();
-                document.head.append(less);
+                document.head.append(DOM(less));
             }
             document.head.append(link);
             function update() {
-                const style = document.head.querySelector(`style[id$=${fullPath.split('.')[0].replace(/\//g, '-')}]`);
+                const style = document.head.querySelector(`style[id$="${fullPath.split('.')[0].replace(/\//g, '-')}"]`);
+                // console.log(1);
                 if (style) {
                     window.setTimeout(resolve, 100);
                 } else {
