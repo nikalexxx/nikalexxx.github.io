@@ -17,7 +17,9 @@ import {
     Post,
     About,
     Projects,
-    Unicode
+    Unicode,
+    Physics,
+    StandardModel
 } from '../index.js';
 import {Button} from '../../blocks/index.js'
 import MyComponent from '../../MyComponent.js';
@@ -54,7 +56,9 @@ const routes = params => ({
     'blog': Blog,
     'blog/:id': Post.id(params.id),
     'projects': Projects,
-    'projects/unicode': Unicode
+    'projects/unicode': Unicode,
+    'physics': Physics,
+    'physics/standard-model': StandardModel
 })
 
 const Menu = Component.Menu(({state}) => {
@@ -62,7 +66,7 @@ const Menu = Component.Menu(({state}) => {
     state.init({i: 0});
     window.addEventListener('historyUpdate', () => state.set(prev => ({i: prev.i++})));
     function renderLink(href, title) {
-        const current = href === path();
+        const current = path().startsWith(href) || path() === '/' && href === 'blog';
         // console.log(href, path());
         return RouteLink.href(href)(
             E.div.class(b('menu-link', {current}))(
@@ -74,8 +78,9 @@ const Menu = Component.Menu(({state}) => {
         renderLink('blog', 'Блог'),
         renderLink('about', 'Кто я?'),
         // renderLink('book', 'Книга'),
-        renderLink('design', 'Дизайн'),
-        renderLink('projects', 'Проекты')
+        renderLink('projects', 'Проекты'),
+        renderLink('physics', 'Физика'),
+        renderLink('design', 'Дизайн')
         // renderLink('gameOfLife', 'Игра Жизнь'),
         // renderLink('my/ok', 'тест')
     )
