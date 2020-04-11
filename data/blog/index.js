@@ -22,5 +22,11 @@ export default {
         creationTime: '2020-04-04T19:38:53',
         title: 'Переписал движок сайта на virtual DOM',
         tags: ['js', 'virtual dom']
+    },
+    4: {
+        type: 'js',
+        creationTime: '2020-04-11T09:52:02',
+        title: 'Стандартная модель элементарных частиц — верстаем с CSS Grid',
+        tags: ['css', 'grid', 'physics', 'standard model']
     }
 }

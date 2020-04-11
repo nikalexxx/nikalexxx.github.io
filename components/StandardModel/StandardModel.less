@@ -1,0 +1,294 @@
+.with-border(@position) {
+    border-@{position}: 2px dashed var(--color-atom-black-line);
+}
+.absolute-tile() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.standard-model {
+    &__table {
+        position: relative;
+        display: inline-grid;
+        grid-template-rows: auto auto repeat(4, 1fr) auto auto;
+        grid-template-columns: auto repeat(9, 1fr);
+        line-height: 1.3em;
+        margin-bottom: 40px;
+        @media (max-width: 100em) {
+            font-size: 1vw;
+        }
+    }
+    &__area {
+        padding: 0px 6px 4px 4px;
+
+        &_fermions {
+            grid-column: ~"1 / 8";
+            text-align: right;
+        }
+        &_bosons {
+            grid-column: ~"8 / 11";
+        }
+        &_anti {
+            grid-column: ~"1 / 5";
+            text-align: right;
+        }
+        &_normal {
+            grid-column: ~"5 / 8";
+        }
+        &_vector {
+            grid-column: ~"8 / 10";
+            text-align: right;
+        }
+        &_scalar {
+            grid-column: ~"10 / 11";
+        }
+        &_leptons {
+            grid-row: ~"3 / 5";
+        }
+        &_quarks {
+            grid-row: ~"5 / 7";
+        }
+    }
+
+    &__border {
+        &_anti-normal {
+            .absolute-tile();
+            grid-row: ~"2 / 7";
+            grid-column: ~"4 / 5";
+            .with-border(right);
+        }
+        &_leptons-quarks {
+            .absolute-tile();
+            grid-row: ~"4 / 5";
+            grid-column: ~"1 / 8";
+            .with-border(bottom);
+        }
+        &_fermions-bosons {
+            .absolute-tile();
+            grid-row: ~"1 / 7";
+            grid-column: ~"7 / 8";
+            .with-border(right);
+        }
+        &_vector-scalar {
+            .absolute-tile();
+            grid-row: ~"2 / 4";
+            grid-column: ~"9 / 10";
+            .with-border(right);
+        }
+    }
+
+    &__weak {
+        background-color: var(--color-syntax-string);
+        opacity: .2;
+        &_part {
+            &_1 {
+                .absolute-tile();
+                grid-row: ~"3 / 7";
+                grid-column: ~"2 / 8";
+            }
+            &_2 {
+                .absolute-tile();
+                grid-row: ~"3 / 4";
+                grid-column: ~"8 / 10";
+                background-color: inherit;
+                border: 3px solid var(--color-syntax-string);
+            }
+        }
+    }
+
+    &__electromagnetic {
+        background-color: var(--color-md-link);
+        opacity: .2;
+        &_part {
+            &_1 {
+                .absolute-tile();
+                grid-row: ~"4 / 7";
+                grid-column: ~"2 / 8";
+            }
+            &_2 {
+                .absolute-tile();
+                grid-row: ~"3 / 4";
+                grid-column: ~"8 / 9";
+            }
+            &_3 {
+                .absolute-tile();
+                grid-row: ~"4 / 5";
+                grid-column: ~"8 / 9";
+                background-color: inherit;
+                border: 3px solid var(--color-md-link);
+            }
+        }
+    }
+
+    &__strong {
+        background-color: var(--color-syntax-inline);
+        opacity: .2;
+        &_part {
+            &_1 {
+                .absolute-tile();
+                grid-row: ~"5 / 7";
+                grid-column: ~"2 / 8";
+            }
+            &_2 {
+                .absolute-tile();
+                grid-row: ~"5 / 6";
+                grid-column: ~"8 / 9";
+            }
+        }
+    }
+
+    &__higgs {
+        background-color: var(--color-syntax-keyword);
+        opacity: .2;
+        &_part {
+            &_1 {
+                .absolute-tile();
+                grid-row: ~"3 / 4";
+                grid-column: ~"2 / 11";
+            }
+            &_2 {
+                .absolute-tile();
+                grid-row: ~"4 / 7";
+                grid-column: ~"2 / 8";
+            }
+        }
+    }
+
+    &__interaction {
+        color: black;
+        padding: 0 4px;
+        &_type {
+            &_strong {
+                background-color: var(--color-syntax-inline);
+            }
+            &_electromagnetic {
+                background-color: var(--color-md-link);
+            }
+            &_weak {
+                background-color: var(--color-syntax-string);
+            }
+        }
+    }
+
+    &__higgs-field {
+        color: black;
+        padding: 0 4px;
+        background-color: var(--color-syntax-keyword);
+    }
+
+    &__big-tile {
+        grid-row: ~"5 / 7";
+        grid-column: ~"9 / 11";
+
+        & > div {
+            height: 100%;
+        }
+    }
+
+    &__tile {
+        display: flex;
+        justify-content: stretch;
+        align-items: stretch;
+        z-index: 2;
+
+
+        &_mode {
+            &_ve {
+                grid-column-start: 5;
+            }
+            &_au, &_ad {
+                grid-column-start: 2;
+            }
+        }
+
+        & > * {
+            display: grid;
+            width: 100%;
+            grid-template-rows: auto 1fr auto auto;
+            background-color: var(--color-menu);
+            padding: .2em .5em;
+            margin: .6em;
+            border-radius: .5em;
+        }
+    }
+
+    &__generation {
+        text-align: center;
+        &_start {
+            grid-column-start: 2;
+        }
+    }
+
+    &__current {
+        background-color: var(--color-atom-black-line);
+    }
+
+    &__colors {
+        justify-content: center;
+        display: flex;
+        margin-top: 2px;
+        flex-wrap: wrap;
+    }
+
+    &__color {
+        width: .9em;
+        height: .9em;
+        border-radius: 50%;
+        font-size: .7em;
+        line-height: .9em;
+        text-align: center;
+        margin: 2px 4px;
+
+        &_gluon {
+            margin: 2px;
+        }
+
+        &_red {
+            background-color: var(--color-syntax-inline);
+        }
+        &_green {
+            background-color: var(--color-syntax-string);
+        }
+        &_blue {
+            background-color: var(--color-md-link);
+        }
+        &_antired {
+            background-color: var(--color-syntax-operator);
+        }
+        &_antigreen {
+            background-color: var(--color-syntax-keyword);
+        }
+        &_antiblue {
+            background-color: var(--color-syntax-class);
+        }
+        &_red-antiblue {
+            background: linear-gradient(to right, var(--color-syntax-inline), var(--color-syntax-inline) 50%, var(--color-syntax-class) 50%);
+        }
+        &_blue-antigreen {
+            background: linear-gradient(to right, var(--color-md-link), var(--color-md-link) 50%, var(--color-syntax-keyword) 50%);
+        }
+        &_green-antired {
+            background: linear-gradient(to right, var(--color-syntax-string), var(--color-syntax-string) 50%, var(--color-syntax-operator) 50%);
+        }
+        &_red-antigreen {
+            background: linear-gradient(to right, var(--color-syntax-inline), var(--color-syntax-inline) 50%, var(--color-syntax-keyword) 50%);
+        }
+        &_blue-antired {
+            background: linear-gradient(to right, var(--color-md-link), var(--color-md-link) 50%, var(--color-syntax-operator) 50%);
+        }
+        &_green-antiblue {
+            background: linear-gradient(to right, var(--color-syntax-string), var(--color-syntax-string) 50%, var(--color-syntax-class) 50%);
+        }
+        &_g3 {
+            border: 1px solid var(--color-syntax-dark-gray);
+            margin: 1px;
+        }
+        &_g8 {
+            border: 1px solid var(--color-syntax-dark-gray);
+            margin: 1px;
+        }
+    }
+}
