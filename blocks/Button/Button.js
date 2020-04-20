@@ -14,8 +14,8 @@ import './Button.less';
 
 const b = block('button');
 
-const Button = Component.Button(({props: {children, size}}) => {
-    return () => E.button.class(b())(
+const Button = Component.Button(({props: {children, size, onClick}}) => {
+    return () => E.button.onClick(onClick || (() => {})).class(b())(
         children
     )
 })

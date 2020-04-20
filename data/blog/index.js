@@ -28,5 +28,11 @@ export default {
         creationTime: '2020-04-11T09:52:02',
         title: 'Стандартная модель элементарных частиц — верстаем с CSS Grid',
         tags: ['css', 'grid', 'physics', 'standard model']
+    },
+    5: {
+        type: 'js',
+        creationTime: '2020-04-20T02:13:59',
+        title: 'Добавляем светлую тему с CSS переменными',
+        tags: ['css', 'css variables']
     }
 }

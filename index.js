@@ -1,4 +1,4 @@
-import {Page} from './components/index.js';
+import {App} from './components/index.js';
 import {setLogger, logAllLevels} from './utils/logger.js';
 import {DOM} from './utils/element.js';
 
@@ -11,4 +11,4 @@ setLogger({
 });
 setLogger(false); // for production
 
-document.getElementById('root').append(DOM(Page));
+document.getElementById('root').append(DOM(App));

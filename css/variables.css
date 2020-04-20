@@ -1,29 +1,51 @@
 :root {
 
-    /* colors */
+    /* black */
+    --color-black: #181a1f;
 
-	--color-area: #292d34;
-	--color-menu: #21252b;
-	--color-menu-active: #507ac9;
-	--color-menu-hover: #3b404b;
-	--color-menu-folder: #9da5b3;
-	--color-element-active: #598cef;
-    --color-string-number: #4c5363;
-    --color-syntax-variable: #de6d77;
-    --color-syntax-number: #d0996a;
-    --color-syntax-operator: #5bb6c1;
-    --color-syntax-gray: #abb2be;
-    --color-syntax-dark-gray: #5c6370;
-    --color-syntax-keyword: #c57bdb;
-    --color-syntax-class: #e4bf7f;
-    --color-syntax-function: #65b0ed;
-    --color-syntax-string: #99c27c;
-    --color-syntax-inline: #bc514a;
-    --color-input-text: #3b404b;
-    --color-input-area: #32373f;
-    --color-md-link: #558efc;
-    --color-atom-link: #78a1ec;
-    --color-atom-button: #343942;
-    --color-atom-button-hover: #3b404b;
-    --color-atom-black-line: #181a1f;
+    /* dark */
+    --color-dark: #292d34;
+    --color-dark-black: #21252b;
+    --color-dark-gray: #343942;
+
+    /* light */
+    --color-light-white: #fafafa;
+    --color-light: #f1f3f5;
+    --color-light-gray: #ebebec;
+    --color-light-gray-medium: #e8e8e8;
+
+    /* gray */
+    --color-gray-light: #abb2be;
+    --color-gray-light-medium: #9da5b3;
+    --color-gray: #5c6370;
+    --color-gray-dark: #4c5363;
+
+    /* blue */
+    --color-blue: #558efc;
+    --color-blue-light: #598cef;
+    --color-blue-dark: #507ac9;
+    --color-blue-sky: #65b0ed;
+
+    /* cyan */
+    --color-cyan: #5bb6c1;
+
+    /* red */
+    --color-red: #bc514a;
+    --color-red-light: #de6d77;
+
+    /* green */
+    --color-green-light: #99c27c;
+
+    /* orange */
+    --color-orange-light: #d0996a;
+
+    /* yellow */
+    --color-yellow-light: #e4bf7f;
+
+    /* violet */
+    --color-violet-light: #c57bdb;
+
+    /* white */
+    --color-white: #ffffff;
+
 }

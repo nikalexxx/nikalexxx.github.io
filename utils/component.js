@@ -148,7 +148,7 @@ function componentConstructor(componentName) {
 
             let changedStateFields = {};
 
-            function setState(newState) {
+            function setState(newState, callback) {
                 prevState = state;
                 const newStateObject = typeof newState === 'function' ? newState(state) : newState;
                 const change = {};
@@ -159,6 +159,9 @@ function componentConstructor(componentName) {
                 // console.log({changedStateFields});
                 state = set(state)(newState);
                 rerender();
+                if (callback) {
+                    callback();
+                }
             }
 
             const changeState = (...names) => {
