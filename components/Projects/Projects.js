@@ -18,12 +18,31 @@ const Projects = Component.Projects(() => {
     return () => {
         return E.div.class(b())(
             E.h2('Проекты'),
-            RouteLink.href('projects/unicode')(
-                Button(
-                    E.div.style(style({padding: '16px 64px'}))(
-                        'Юникод',
-                        E.br,
-                        E.span.style`font-size: 72px`('✍')
+            E.div.class(b('list'))(
+                RouteLink.href('projects/unicode')(
+                    Button.class(b('button'))(
+                        E.div.class(b('tile'))(
+                            'Юникод',
+                            E.span.style`font-size: 4em`('✍')
+                        )
+                    )
+                ),
+                RouteLink.href('projects/game-of-life')(
+                    Button.class(b('button'))(
+                        E.div.class(b('tile'))(
+                            'Игра «Жизнь»',
+                            E.div.class(b('glider'))(
+                                E.div,
+                                E.div.class(b('fill')),
+                                E.div,
+                                E.div,
+                                E.div,
+                                E.div.class(b('fill')),
+                                E.div.class(b('fill')),
+                                E.div.class(b('fill')),
+                                E.div.class(b('fill'))
+                            )
+                        )
                     )
                 )
             )

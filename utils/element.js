@@ -148,9 +148,11 @@ export function patchDOM(dom, diffObject) {
         const listener = eventListeners[eventName];
         if (listener === diff.symbols.delete) {
             dom.removeEventListener(eventName, eventListeners[diff.symbols.meta].deleteListeners[eventName]);
+            delete eventListeners[diff.symbols.meta].deleteListeners[eventName];
         } else {
             if (!listener[diff.symbols.raw]) {
                 dom.removeEventListener(eventName, eventListeners[diff.symbols.meta].deleteListeners[eventName]);
+                delete eventListeners[diff.symbols.meta].deleteListeners[eventName];
             }
             dom.addEventListener(eventName, listener, false);
         }
@@ -404,7 +406,7 @@ const getElement = namespace => new Proxy(strToArray, {
                         continue;
                     }
                     element.eventListeners[eventName] = listener;
-                } else {
+                } else if (props[prop]) {
                     element.props[prop] = (props[prop]);
                 }
             }

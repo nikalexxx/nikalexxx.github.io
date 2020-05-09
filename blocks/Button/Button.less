@@ -5,15 +5,27 @@
     font-size: 1rem;
     color: var(--color-text-active);
     outline: 0;
-    // border: 1px solid var(--color-border);
-    border: none;
+    border: 1px solid var(--color-background-prime);
     background-color: var(--color-background-prime);
+    box-shadow: 0 0 .2em rgba(0,0,0,.2);
 
     &:hover {
-        // background-color: var(--color-atom-button-hover);
+        border: 1px solid var(--color-border);
         cursor: pointer;
     }
+
     &:active {
         transform: scale(.95);
+    }
+
+    &:focus {
+        box-shadow: 0 0 .2em rgba(0,0,255,.3);
+    }
+
+    &:disabled {
+        border: 1px solid var(--color-background-prime);
+        opacity: .5;
+        cursor: not-allowed;
+        transform: none;
     }
 }

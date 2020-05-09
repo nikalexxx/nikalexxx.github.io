@@ -10,6 +10,19 @@
     grid-template-columns: auto 1fr;
     grid-template-rows: 0px auto 1fr auto;
     min-height: 100vh;
+    &__css {
+        --size-test: 0px;
+        margin-left: var(--size-test);
+        transition-duration: .1s;
+
+        &:hover {
+            margin-left: calc(var(--size-test) + 40px);
+
+            // &::after {
+            //     content: 'zzzzzzzzzzzzzz';
+            // }
+        }
+    }
 
     &__header {
         grid-area: header;

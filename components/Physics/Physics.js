@@ -22,7 +22,7 @@ const Physics = Component.Physics(() => {
                     E.div.style(style({padding: '16px 64px'}))(
                         'Стандартная модель',
                         E.br,
-                        E.span.style`font-size: 72px`('e', E.sup('–'))
+                        E.span.style`font-size: 4em; font-family: serif;`('e', E.sup('–'), ', γ, H')
                     )
                 )
             )

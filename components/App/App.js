@@ -43,18 +43,17 @@ const routes = params => ({
     //     E.ul(
     //         E.li`Поправить движок`,
     //         E.li`Меню для мобильной версии`,
-    //         E.li`Игра Жизнь`,
     //         E.li`Формат электронной книги`,
     //         E.li`Калькулятор`,
     //         E.li`Построитель графиков`,
     //         E.li`Схема метро(позже интерактивная)`
     //     )
     // ),
-    // 'gameOfLife': GameOfLife,
     'blog': Blog,
     'blog/:id': Post.id(params.id),
     'projects': Projects,
     'projects/unicode': Unicode,
+    'projects/game-of-life': GameOfLife,
     'physics': Physics,
     'physics/standard-model': StandardModel
 })
@@ -78,7 +77,7 @@ const Menu = Component.Menu(({state}) => {
         // renderLink('book', 'Книга'),
         renderLink('projects', 'Проекты'),
         renderLink('physics', 'Физика'),
-        renderLink('design', 'Дизайн')
+        renderLink('design', 'Дизайн'),
         // renderLink('gameOfLife', 'Игра Жизнь'),
         // renderLink('my/ok', 'тест')
     )

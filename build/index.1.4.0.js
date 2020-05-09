@@ -894,9 +894,11 @@ function patchDOM(dom, diffObject) {
 
     if (listener === _diff.diff.symbols.delete) {
       dom.removeEventListener(eventName, eventListeners[_diff.diff.symbols.meta].deleteListeners[eventName]);
+      delete eventListeners[_diff.diff.symbols.meta].deleteListeners[eventName];
     } else {
       if (!listener[_diff.diff.symbols.raw]) {
         dom.removeEventListener(eventName, eventListeners[_diff.diff.symbols.meta].deleteListeners[eventName]);
+        delete eventListeners[_diff.diff.symbols.meta].deleteListeners[eventName];
       }
 
       dom.addEventListener(eventName, listener, false);
@@ -1202,7 +1204,7 @@ var getElement = function getElement(namespace) {
             }
 
             element.eventListeners[eventName] = listener;
-          } else {
+          } else if (props[prop]) {
             element.props[prop] = props[prop];
           }
         }
@@ -2873,6 +2875,12 @@ var _default = {
     creationTime: '2020-04-20T02:13:59',
     title: 'Добавляем светлую тему с CSS переменными',
     tags: ['css', 'css variables']
+  },
+  6: {
+    type: 'js',
+    creationTime: '2020-05-09T04:09:09',
+    title: 'Игра «Жизнь» и клеточные автоматы в браузере',
+    tags: ['js', 'game of life', 'cellular automaton']
   }
 };
 exports.default = _default;
@@ -2899,15 +2907,132 @@ var Button = _index.Component.Button(function (_ref) {
   var _ref$props = _ref.props,
       children = _ref$props.children,
       size = _ref$props.size,
-      onClick = _ref$props.onClick;
+      onClick = _ref$props.onClick,
+      c = _ref$props.class,
+      disabled = _ref$props.disabled;
   return function () {
-    return _index.E.button.onClick(onClick || function () {}).class(b())(children);
+    return _index.E.button.disabled(disabled).onClick(onClick || function () {}).class(b() + (c ? " ".concat(c) : ''))(children);
   };
 });
 
 var _default = Button;
 exports.default = _default;
-},{"../../utils/index.js":"utils/index.js","./Button.less":"blocks/Button/Button.less"}],"blocks/index.js":[function(require,module,exports) {
+},{"../../utils/index.js":"utils/index.js","./Button.less":"blocks/Button/Button.less"}],"blocks/Checkbox/Checkbox.less":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"blocks/Checkbox/Checkbox.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../../utils/index.js");
+
+require("./Checkbox.less");
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["checkbox"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var b = (0, _index.block)('checkbox');
+
+var Checkbox = _index.Component.Checkbox(function (_ref) {
+  var props = _ref.props;
+  return function () {
+    return _index.E.label.class(b())(_index.E.input.type(_templateObject()).class(b('input'))._props(props), _index.E.div.class(b('box'))(_index.E.div('✓')), props.children);
+  };
+});
+
+var _default = Checkbox;
+exports.default = _default;
+},{"../../utils/index.js":"utils/index.js","./Checkbox.less":"blocks/Checkbox/Checkbox.less"}],"blocks/Select/Select.less":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"blocks/Select/Select.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../../utils/index.js");
+
+require("./Select.less");
+
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var b = (0, _index.block)('select');
+
+var Select = _index.Component.Select(function (_ref) {
+  var props = _ref.props;
+  var heap = Symbol('heap');
+
+  function getPreparedValues() {
+    var groups = _defineProperty({}, heap, []);
+
+    var _iterator = _createForOfIteratorHelper(props.values),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var option = _step.value;
+
+        if (option.group) {
+          if (!groups[option.group]) {
+            groups[option.group] = [];
+          }
+
+          groups[option.group].push(option);
+        } else {
+          groups[heap].push(option);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return groups;
+  }
+
+  return function () {
+    var groups = getPreparedValues(props.values);
+    return _index.E.div.class(b())(_index.E.select.class(b('native')).onChange(props.onChange)(Object.keys(groups).map(function (name) {
+      var options = groups[name];
+      return _index.E.optgroup.label(name)(options.map(function (e) {
+        return _index.E.option.value(e.value).selected(e.selected)(e.title);
+      }));
+    }), groups[heap].map(function (e) {
+      return _index.E.option.value(e.value).selected(e.selected)(e.title);
+    })), _index.E.div.class(b('expand'))('▾'));
+  };
+});
+
+var _default = Select;
+exports.default = _default;
+},{"../../utils/index.js":"utils/index.js","./Select.less":"blocks/Select/Select.less"}],"blocks/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2919,11 +3044,27 @@ Object.defineProperty(exports, "Button", {
     return _Button.default;
   }
 });
+Object.defineProperty(exports, "Checkbox", {
+  enumerable: true,
+  get: function () {
+    return _Checkbox.default;
+  }
+});
+Object.defineProperty(exports, "Select", {
+  enumerable: true,
+  get: function () {
+    return _Select.default;
+  }
+});
 
 var _Button = _interopRequireDefault(require("./Button/Button.js"));
 
+var _Checkbox = _interopRequireDefault(require("./Checkbox/Checkbox.js"));
+
+var _Select = _interopRequireDefault(require("./Select/Select.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Button/Button.js":"blocks/Button/Button.js"}],"utils/book.js":[function(require,module,exports) {
+},{"./Button/Button.js":"blocks/Button/Button.js","./Checkbox/Checkbox.js":"blocks/Checkbox/Checkbox.js","./Select/Select.js":"blocks/Select/Select.js"}],"utils/book.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3313,7 +3454,7 @@ var _index2 = require("../../blocks/index.js");
 require("./Physics.less");
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["font-size: 72px"]);
+  var data = _taggedTemplateLiteral(["font-size: 4em; font-family: serif;"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -3330,7 +3471,7 @@ var Physics = _index.Component.Physics(function () {
   return function () {
     return _index.E.div.class(b())(_index.E.h2('Физика'), _index.RouteLink.href('physics/standard-model')((0, _index2.Button)(_index.E.div.style((0, _index.style)({
       padding: '16px 64px'
-    }))('Стандартная модель', _index.E.br, _index.E.span.style(_templateObject())('e', _index.E.sup('–'))))));
+    }))('Стандартная модель', _index.E.br, _index.E.span.style(_templateObject())('e', _index.E.sup('–'), ', γ, H')))));
   };
 });
 
@@ -3837,7 +3978,7 @@ var _index2 = require("../../blocks/index.js");
 require("./Projects.less");
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["font-size: 72px"]);
+  var data = _taggedTemplateLiteral(["font-size: 4em"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -3852,9 +3993,7 @@ var b = (0, _index.block)('projects');
 
 var Projects = _index.Component.Projects(function () {
   return function () {
-    return _index.E.div.class(b())(_index.E.h2('Проекты'), _index.RouteLink.href('projects/unicode')((0, _index2.Button)(_index.E.div.style((0, _index.style)({
-      padding: '16px 64px'
-    }))('Юникод', _index.E.br, _index.E.span.style(_templateObject())('✍')))));
+    return _index.E.div.class(b())(_index.E.h2('Проекты'), _index.E.div.class(b('list'))(_index.RouteLink.href('projects/unicode')(_index2.Button.class(b('button'))(_index.E.div.class(b('tile'))('Юникод', _index.E.span.style(_templateObject())('✍')))), _index.RouteLink.href('projects/game-of-life')(_index2.Button.class(b('button'))(_index.E.div.class(b('tile'))('Игра «Жизнь»', _index.E.div.class(b('glider'))(_index.E.div, _index.E.div.class(b('fill')), _index.E.div, _index.E.div, _index.E.div, _index.E.div.class(b('fill')), _index.E.div.class(b('fill')), _index.E.div.class(b('fill')), _index.E.div.class(b('fill'))))))));
   };
 });
 
@@ -4078,12 +4217,7 @@ var Design = _index.Component.Design(function () {
 
 var _default = Design;
 exports.default = _default;
-},{"../../utils/index.js":"utils/index.js","../../blocks/index.js":"blocks/index.js","./Design.less":"components/Design/Design.less"}],"components/GameOfLife/GameOfLife.less":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/GameOfLife/GameOfLife.js":[function(require,module,exports) {
+},{"../../utils/index.js":"utils/index.js","../../blocks/index.js":"blocks/index.js","./Design.less":"components/Design/Design.less"}],"icons/Ban.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4091,381 +4225,60 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = require("../../utils/index.js");
+var _index = require("../utils/index.js");
 
-require("./GameOfLife.less");
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["currentColor"]);
 
-function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var b = (0, _index.block)('game-of-life'); // console.log('game of life!!!!!!!!!')
-
-var range = function range(start, end) {
-  var result = [];
-
-  for (var i = start; i <= end; i++) {
-    result.push(i);
-  }
-
-  return result;
-};
-
-var Game = _index.Component.Game(function (_ref) {
-  var props = _ref.props,
-      getState = _ref.getState,
-      setState = _ref.setState,
-      initState = _ref.initState,
-      didMount = _ref.didMount;
-  var _props$H = props.H,
-      H = _props$H === void 0 ? 200 : _props$H,
-      _props$W = props.W,
-      W = _props$W === void 0 ? 400 : _props$W;
-  initState({
-    i: 0,
-    size: 0,
-    stop: true,
-    H: H,
-    W: W
-  });
-  var canvas,
-      img_data,
-      data,
-      ctx,
-      rule = {
-    new: [2, 3],
-    old: [3]
-  },
-      fieldState,
-      fieldStateNext;
-  didMount(function () {
-    var startFieldState = props.startFieldState;
-
-    var _getState = getState(),
-        H = _getState.H,
-        W = _getState.W;
-
-    fieldState = new Array(H * W);
-    fieldStateNext = new Array(H * W);
-
-    for (var i = 0; i < H * W; i++) {
-      fieldState[i] = false;
-      fieldStateNext[i] = false;
-    }
-
-    if (startFieldState) {
-      set_life(startFieldState);
-    }
-
-    canvas = document.getElementById('field');
-    ctx = canvas.getContext('2d', {
-      alpha: false
-    });
-    img_data = ctx.getImageData(0, 0, W, H);
-    data = img_data.data;
-
-    for (var k = 0; k < H * W * 4; k++) {
-      data[k] = (k + 1) % 4 == 0 ? 255 : 0;
-    } // paint();
-    // rules();
-
-
-    draw();
-    life();
-  });
-
-  function torsum(i, j) {
-    var _getState2 = getState(),
-        H = _getState2.H,
-        W = _getState2.W,
-        state = _getState2.fieldState; // положение строки над текущей клеткой
-
-
-    var i_top_W = (i ? i - 1 : H - 1) * W; // положение строки под текущей клеткой
-
-    var i_down_W = (H - 1 - i ? i + 1 : 0) * W; // положение строки текущей клетки
-
-    var i_W = i * W; // столбец слева от текущей клетки
-
-    var j_l = j ? j - 1 : W - 1; // столбец справа от текущей клетки
-
-    var j_r = W - 1 - j ? j + 1 : 0;
-    return +state[i_top_W + j_l] + state[i_top_W + j] + state[i_top_W + j_r] + state[i_W + j_l] + state[i_W + j_r] + state[i_down_W + j_l] + state[i_down_W + j] + state[i_down_W + j_r];
-  }
-
-  function set_life(array) {
-    var _getState3 = getState(),
-        W = _getState3.W;
-
-    var _iterator = _createForOfIteratorHelper(array),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var e = _step.value;
-        fieldState[(e[1] + 50) * W + e[0] + 50] = true;
-        fieldStateNext[(e[1] + 50) * W + e[0] + 50] = true;
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-  }
-
-  function clear() {
-    var _getState4 = getState(),
-        W = _getState4.W,
-        H = _getState4.H;
-
-    for (var k = 0; k < H * W * 4; k++) {
-      data[k] = (k + 1) % 4 === 0 ? 255 : 0;
-    }
-
-    for (var _k = 0; _k < H * W; _k++) {
-      fieldState[_k] = data[_k * 4] === 255;
-    }
-
-    ctx.putImageData(img_data, 0, 0);
-    setState({
-      stop: true,
-      i: 0
-    });
-  }
-
-  function draw() {
-    var _getState5 = getState(),
-        H = _getState5.H,
-        W = _getState5.W;
-
-    console.log(ctx);
-
-    for (var k = 0; k < H * W; k++) {
-      if (+fieldState[k] !== !data[k * 4 + 1]) {
-        data[k * 4] = fieldState[k] ? 255 : 0;
-      }
-    }
-
-    ctx.putImageData(img_data, 0, 0);
-  }
-
-  function step() {
-    var i,
-        j,
-        sum,
-        k = 0;
-
-    for (i = 0; i < H; i++) {
-      for (j = 0; j < W; j++) {
-        sum = torsum(i, j);
-
-        if (fieldState[k]) {
-          fieldStateNext[k] = rule.new.includes(sum);
-        } else {
-          fieldStateNext[k] = rule.old.includes(sum);
-        }
-
-        k++;
-      }
-    }
-
-    for (k = 0; k < H * W; k++) {
-      fieldState[k] = fieldStateNext[k];
-    }
-  }
-
-  function one_step() {
-    step();
-    draw();
-    setState(function (prevState) {
-      return {
-        i: prevState.i + 1
-      };
-    });
-  }
-
-  function life() {
-    var _getState6 = getState(),
-        stop = _getState6.stop;
-
-    if (!stop) {
-      one_step();
-    }
-
-    setState({
-      size: fieldState.reduce(function (sum, x) {
-        return sum += x;
-      })
-    });
-    setTimeout(life, 1000);
-  }
-
-  function rules() {
-    document.getElementById('cells_new').addEventListener('click', update_rule);
-    document.getElementById('cells_old').addEventListener('click', update_rule);
-    update(document.getElementById('cells_new').querySelector('input'));
-    update(document.getElementById('cells_old').querySelector('input'));
-
-    function update_rule(e) {
-      var elem = e.target;
-      if (elem.tagName !== 'INPUT') return;
-      update(elem);
-    }
-
-    function update(elem) {
-      type = elem.name;
-      list = elem.closest("#cells_".concat(type)).querySelectorAll('input');
-      list = Array.from(list).filter(function (x) {
-        return x.checked;
-      }).map(function (x) {
-        return +x.id;
-      });
-      rule[type] = list;
-    }
-  }
-
-  function update(elem) {
-    type = elem.name;
-    list = elem.closest("#cells_".concat(type)).querySelectorAll('input');
-    list = Array.from(list).filter(function (x) {
-      return x.checked;
-    }).map(function (x) {
-      return +x.id;
-    });
-    rule[type] = list;
-  }
-
-  return function () {
-    var _getState7 = getState(),
-        stop = _getState7.stop,
-        H = _getState7.H,
-        W = _getState7.W,
-        i = _getState7.i,
-        size = _getState7.size;
-
-    return _index.E.div.class(b())(_index.E.canvas.id('field').width(W).height(H), _index.E.p('Поколение ', _index.E.span.id('old')(i)), _index.E.p('Популяция ', _index.E.span.id('size')(size)), _index.E.input.type('button').value(stop ? '>' : '||').onClick(function () {
-      setState(function (prevState) {
-        return {
-          stop: !prevState.stop
-        };
-      });
-    }).id('play'), _index.E.input.type('button').value('1>').onClick(function () {
-      return one_step();
-    }), _index.E.input.type('button').value('X').onClick(function () {
-      return clear();
-    }).id('btn_clear'), _index.E.br, _index.E.div.id('cells_new')(_index.E.p('Рождение'), range(0, 8).map(function (i) {
-      return _index.E.label(_index.E.input.type('checkbox').name('new').id(i), i);
-    })), _index.E.br, _index.E.div.id('cells_old')(_index.E.p('Смерть'), range(0, 8).map(function (i) {
-      return _index.E.label(_index.E.input.type('checkbox').name('old').id(i), i);
-    })));
+  _templateObject7 = function _templateObject7() {
+    return data;
   };
-}).startFieldState([[3, 0], [4, 1], [0, 2], [4, 2], [1, 3], [2, 3], [3, 3], [4, 3], [0, 7], [1, 8], [2, 8], [2, 9], [2, 10], [1, 11], [3, 14], [4, 15], [0, 16], [4, 16], [1, 17], [2, 17], [3, 17], [4, 17]]);
 
-function initGame() {
-  function paint() {
-    canvas.onmousedown = startDrawing;
-    canvas.onmouseup = stopDrawing;
-    canvas.onmouseout = stopDrawing;
-    canvas.onmousemove = draw;
-    var context = ctx;
-    var isDrawing;
-    context.strokeStyle = 'rgb(255,0,0)';
-    context.lineWidth = 1;
-    var pause = false;
-
-    function startDrawing(e) {
-      // Начинаем рисовать
-      isDrawing = true;
-
-      if (!stop) {
-        stop = true;
-        pause = true;
-      } // Создаем новый путь (с текущим цветом и толщиной линии)
-
-
-      context.beginPath(); // Нажатием левой кнопки мыши помещаем "кисть" на холст
-
-      context.moveTo(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop);
-    }
-
-    function draw(e) {
-      if (isDrawing == true) {
-        // Определяем текущие координаты указателя мыши
-        var x = e.pageX - canvas.offsetLeft;
-        var y = e.pageY - canvas.offsetTop; // Рисуем линию до новой координаты
-
-        context.lineTo(x, y);
-        context.stroke();
-      }
-    }
-
-    function stopDrawing() {
-      isDrawing = false;
-
-      if (pause) {
-        stop = false;
-        pause = false;
-      }
-
-      img_data = ctx.getImageData(0, 0, W, H);
-      data = img_data.data;
-
-      for (var k = 0; k < H * W; k++) {
-        state[k] = data[k * 4] == 255;
-      }
-    }
-  }
-
-  function rules() {
-    document.getElementById('cells_new').addEventListener('click', update_rule);
-    document.getElementById('cells_old').addEventListener('click', update_rule);
-    update(document.getElementById('cells_new').querySelector('input'));
-    update(document.getElementById('cells_old').querySelector('input'));
-
-    function update_rule(e) {
-      var elem = e.target;
-      if (elem.tagName !== 'INPUT') return;
-      update(elem);
-    }
-
-    function update(elem) {
-      type = elem.name;
-      list = elem.closest("#cells_".concat(type)).querySelectorAll('input');
-      list = Array.from(list).filter(function (x) {
-        return x.checked;
-      }).map(function (x) {
-        return +x.id;
-      });
-      rule[type] = list;
-    }
-  }
+  return data;
 }
 
-var _default = Game;
-exports.default = _default;
-},{"../../utils/index.js":"utils/index.js","./GameOfLife.less":"components/GameOfLife/GameOfLife.less"}],"components/About/About.less":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"]);
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/About/About.js":[function(require,module,exports) {
-"use strict";
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+  return data;
+}
 
-var _index = require("../../utils/index.js");
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["true"]);
 
-var _index2 = require("../../blocks/index.js");
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
 
-require("./About.less");
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["false"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["img"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\u041C\u043E\u0439 ", ""]);
+  var data = _taggedTemplateLiteral(["http://www.w3.org/2000/svg"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -4475,7 +4288,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\u0420\u0430\u0431\u043E\u0442\u0430\u044E \u0432 ", ""]);
+  var data = _taggedTemplateLiteral(["0 0 512 512"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -4486,13 +4299,15 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var b = (0, _index.block)('about');
+var _default = _index.Component.BanIcon(function (_ref) {
+  var props = _ref.props;
+  return function () {
+    return _index.S.svg['aria-hidden'](_templateObject5()).focusable(_templateObject4()).role(_templateObject3()).xmlns(_templateObject2()).viewBox(_templateObject())._props(props)(_index.S.path.fill(_templateObject7()).d(_templateObject6()));
+  };
+});
 
-var about = _index.E.div.class(b())(_index.E.p('Программирую'), _index.E.p((0, _index.E)(_templateObject(), _index.E.a.href('https://yandex.ru')('Яндексе'))), _index.E.p('Люблю математику'), _index.E.p((0, _index.E)(_templateObject2(), _index.E.a.href('https://github.com/nikalexxx')('Github'))));
-
-var _default = about;
 exports.default = _default;
-},{"../../utils/index.js":"utils/index.js","../../blocks/index.js":"blocks/index.js","./About.less":"components/About/About.less"}],"icons/Sun.js":[function(require,module,exports) {
+},{"../utils/index.js":"utils/index.js"}],"icons/Sun.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4672,6 +4487,366 @@ var _default = _index.Component.MoonIcon(function (_ref) {
 });
 
 exports.default = _default;
+},{"../utils/index.js":"utils/index.js"}],"icons/Play.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../utils/index.js");
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["currentColor"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["true"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["false"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["img"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["http://www.w3.org/2000/svg"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["0 0 448 512"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var _default = _index.Component.PlayIcon(function (_ref) {
+  var props = _ref.props;
+  return function () {
+    return _index.S.svg['aria-hidden'](_templateObject5()).focusable(_templateObject4()).role(_templateObject3()).xmlns(_templateObject2()).viewBox(_templateObject())._props(props)(_index.S.path.fill(_templateObject7()).d(_templateObject6()));
+  };
+});
+
+exports.default = _default;
+},{"../utils/index.js":"utils/index.js"}],"icons/PencilAlt.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../utils/index.js");
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["currentColor"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["true"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["false"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["img"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["http://www.w3.org/2000/svg"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["0 0 512 512"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var _default = _index.Component.PencilAltIcon(function (_ref) {
+  var props = _ref.props;
+  return function () {
+    return _index.S.svg['aria-hidden'](_templateObject5()).focusable(_templateObject4()).role(_templateObject3()).xmlns(_templateObject2()).viewBox(_templateObject())._props(props)(_index.S.path.fill(_templateObject7()).d(_templateObject6()));
+  };
+});
+
+exports.default = _default;
+},{"../utils/index.js":"utils/index.js"}],"icons/Pause.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../utils/index.js");
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["currentColor"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["true"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["false"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["img"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["http://www.w3.org/2000/svg"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["0 0 448 512"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var _default = _index.Component.PauseIcon(function (_ref) {
+  var props = _ref.props;
+  return function () {
+    return _index.S.svg['aria-hidden'](_templateObject5()).focusable(_templateObject4()).role(_templateObject3()).xmlns(_templateObject2()).viewBox(_templateObject())._props(props)(_index.S.path.fill(_templateObject7()).d(_templateObject6()));
+  };
+});
+
+exports.default = _default;
+},{"../utils/index.js":"utils/index.js"}],"icons/StepForward.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../utils/index.js");
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["currentColor"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["M384 44v424c0 6.6-5.4 12-12 12h-48c-6.6 0-12-5.4-12-12V291.6l-195.5 181C95.9 489.7 64 475.4 64 448V64c0-27.4 31.9-41.7 52.5-24.6L312 219.3V44c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12z"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["true"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["false"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["img"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["http://www.w3.org/2000/svg"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["0 0 448 512"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var _default = _index.Component.StepForwardIcon(function (_ref) {
+  var props = _ref.props;
+  return function () {
+    return _index.S.svg['aria-hidden'](_templateObject5()).focusable(_templateObject4()).role(_templateObject3()).xmlns(_templateObject2()).viewBox(_templateObject())._props(props)(_index.S.path.fill(_templateObject7()).d(_templateObject6()));
+  };
+});
+
+exports.default = _default;
 },{"../utils/index.js":"utils/index.js"}],"icons/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -4680,18 +4855,841 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Icon = void 0;
 
+var _Ban = _interopRequireDefault(require("./Ban"));
+
 var _Sun = _interopRequireDefault(require("./Sun"));
 
 var _Moon = _interopRequireDefault(require("./Moon"));
 
+var _Play = _interopRequireDefault(require("./Play"));
+
+var _PencilAlt = _interopRequireDefault(require("./PencilAlt"));
+
+var _Pause = _interopRequireDefault(require("./Pause"));
+
+var _StepForward = _interopRequireDefault(require("./StepForward"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Icon = {
+  Ban: _Ban.default,
   Sun: _Sun.default,
-  Moon: _Moon.default
+  Moon: _Moon.default,
+  Play: _Play.default,
+  Pause: _Pause.default,
+  StepForward: _StepForward.default,
+  PencilAlt: _PencilAlt.default
 };
 exports.Icon = Icon;
-},{"./Sun":"icons/Sun.js","./Moon":"icons/Moon.js"}],"MyComponent.js":[function(require,module,exports) {
+},{"./Ban":"icons/Ban.js","./Sun":"icons/Sun.js","./Moon":"icons/Moon.js","./Play":"icons/Play.js","./PencilAlt":"icons/PencilAlt.js","./Pause":"icons/Pause.js","./StepForward":"icons/StepForward.js"}],"components/GameOfLife/GameOfLife.less":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/GameOfLife/GameOfLife.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../../utils/index.js");
+
+var _index2 = require("../index.js");
+
+var _index3 = require("../../blocks/index.js");
+
+var _index4 = require("../../icons/index.js");
+
+require("./GameOfLife.less");
+
+var _this = void 0;
+
+function _templateObject10() {
+  var data = _taggedTemplateLiteral(["\n                    \u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0430 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u043D\u0430\u044F \u0432\u0435\u0440\u0441\u0438\u044F \u043A\u043B\u0435\u0442\u043E\u0447\u043D\u043E\u0433\u043E \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0430 ", ".\n                    \u041F\u0440\u0430\u0432\u0438\u043B\u0430 \u043A\u0430\u0441\u0430\u044E\u0442\u0441\u044F \u043E\u0431\u0449\u0435\u0439 \u0441\u0443\u043C\u043C\u044B \u043A\u043B\u0435\u0442\u043E\u043A \u0432 \u043E\u043A\u0440\u0435\u0441\u0442\u043D\u043E\u0441\u0442\u0438 \u041C\u0443\u0440\u0430.\n                    \u041D\u0430\u0447\u0430\u043B\u044C\u043D\u044B\u0435 \u043A\u043E\u043D\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438 \u0432\u0437\u044F\u0442\u044B \u0441 ", ".\n                    \u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435 \u043E \u0440\u0435\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438 \u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0432 ", ".\n                "]);
+
+  _templateObject10 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject9() {
+  var data = _taggedTemplateLiteral(["\u041F\u043E\u043F\u0443\u043B\u044F\u0446\u0438\u044F"]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\u041F\u043E\u043A\u043E\u043B\u0435\u043D\u0438\u0435"]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n                        display: inline-grid;\n                        grid-template-columns: repeat(2, auto);\n                        margin-left: 1em; gap: 8px;\n                    "]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n                            width: 1em;\n                            height: 1em;\n                            margin: 4px 8px;\n                        "]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n                            width: 1em;\n                            height: 1em;\n                            margin: 4px 8px;\n                        "]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n                                width: 1em;\n                                height: 1em;\n                                margin: 4px 8px;\n                                margin-right: 2px;\n                                display: inline-block\n                            "]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n                            width: 1em;\n                            height: 1em;\n                            margin: 4px 8px;\n                        "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n                            height: 4em;\n                            min-height: 4em;\n                            max-height: 50vh;\n                            width: ", "px;\n                            min-width: ", "px;\n                            max-width: ", "px;\n                        "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n                        margin: 4px 0;\n                        margin-right: 8px;\n                        display: inline-block;\n                    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var b = (0, _index.block)('game-of-life');
+
+var range = function range(start, end) {
+  var result = [];
+
+  for (var i = start; i <= end; i++) {
+    result.push(i);
+  }
+
+  return result;
+};
+
+var patternGroups = {
+  spaceship: 'Космические корабли, скорость',
+  puffer: 'Паровозы, скорость',
+  gun: 'Ружья',
+  oscillator: 'Осцилляторы, период',
+  methuselah: 'Долгожители'
+};
+var patterns = {
+  'glider': {
+    name: 'Планер, c/4',
+    code: 'bob$2bo$3o!',
+    group: patternGroups.spaceship
+  },
+  'lightweight-spaceship': {
+    name: 'Лёгкий космический корабль, c/2',
+    code: 'bo2bo$o4b$o3bo$4o!',
+    group: patternGroups.spaceship
+  },
+  'middleweight-spaceship': {
+    name: 'Средний космический корабль, c/2',
+    code: '3bo2b$bo3bo$o5b$o4bo$5o!',
+    group: patternGroups.spaceship
+  },
+  'heavyweight-spaceship': {
+    name: 'Тяжёлый космический корабль, c/2',
+    code: '3b2o2b$bo4bo$o6b$o5bo$6o!',
+    group: patternGroups.spaceship
+  },
+  swan: {
+    name: 'Лебедь, c/4',
+    code: "bo10b2o10b$5o6b2o11b$o2b2o8bo7b2ob$2b2obo5b2o6b3obo$11b2o3bob2o4b$5bob\n        o6b2o8b$10b3obo4bo4b$7b3o3bo4bo5b$8bo7bo7b$8bo6bo8b2$11bo!",
+    group: patternGroups.spaceship
+  },
+  loafer: {
+    name: 'Бездельник, c/7',
+    code: "b2o2bob2o$o2bo2b2o$bobo$2bo$8bo$6b3o$5bo$6bo$7b2o!",
+    group: patternGroups.spaceship
+  },
+  lobster: {
+    name: 'Омар, c/7',
+    code: "12b3o$12bo$13bo2b2o$16b2o$12b2o$13b2o$12bo2bo2$14bo2bo$14bo3bo$15b3obo\n        $20bo$2o2bobo13bo$obob2o13bo$o4bo2b2o13b2o$6bo3bo6b2o2b2o2bo$2b2o6bo6b\n        o2bo$2b2o4bobo4b2o$9bo5bo3bo3bo$10bo2bo4b2o$11b2o3bo5bobo$15bo8b2o$15b\n        o4bo$14bo3bo$14bo5b2o$15bo5bo!",
+    group: patternGroups.spaceship
+  },
+  'weekender': {
+    name: 'Отдыхающий, 2c/7',
+    code: "bo12bob$bo12bob$obo10bobo$bo12bob$bo12bob$2bo3b4o3bo2b$6b4o6b$2b4o4b4o\n        2b2$4bo6bo4b$5b2o2b2o!",
+    group: patternGroups.spaceship
+  },
+  '3-engine-cordership': {
+    name: 'Трёхмоторный эсминец, c/12',
+    code: "31b3o24b$32bo25b$32bo2bo22b$32bo2bo22b$33bobo22b$48b2o8b$48b2o8b3$32bo\n        25b$31bobo24b$32bo25b$49bo8b$48bo7b2o$30b4o22b2o$30b2o3bo10bo11b$31bo\n        4bo9bobo9b$33bob2o10bo10b$34bo23b3$42bobob2o10b$25bo16bobo13b$24b3o17b\n        o2bo10b$43bo3bo10b$24b3o16b4o2b2o7b$25b2ob2o14bo5b2o6b$27bo21bo8b3$b3o\n        54b$2bo55b$2bo2bo52b$2bo2bo52b$3bobo52b$18b2o38b$18b2o38b$24bo33b$23b\n        3o32b$2bo19b2ob2o31b$bobo18bobo33b$2bo19bo35b3$4o54b$2o3bo13bo38b$bo4b\n        o11bobo37b$3bob2o11bo39b$4bo15b2o36b$21bo36b$18b3o37b$19b2o37b$16bo41b\n        $16b2o40b$16b2o40b$6b2o6b2o42b$6b2o4b2o44b$12b2obo42b$14b2o42b5$14b2o\n        42b$14b2o!",
+    group: patternGroups.spaceship
+  },
+  'p15-pre-pulsar-spaceship': {
+    name: 'Допульсарный космический корабль(период 15), c/5',
+    code: "3b3o10b3o23b3o10b3o3b$4bobo8bobo25bobo8bobo4b$6bo8bo29bo8bo6b$bob5o6b\n        5obo19bob5o6b5obob$bob2o3b2o2b2o3b2obo19bob2o3b2o2b2o3b2obob$2o5b3o2b\n        3o5b2o17b2o5b3o2b3o5b2o$5b2ob2o2b2ob2o27b2ob2o2b2ob2o5b2$4bo12bo25bo\n        12bo4b$5b3o6b3o27b3o6b3o5b$4b4o6b4o25b4o6b4o4b$3b2o12b2o23b2o12b2o3b$\n        4bo12bo25bo12bo4b$2b3o12b3o21b3o12b3o2b$2bo16bo21bo16bo2b$5bo10bo27bo\n        10bo5b$3bobo10bobo23bobo10bobo3b$2bo3b2o6b2o3bo21bo3b2o6b2o3bo2b$3bo5b\n        o2bo5bo23bo5bo2bo5bo3b$9bo2bo35bo2bo9b$bob2o4bo2bo4b2obo19bob2o4bo2bo\n        4b2obob$bo3b3obo2bob3o3bo19bo3b3obo2bob3o3bob$2bo6bo2bo6bo21bo6bo2bo6b\n        o2b$bo2b2o3bo2bo3b2o2bo19bo2b2o3bo2bo3b2o2bob$bo2b2obobo2bobob2o2bo19b\n        o2b2obobo2bobob2o2bob$5bo2bo4bo2bo27bo2bo4bo2bo5b$6bobo4bobo29bobo4bob\n        o6b$27bo5bo27b$4b2obob4obob2o9bo5bo9b2obob4obob2o4b$10b2o14bobo3bobo\n        14b2o10b$2bob2o10b2obo7bo5bo7bob2o10b2obo2b$2o2bo3b2o2b2o3bo2b2o5bo5bo\n        5b2o2bo3b2o2b2o3bo2b2o$b2obo12bob2o19b2obo12bob2ob$3b2obo8bob2o23b2obo\n        8bob2o3b$4bo2bo6bo2bo25bo2bo6bo2bo4b$b2o2bo2bo4bo2bo2b2o4b2o7b2o4b2o2b\n        o2bo4bo2bo2b2ob$bo5b2o4b2o5bo5bobo3bobo5bo5b2o4b2o5bob$b3o3bo6bo3b3o6b\n        o5bo6b3o3bo6bo3b3ob$3b4o8b4o23b4o8b4o3b$4bo2bo6bo2bo25bo2bo6bo2bo4b$4b\n        o12bo25bo12bo4b$4bob2o6b2obo25bob2o6b2obo4b$5bo10bo27bo10bo!",
+    group: patternGroups.spaceship
+  },
+  'spaghetti-monster': {
+    name: 'Спагетти монстр, 3c/7',
+    code: "8b3o5b3o$8bobo5bobo$8bobo5bobo$6bob2o3bo3b2obo$6b2o4bobo4b2o$10b2obob\n        2o$9bo7bo$9bobo3bobo$5b5o7b5o$4bo2bo11bo2bo$5bob3o7b3obo$7bob2o5b2obo$\n        6b2obobo3bobob2o$6b3obo5bob3o2$10b2o3b2o$12bobo$9bo7bo$9b2o5b2o$6b2o\n        11b2o$4bob2o11b2obo$4b2o2b2o7b2o2b2o$4bo2bo2bo5bo2bo2bo$5bo4bo5bo4bo$\n        5bo2bo2bo3bo2bo2bo$2bo5bo9bo5bo$3bobo15bobo$7bo11bo$3bo3bobo7bobo3bo$\n        3bo2bo3bo5bo3bo2bo$4b2o2b2o7b2o2b2o$8bo9bo2$8b5ob5o$bo6b2ob2ob2ob2o6bo\n        $3o7bo5bo7b3o$o2b2o5bo5bo5b2o2bo$2bo3b5o5b5o3bo$7bob2o5b2obo$bo3bo15bo\n        3bo$bob2o2bo11bo2b2obo$bob4o13b4obo$4bo17bo2$2bo21bo$bobo19bobo$o25bo$\n        o3bo17bo3bo$5bo15bo$2o23b2o$2bo3bo2bo7bo2bo3bo$2bo3bobobo5bobobo3bo$2b\n        o5bob2o3b2obo5bo$2bo3b2obo7bob2o3bo$6b2o11b2o$4bo17bo$3bo19bo$3bo4bo9b\n        o4bo$2b2o3b2o9b2o3b2o$2b2o3bobo7bobo3b2o$2b2o3b2o3b3o3b2o3b2o$2b3o2b3o\n        bo3bob3o2b3o$6bob2obo3bob2obo$2b2o3b2obo5bob2o3b2o$3bob2o3bobobobo3b2o\n        bo$11bobobo$8bo9bo$8b3o5b3o$10b2obob2o$10b7o$8b3o5b3o$7b2obobobobob2o$\n        6bo3bo5bo3bo$11b2ob2o$5bo2bobobobobobo2bo$6b4o7b4o$9bo7bo$9bo7bo$6b2ob\n        o2bobo2bob2o2$9b2o5b2o3$9bo7bo$9b3o3b3o$8bo2bo3bo2bo$9bo7bo$8bo2bo3bo\n        2bo$11b2ob2o$12bobo$10bobobobo$9bo3bo3bo$9bo7bo$12bobo$7b2obo5bob2o$7b\n        2o2bo3bo2b2o$7bo11bo$8bo9bo$6bobo9bobo$5b4o9b4o$5b2obobo5bobob2o$4bo2b\n        o11bo2bo$9bobo3bobo$8b2obo3bob2o$4bo2bo3b2ob2o3bo2bo$9bo2bobo2bo$6bo2b\n        ob2ob2obo2bo$7bobobobobobobo$8b2o2bobo2b2o$9bobo3bobo$10b2o3b2o$7b2o9b\n        2o$7b3o7b3o$7bobo7bobo$5b2o2bo7bo2b2o$5b2o13b2o$11bo3bo$6bo4bo3bo4bo$\n        6b2o3bo3bo3b2o$7bo2bo5bo2bo$7b3o7b3o$6bobo9bobo$6b2o11b2o$6bobo4bo4bob\n        o$6b2o4b3o4b2o$6b2o3bo3bo3b2o$5b3o4b3o4b3o$3b2o17b2o$2bo5b2o2bobo2b2o\n        5bo2$2bo2bob3ob2ob2ob3obo2bo$8b3o5b3o$10b3ob3o$5bo4b2obob2o4bo$11bo3bo\n        2$11b2ob2o!",
+    group: patternGroups.spaceship
+  },
+  'puffer-1': {
+    name: 'Паровоз 1, c/2',
+    code: "b3o6bo5bo6b3ob$o2bo5b3o3b3o5bo2bo$3bo4b2obo3bob2o4bo3b$3bo19bo3b$3bo2b\n        o13bo2bo3b$3bo2b2o11b2o2bo3b$2bo3b2o11b2o3bo!",
+    group: patternGroups.puffer
+  },
+  'puffer-2': {
+    name: 'Паровоз 2, c/2',
+    code: "78bo26b$76b2o27b$77b2o26b2$69bobo33b$69b2o34b$70bo34b2$12bo92b$10bobo\n        29b2o28b2o31b$11b2o29b2o28b2o31b$8b2o95b$7bobo95b$9bo95b2$80b2o23b$57b\n        3o9b2o9bobo4b3o11b3ob$57bo2bo8bobo8bo6bo2bo10bo2bo$57bo11bo17bo6b3o4bo\n        3b$57bo29bo5bo2bo4bo3b$58bobo27bobo2b2obo5bobo25$60bo44b$61b2o42b$60b\n        2o43b3$4bobo98b$4b2o99b$5bo99b$34b2o28b2o39b$36bo29bo38b$2b2o29bo29bo\n        41b$3b2o29b2o21b3o4b2o5b3o13b3o11b3ob$2bo54bo2bo10bo2bo12bo2bo10bo2bo$\n        57bo13bo15bo6b3o4bo3b$5b2o50bo13bo15bo5bo2bo4bo3b$4b2o52bobo11bobo13bo\n        bo2b2obo5bobo$6bo98b4$93bo11b$94bo10b14$55bo49b$56b2o47b$55b2o48b7$5bo\n        99b$3bobo29b2o28b2o38b$4b2o29b2o28b2o38b$b2o102b$obo102b$2bo102b4$64bo\n        40b$63b3o39b$63bob2o38b$64b3o38b$64b2o39b4$57b3o11b3o13b3o11b3ob$57bo\n        2bo10bo2bo12bo2bo10bo2bo$57bo13bo15bo6b3o4bo3b$57bo13bo15bo5bo2bo4bo3b\n        $58bobo11bobo13bobo2b2obo5bobo5$93bo11b$94bo!",
+    group: patternGroups.puffer
+  },
+  'glider-train': {
+    name: 'Планерный поезд, c/2',
+    code: "32b2o$31b2o$33bo17b6o6b2o$50bo5bo4bo4bo$56bo10bo$26b5o19bo4bo5bo5bo$\n        25bo4bo21b2o8b6o$30bo$18b2o5bo3bo23bo$18b2o7bo24bobo$14b3o4bo29bo5bo$\n        13bob2o5b2o11b2o15bobobobo6bo$b2o9b2obobo3b2o11bo2bo13b2o2bo3bo5b2o$o\n        2bo9b6o9b2o4bobo7b2o5b2o3b2obo4bob2o$b2o11b4o10b2o5bo8b2o7bo5bo4bobo$\n        50bobo11b2o2$50bobo11b2o$b2o11b4o10b2o5bo8b2o7bo5bo4bobo$o2bo9b6o9b2o\n        4bobo7b2o5b2o3b2obo4bob2o$b2o9b2obobo3b2o11bo2bo13b2o2bo3bo5b2o$13bob\n        2o5b2o11b2o15bobobobo6bo$14b3o4bo29bo5bo$18b2o7bo24bobo$18b2o5bo3bo23b\n        o$30bo$25bo4bo21b2o8b6o$26b5o19bo4bo5bo5bo$56bo10bo$50bo5bo4bo4bo$33bo\n        17b6o6b2o$31b2o$32b2o!",
+    group: patternGroups.puffer
+  },
+  'space-rake': {
+    name: 'Космические грабли, с/2',
+    code: "11b2o5b4o$9b2ob2o3bo3bo$9b4o8bo$10b2o5bo2bob2$8bo13b$7b2o8b2o3b$6bo9bo\n        2bo2b$7b5o4bo2bo2b$8b4o3b2ob2o2b$11bo4b2o4b4$18b4o$o2bo13bo3bo$4bo16bo\n        $o3bo12bo2bob$b4o!",
+    group: patternGroups.puffer
+  },
+  '3-engine-cordership-rake': {
+    name: 'Грабли для трёхмоторного эсминца, c/2',
+    code: "142b2o317b$126b2o13b2ob2o315b$125b4o13b4o315b$124b2ob2o14b2o316b$125b\n        2o334b$147bo313b$146b3o312b$130bo11bo3b2obo311b$128b4o10bo6bo311b$127b\n        ob5o14bo6bo305b$126b2o6bo18b2o306b$127b3obo3bo18b2o305b$128b3o3bo326b$\n        133bo327b$160bo5b2o293b$126b2o30b2o5b2ob3o290b$125b4o4b4o22b2o5b5o290b\n        $124b2ob2o4bo3bo3bo2bo22b3o291b$125b2o6bo6bo320b$134bo2bo2bo3bo20bo\n        295b$140b4o9b2o8b2o296b$146b3o5b2o8b2o295b$146b2ob2o6b3o301b$146b3o5b\n        2o305b$140b4o9b2o306b$140bo3bo316b$140bo320b$141bo2bo316b$159bo2bo298b\n        $158bo302b$158bo3bo298b$100b2o56b4o299b$99b4o68bo289b$98b2ob2o68bo289b\n        $82b2o15b2o58b3o3bo295b$81b2ob2o72b5o2bo7bo287b$82b4o71b2ob4obo7bo287b\n        $83b2o73b2o301b$103bo357b$97b2o3b3o356b$85b3o9b3ob5o355b$84b2o3bo9b3o\n        8bobo348b$83b2o2bobo9b3o8b2o46b4o299b$84bo5bo9bo10bo46bo3bo298b$85b2o\n        2bo11bo56bo302b$89bo34b3o32bo2bo298b$87bo27bobo5b5o333b$91bo2bo20b2o5b\n        2ob3o333b$82b2o6bo25bo6b2o336b$81b2ob2o4bo3bo366b$82b4o4b4o3b4o360b$\n        83b2o12bo3bo9bo8bobo338b$97bo11b2o9b2o14bo324b$98bo2bo2b2o5b3o7bo12bo\n        3bo322b$103b3o6b3o18bo327b$98bo2bo2b2o5b3o19bo4bo322b$97bo11b2o22b5o\n        323b$97bo3bo9bo349b$97b4o360b2$115b2o344b$114b2ob2o342b$115b4o17b2o\n        323b$116b2o17b3o323b$117bo18b2o323b$115bo3bo2b2o13bobo321b$114bo5bob2o\n        14b2o321b$114bo5b4o337b$114b6o341b2$130b2o46bo2bo279b$129b2ob2o43bo\n        283b$130b4o5b2o36bo3bo279b$131b2o5b2ob4o15b4o13b4o280b$139b6o15bo3bo\n        296b$140b4o16bo300b$161bo2bo296b$181b3o277b$165bo10bobobo3bo276b$163b\n        3o10bo7bo27bobo10bo235b$162bo3bo15b2o5bo22b2o9b2o236b$162bo4b3o19bobo\n        21bo10b2o235b$162b2obob3o8bo10b2o270b$164bo3b2o34bo256b$165bobo34bo3bo\n        254b$194bo6bo259b$194bobo4bo4bo254b$160b4o5b2o23b2o5b5o255b$160bo3bo3b\n        2ob2o4b2o282b$160bo8b4o3b4o281b$161bo2bo5b2o3b2ob2o9bo9bo261b$176b2o\n        11bo9bobo259b$182bobo4b2o2bo5b2o260b$181b2o2bo7bo267b$182bobo4b2o2bo\n        267b$176b2o11bo271b$175b2ob2o9bo271b$176b4o281b$177b2o282b$68b2o125b2o\n        264b$66bo4bo122b4o263b$65bo127b2ob2o263b$57bo2bo4bo5bo68bo2bo50b2o265b\n        $56bo8b6o68bo64bo256b$56bo3bo78bo3bo59bobo255b$56b4o62b4o13b4o55b2o2b\n        2ob3o6bo246b$42b4o76bo3bo66b12ob2o6bobo244b$41b7o4b2o68bo70bo7bo2bo9b\n        2o245b$40b2ob3ob2o2bobo69bo2bo66bo6b2o3b2o254b$41b2o3b2o2bo2b2o93bo45b\n        o266b$50bo2bo73b2o19bobo45b2o263b$44b2o4bobo72b5o18b2o311b$42bo8bo72bo\n        4bo2b3obo63b2o259b$41bo82bo2b3o3bo3b2o60b4o258b$41bo3bo78b2o2bo7bobo\n        14bo44b2ob2o258b$41b4o81b2o7b2obo14bobo10bo32b2o260b$25b2o109b2o15b2o\n        9bo3bo292b$24b4o108bo26bo297b$23b2ob2o135bo4bo292b$24b2o5b2ob3o85b4o5b\n        2o25bo4b5o293b$30bo5b2o84bo3bo3b2ob2o4b2o17bobo300b$29b2o7bo10bo72bo8b\n        4o3b4o16b2o301b$30bo5b2o9bo2bo72bo2bo5b2o3b2ob2o9bo309b$24b2o5b2ob3o\n        10b2o89b2o11bo11b2o296b$9bo2bo5b2o3b2ob2o116bobo4b2o2bo7b2o296b$8bo8b\n        4o3b4o115b2o2bo7bo18b2o285b$8bo3bo3b2ob2o4b2o16b2o99bobo4b2o2bo17b2ob\n        3o282b$8b4o5b2o24bobo3b5o84b2o11bo22b5o282b$43bo5bo4bo82b2ob2o9bo23b3o\n        283b$49bo88b4o319b$50bo3bo21b2o61b2o320b$19b2o17b2o12bo22b2ob4o73b4o\n        302b$10b3o7b2o16bobo26b2o7b6o73bo3bo14b2o285b$10bo6bo2bo17bo27b2ob2o6b\n        4o74bo19b2o284b$10bobo6bo34b2o11b4o85bo17bo286b$11b2o3b2o34bo15b2o88b\n        2o301b$33b2o16bo6bo103b3o296b$33bo17bo8bo94b2o3b2o3bo295b$9bo2bo20bo\n        17b8obo93b2ob3obo2bo296b$8bo22b2o23b2o97b9o108bobo10bo175b$8bo3bo143b\n        4o112b2o9b2o176b$8b4o13b4o118bo22b4o99bo10b2o175b$25bo3bo22b2o94b2o20b\n        o3bo286b$25bo25b2ob2o91b2o21bo8b6o276b$26bo2bo22b4o115bo2bo4bo5bo275b$\n        35bo2bo14b2o124bo281b$34bo28b2o115bo4bo275b$34bo3bo7bo15b2o118b2o277b$\n        34b4o4bo3b3o15bo396b$40b2o5b2o412b$40b3o6bo8bo402b$40b2o5b2o9b2o401b$\n        34b4o4bo3b3o9b2o401b$28bo2bo2bo3bo7bo414b$19b2o6bo6bo426b$18b2ob2o4bo\n        3bo3bo2bo22b3o397b$19b4o4b4o22b2o5b5o396b$20b2o30b2o5b2ob3o396b$54bo5b\n        2o399b$27bo433b$22b3o3bo78b2o352b$21b3obo3bo18b2o56bobo352b$20b2o6bo\n        18b2o59bo156bo195b$21bob5o14bo6bo215bobo193b$22b4o10bo6bo75bo21bo123b\n        2o194b$24bo11bo3b2obo74b2o22bo131bo186b$40b3o75bobo19b3o131bobo184b$\n        41bo10b3o219b2o185b$19b2o30b5o405b$18b2ob2o14b2o11b2ob3o405b$19b4o13b\n        4o11b2o408b$20b2o13b2ob2o421b$36b2o17b2o404b$54b3o31b4o369b$55b2o2b2o\n        26b9o365b$59b2o25b2ob3obo2bo364b$50b2o3bo31b2o3b2o3bo363b$49b2ob4obo\n        36b3o364b$50b7o33b2o369b$51b2o35bo15bo356b$87bo15bobo355b$37b4o46bo3bo\n        13bo355b$36b7o44b4o13bo356b$35b2ob3ob3o416b$36b2o3b2obo416b$69b4o388b$\n        39b2o28bo3bo387b$37bo31bo7bo383b$36bo33bo2bo2b7o378b$36bo3bo34b2ob3o2b\n        o10bo366b$36b4o30bo2bo2b7o9b3o366b$49bo19bo7bo15bobo365b$48b2o5b2o12bo\n        3bo387b$18b4o26bobo3b4o4b4o3b4o388b$18bo3bo10bo19b2ob2o4bo3bo22bo371b$\n        18bo7b2o4bobo19b2o6bo25b2o5b2o364b$19bo2bo2b4o3bo2b2o26bo2bo21bobo3b2o\n        b3o361b$24b2o3bo5bob2o56b5o361b$19bo2bo2b4o3bo2b2o59b3o362b$18bo7b2o4b\n        obo29b2o18bo247bobo10bo115b$4b2o12bo3bo10bo22b2o7bo17b2o247b2o9b2o116b\n        $3b4o4b4o3b4o17bo15b2o5bo2bo17bobo241bo5bo10b2o115b$2b2ob2o4bo3bo22b2o\n        16b2o4b3o263b2o131b$3b2o6bo26bobo3b2o11bo3b2o15bo248b2o132b$12bo2bo27b\n        2ob3o29bo382b$44b5o27bobo382b$16b2o16bo10b3o7b2o20bo383b$6b2o8b2o15b2o\n        19b4o18b2o383b$5bo2bo5bo3bo14bobo17b2ob2o403b$4b2o2bo4bo3bo36b2o15b2o\n        388b$5b2o2bo2bo4bo52b2ob2o386b$6b4o3bobo13bo41b4o210bobo173b$28b2o42b\n        2o212b2o173b$28bobo255bo174b$4b2o335b2o118b$3b4o334bobo117b$2b2ob2o63b\n        2o269bo119b$3b2o15b2o32b2o13b2ob2o387b$19b2ob2o29b4o13b4o387b$20b4o28b\n        2ob2o14b2o388b$21b2o30b2o406b2$325bo135b$67b2o4bo251bobo133b$56b2o9b2o\n        3b3o7bo38b2o198bo3b2o134b$55bo2bo12b2ob2o4b2o23b2o13b2ob2o197bo11bo\n        126b$54b2o2bo11b3ob3o4b2o21b4o13b4o195b3o11bobo124b$55b2o2bo11b2ob3o\n        26b2ob2o14b2o210b2o125b$56b4o12bobo29b2o355b$87bo373b$85b2o7b2o365b$\n        54b2o30b2o5b2ob3o17b2o14bo328b$53b4o4b4o29b5o16bo2bo11b2o329b$52b2ob2o\n        4bo3bo3bo2bo22b3o8b2o13b3o7b2o328b$53b2o6bo6bo23bo12b2o5bo8bo2bo336b$\n        62bo2bo2bo3bo11b2o4b2o14b2o4bo3bo3b2ob2o336b$68b4o11bo7b2o14bo3bo4bo\n        20bo323b$74b3o2b2o7bo25bo20b2o324b$74b3o2b2o8bo46b2o7b2o314b$74b3o2b2o\n        7bo8bo7b2o37b2ob3o311b$68b4o11bo11b2o7b4o4b4o29b5o133b2o38b2o136b$68bo\n        3bo11b2o10b2o5b2ob2o4bo3bo3bo2bo18bo3b3o135b2o38b2o135b$68bo35b2o6bo6b\n        o20b2o141bo39bo137b$69bo2bo40bo2bo2bo3bo7bo9b2o318b$19b2o66bo2bo28b4o\n        4bo3b3o255b3o69b$18b4o64bo38b2o5b2o255bo71b$17b2ob2o64bo3bo34b3o6bo\n        255bo70b$b2o15b2o66b4o35b2o5b2o327b$2ob2o92bo21b4o4bo3b3o321b2o4b$b4o\n        90b2obo20bo3bo7bo190b3o129b2ob4o$2b2o83b3o10bo18bo202bo132b6o$26bobo\n        57b5o9bo19bo2bo28bo131bo38bo132b4ob$26b2o42b2o13b2ob4o5bo2bo37bo2bo8b\n        2o132b2o61b2o112b$4b4o3bobo13bo41b4o13b2o5b2o3bo38bo13b2o130bobo61bobo\n        111b$3b2o2bo2bo4bo52b2ob2o39bo24bo3bo205bo113b$2b2o2bo4bo3bo36b2o15b2o\n        39b2o25b4o320b$3bo2bo5bo3bo14bobo17b2ob2o50bo4b2o37bo310b$4b2o8b2o15b\n        2o19b4o18b2o24b2o4bo43bo243b5o62b$14b2o16bo10b3o7b2o20bo23b2ob2o2b2o\n        30b3o3bo249bo4bo61b$42b5o27bobo23b4ob3o29b5o2bo7bo241bo66b$10bo2bo27b\n        2ob3o29bo24b4o3bob2o24b2ob4obo7bo242bo3bo61b$b2o6bo26bobo3b2o11bo3b2o\n        15bo28bob5o25b2o258bo63b$2ob2o4bo3bo22b2o16b2o4b3o41b2ob2o352b$b4o4b4o\n        3b4o17bo15b2o5bo2bo17bobo22bo354b$2b2o12bo3bo10bo22b2o7bo17b2o19b2ob2o\n        354b$16bo7b2o4bobo29b2o18bo18b5o355b$17bo2bo2b4o3bo2b2o59b3o3b2ob3o\n        355b$22b2o3bo5bob2o56b5o3b2o358b$17bo2bo2b4o3bo2b2o26bo2bo21bobo3b2ob\n        3o363b$16bo7b2o4bobo19b2o6bo25b2o5b2o366b$16bo3bo10bo19b2ob2o4bo3bo22b\n        o373b$16b4o26bobo3b4o4b4o3b4o390b$46b2o5b2o12bo3bo389b$47bo19bo7bo15bo\n        bo367b$34b4o30bo2bo2b7o9b3o188b2o178b$34bo3bo34b2ob3o2bo10bo188bobo\n        177b$34bo33bo2bo2b7o200bo179b$35bo31bo7bo385b$37b2o28bo3bo389b$67b4o\n        390b$34b2o3b2obo418b$33b2ob3ob3o418b$34b7o44b4o13bo358b$35b4o46bo3bo\n        13bo357b$85bo15bobo357b$49b2o35bo15bo358b$48b7o33b2o371b$47b2ob4obo36b\n        3o366b$48b2o3bo31b2o3b2o3bo105b2o258b$57b2o25b2ob3obo2bo104bo4bo256b$\n        53b2o2b2o26b9o104bo262b$52b3o31b4o100bo2bo4bo5bo256b$53b2o134bo8b6o\n        257b$40bo2bo145bo3bo267b$39bo9b2o138b4o268b$39bo3bo4b2ob3o121b4o282b$\n        22b4o13b4o6b5o120b7o4b2o274b$22bo3bo23b3o120b2ob3ob2o2bobo274b$22bo93b\n        obo55b2o3b2o2bo2b2o273b$23bo2bo89b2o65bo2bo274b$43b3o71bo25b2o32b2o4bo\n        bo275b$27bo10bobobo3bo97b2o29bo8bo276b$25b3o10bo7bo59bo36bo30bo14b2o\n        270b$24bo3bo15b2o5bo52bobo67bo3bo10bobo269b$24bo4b3o19bobo51b2o67b4o\n        11bo139b3o129b$24b2obob3o8bo10b2o105b2o169bo131b$26bo3b2o34bo90b4o169b\n        o130b$27bobo34bo3bo87b2ob2o9bo23b3o264b$56bo6bo93b2o11bo22b5o263b$56bo\n        bo4bo4bo94bobo4b2o2bo17b2ob3o64b3o196b$22b4o5b2o23b2o5b5o94b2o2bo7bo\n        18b2o67bo198b$22bo3bo3b2ob2o4b2o122bobo4b2o2bo88bo197b$22bo8b4o3b4o\n        115b2o11bo8b2o106b2o172b$23bo2bo5b2o3b2ob2o19bo80bo2bo5b2o3b2ob2o9bo8b\n        obo105bobo171b$38b2o5b2ob3o12bo77bo8b4o3b4o18bo107bo173b$44bo5b2o8bobo\n        78bo3bo3b2ob2o4b2o301b$43b2o7bo8bo79b4o5b2o30b5o274b$44bo5b2o122b2o6bo\n        4bo273b$38b2o5b2ob3o15bo107bobo5bo56bo221b$37b2ob2o24bobo92bo12bo8bo3b\n        o42b6obo3bo219b$38b4o24b2o77b2o13bo2bo21bo32b2o10bo5bo3b3o218b$39b2o\n        102b2ob2o11bo3bo53b2ob2o8bo5bo5bo218b$55b4o84bo2bo12bo3bo5b2o47b4o9bo\n        3bo3b2obo218b$55bo3bo83bo2bo12bo3bo5bobo47b2o12bo5b3o219b$55bo88b2o9b\n        2o3bobo6bo62b2o227b$56bo98b2o4bo69b4o226b$58b2o170b2ob2o226b$142bo2bo\n        85b2o228b$55b2o3b2obo77bo319b$54b2ob3ob3o77bo3bo315b$55b7o79b4o13b4o\n        51b2o246b$56b4o98bo3bo49b2ob2o8bo235b$70b4o84bo54b4o3bo4bobo233b$70bo\n        3bo84bo2bo51b2o3bo5bo2bo232b$70bo8b6o133bo2bo6bo232b$71bo2bo4bo5bo128b\n        2o3bo5bo2bo8bo223b$79bo133b4o3bo4bobo9b2o222b$80bo4bo126b2ob2o8bo235b$\n        82b2o113b4o5b2o5b2o26bo219b$197bo3bo3b2ob2o22b3o4bo3bo217b$197bo8b4o\n        22bo5bo222b$198bo2bo5b2o24bo4bo4bo217b$238b5o218b$210bo250b$200b2o8b2o\n        15b3o231b$199bo2bo9bo14bo233b$199bo2bo4b5o16bo232b$199b2ob2o3b4o250b$\n        201b2o4bo253b$222b3o236b$222bo238b$223bo237b$197b4o260b$197bo3bo13bo2b\n        o6b2o234b$197bo16bo8bo237b$198bo2bo12bo3bo3bo6b2o3b2o225b$214b4o4bo7bo\n        2bo227b$222b12ob2o224b$227b2o2b2ob3o224b$232bobo226b$233bo227b$223b2o\n        236b$222b2ob2o234b$223b4o234b$224b2o43b3o189b$206b2o61bo191b$205b4o61b\n        o190b$204b2ob2o252b$205b2o5b2ob3o243b$211bo5b2o242b$210b2o7bo241b$211b\n        o5b2o242b$205b2o5b2ob3o9b2o232b$190bo2bo5b2o3b2ob2o18bobo231b$189bo8b\n        4o3b4o18bo233b$189bo3bo3b2ob2o4b2o253b$189b4o5b2o30b5o226b$222b2o6bo4b\n        o225b$222bobo5bo230b$209bo12bo8bo3bo225b$193b2o13bo2bo21bo227b$191b2ob\n        2o11bo3bo249b$191bo2bo12bo3bo5b2o242b$191bo2bo12bo3bo5bobo241b$192b2o\n        9b2o3bobo6bo243b$203b2o4bo24bo226b$225b6obo3bo224b$190bo2bo31bo5bo3b3o\n        223b$189bo35bo5bo5bo223b$189bo3bo32bo3bo3b2obo223b$189b4o13b4o18bo5b3o\n        224b$206bo3bo16b2o232b$206bo19b4o231b$207bo2bo14b2ob2o231b$226b2o11b3o\n        219b$239bo221b$240bo220b$208b2o251b$207b2ob2o8bo240b$208b4o3bo4bobo\n        238b$209b2o3bo5bo2bo237b$213bo2bo6bo237b$209b2o3bo5bo2bo237b$208b4o3bo\n        4bobo238b$207b2ob2o8bo8b3o229b$192b4o5b2o5b2o19bo6bo224b$192bo3bo3b2ob\n        2o25bo3bo3bo222b$192bo8b4o28bo227b$193bo2bo5b2o29bo4bo222b$224b3o6b5o\n        223b$224bo236b$195b2o7bo20bo235b$194bobo3b2o7b5o247b$194bo18bo247b$\n        194b3o13b3o6b3o239b$205b2o4bo7bo241b$205b2o13bo240b3$192b4o265b$192bo\n        3bo13bo2bo247b$192bo16bo251b$193bo2bo12bo3bo247b$209b4o!",
+    group: patternGroups.puffer
+  },
+  'gosper-glider-gun': {
+    name: 'Планерное ружьё Госпера',
+    code: "24bo11b$22bobo11b$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o14b$2o8b\n        o3bob2o4bobo11b$10bo5bo7bo11b$11bo3bo20b$12b2o!",
+    group: patternGroups.gun
+  },
+  'simkin-glider-gun': {
+    name: 'Планерное ружьё Симкина',
+    code: "2o5b2o$2o5b2o2$4b2o$4b2o5$22b2ob2o$21bo5bo$21bo6bo2b2o$21b3o3bo3b2o$\n        26bo4$20b2o$20bo$21b3o$23bo!",
+    group: patternGroups.gun
+  },
+  'ak-94': {
+    name: 'AK-94',
+    code: "7bo7bo7b2o$7b3o5b3o5b2o$10bo7bo$9b2o6b2o16b2o$30b2o2bo2bo$30bobo2b2o$\n        33b2o$5bo28bo$5b3o26bob2o$8bo22b2obo2bo$7b2o22b2ob2o3$17bo$2b2ob2o9bob\n        o10b2o$o2bob2o8bo3bo9bo$2obo11bo3bo10b3o$3bo11bo3bo12bo$3b2o11bobo$b2o\n        2bobo9bo$o2bo2b2o$b2o16b2o$19bo$13b2o5b3o$13b2o7bo!",
+    group: patternGroups.gun
+  },
+  'slide-gun': {
+    name: 'Скользящее ружьё',
+    code: "56b2o51b$56b2o51b2$78bo30b$78bobo28b$81b2o6b2o18b$38b2o27b2o12b2o4bo3b\n        o17b$38b2o16b3o8b2o12b2o3bo5bo8b2o6b$78bobo4b2obo3bo8b2o6b$56bobo19bo\n        7bo5bo16b$55b5o27bo3bo17b$54b2o3b2o4b2o22b2o18b$54b2o3b2o3bo2bo11bo29b\n        $64bo12b2o30b$64bo13b2o29b$64bob2o41b$66b2o41b2$83b2o24b$59b2o4b2o15b\n        2o10bobo12b$59bo5b2o17bo8bo2bo12b$60b3o16b2o11b2o10b2o3b$62bo16bobo8b\n        2o3bo8b2o3b$74b2o6bo9b2o5b2o8b$73bo2bo2bo2bo10bo2bo4bo7b$73b3o6bo11bob\n        o12b$46b3o22b3o5bobo27b$48bo15bo5bobo6b2o28b$47bo14b2o6bo38b$63b2o4b2o\n        38b$55bo53b$35b2o17bobo52b$35bo18b2obo14b2o35b$24bo8bobo18b2ob2o14bo\n        35b$24b4o5b2o19b2obo15bobo10bo22b$8bo16b4o15b2o8bobo4b2o11b2o9b4o20b$\n        7bobo5b2o8bo2bo14bobo9bo5bobo7bo12b2ob4o5b2o11b$5b2o3bo14b4o14bo19bo6b\n        2o11b3ob2o3bo3bo2bo9b$2o3b2o3bo4bobob2o3b4o14b2o19b2o5bobo11b2ob2o3bo\n        7bo8b$2o3b2o3bo5b2o3bo2bo60b5o3bo6bo6b2o$7bobo10bo18b2o45bo3b3o7bo6b2o\n        $8bo8bo2bo10b3o4bobo27b2o26bo2bo9b$33bo3b3o28bo2bo24b2o11b$32bo4b2o70b\n        $40b2o26bo2bo12bo24b$27bo11b3o25bo2bo11b2o25b$28bo38bobo12b3o24b$28bo\n        39bo11b3o26b$24bo2bo11b2o39b2o27b$6bo5b2o9bo15b2o27b2o39b$4bo3bo3b3o\n        10bo42b2o16b2o9bo11b$8bo5b2obo11bo55b4o7bobo10b$3bo5bo4bo2bo10b2o50bob\n        o2bo2b3o5b2obo9b$3b2o9b2obo9b2o4b2o2b2o40bo2bo2b2o9b2ob2o3b2o3b$12b3o\n        11b3o4b2o2b2o31b2o6b2o9bo6b2obo4b2o3b$12b2o13b2o4b2o35b2o4b2o3bo8bo5bo\n        bo10b$28b2o48b2o10bo6bo11b$29bo49bo2bo26b$80bobo!",
+    group: patternGroups.gun
+  },
+  block: {
+    name: 'Блок, 1',
+    code: "2o$2o!",
+    group: patternGroups.oscillator
+  },
+  blinker: {
+    name: 'Мигалка, 2',
+    code: "3o!",
+    group: patternGroups.oscillator
+  },
+  'figure-8': {
+    name: 'Фигура 8, 8',
+    code: "2o4b$2obo2b$4bob$bo4b$2bob2o$4b2o!",
+    group: patternGroups.oscillator
+  },
+  '43P18': {
+    name: '43P18, 18',
+    code: "4bo$4obo$3obobo$5bobo$6bo$5b2o$5b2o3bo$5b2o2bobob2o$13b2o3$7bo2bo$7bo$\n        6bo4bo$5bobo2b2o$3b2obo3$3bo2bo$5b2o!",
+    group: patternGroups.oscillator
+  },
+  beluchenko: {
+    name: 'Осциллятор Белученко, 37',
+    code: "11b2o11b2o11b$11b2o11b2o11b3$6bo23bo6b$5bobo5bo9bo5bobo5b$4bo2bo5bob2o\n        3b2obo5bo2bo4b$5b2o10bobo10b2o5b$15bobobobo15b$16bo3bo16b2$2o33b2o$2o\n        33b2o$5b2o23b2o5b2$6bobo19bobo6b$6bo2bo17bo2bo6b$7b2o19b2o7b2$7b2o19b\n        2o7b$6bo2bo17bo2bo6b$6bobo19bobo6b2$5b2o23b2o5b$2o33b2o$2o33b2o2$16bo\n        3bo16b$15bobobobo15b$5b2o10bobo10b2o5b$4bo2bo5bob2o3b2obo5bo2bo4b$5bob\n        o5bo9bo5bobo5b$6bo23bo6b3$11b2o11b2o11b$11b2o11b2o!",
+    group: patternGroups.oscillator
+  },
+  '60P312': {
+    name: '60P312, 312',
+    code: "20b2o$20b2o4$9b2o$8bo2bo10b2o$9b2o11bo$22bo12bo$23bo10bobo$34bobo$35bo\n        7$32bo2bo$33b3o$2o38b2o$2o38b2o$6b3o$6bo2bo7$6bo$5bobo$5bobo10bo$6bo\n        12bo$19bo11b2o$18b2o10bo2bo$31b2o4$20b2o$20b2o!",
+    group: patternGroups.oscillator
+  }
+};
+var cache = {};
+
+function getDataFromRLE(RLEString) {
+  if (RLEString in cache) {
+    return cache[RLEString];
+  }
+
+  var s = RLEString.replace(/\s|\n/g, '').split('!')[0];
+  var rows = s.split('$');
+  var result = [];
+  var j = 0; // номер строки
+
+  var maxI = 0;
+
+  var _iterator = _createForOfIteratorHelper(rows),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var row = _step.value;
+      var parts = row.match(/\d*[bo]/g);
+      var i = 0; // номер столбца
+
+      var _iterator2 = _createForOfIteratorHelper(parts),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var part = _step2.value;
+          // 5bobo10bo -> 5, 1, 1, 1, 10, 1
+          var l = part.length === 1 ? 1 : Number(part.slice(0, -1));
+
+          if (part.endsWith('o')) {
+            // живые клетки записываем явно
+            var end = i + l;
+
+            while (i < end) {
+              result.push([j, i]);
+              i++;
+            }
+          } else {
+            // мёртвые пропускаем
+            i += l;
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      if (i > maxI) {
+        maxI = i;
+      }
+
+      var linesCount = row.match(/\d+$/);
+
+      if (linesCount) {
+        // пропускаем пустые строки
+        j += Number(linesCount[0]);
+      } else {
+        j++;
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  var data = {
+    array: result,
+    width: maxI,
+    height: j
+  };
+  cache[RLEString] = data;
+  return data;
+}
+
+var gameTimeout;
+
+var Game = _index.Component.Game(function (_ref) {
+  var props = _ref.props,
+      state = _ref.state,
+      hooks = _ref.hooks;
+  var _props$H = props.H,
+      H = _props$H === void 0 ? 500 : _props$H,
+      _props$W = props.W,
+      W = _props$W === void 0 ? 1000 : _props$W;
+  state.init({
+    i: 0,
+    size: 0,
+    stop: true,
+    H: H,
+    W: W,
+    paint: false,
+    rule: {
+      new: {
+        2: true,
+        3: true
+      },
+      old: {
+        3: true
+      }
+    },
+    custom: false,
+    pattern: '3-engine-cordership-rake'
+  });
+  var canvas, img_data, data, ctx, fieldState, fieldStateNext;
+  hooks.didMount(function () {
+    var _state = state(),
+        H = _state.H,
+        W = _state.W,
+        pattern = _state.pattern;
+
+    if (gameTimeout) {
+      window.clearTimeout(gameTimeout);
+      gameTimeout = null;
+    }
+
+    fieldState = new Array(H * W);
+    fieldStateNext = new Array(H * W);
+
+    for (var i = 0; i < H * W; i++) {
+      fieldState[i] = false;
+      fieldStateNext[i] = false;
+    }
+
+    var startData = getDataFromRLE(patterns[pattern].code);
+    set_life(startData.array, startData.height, startData.width);
+    canvas = document.getElementById('field');
+    ctx = canvas.getContext('2d', {
+      alpha: false
+    });
+    img_data = ctx.getImageData(0, 0, W, H);
+    data = img_data.data;
+
+    for (var k = 0; k < H * W * 4; k++) {
+      data[k] = (k + 1) % 4 == 0 ? 255 : 0;
+    }
+
+    draw();
+    state.set({
+      size: fieldState.reduce(function (sum, x) {
+        return sum += x;
+      })
+    });
+  });
+
+  function paintControl() {
+    var _state2 = state(),
+        paint = _state2.paint;
+
+    if (!paint) {
+      canvas.onmousedown = null;
+      canvas.onmouseup = null;
+      canvas.onmouseout = null;
+      canvas.onmousemove = null;
+      return;
+    }
+
+    canvas.onmousedown = startDrawing;
+    canvas.onmouseup = stopDrawing;
+    canvas.onmouseout = stopDrawing;
+    canvas.onmousemove = draw;
+    var context = ctx;
+    var isDrawing;
+    context.strokeStyle = 'rgb(255,0,0)';
+    context.lineWidth = 1;
+    var pause = false;
+
+    var _canvas$getBoundingCl = canvas.getBoundingClientRect(),
+        x = _canvas$getBoundingCl.x,
+        y = _canvas$getBoundingCl.y;
+
+    function startDrawing(e) {
+      // Начинаем рисовать
+      isDrawing = true;
+
+      if (!state().stop) {
+        state.set({
+          stop: true
+        });
+        pause = true;
+      } // Создаем новый путь (с текущим цветом и толщиной линии)
+
+
+      context.beginPath(); // Нажатием левой кнопки мыши помещаем "кисть" на холст
+
+      context.moveTo(e.clientX - x, e.clientY - y);
+    }
+
+    function draw(e) {
+      if (isDrawing == true) {
+        // Определяем текущие координаты указателя мыши
+        var xd = e.clientX - x;
+        var yd = e.clientY - y; // Рисуем линию до новой координаты
+
+        context.lineTo(xd, yd);
+        context.stroke();
+      }
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+
+      var _state3 = state(),
+          W = _state3.W,
+          H = _state3.H;
+
+      img_data = ctx.getImageData(0, 0, W, H);
+      data = img_data.data;
+
+      for (var k = 0; k < H * W; k++) {
+        fieldState[k] = data[k * 4] === 255;
+      }
+
+      if (pause) {
+        state.set({
+          stop: false,
+          i: 0
+        }, life);
+        pause = false;
+      }
+    }
+  }
+
+  function torsum(i, j) {
+    var _state4 = state(),
+        H = _state4.H,
+        W = _state4.W; // положение строки над текущей клеткой
+
+
+    var i_top_W = (i ? i - 1 : H - 1) * W; // положение строки под текущей клеткой
+
+    var i_down_W = (H - 1 - i ? i + 1 : 0) * W; // положение строки текущей клетки
+
+    var i_W = i * W; // столбец слева от текущей клетки
+
+    var j_l = j ? j - 1 : W - 1; // столбец справа от текущей клетки
+
+    var j_r = W - 1 - j ? j + 1 : 0;
+    return +fieldState[i_top_W + j_l] + fieldState[i_top_W + j] + fieldState[i_top_W + j_r] + fieldState[i_W + j_l] + fieldState[i_W + j_r] + fieldState[i_down_W + j_l] + fieldState[i_down_W + j] + fieldState[i_down_W + j_r];
+  }
+
+  function set_life(array, height, width) {
+    var _state5 = state(),
+        W = _state5.W,
+        H = _state5.H;
+
+    var getMiddle = function getMiddle(x) {
+      return (x - x % 2) / 2;
+    };
+
+    var startX = getMiddle(W - (width || 0));
+    var startY = getMiddle(H - (height || 0));
+
+    var _iterator3 = _createForOfIteratorHelper(array),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var e = _step3.value;
+        var index = (startY + e[0]) * W + startX + e[1];
+        fieldState[index] = true;
+        fieldStateNext[index] = true;
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+
+    state.set({
+      size: array.length
+    });
+  }
+
+  function clear() {
+    var _state6 = state(),
+        W = _state6.W,
+        H = _state6.H;
+
+    for (var k = 0; k < H * W * 4; k++) {
+      data[k] = (k + 1) % 4 === 0 ? 255 : 0;
+    }
+
+    for (var _k = 0; _k < H * W; _k++) {
+      fieldState[_k] = data[_k * 4] === 255;
+    }
+
+    ctx.putImageData(img_data, 0, 0);
+    state.set({
+      stop: true,
+      i: 0,
+      size: 0
+    });
+  }
+
+  function draw() {
+    var _state7 = state(),
+        H = _state7.H,
+        W = _state7.W;
+
+    for (var k = 0; k < H * W; k++) {
+      if (+fieldState[k] !== !data[k * 4 + 1]) {
+        data[k * 4] = fieldState[k] ? 255 : 0;
+      }
+    }
+
+    ctx.putImageData(img_data, 0, 0);
+  }
+
+  function step() {
+    var _state8 = state(),
+        rule = _state8.rule,
+        H = _state8.H,
+        W = _state8.W;
+
+    var i,
+        j,
+        k = 0;
+
+    for (i = 0; i < H; i++) {
+      for (j = 0; j < W; j++) {
+        var sum = torsum(i, j);
+
+        if (fieldState[k]) {
+          fieldStateNext[k] = Boolean(rule.new[String(sum)]);
+        } else {
+          fieldStateNext[k] = Boolean(rule.old[String(sum)]);
+        }
+
+        k++;
+      }
+    }
+
+    for (k = 0; k < H * W; k++) {
+      fieldState[k] = fieldStateNext[k];
+    }
+  }
+
+  function one_step() {
+    step();
+    draw();
+    state.set(function (prevState) {
+      return {
+        i: prevState.i + 1
+      };
+    });
+  }
+
+  function life() {
+    var _state9 = state(),
+        stop = _state9.stop;
+
+    if (!stop) {
+      one_step();
+      state.set({
+        size: fieldState.reduce(function (sum, x) {
+          return sum += x;
+        })
+      });
+      gameTimeout = setTimeout(life, 0);
+    } else if (gameTimeout) {
+      window.clearTimeout(gameTimeout);
+      gameTimeout = null;
+    }
+  }
+
+  function onRuleChange(type, i, e) {
+    var index = String(i);
+    var prevStop;
+    state.set(function (prev) {
+      prevStop = prev.stop;
+      return _objectSpread({}, prev, {
+        stop: true,
+        rule: _objectSpread({}, prev.rule, _defineProperty({}, type, _objectSpread({}, prev.rule[type], _defineProperty({}, index, !prev.rule[type][index]))))
+      });
+    }, function () {
+      return state.set({
+        stop: prevStop
+      });
+    });
+  }
+
+  function getRuleCaption(type) {
+    var _state10 = state(),
+        rule = _state10.rule;
+
+    var result = [];
+
+    for (var _i = 0, _Object$keys = Object.keys(rule[type]); _i < _Object$keys.length; _i++) {
+      var key = _Object$keys[_i];
+
+      if (rule[type][key]) {
+        result.push(key);
+      }
+    }
+
+    return result.join('');
+  }
+
+  return function () {
+    var _state11 = state(),
+        stop = _state11.stop,
+        H = _state11.H,
+        W = _state11.W,
+        i = _state11.i,
+        size = _state11.size,
+        rule = _state11.rule,
+        paint = _state11.paint,
+        custom = _state11.custom,
+        pattern = _state11.pattern;
+
+    return _index.E.div(_index2.Breadcrumbs.items([['Проекты', 'projects'], ['Игра «Жизнь»']]), _index.E.div.class(b())(_index.E.div('Начальная конфигурация', _index.E.br, _index.E.sup('имеет смысл для классической версии, правила B3/S23'), _index.E.br, _index.E.div.style(_templateObject())(_index3.Select.onChange(function (e) {
+      var value = e.target.value;
+      state.set({
+        pattern: value
+      });
+    }).values(Object.keys(patterns).map(function (patternKey) {
+      return {
+        value: patternKey,
+        title: patterns[patternKey].name,
+        group: patterns[patternKey].group,
+        selected: state().pattern === patternKey
+      };
+    }))), _index3.Button.onClick(function () {
+      var _state12 = state(),
+          pattern = _state12.pattern;
+
+      var data = getDataFromRLE(patterns[pattern].code);
+      clear();
+      set_life(data.array, data.height, data.width);
+      draw();
+    })('Установить'), _index.E.div(_index3.Checkbox.checked(custom).onClick(function () {
+      return state.set(function (prev) {
+        return {
+          custom: !prev.custom
+        };
+      });
+    })('код конфигурации'), _index.E.br, custom && _index.E.textarea.style(_templateObject2(), W, W, W)(patterns[state().pattern].code.replace(/\s|\n/g, '').split('!')[0]))), _index.E.div.class(b('actions'))(_index3.Button.onClick(function () {
+      state.set(function (prevState) {
+        return {
+          stop: !prevState.stop
+        };
+      }, life);
+    })(_index.E.div.title(stop ? 'play' : 'stop').style(_templateObject3())(stop ? _index4.Icon.Play : _index4.Icon.Pause)), _index3.Button.disabled(!stop).onClick(function () {
+      return one_step();
+    })(_index.E.div.title('single step')(_index.E.div.style(_templateObject4())(_index4.Icon.StepForward), _index.E.sup('1'))), _index3.Button.class(b('paint', {
+      active: paint
+    })).onClick(function () {
+      state.set(function (prev) {
+        return {
+          paint: !prev.paint
+        };
+      }, paintControl);
+    })(_index.E.div.title('paint').style(_templateObject5())(_index4.Icon.PencilAlt)), _index3.Button.onClick(function () {
+      return clear();
+    })(_index.E.div.title('clear').style(_templateObject6())(_index4.Icon.Ban)), _index.E.div.style(_templateObject7())(_index.E.div(_templateObject8()), _index.E.div(_index.E.b("".concat(i))), _index.E.div(_templateObject9()), _index.E.div(_index.E.b("".concat(size))))), _index.E.br, _index.E.canvas.id('field').width(W).height(H).class(b('canvas', {
+      paint: paint
+    })), _index.E.p("\u0422\u0435\u043A\u0443\u0449\u0435\u0435 \u043F\u0440\u0430\u0432\u0438\u043B\u043E: B".concat(getRuleCaption('old'), "/S").concat(getRuleCaption('new'))), _index.E.br, _index.E.div(_index.E.p('Зарождение жизни'), range(0, 8).map(function (i) {
+      return _index3.Checkbox.checked(rule.old["".concat(i)]).onChange(onRuleChange.bind(_this, 'old', i))("".concat(i));
+    })), _index.E.div(_index.E.p('Продление жизни'), range(0, 8).map(function (i) {
+      return _index3.Checkbox.checked(rule.new["".concat(i)]).onChange(onRuleChange.bind(_this, 'new', i))("".concat(i));
+    })), _index.E.br, _index.E.p(_templateObject10(), _index.E.a.href('https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life')('Игра Жизнь'), _index.E.a.href('https://www.conwaylife.com/wiki/Main_Page')('тематического вики-сайта'), _index.E.a.href('/?/blog/6')('блоге'))));
+  };
+});
+
+var _default = Game;
+exports.default = _default;
+},{"../../utils/index.js":"utils/index.js","../index.js":"components/index.js","../../blocks/index.js":"blocks/index.js","../../icons/index.js":"icons/index.js","./GameOfLife.less":"components/GameOfLife/GameOfLife.less"}],"components/About/About.less":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/About/About.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = require("../../utils/index.js");
+
+var _index2 = require("../../blocks/index.js");
+
+require("./About.less");
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\u041C\u043E\u0439 ", ""]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\u0420\u0430\u0431\u043E\u0442\u0430\u044E \u0432 ", ""]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var b = (0, _index.block)('about');
+
+var about = _index.E.div.class(b())(_index.E.p('Программирую'), _index.E.p((0, _index.E)(_templateObject(), _index.E.a.href('https://yandex.ru')('Яндексе'))), _index.E.p('Люблю математику'), _index.E.p((0, _index.E)(_templateObject2(), _index.E.a.href('https://github.com/nikalexxx')('Github'))));
+
+var _default = about;
+exports.default = _default;
+},{"../../utils/index.js":"utils/index.js","../../blocks/index.js":"blocks/index.js","./About.less":"components/About/About.less"}],"MyComponent.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4806,18 +5804,17 @@ var routes = function routes(params) {
     //     E.ul(
     //         E.li`Поправить движок`,
     //         E.li`Меню для мобильной версии`,
-    //         E.li`Игра Жизнь`,
     //         E.li`Формат электронной книги`,
     //         E.li`Калькулятор`,
     //         E.li`Построитель графиков`,
     //         E.li`Схема метро(позже интерактивная)`
     //     )
     // ),
-    // 'gameOfLife': GameOfLife,
     'blog': _index2.Blog,
     'blog/:id': _index2.Post.id(params.id),
     'projects': _index2.Projects,
     'projects/unicode': _index2.Unicode,
+    'projects/game-of-life': _index2.GameOfLife,
     'physics': _index2.Physics,
     'physics/standard-model': _index2.StandardModel
   };
@@ -5085,7 +6082,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53578" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59014" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -5262,4 +6259,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=index.1.3.0.js.map
+//# sourceMappingURL=index.1.4.0.js.map

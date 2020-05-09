@@ -34,5 +34,11 @@ export default {
         creationTime: '2020-04-20T02:13:59',
         title: 'Добавляем светлую тему с CSS переменными',
         tags: ['css', 'css variables']
+    },
+    6: {
+        type: 'js',
+        creationTime: '2020-05-09T04:09:09',
+        title: 'Игра «Жизнь» и клеточные автоматы в браузере',
+        tags: ['js', 'game of life', 'cellular automaton']
     }
 }
