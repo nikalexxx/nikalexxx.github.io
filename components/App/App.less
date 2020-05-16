@@ -10,32 +10,41 @@
     grid-template-columns: auto 1fr;
     grid-template-rows: 0px auto 1fr auto;
     min-height: 100vh;
-    &__css {
-        --size-test: 0px;
-        margin-left: var(--size-test);
-        transition-duration: .1s;
-
-        &:hover {
-            margin-left: calc(var(--size-test) + 40px);
-
-            // &::after {
-            //     content: 'zzzzzzzzzzzzzz';
-            // }
-        }
-    }
 
     &__header {
         grid-area: header;
-        // box-shadow: 0 5px 3px black;
         background-color: var(--color-background-second);
         border-bottom: 1px solid var(--color-border);
         z-index: 4;
         padding: 8px;
+        min-height: 2em;
         display: grid;
         grid-template-columns: 1fr auto;
+        gap: 1em;
+        justify-content: stretch;
+
+        @media (max-width: 700px) {
+            grid-template-columns: auto 1fr auto;
+        }
 
         a {
             text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2em;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            @media (max-width: 50em) {
+                font-size: 4vw;
+            }
+
+            @media (max-width: 25em) {
+                font-size: 1em;
+            }
         }
     }
 
@@ -56,10 +65,68 @@
     &__menu {
         grid-area: menu;
         background-color: var(--color-background-second);
+
+        @media (max-width: 700px) {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: -100vw;
+            z-index: 900;
+            padding-top: 1em;
+            box-shadow: 0 0 3em rgba(0,0,0,1);
+            border-right: 1px solid var(--color-border);
+            transition: left .3s;
+
+            .mobile-visible & {
+                left: 0;
+                transition: left .1s;
+            }
+        }
+    }
+
+    &__menu-close-area {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 899;
+        display: none;
+        background-color: rgba(0,0,0,.5);
+
+        @media (max-width: 700px) {
+            .mobile-visible & {
+                display: block;
+            }
+        }
+    }
+
+    &__collapse-menu {
+        display: none;
+        margin: 4px;
+        padding: 4px;
+        position: sticky;
+        bottom: 1em;
+
+        @media (max-width: 700px) {
+            display: block;
+        }
+    }
+
+    &__menu-toggle {
+        display: none;
+
+        & > * {
+            height: 100%;
+        }
+
+        @media (max-width: 700px) {
+            display: block;
+        }
     }
 
     &__menu-link {
-        padding: 4px 8px;
+        padding: 8px 8px;
     }
 
     &__menu-link:hover {

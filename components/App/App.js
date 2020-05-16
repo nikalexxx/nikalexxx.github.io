@@ -42,7 +42,6 @@ const routes = params => ({
     //     MyComponent.state('error'),
     //     E.ul(
     //         E.li`Поправить движок`,
-    //         E.li`Меню для мобильной версии`,
     //         E.li`Формат электронной книги`,
     //         E.li`Калькулятор`,
     //         E.li`Построитель графиков`,
@@ -66,7 +65,11 @@ const Menu = Component.Menu(({state}) => {
         const current = path().startsWith(href) || path() === '/' && href === 'blog';
         // console.log(href, path());
         return RouteLink.href(href)(
-            E.div.class(b('menu-link', {current}))(
+            E.div.class(b('menu-link', {current})).onClick(() => {
+                if (document.documentElement.clientWidth < 700) {
+                    document.documentElement.classList.toggle('mobile-visible');
+                }
+            })(
                 title
             )
         );
@@ -79,7 +82,10 @@ const Menu = Component.Menu(({state}) => {
         renderLink('physics', 'Физика'),
         renderLink('design', 'Дизайн'),
         // renderLink('gameOfLife', 'Игра Жизнь'),
-        // renderLink('my/ok', 'тест')
+        // renderLink('my/ok', 'тест'),
+        E.div.class(b('collapse-menu'))(Button.onClick(() => {
+            document.documentElement.classList.toggle('mobile-visible');
+        })('свернуть меню')),
     )
 });
 
@@ -123,6 +129,11 @@ const Header = Component.Header(({state, hooks}) => {
     }
 
     return () => E.header.class(b('header'))(
+        E.div.class(b('menu-toggle'))(
+            Button.onClick(() => {
+                document.documentElement.classList.toggle('mobile-visible');
+            })(E.div.style('width: 1em; height: 1em;')(Icon.Bars))
+        ),
         RouteLink.href('/')(
             E.h1.style(style({textAlign: 'center'}))('Александр Николаичев')
         ),
@@ -137,6 +148,7 @@ const Page = E.div.class(b())(
     // ),
     Header,
     E.nav.class(b('menu'))(Menu),
+    E.div.class(b('menu-close-area')).onClick(() => document.documentElement.classList.toggle('mobile-visible')),
     E.main.class(b('content'))(Switch.routes(routes)),
     E.footer.class(b('footer'))('© 2019-2020 Alexandr Nikolaichev')
 );

@@ -40,5 +40,11 @@ export default {
         creationTime: '2020-05-09T04:09:09',
         title: 'Игра «Жизнь» и клеточные автоматы в браузере',
         tags: ['js', 'game of life', 'cellular automaton']
+    },
+    7: {
+        type: 'js',
+        creationTime: '2020-05-16T03:06:41',
+        title: 'Адаптивная вёрстка меню с CSS @media',
+        tags: ['css', '@media']
     }
 }
