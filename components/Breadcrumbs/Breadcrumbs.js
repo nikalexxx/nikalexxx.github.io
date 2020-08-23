@@ -1,22 +1,22 @@
+import './Breadcrumbs.less';
+
 import {
+    Component,
     E,
     M,
-    Component,
     RouteLink,
-    css,
     block,
+    css,
     style
 } from '../../utils/index.js';
-
-import './Breadcrumbs.less';
 
 const b = block('breadcrumbs');
 
 const Breadcrumbs = Component.Breadcrumbs(({props}) => {
     return () => E.div.class(b())(
-        props.items
+        props().items
         .map(([name, href], i) => {
-            const last = i === props.items.length - 1;
+            const last = i === props().items.length - 1;
             return E.span(
                 E.div.style('display: inline-block')(
                     last ? name : RouteLink.href(href)(name)

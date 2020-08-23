@@ -46,5 +46,11 @@ export default {
         creationTime: '2020-05-16T03:06:41',
         title: 'Адаптивная вёрстка меню с CSS @media',
         tags: ['css', '@media']
+    },
+    8: {
+        type: 'js',
+        creationTime: '2020-08-24T00:32:17',
+        title: 'Делегация обновления компонентов',
+        tags: ['js', 'virtual dom']
     }
 }

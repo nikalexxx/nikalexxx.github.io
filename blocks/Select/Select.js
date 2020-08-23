@@ -1,11 +1,11 @@
+import './Select.less';
+
 import {
+    Component,
     E,
     M,
-    Component,
     block
 } from '../../utils/index.js';
-
-import './Select.less';
 
 const b = block('select');
 
@@ -15,7 +15,7 @@ const Select = Component.Select(({props}) => {
 
     function getPreparedValues() {
         const groups = {[heap]: []};
-        for (const option of props.values) {
+        for (const option of props().values) {
             if (option.group) {
                 if (!groups[option.group]) {
                     groups[option.group] = [];
@@ -29,9 +29,9 @@ const Select = Component.Select(({props}) => {
     }
 
     return () => {
-        const groups = getPreparedValues(props.values);
+        const groups = getPreparedValues(props().values);
         return E.div.class(b())(
-            E.select.class(b('native')).onChange(props.onChange)(
+            E.select.class(b('native')).onChange(props().onChange)(
                 Object.keys(groups).map(name => {
                     const options = groups[name];
                     return E.optgroup.label(name)(

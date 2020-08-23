@@ -1,10 +1,5 @@
-import {getClone} from './clone.js';
-
-import {elementSymbol} from './symbols.js';
-
+import {componentSymbol, elementSymbol, subComponentSymbol} from './symbols.js';
 import {diff, isPrimitive, raw} from './diff.js';
-
-
 
 const namespaceKeys = {
     'http://www.w3.org/1999/xhtml': 0,
@@ -19,23 +14,114 @@ const namespaces = {
 }
 
 
-export function getNode(node) {
+/**
+ * Схлопывает массивы элементов
+ * @param {elementStructure} node
+ */
+export function getFlatNode(node) {
     if (Array.isArray(node)) {
         const result = [];
         for (const elem of node) {
             if (Array.isArray(elem)) {
-                result.push(...getNode(elem));
+                result.push(...getFlatNode(elem));
             } else {
-                result.push(getNode(elem));
+                result.push(getFlatNode(elem));
             }
         }
         return result;
-    } else if (typeof node === 'function') {
-        return getNode(node());
     } else {
         return node;
     }
 }
+
+
+/**
+ * Раскрывает функции компонентов
+ * @param {elementStructure} node
+ */
+export function getNode(node, expand = false, expandSub = false) {
+    if (Array.isArray(node)) {
+        // делаем массив плоским
+        return getFlatNode(node).map(e => getNode(e, expand, expandSub));
+    } else if (typeof node === 'function') {
+        if (subComponentSymbol in node && !expandSub) {
+            // суб-компоненты не раскрываем
+            return node;
+        }
+        if (componentSymbol in node && !expand) {
+            // компоненты не раскрываем, если не указано
+            return node;
+        } else {
+            // вызываемые прокси раскрываем в дерево
+            return getNode(node(), expand, expandSub);
+        }
+    } else {
+        return node;
+    }
+}
+
+
+export function checkSubComponents({node, subComponents}) {
+    // node - неразобранное дерево
+    // subComponents - существующие субкомпоненты, мутабельный объект
+
+    // индикатор, что есть субкомпоненты для обновления
+    let existSubComponents = false;
+
+    // колбеки для обновления свойств
+    const updateCallbacks = {};
+
+    // новые субкомпоненты
+    const newSubComponents = node.subComponents;
+
+    // удаляем старые компоненты
+    for (const path in subComponents) {
+        if (path in newSubComponents) {
+            continue;
+        } else {
+            delete subComponents[path];
+        }
+    }
+    for (const path in newSubComponents) {
+        if (path in subComponents) {
+            // путь совпадает, компонент уже есть в дереве
+
+            // помечаем функцию-элемент в дереве как клон субкомпонента, этот узел будет пропущен в diffElements
+            newSubComponents[path][subComponentSymbol] = true;
+
+            // берем новые свойства
+            const newProps = newSubComponents[path][componentSymbol].getProps();
+
+            // старые свойства
+            const oldProps = subComponents[path][componentSymbol].getProps();
+
+
+            if (Object.keys(diff(newProps, oldProps).length > 0)) {
+                // если свойства поменялись, добавляем функцию для обновления
+                updateCallbacks[path] = () => subComponents[path][componentSymbol].changeProps(newProps);
+                if (!existSubComponents) {
+                    existSubComponents = true;
+                }
+            }
+        } else {
+            // новый компонент
+            // TODO: позже сделать проверку на перенос хотя бы в пределах соседних узлов
+
+            // сохраняем новый субкомпонент
+            subComponents[path] = newSubComponents[path];
+        }
+    }
+
+    // получаем разобранное дерево с учётом субкомпонентов
+    const newElement = getNode(node, true);
+
+    return {
+        existSubComponents,
+        updateCallbacks,
+        newElement
+    };
+}
+
 
 const strToArray = (strings, ...elements) => {
     const list = [strings[0]];
@@ -45,9 +131,18 @@ const strToArray = (strings, ...elements) => {
     return list;
 }
 
+
+
 export const DOM = elementObject => {
     if (isPrimitive(elementObject)) {
         return document.createTextNode(elementObject);
+    }
+    if (typeof elementObject === 'function') {
+        if (subComponentSymbol in elementObject) {
+            return DOM(getNode(elementObject, true, true));
+        } else {
+            return DOM(getNode(elementObject, true));
+        }
     }
     const {namespace, tagName, props, children, eventListeners} = elementObject;
     const element = document.createElementNS(namespaces[String(namespace)], tagName);
@@ -66,7 +161,7 @@ export const DOM = elementObject => {
     if (Object.keys(children).length) {
         element.append(...Object.values(children).map(e => {
             const dom = DOM(e);
-            if (!isPrimitive(e)) {
+            if (!isPrimitive(e) && typeof e !== 'function') {
                 e.dom.parent = element;
             }
             return dom;
@@ -224,6 +319,9 @@ const elementStructure = T => ({
         [T(String)]: T(String)
     }),
     children: T`?`(Object)(T(elementStructure)),
+    subComponents: {
+        [T(String)]: T(Function)
+    },
     data: T(String)
 });
 
@@ -257,7 +355,6 @@ const diffFunctionStructure = t => t(Function)(({params}) =>
 */
 let i = 0;
 export function diffElements(A, B) {
-    // console.log({A, B});
     if (!B) {
         return diff.symbols.delete;
     }
@@ -271,6 +368,31 @@ export function diffElements(A, B) {
         } else {
             return raw(B);
         }
+    }
+
+    if (typeof B === 'function') {
+        // B - компонент
+        if (subComponentSymbol in B) {
+            // субкомпоненты обновляются самостоятельно
+            return {};
+        } else if (typeof A === 'function') {
+            // A - компонент
+            if (componentSymbol in A && componentSymbol in B && A[componentSymbol].name === B[componentSymbol].name) {
+                // сравниваем одинаковые компоненты
+                // раскрываем функции в деревья
+                return diffElements(getNode(A, true, true), getNode(B, true, true));
+            } else {
+                // возвращаем новый компонент, он раскроется в patchDOM
+                return raw(B);
+            }
+        } else {
+            // компонент заменил дерево
+            return raw(B);
+        }
+    }
+    if (typeof A === 'function') {
+        // B - дерево, заменило компонент A
+        return raw(B);
     }
     if (isPrimitive(B)) {
         return raw(B);
@@ -290,10 +412,7 @@ export function diffElements(A, B) {
     if ('_update' in B.props && !B.props._update) {
         return {};
     }
-    // console.time('diff props');
     const diffProps = diff(A.props, B.props);
-    // console.timeEnd('diff props');
-    // console.time('diff events');
     const diffEventListeners = diff(A.eventListeners, B.eventListeners);
     for (const eventName of Object.keys(diffEventListeners)) {
         if (diffEventListeners[eventName] === diff.symbols.delete) {
@@ -303,9 +422,6 @@ export function diffElements(A, B) {
             diffEventListeners[diff.symbols.meta].deleteListeners[eventName] = A.eventListeners[eventName];
         }
     }
-    // console.timeEnd('diff events');
-    // const kc = 'diff children' + i;
-    // console.time(kc);
 
     const diffChildren = {};
     for (const key of Object.keys(B.children)) {
@@ -316,19 +432,18 @@ export function diffElements(A, B) {
     for (const key of Object.keys(A.children)) {
         if (key in B.children) {
             i++;
-            const k = 'children diff for key ' + key + i;
-            // console.time(k);
             const diffItems = diffElements(A.children[key], B.children[key]); // сравниваем рекурсивно
-            if (isPrimitive(diffItems) || diffItems === diff.symbols.delete || Object.keys(diffItems).length > 0) {
+            if (isPrimitive(diffItems)
+                || diffItems === diff.symbols.delete
+                || Object.keys(diffItems).length > 0
+                || componentSymbol in diffItems
+            ) {
                 diffChildren[key] = diffItems; // непустые добавляем
             }
-            // console.timeEnd(k);
         } else {
             diffChildren[key] = diff.symbols.delete; // удаляем старые ключи
         }
     }
-    // console.timeEnd(kc);
-    // console.time('diff result');
 
     const result = {};
     if (Object.keys(diffProps).length > 0) {
@@ -341,7 +456,6 @@ export function diffElements(A, B) {
         result.children = diffChildren;
     }
     result[diff.symbols.new] = B;
-    // console.timeEnd('diff result');
 
     return result;
 }
@@ -383,9 +497,6 @@ function getElementFromDOM(domElement) {
     }
 }
 
-// console.log(getElementFromDOM(document.head));
-// console.log(getElementFromDOM(document.body));
-// console.log(diffElements(getElementFromDOM(document.head), getElementFromDOM(document.body)));
 
 const getElement = namespace => new Proxy(strToArray, {
     get(target, tag) {
@@ -395,7 +506,8 @@ const getElement = namespace => new Proxy(strToArray, {
                 tagName,
                 props: {},
                 children: {},
-                eventListeners: {}
+                eventListeners: {},
+                subComponents: {}
             };
             for (const prop in props) {
                 if (prop.length > 2 && prop.startsWith('on') && prop[2] === prop[2].toUpperCase()) {
@@ -412,7 +524,7 @@ const getElement = namespace => new Proxy(strToArray, {
             }
             const nodes = [];
             for (let node of children.filter(e => e)) {
-                node = getNode(node);
+                node = getNode(node, false);
                 if (Array.isArray(node)) {
                     nodes.push(...node.filter(e => e));
                 } else {
@@ -431,6 +543,23 @@ const getElement = namespace => new Proxy(strToArray, {
                         dublicatedKeys.add(key);
                     }
                     element.children[index] = node; // TODO: рекурсивно выбрать уникальное значение
+                }
+
+                // div.0, span.key1, p.7
+                // TODO: улучшить ключ субкомпонента или ввести ограничение на ключ элемента
+                const localSubKey = `${tagName}.${key || index}`;
+                if (typeof node === 'function') {
+                    // разбор компонентов
+                    if (componentSymbol in node) {
+                        const subKey = `${localSubKey}#${node[componentSymbol].name}`;
+                        element.subComponents[subKey] = node;
+                    }
+                } else if (!isPrimitive(node) && Object.keys(node.subComponents).length > 0) {
+                    // проброс данных о субкомпонентах наверх по дереву
+                    for (const subKey in node.subComponents) {
+                        const newKey = `${localSubKey}>${subKey}`;
+                        element.subComponents[newKey] = node.subComponents[subKey];
+                    }
                 }
             }
             if (dublicatedKeys.size > 0) {
@@ -472,62 +601,6 @@ export const E = getElement('http://www.w3.org/1999/xhtml');
 export const S = getElement('http://www.w3.org/2000/svg');
 export const M = getElement('http://www.w3.org/1998/Math/MathML');
 
-// console.log(E.div(2));
-// const onHover = () => console.log('hover!');
-// console.log(E.div.id`text`.onclick('alert(2)').onHover(onHover).onClick(() => alert('hi!'))(2, [3,4,[5,6,[7,8, () => 11, {props:{_key: 'a'}, v: 444}]]]));
-// const a = (E.div.class`example`.id`ex`.onHover(onHover).onClick(() => alert('hi!!')).style(`style`)['data-value']`1`(
-//     'string',
-//     E.span`text`,
-//     E.p('str'),
-//     E`text v = ${E.span(2)}`,
-//     [ // Fragment analog
-//         E.div.style`color: red;`,
-//         E.div.style`color: red;`('red'),
-//         E.div.style`color: red;``red`,
-//         E.div.style`color: red;``red ${E.span(1)}`, // red [Function]
-//         E.div.style`color: red;`(E`red${E.span(1)}`) // red 1
-//     ],
-//     ...[1,2,3].map(i => E.i._key(i+'2')(i)),
-//     [1,2,3].map(i => E.i._key(i+'3')(i))
-// ));
-// const b = E.div.onHover(onHover)(55);
-// const c = E.article(
-//     E.span`222${E.span(1+11)}`
-// );
-// console.log({a});
-// console.log({b});
-// console.log(DOM(a));
-// console.log(DOM(b));
-// console.log(diffElements(a, b));
-// const domA = DOM(a);
-// console.log(DOM(a));
-// patchDOM(domA, diffElements(a, b));
-// console.log(domA);
-// const domA2 = DOM(a);
-// const block = DOM(E.div());
-// block.append(domA2);
-// patchDOM(domA2, diffElements(a, b));
-// console.log(diffElements(b, c));
-// patchDOM(domA2, diffElements(b, c));
-// console.log(block);
-// console.dir(block);
-
-
-
-// E.a
-// E['a']
-
-// E[Symbol('a')]
-// E[Symbol('props')]
-// E[Symbol('ref')]
-// // E[E.$`ref`]
-// // E[E.$`props`]
-// // E[E.$({a:1, b:2})]
-// E.$ // внутри []
-
-// E`a` // firstArg.raw - возвратит массив
-
-// E('a'), E([1, 2]), E(1, 2, E.span(1)) // преобразует в DOM
 
 // // резерв
 // E.$a

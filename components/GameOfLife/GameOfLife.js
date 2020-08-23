@@ -1,17 +1,18 @@
-import {
-    E,
-    block,
-    Component,
-} from '../../utils/index.js';
-import {Breadcrumbs} from '../index.js';
+import './GameOfLife.less';
+
 import {
     Button,
     Checkbox,
     Select
 } from '../../blocks/index.js';
-import { Icon } from '../../icons/index.js';
+import {
+    Component,
+    E,
+    block,
+} from '../../utils/index.js';
 
-import './GameOfLife.less';
+import {Breadcrumbs} from '../index.js';
+import { Icon } from '../../icons/index.js';
 
 const b = block('game-of-life');
 
@@ -469,7 +470,7 @@ const Game = Component.Game(({
 }) => {
     const {
         H = 500, W = 1000
-    } = props;
+    } = props();
     state.init({
         i: 0,
         size: 0,

@@ -1,15 +1,15 @@
+import './StandardModel.less';
+
 import {
-    block,
-    E,
-    style,
     Component,
+    E,
     RouteLink,
-    css
+    block,
+    css,
+    style
 } from '../../utils/index.js';
 
 import {Breadcrumbs} from '../index.js';
-
-import './StandardModel.less';
 
 const b = block('standard-model');
 

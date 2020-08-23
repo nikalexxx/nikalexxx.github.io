@@ -1,6 +1,6 @@
 import {
-    S,
-    Component
+    Component,
+    S
 } from '../utils/index.js';
 
 export default Component.PlayIcon(({props}) => () =>
@@ -10,7 +10,7 @@ export default Component.PlayIcon(({props}) => () =>
         .role`img`
         .xmlns`http://www.w3.org/2000/svg`
         .viewBox`0 0 448 512`
-        ._props(props)
+        ._props(props())
     (
         S.path
             .fill`currentColor`

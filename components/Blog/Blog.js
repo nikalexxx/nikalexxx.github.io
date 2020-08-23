@@ -1,23 +1,22 @@
+import './Blog.less';
+
 import {
+    Component,
     E,
     M,
-    Component,
     RouteLink,
-    css,
     block,
+    css,
     style
 } from '../../utils/index.js';
 
-import blog from '../../data/blog/index.js';
 import {Button} from '../../blocks/index.js';
-
-import './Blog.less';
+import blog from '../../data/blog/index.js';
 
 const b = block('blog');
 
 const Blog = Component.Blog(() => {
     const total = Object.keys(blog).length;
-    // console.log(`total ${total}`);
 
     return () => E.div.class(b())(
         Object.keys(blog).sort((keyA, keyB) => {

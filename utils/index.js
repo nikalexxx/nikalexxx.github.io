@@ -7,5 +7,4 @@ export {Switch, RouteLink, getRouterState} from './router.js';
 export {default as Custom} from './custom.js';
 export {log, setLogger, logAllLevels} from './logger.js';
 export {consoleStyle} from './consoleStyle.js';
-export {Class} from './class.js';
 export {diff} from './diff.js';

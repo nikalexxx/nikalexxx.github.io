@@ -114,9 +114,3 @@ export function diff(A, B) {
 
 diff.symbols = D;
 
-// console.log(diff([1,2,3,6,8], [1,4,3,2]));
-// console.log(diff({a:[1]}, {a:[2]}));
-// console.log(diff({a:1,b:2, c:{}}, {a:2, c: {a:{s:{}}}}));
-// console.log(document.head);
-// console.log(document.body);
-// console.log(diff(document.head, document.body));

@@ -1,11 +1,8 @@
-import {E, DOM, getNode, diffElements, patchDOM} from './element.js';
-import {getClone} from './clone.js';
-import {
-    getChildren
-} from './children.js';
-import style from './style.js';
+import {DOM, E, checkSubComponents, diffElements, getFlatNode, getNode, patchDOM} from './element.js';
+import {componentSymbol, elementSymbol} from './symbols.js';
+
 import {log} from './logger.js';
-import {elementSymbol, componentSymbol} from './symbols.js';
+import style from './style.js';
 
 const set = state => arg => {
     let newObject;
@@ -66,6 +63,10 @@ function isTypeChanged(element, newElement) {
 }
 
 function componentConstructor(componentName) {
+    if (!componentName.match(/[A-Za-z][A-Za-z0-9-_]*/)) {
+        throw new Error(`Component name shold be match with /[A-Za-z][A-Za-z0-9-_]*/`);
+    }
+
     const handlerErrors = new Proxy({}, {
         get(target, name) {
             if (!(name in target)) {
@@ -73,34 +74,16 @@ function componentConstructor(componentName) {
             }
             return target[name];
         }
-    })
+    });
 
     return function (makeComponent) {
-        const create = (props = {}, children = []) => {
+        const create = (initialProps = {}, children = []) => {
             // уникальный идентификатор для созданного элемента
             const componentNameSymbol = Symbol(componentName);
 
-            function didMountEvent(element, source) {
-                // console.group(`didMount[${source}]`);
-                // console.log(element);
-                // console.groupEnd();
-                window.dispatchEvent(new CustomEvent('didMount', {
-                    detail: {
-                        componentNameSymbol: element[componentSymbol].componentNameSymbol
-                    }
-                }));
-            }
-
-            function willUnmountEvent(element, source) {
-                // console.group(`willUnmount[${source}]`);
-                // console.log(element);
-                // console.groupEnd();
-                window.dispatchEvent(new CustomEvent('willUnmount', {
-                    detail: {
-                        componentNameSymbol: element[componentSymbol].componentNameSymbol
-                    }
-                }));
-            }
+            // свойства компонента
+            const propsStore = {};
+            propsStore.props = initialProps;
 
             // состояние компонента
             let state = {};
@@ -156,7 +139,6 @@ function componentConstructor(componentName) {
                     change[field] = true;
                 }
                 changedStateFields = change;
-                // console.log({changedStateFields});
                 state = set(state)(newState);
                 rerender();
                 if (callback) {
@@ -173,7 +155,12 @@ function componentConstructor(componentName) {
                 return false;
             }
 
-            const stateClass = () => state;
+            const stateClass = () => state; // перейти на прокси? тогда придумать название для остальных
+            // сразу setState, initState
+            // apply: state().set()
+            // state[_].set() - _ Symbol
+            // state`set`(), state`init`() !!! - хороший вариант
+            // state[_.set]()
             stateClass.set = setState;
             stateClass.init = initState;
             stateClass.onChange = changeState; // позволит писать _update(state.onChange('name', 'age'))
@@ -192,25 +179,13 @@ function componentConstructor(componentName) {
 
             const didMount = callback => {
                 function onDidMount(event) {
-                    // console.log('DIDMOUNT', event);
                     if (event.detail.componentNameSymbol === componentNameSymbol) {
-                        log.component(() => {
-                            // console.group('didMount -- event!!!');
-                            // console.log(element[componentSymbol].element);
-                            // console.log(componentName);
-                            // console.log(event);
-                            // console.log(callback);
-                            // console.groupEnd();
-                        });
                         callback();
-                        // window.removeEventListener(didMountListener);
                     }
                 }
 
                 handlers.didMount.bump();
                 const didMountListener = window.addEventListener('didMount', onDidMount, false);
-                // element[elementSymbol].props.onDidMount = onDidMount;
-                // element[elementSymbol].eventListeners.didMount = [onDidMount];
             }
 
             let firstAppend = true;
@@ -219,10 +194,6 @@ function componentConstructor(componentName) {
             const elements = [];
 
             const mo = new MutationObserver(function (mutations, observer) {
-                // console.info('Observer');
-                // console.log({mutations, observer});
-                // console.log('didMount', firstAppend, componentName, element);
-                // console.log(handlers);
                 if (element.dom && element.dom.ref.closest('html')) {
                     // element = false;
                     // const componentDOMSymbol = Symbol('componentDOMSymbol');
@@ -232,12 +203,7 @@ function componentConstructor(componentName) {
                         first: true,
                         element: element.innerHTML
                     };
-                    // console.log(elements);
                     // }
-                    // if (storage[componentDOMSymbol].first) {
-                    // console.log('есть', element);
-                    // console.log({storage});
-                    // storage[componentDOMSymbol].first = false;
                     if (firstAppend) {
                         window.dispatchEvent(new CustomEvent('didMount', {
                             detail: {
@@ -247,9 +213,7 @@ function componentConstructor(componentName) {
                         firstAppend = false;
                         mo.disconnect();
                     }
-                    // }
                 } else {
-                    // console.log('нет', element);
                     firstAppend = true;
                     mo.disconnect();
                 }
@@ -261,46 +225,89 @@ function componentConstructor(componentName) {
             });
 
 
-            props.children = children;
+            propsStore.props.children = children;
+
+
             const render = makeComponent({
-                props,
+                props: () => propsStore.props,
                 state: stateClass,
                 hooks: {
                     didMount
                 }
             });
 
+            // другие компоненты первого уровня вложенности, которые встречаются в дереве
+            // их нужно отслеживать, чтобы сохранять их состояние
+            const subComponents = {}; // мутабельный объект
+            const getSubComponents = () => subComponents;
+
             function rerender() {
-                // console.time('get node');
-                const newElement = getNode(render());
-                // console.timeEnd('get node');
+
+                // разбор всех вложенных массивов в один плоский массив
+                const newNode = getFlatNode(render());
+
+                // разбор дерева с учётом суб-компонентов
+                const {
+                    existSubComponents,
+                    updateCallbacks,
+                    newElement
+                } = checkSubComponents({
+                    node: newNode,
+                    subComponents: getSubComponents()
+                });
                 const dom = element.dom;
                 const componentData = element.component;
-                // console.time('diff');
                 const diffElement = diffElements(element, newElement);
-                // console.log({diffElement});
-                // console.timeEnd('diff');
 
                 // новые элементы создаются без привязки к странице
 
+                // обновляем дерево
                 element = newElement;
                 // BUG: не сохраняется новый вид элемента
+
+                // сохраняем данные комопнента
                 element.component = componentData;
-                // console.log('update:', componentName, {element, dom});
 
                 if (dom) { // есть dom
                     // получить их diff, TODO: учитывая static
-                    // console.log({dom, diffElement});
+
+                    // сохраняем ссылку на dom
                     element.dom = dom;
                     // надо перепривязать к dom всех потомков
-                    // console.time('patch DOM');
+
+                    // меняется dom до субкомпонентов
                     patchDOM(dom.ref, diffElement);
-                    // console.timeEnd('patch DOM');
+
+
+
+                    // при наличии субкомпонентов
+                    if (existSubComponents) {
+                        for (const key in updateCallbacks) {
+                            const update = updateCallbacks[key];
+                            // обновляем дерево компонента, props меняем, state не трогаем
+                            update();
+                        }
+                    }
                 }
             }
 
-            element = getNode(render()); // первый рендер
+            // первый рендер
+            element = checkSubComponents({
+                node: getFlatNode(render()),
+                subComponents: getSubComponents()
+            }).newElement;
 
+
+
+
+            // отдельная функция разбирает дерево и выделяет субкомпоненты, возвращая колбеки для их обновления
+            // diff для таких комопнентов не покажет изменения
+            // сначала обновить элементы, потом субкомпоненты
+            // в каждом из них та же схема
+            // полное дерево вычисляется при вызове функции DOM / patchDOM
+
+
+            // так как render может возвратить массив, дополнительная проверка на массив
             if (Array.isArray(element)) {
                 for (const item of element) {
                     setComponentData(item, {array: true})
@@ -309,6 +316,10 @@ function componentConstructor(componentName) {
                 setComponentData(element);
             }
 
+            /* так как компоненты могут быть вложенными,
+            одному элементу могут соответствовать несколько компонентов
+            в поле component помечаем все уровни, добавляя на текущем уровне информацию о компоненте
+            */
             function setComponentData(element, {array = false} = {}) {
                 if (!element.component) {
                     element.component = {level: 0};
@@ -317,31 +328,31 @@ function componentConstructor(componentName) {
                 element.component[String(level)] = {
                     array,
                     name: componentName,
-                    props,
+                    props: propsStore.props,
                     state
                 }
                 element.component.level++;
             }
 
-            // первое присоединение dom
-            // if (!element.dom) {
-                // element.dom = {};
-            // }
-            // const dom = DOM(element);
-            // element.dom.ref = dom;
-            // if (element.dom.parent) {
-            //     element.dom.parent.append(dom);
-            // }
+            const componentFunction = () => element;
 
-            // console.log('render:', componentName, {element});
-            return () => element;
+            // такая функция имеет символьное свойство по символу componentSymbol
+            componentFunction[componentSymbol] = {
+                name: componentName,
+                changeProps: newProps => {
+                    propsStore.props = newProps;
+                    rerender();
+                },
+                getProps: () => propsStore.props
+            }
+
+            return componentFunction;
         }
 
         function stableElement(props) {
             return new Proxy((...children) => create({}, children), {
                 get(target, prop) {
                     return function (value) {
-                        // console.log(`added prop ${prop} = ${value}`)
                         return stableElement({
                             ...props,
                             [prop]: value

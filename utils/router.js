@@ -1,9 +1,8 @@
 import {
-    E,
     Component,
-    Custom
+    Custom,
+    E
 } from './index.js';
-
 
 const historyUpdate = new CustomEvent('historyUpdate');
 
@@ -57,8 +56,9 @@ export const getRouterState = (routes) => {
     return {params: resultParams, path: resultPath, routes: routes(resultParams)};
 }
 
-export const RouteLink = Component.RouteLink(({props: {href, children}}) => {
+export const RouteLink = Component.RouteLink(({props}) => {
     return () => {
+        const {href, children} = props();
         const onLinkClick = (event) => {
             event.preventDefault();
             if (href === '/') {
@@ -78,9 +78,10 @@ export const RouteLink = Component.RouteLink(({props: {href, children}}) => {
 
 
 export const Switch = Component.Switch(({props, state}) => {
-    state.init(getRouterState(props.routes));
+    const {routes} = props();
+    state.init(getRouterState(routes));
     window.addEventListener('historyUpdate', function () {
-        state.set(getRouterState(props.routes));
+        state.set(getRouterState(routes));
     });
     return () => {
         const {path, routes} = state();

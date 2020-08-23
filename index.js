@@ -1,12 +1,14 @@
+import {logAllLevels, setLogger} from './utils/logger.js';
+
 import {App} from './components/index.js';
-import {setLogger, logAllLevels} from './utils/logger.js';
 import {DOM} from './utils/element.js';
 
 setLogger({
     component: {
         props: {
             [logAllLevels]: true
-        }
+        },
+        [logAllLevels]: true
     }
 });
 setLogger(false); // for production

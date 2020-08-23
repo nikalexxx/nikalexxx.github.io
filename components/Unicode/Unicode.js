@@ -1,15 +1,15 @@
+import './Unicode.less';
+
 import {
-    block,
+    Component,
     E,
-    Component
+    block
 } from '../../utils/index.js';
+
+import {Breadcrumbs} from '../index.js';
 import {
     Button
 } from '../../blocks/index.js';
-
-import {Breadcrumbs} from '../index.js';
-
-import './Unicode.less';
 
 const b = block('unicode');
 

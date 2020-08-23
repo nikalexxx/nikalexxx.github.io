@@ -1,19 +1,19 @@
+import './Post.less';
+
 import {
+    Component,
     E,
     M,
-    Component,
     RouteLink,
-    css,
     block,
+    css,
     style
 } from '../../utils/index.js';
 
-import blog from '../../data/blog/index.js';
-import {Button} from '../../blocks/index.js';
 import {Breadcrumbs} from '../index.js';
+import {Button} from '../../blocks/index.js';
+import blog from '../../data/blog/index.js';
 import {createBook} from '../../utils/book.js';
-
-import './Post.less';
 
 const b = block('post');
 
@@ -22,7 +22,7 @@ const Post = Component.Post(({props, state, hooks: {didMount}}) => {
         text: null
     })
     didMount(() => {
-        const {id} = props;
+        const {id} = props();
         const {type} = blog[id];
         const path = `../data/blog/data/${id}/index.${type}?r=${window.appVersion}`;
         if (type === 'html') {
@@ -48,7 +48,7 @@ const Post = Component.Post(({props, state, hooks: {didMount}}) => {
     })
 
     return () => {
-        const {id} = props;
+        const {id} = props();
         const {type} = blog[id];
         const {text} = state();
         const {title, creationTime} = blog[id];

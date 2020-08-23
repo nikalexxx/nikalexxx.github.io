@@ -1,32 +1,33 @@
+import './App.less';
+
 import {
+    About,
+    Blog,
+    Colors,
+    Design,
+    GameOfLife,
+    Physics,
+    Post,
+    Projects,
+    StandardModel,
+    Unicode
+} from '../index.js';
+import {
+    Component,
     E,
     M,
-    Component,
     RouteLink,
-    getRouterState,
     Switch,
     block,
+    getRouterState,
     style
 } from '../../utils/index.js';
-import {
-    Colors,
-    GameOfLife,
-    Design,
-    Blog,
-    Post,
-    About,
-    Projects,
-    Unicode,
-    Physics,
-    StandardModel
-} from '../index.js';
+
 import {Button} from '../../blocks/index.js';
 import {Icon} from '../../icons/index.js';
 import MyComponent from '../../MyComponent.js';
-import map from '../../map.js';
 import {book} from '../../utils/book.js';
-
-import './App.less';
+import map from '../../map.js';
 
 const b = block('app');
 
@@ -39,9 +40,19 @@ const routes = params => ({
     // 'my/:state': E.div(
     //     MyComponent.state(params.state),
     //     MyComponent.state('ok'),
-    //     MyComponent.state('error'),
+    //     Component.Test(({state}) => {
+    //         state.init({d:'error'});
+    //         return () => E.div(
+    //             MyComponent.state(state().d),
+    //             Button.onClick(() => {
+    //                 state.set(prevState => ({d: prevState.d === 'error' ? 'ok': 'error'}));
+    //             })('Toogle')
+    //         );
+    //     }),
     //     E.ul(
-    //         E.li`Поправить движок`,
+    //         E.li`шейдеры gpu для параллельных вычислений`,
+    //         E.li`фракталы`,
+    //         E.li`Комментарии через github api`,
     //         E.li`Формат электронной книги`,
     //         E.li`Калькулятор`,
     //         E.li`Построитель графиков`,
@@ -63,7 +74,6 @@ const Menu = Component.Menu(({state}) => {
     window.addEventListener('historyUpdate', () => state.set(prev => ({i: prev.i++})));
     function renderLink(href, title) {
         const current = path().startsWith(href) || path() === '/' && href === 'blog';
-        // console.log(href, path());
         return RouteLink.href(href)(
             E.div.class(b('menu-link', {current})).onClick(() => {
                 if (document.documentElement.clientWidth < 700) {
