@@ -18,14 +18,15 @@
         <meta name="msapplication-config" content="/assets/images/favicon/browserconfig.xml">
         <meta name="theme-color" content="#2b5797">
         <link rel="stylesheet" href="./css/main.css">
-        <link rel="stylesheet" href="build/index.__VERSION__.css">
+        <link rel="stylesheet" href="build/index.%VERSION%.css">
         <script>
-            window.appVersion = '__VERSION__';
+            window.appVersion = '%VERSION%';
         </script>
+        %METRIKA%
 	</head>
 	<body>
         <div id="root"></div>
-        <script src="build/index.__VERSION__.js"></script>
+        <script src="build/index.%VERSION%.js"></script>
         <noscript>
             <article style="text-align: center; margin: 40px 0">
                 Сайт работает на javascript. Включите его в настройках браузера для просмотра.

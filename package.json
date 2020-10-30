@@ -1,12 +1,13 @@
 {
   "name": "nikalexxx.github.io",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -Rf build;parcel build index.js --out-dir build --out-file index.${npm_package_version}.js; node html-gen.js ${npm_package_version}",
-    "dev": "npm run build; parcel watch index.js --out-dir build --public-url ./ --out-file index.${npm_package_version}.js"
+    "dev": "npm run build; parcel watch index.js --out-dir build --public-url ./ --out-file index.${npm_package_version}.js",
+    "release": "ENV=prod npm run build"
   },
   "repository": {
     "type": "git",
