@@ -1,18 +1,6 @@
 import './App.less';
 
 import {
-    About,
-    Blog,
-    Colors,
-    Design,
-    GameOfLife,
-    Physics,
-    Post,
-    Projects,
-    StandardModel,
-    Unicode
-} from '../index.js';
-import {
     Component,
     E,
     M,
@@ -20,99 +8,65 @@ import {
     Switch,
     block,
     getRouterState,
-    style
+    style,
 } from '../../utils/index.js';
 
-import {Button} from '../../blocks/index.js';
-import {Icon} from '../../icons/index.js';
-import MyComponent from '../../MyComponent.js';
-import {book} from '../../services/book/book.js';
-import map from '../../map.js';
+import { Button } from '../../blocks/index.js';
+import { Icon } from '../../icons/index.js';
+import { routes } from '../routes';
 
 const b = block('app');
 
-const routes = params => ({
-    '/': Blog,
-    'about': About,
-    'book': E.div(book),
-    'design': Design,
-    'design/colors': Colors,
-    // 'my/:state': E.div(
-    //     MyComponent.state(params.state),
-    //     MyComponent.state('ok'),
-    //     Component.Test(({state}) => {
-    //         state.init({d:'error'});
-    //         return () => E.div(
-    //             MyComponent.state(state().d),
-    //             Button.onClick(() => {
-    //                 state.set(prevState => ({d: prevState.d === 'error' ? 'ok': 'error'}));
-    //             })('Toogle')
-    //         );
-    //     }),
-    //     E.ul(
-    //         E.li`шейдеры gpu для параллельных вычислений`,
-    //         E.li`фракталы`,
-    //         E.li`Комментарии через github api`,
-    //         E.li`Калькулятор`,
-    //         E.li`Построитель графиков`,
-    //         E.li`Схема метро(позже интерактивная)`
-    //     )
-    // ),
-    'blog': Blog,
-    'blog/:id': Post.id(params.id),
-    'projects': Projects,
-    'projects/unicode': Unicode,
-    'projects/game-of-life': GameOfLife,
-    'physics': Physics,
-    'physics/standard-model': StandardModel
-})
 
-const Menu = Component.Menu(({state}) => {
+const Menu = Component.Menu(({ state }) => {
     const path = () => getRouterState(routes).path;
-    state.init({i: 0});
-    window.addEventListener('historyUpdate', () => state.set(prev => ({i: prev.i++})));
+    state.init({ i: 0 });
+    window.addEventListener('historyUpdate', () =>
+        state.set((prev) => ({ i: prev.i++ }))
+    );
     function renderLink(href, title) {
-        const current = path().startsWith(href) || path() === '/' && href === 'blog';
+        const current =
+            (typeof path() === 'string') &&
+            (path().startsWith(href) || (path() === '/' && href === 'blog'));
         return RouteLink.href(href)(
-            E.div.class(b('menu-link', {current})).onClick(() => {
+            E.div.class(b('menu-link', { current })).onClick(() => {
                 if (document.documentElement.clientWidth < 700) {
                     document.documentElement.classList.toggle('mobile-visible');
                 }
-            })(
-                title
-            )
+            })(title)
         );
     }
-    return () => E.div(
-        renderLink('blog', 'Блог'),
-        renderLink('about', 'Кто я?'),
-        // renderLink('book', 'Книга'),
-        renderLink('projects', 'Проекты'),
-        renderLink('physics', 'Физика'),
-        renderLink('design', 'Дизайн'),
-        // renderLink('gameOfLife', 'Игра Жизнь'),
-        // renderLink('my/ok', 'тест'),
-        E.div.class(b('collapse-menu'))(Button.onClick(() => {
-            document.documentElement.classList.toggle('mobile-visible');
-        })('свернуть меню')),
-    )
+    return () =>
+        E.div(
+            renderLink('blog', 'Блог'),
+            renderLink('about', 'Кто я?'),
+            renderLink('projects', 'Проекты'),
+            renderLink('physics', 'Физика'),
+            renderLink('design', 'Дизайн'),
+            // renderLink('my/ok', 'тест'),
+            E.div.class(b('collapse-menu'))(
+                Button.onClick(() => {
+                    document.documentElement.classList.toggle('mobile-visible');
+                })('свернуть меню')
+            )
+        );
 });
 
-const Header = Component.Header(({state, hooks}) => {
+const Header = Component.Header(({ state, hooks }) => {
     state.init({
-        theme: 'dark'
+        theme: 'dark',
     });
 
     hooks.didMount(() => {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
-            state.set({theme: savedTheme});
+            state.set({ theme: savedTheme });
         }
         setTheme();
     });
 
     function setTheme() {
-        const {theme} = state();
+        const { theme } = state();
         localStorage.setItem('theme', theme);
         const classList = document.body.classList;
         if (theme === 'light') {
@@ -120,35 +74,41 @@ const Header = Component.Header(({state, hooks}) => {
         } else {
             classList.remove('theme_light');
         }
-        window.dispatchEvent(new CustomEvent('theme', {detail: {theme}}));
+        window.dispatchEvent(new CustomEvent('theme', { detail: { theme } }));
     }
 
     function toogleTheme() {
-        state.set(prevState => ({
-            theme: prevState.theme === 'dark' ? 'light' : 'dark'
-        }), () => setTheme());
+        state.set(
+            (prevState) => ({
+                theme: prevState.theme === 'dark' ? 'light' : 'dark',
+            }),
+            () => setTheme()
+        );
     }
 
     function getIcon() {
-        const {theme} = state();
+        const { theme } = state();
         return {
             dark: () => E.div.style('width: 1em; height: 1em;')(Icon.Moon),
-            light: () => E.div.style('width: 1em; height: 1em;')(Icon.Sun)
+            light: () => E.div.style('width: 1em; height: 1em;')(Icon.Sun),
         }[theme]();
     }
 
-    return () => E.header.class(b('header'))(
-        E.div.class(b('menu-toggle'))(
-            Button.onClick(() => {
-                document.documentElement.classList.toggle('mobile-visible');
-            })(E.div.style('width: 1em; height: 1em;')(Icon.Bars))
-        ),
-        RouteLink.href('/')(
-            E.h1.style(style({textAlign: 'center'}))('Александр Николаичев')
-        ),
-        Button.onClick(toogleTheme)(getIcon())
-    );
-})
+    return () =>
+        E.header.class(b('header'))(
+            E.div.class(b('menu-toggle'))(
+                Button.onClick(() => {
+                    document.documentElement.classList.toggle('mobile-visible');
+                })(E.div.style('width: 1em; height: 1em;')(Icon.Bars))
+            ),
+            RouteLink.href('/')(
+                E.h1.style(style({ textAlign: 'center' }))(
+                    'Александр Николаичев'
+                )
+            ),
+            Button.onClick(toogleTheme)(getIcon())
+        );
+});
 
 const Page = E.div.class(b())(
     // E.div.class(b('header-menu'))(
@@ -157,7 +117,11 @@ const Page = E.div.class(b())(
     // ),
     Header,
     E.nav.class(b('menu'))(Menu),
-    E.div.class(b('menu-close-area')).onClick(() => document.documentElement.classList.toggle('mobile-visible')),
+    E.div
+        .class(b('menu-close-area'))
+        .onClick(() =>
+            document.documentElement.classList.toggle('mobile-visible')
+        ),
     E.main.class(b('content'))(Switch.routes(routes)),
     E.footer.class(b('footer'))('© 2019-2020 Alexandr Nikolaichev')
 );

@@ -6,6 +6,8 @@ import {
 
 const historyUpdate = new CustomEvent('historyUpdate');
 
+export const Page404Symbol = Symbol('404');
+
 function pushState(data, title, url) {
     history.pushState(data, title, url);
     window.dispatchEvent(historyUpdate);
@@ -52,6 +54,9 @@ export const getRouterState = (routes) => {
             resultParams = params;
             resultPath = path;
         }
+    }
+    if (resultPath === null) {
+        resultPath = Page404Symbol;
     }
     return {params: resultParams, path: resultPath, routes: routes(resultParams)};
 }

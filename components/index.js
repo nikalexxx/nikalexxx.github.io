@@ -1,4 +1,5 @@
         export {default as Breadcrumbs} from './Breadcrumbs/Breadcrumbs.js';
+        export {Page404} from './Page404/Page404';
     export {default as Post} from './Post/Post.js';
     export {default as Blog} from './Blog/Blog.js';
     export {default as Physics} from './Physics/Physics.js';
