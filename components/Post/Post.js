@@ -13,7 +13,7 @@ import {
 import {Breadcrumbs} from '../index.js';
 import {Button} from '../../blocks/index.js';
 import blog from '../../data/blog/index.js';
-import {createBook} from '../../utils/book.js';
+import {createBook} from '../../services/book/book.js';
 
 const b = block('post');
 
@@ -78,7 +78,7 @@ const Post = Component.Post(({props, state, hooks: {didMount}}) => {
                 minute: 'numeric',
                 second: 'numeric'
             })),
-            E.div(elem)
+            E.div.class(b('container'))(elem)
         );
     }
 });

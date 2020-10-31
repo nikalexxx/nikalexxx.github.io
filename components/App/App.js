@@ -26,7 +26,7 @@ import {
 import {Button} from '../../blocks/index.js';
 import {Icon} from '../../icons/index.js';
 import MyComponent from '../../MyComponent.js';
-import {book} from '../../utils/book.js';
+import {book} from '../../services/book/book.js';
 import map from '../../map.js';
 
 const b = block('app');
@@ -53,7 +53,6 @@ const routes = params => ({
     //         E.li`шейдеры gpu для параллельных вычислений`,
     //         E.li`фракталы`,
     //         E.li`Комментарии через github api`,
-    //         E.li`Формат электронной книги`,
     //         E.li`Калькулятор`,
     //         E.li`Построитель графиков`,
     //         E.li`Схема метро(позже интерактивная)`

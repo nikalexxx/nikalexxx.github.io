@@ -53,7 +53,7 @@ const element = E.div.class('container')(
 На странице он будет выглядеть так:
 
 
-${external(E => E.div.class('container')(
+${external(({E}) => E.div.class('container')(
     E.h4('title'),
     E.p('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
     E.br,
@@ -93,11 +93,11 @@ const greenCounter = SimpleComponent.color('green');
 
 
 В действии:
-${external((E, Component) => {
+${external(({E, Component}) => {
     const SimpleComponent = Component.SimpleComponent(({props, state}) => {
         state.init({count: 0});
         return () => {
-            const {color} = props;
+            const {color} = props();
             const {count} = state();
             return E.div(
                 E.span.style(`color: ${color};`)(String(count)),

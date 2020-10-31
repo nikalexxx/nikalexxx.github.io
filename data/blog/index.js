@@ -52,5 +52,11 @@ export default {
         creationTime: '2020-08-24T00:32:17',
         title: 'Делегация обновления компонентов',
         tags: ['js', 'virtual dom']
+    },
+    9: {
+        type: 'js',
+        creationTime: '2020-10-31T03:15:35',
+        title: 'Формат электронной книги',
+        tags: ['book', 'web', 'js']
     }
 }

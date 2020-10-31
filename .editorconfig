@@ -15,3 +15,9 @@ indent_size = 2
 [GNUmakefile]
 indent_style = tab
 indent_size = 4
+
+[*.js]
+quote_type = single
+
+[*.ts]
+quote_type = single

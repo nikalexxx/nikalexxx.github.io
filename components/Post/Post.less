@@ -4,9 +4,33 @@
         border-radius: 5px;
         margin: 5px;
         padding: 5px 15px;
+        max-width: 900px;
+
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+
+        * {
+            -ms-hyphens: none;
+            -webkit-hyphens: none;
+            hyphens: none;
+        }
 
         @media (max-width: 700px) {
             padding: 5px;
+        }
+
+        pre {
+            white-space: pre;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        iframe {
+            height: 100%;
+            width: 100%;
         }
     }
 }

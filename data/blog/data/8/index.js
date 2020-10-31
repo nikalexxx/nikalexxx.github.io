@@ -48,7 +48,7 @@ const HelloBox = Component.HelloBox(({state}) => {
 })
 `)}
 
-${external((E, Component) => {
+${external(({E, Component}) => {
     const Hello = Component.Hello(({props}) => {
         return () => {
             const {name} = props();

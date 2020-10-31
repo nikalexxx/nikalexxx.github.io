@@ -123,7 +123,7 @@ export function checkSubComponents({node, subComponents}) {
 }
 
 
-const strToArray = (strings, ...elements) => {
+export const strToArray = (strings, ...elements) => {
     const list = [strings[0]];
     for (let i = 1; i < strings.length; i++) {
         list.push(elements[i-1], strings[i]);
