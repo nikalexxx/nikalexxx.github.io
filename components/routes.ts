@@ -1,7 +1,81 @@
 import { About, Blog, Book, Books, Catalog, Colors, Design, GameOfLife, Physics, Post, Projects, StandardModel, Themes, Unicode } from "../pages";
 
 import { Page404 } from '.';
+import { E } from "../utils";
+import { HighlightingText } from "./HighlightingText/HighlightingText";
 import { Page404Symbol } from "../utils/router";
+
+const example = `
+const block = blockName => {
+    const block = String(blockName);
+    return function(element, modifiers, mixin) {
+        const cssStack = [];
+        const elementName = block + (element ? \`__\${element}\` : '');
+        cssStack.push(elementName);
+        for (const mod in modifiers) {
+            const value = modifiers[mod];
+            if (typeof value === 'boolean') {
+                if (value) {
+                    cssStack.push(\`\${elementName}_\${mod}\`);
+                }
+            } else {
+                cssStack.push(\`\${elementName}_\${mod}_\${value}\`);
+            }
+        }
+        return cssStack.join(' ');
+    };
+}
+`;
+
+const exampleLess = `
+.highlighting-text {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+
+    &__t {
+        // color: red;
+
+        &_keyword {
+            color: var(--color-violet-light);
+        }
+
+        &_operator {
+            color: var(--color-cyan);
+        }
+
+        &_variable {
+            color: var(--color-red-light);
+        }
+
+        &_class {
+            color: var(--color-yellow-light);
+        }
+    }
+
+    &__line {
+        &:hover {
+            background-color: var(--color-background-second);
+        }
+    }
+
+    &__number {
+    }
+
+    code {
+        white-space: pre-wrap;
+        line-height: 1.5rem;
+        font-size: 1em;
+        font-family: 'Menlo', 'Courier New', Courier, monospace;
+        overflow: scroll;
+
+        border-radius: none;
+        padding: none;
+        margin: none;
+        border: none;
+    }
+}
+`;
 
 export const routes = (params) => ({
     '/': Blog,
@@ -19,6 +93,9 @@ export const routes = (params) => ({
     //         E.li`Схема метро(позже интерактивная)`
     //     )
     // ),
+    'my/:state': E.div(
+        HighlightingText.text(example).lang('javascript')
+    ),
     blog: Blog,
     'blog/:id': Post.id(params.id),
     books: Books,
