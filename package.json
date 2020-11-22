@@ -1,12 +1,12 @@
 {
   "name": "nikalexxx.github.io",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-html": "node html-gen.js ${npm_package_version}",
-    "build": "npm run build-html; rm -Rf dist; parcel build index.html; cp -R data/ dist/data/",
+    "build": "npm run build-html; rm -Rf dist; parcel build index.html; cp -R data/ dist/data/; cp -R assets/ dist/assets/",
     "deploy": "ENV=prod npm run build; gh-pages -d dist",
     "dev": "npm run build; parcel index.html"
   },
