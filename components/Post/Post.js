@@ -8,6 +8,7 @@ import {
 
 import {Breadcrumbs} from '../index.js';
 import { Page404 } from '../Page404/Page404';
+import { Spin } from '../../blocks';
 import blog from '../../data/blog/index.js';
 import {createBook} from '../../services/book/book.js';
 
@@ -80,6 +81,9 @@ const Post = Component.Post(({props, state, hooks: {didMount}}) => {
                 minute: 'numeric',
                 second: 'numeric'
             })),
+            text === null && E.div.class(b('loading'))(
+                Spin.size('xl')
+            ),
             E.div.class(b('container'))(elem)
         );
     }

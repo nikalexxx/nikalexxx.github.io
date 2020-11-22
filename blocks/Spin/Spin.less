@@ -1,0 +1,56 @@
+@root: .spin;
+
+.spin {
+    --r: 1em;
+    --d: calc(2 * var(--r));
+    --h: calc(var(--r) / 2);
+    --di: calc(var(--r) * sqrt(3) / 2);
+    --w: 2px;
+    --border-color: transparent;
+    height: var(--d);
+    width: var(--d);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: 5s linear infinite rotating;
+
+
+    @keyframes rotating {
+        from {
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    &_active {
+        & > div {
+            border-color: var(--color-border);
+        }
+    }
+
+    &__hex-part {
+        position: absolute;
+        width: calc(var(--di) * 2);
+        height: calc(var(--r) + (1 * var(--w)));
+        background-color: transparent;
+        border-left: var(--w) solid transparent;
+        border-right: var(--w) solid transparent;
+        transition: all 1s ease-in-out;
+    }
+
+    &_size {
+        &_s {
+            --r: .6em;
+        }
+        &_m {
+            --r: 1em;
+        }
+        &_l {
+            --r: 2em;
+        }
+        &_xl {
+            --r: 3.5em;
+        }
+    }
+}
