@@ -1,0 +1,55 @@
+body {
+    font-family: sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    color: black;
+    background-color: white;
+    padding: 10px;
+}
+
+figure {
+    text-align: center;
+}
+
+img {
+    max-width: 500px;
+}
+
+figcaption {
+    text-align: center;
+    color: gray;
+    font-size: 0.8em;
+}
+
+li {
+    margin: 4px auto;
+}
+
+abbr {
+    background-color: #eee;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+td,
+th {
+    padding: 4px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #eee;
+}
+
+summary {
+    margin: 8px 2px;
+    cursor: pointer;
+    outline: none;
+}
