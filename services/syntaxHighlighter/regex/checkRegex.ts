@@ -12,7 +12,9 @@ const checkWasmRegex = module.check_regex as typeof wasmTypes.check_regex;
 // TODO: возможность искать только до первого совпадения в целях оптимизации
 export function checkRegex(regexSource: string, text: string): CaptureGroups[] {
     try {
+        // console.log('1');
         const indexes = checkWasmRegex(regexSource, text);
+        // console.log('2');
         const result: CaptureGroups[] = [];
         let current: CaptureGroups = {};
         for (let i = 0; i < indexes.length; i += 3) {
@@ -31,10 +33,10 @@ export function checkRegex(regexSource: string, text: string): CaptureGroups[] {
 
         return result;
     } catch (e) {
-        // console.error(e);
-        // console.log({regexSource, text});
+        console.error(e);
+        console.log({regexSource, text});
         return [];
     }
 }
 
-console.dir(module.check_regex('b', 'a'));
+console.dir(checkRegex('s(a)', 'sasa'));

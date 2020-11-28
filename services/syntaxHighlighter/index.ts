@@ -223,11 +223,20 @@ type CheckBeginEndRuleProps = CheckRuleByTypeProps<RuleType.BEGIN_END> & {
     richLines: RichLines;
 };
 
+type RichGroups = {
+    [lineIndex: string]: { // строка с совпадением
+        [blockIndex: string]: RichText[]; // номер блока и результат
+    }
+}
+
 async function checkBeginEndRule({
     richLines,
     rule: beginEndRule,
     repositoryRules,
-}: CheckBeginEndRuleProps): Promise<{ richLines: RichLines; endLineIndex: number }> {
+}: CheckBeginEndRuleProps): Promise<{
+    richLines: RichLines;
+    endLineIndex: number;
+}> {
     // begin ищем в первой строке, end - пока текст не кончится
     // только первая строка может быть с блоками, последующие - неразобранный текст
     const {
@@ -244,14 +253,16 @@ async function checkBeginEndRule({
     const existEndCaptures = Boolean(endCaptures);
     const existPatterns = Boolean(patterns);
 
-    const result: RichLines = [];
+    const result: RichLines = [...richLines];
+    /**  */
+    const richGroups: RichGroups = {};
 
     // return { richLines, endLineIndex: 1 };
-
 
     const firstLine = richLines[0];
     let existsBeginEnd = false;
     for (let i = 0; i < firstLine.length; i++) {
+        /** кусок первой строки */
         const text = firstLine[i];
         if (typeof text !== 'string') {
             // пропускаем уже разобранные части
@@ -260,17 +271,22 @@ async function checkBeginEndRule({
         const beginIndexes = checkRegex(begin, text);
         if (beginIndexes.length > 0) {
             // есть совпадение с началом
-            console.log(name, {beginIndexes, begin, text});
+            // console.log(name, { beginIndexes, begin, text, end });
             // break;
 
             // для каждого ищем end от текущего места в первой строке до конца всех строк
             // смотрим следующие строки только если мы в последнем блоке
 
-            let currentIndex = 0;
+            let currentLastIndex = 0;
             const isLastBlock = i === firstLine.length;
             for (const beginGroups of beginIndexes) {
                 const wholeBeginGroup = beginGroups[0];
                 const [startBeginIndex, endBeginIndex] = wholeBeginGroup;
+
+                if (startBeginIndex < currentLastIndex) {
+                    // часть текста уже была включена в предыдущую группу
+                    continue;
+                }
 
                 // остаток от текущей строки
                 const endLineText = text.slice(endBeginIndex, text.length);
@@ -291,6 +307,8 @@ async function checkBeginEndRule({
 
                 // нужно только первое совпадение
                 let firstEndGroups: CaptureGroups;
+                let firstEndLineIndex: number;
+                // console.log({ linesForEndSearch });
                 for (let j = 0; j < linesForEndSearch.length; j++) {
                     const line = linesForEndSearch[j];
                     if (line.length > 1) {
@@ -302,19 +320,58 @@ async function checkBeginEndRule({
                     if (typeof endText !== 'string') {
                         break;
                     }
+                    // debugger;
                     const endIndexes = checkRegex(end, endText);
-
+                    // debugger;
                     if (endIndexes.length > 0) {
                         // нужно только первое совпадение
                         const endGroups = endIndexes[0];
                         firstEndGroups = endGroups;
+                        firstEndLineIndex = j;
                         break;
                     }
                 }
 
                 if (firstEndGroups) {
                     // конец был найден
-                    console.log({name, text, begin, end, beginGroups,firstEndGroups });
+                    console.log({
+                        name,
+                        text,
+                        begin,
+                        end,
+                        beginGroups,
+                        firstEndGroups,
+                    });
+                    const wholeEndGroup = firstEndGroups[0];
+                    // индексы относительно endBeginIndex
+                    const startEndIndex = wholeEndGroup[0] + endBeginIndex;
+                    const endEndIndex = wholeEndGroup[1] + endBeginIndex;
+                    if (firstEndLineIndex === 0) {
+                        // всё в пределах одной строки
+
+                        // конец разобранной группы
+                        currentLastIndex = endEndIndex;
+
+                        const textWithToken: RichText[] = [];
+                        if (startBeginIndex > 0) {
+                            // текст до начала совпадения
+                            textWithToken.push(text.slice(0, startBeginIndex));
+                        }
+                        // TODO: // разобрать вглубь
+                        textWithToken.push([name, [text.slice(startBeginIndex, endEndIndex)], 0]);
+                        if (endEndIndex < text.length) {
+                            // текст после совпадения
+                            textWithToken.push(text.slice(endEndIndex, text.length));
+                        }
+                        if (!richGroups[0]) {
+                            richGroups[0] = {};
+                        }
+                        // TODO: несколько групп
+                        richGroups[0][i] = textWithToken;
+                        existsBeginEnd = true;
+                    } else {
+                        // изменяем сразу несколько строк
+                    }
                 } else {
                     // конец не был найден
                     if (isLastBlock) {
@@ -329,6 +386,30 @@ async function checkBeginEndRule({
         // ничего не нашли
         return promiseLike({ richLines, endLineIndex: 1 });
     }
+
+    if (Object.keys(richGroups).length > 0) {
+        console.log({name, begin, end, richGroups, text: richLines[0]});
+    }
+
+    for (const line of Object.keys(richGroups)) {
+        const blocks = richGroups[line];
+        const lineIndex = Number(line);
+        for (const block of Object.keys(blocks)) {
+            const richTexts = blocks[block];
+            const blockIndex = Number(block);
+            const currentLine = result[lineIndex];
+            result[lineIndex] = [];
+            if (blockIndex > 0) {
+                result[lineIndex].push(...currentLine.slice(0, blockIndex));
+            }
+            result[lineIndex].push(...richTexts);
+            if (blockIndex < currentLine.length - 1) {
+                result[lineIndex].push(...currentLine.slice(blockIndex, currentLine.length));
+            }
+        }
+    }
+    return promiseLike({richLines: result, endLineIndex: 1});
+
 }
 
 interface CheckRuleProps {
@@ -412,7 +493,7 @@ async function checkRule({
         // console.log('begin-end', beginEndRule);
         const {
             richLines: resultRichLines,
-            endLineIndex
+            endLineIndex,
         } = await checkBeginEndRule({
             richLines,
             rule: beginEndRule,
@@ -420,7 +501,7 @@ async function checkRule({
         });
         return promiseLike({
             richLines: resultRichLines,
-            endLineIndex
+            endLineIndex,
         });
     }
 
@@ -440,7 +521,10 @@ async function checkRuleList({
     lines,
     ruleList,
     repositoryRules,
-}: CheckRuleListProps): Promise<{ richLines: RichLines; endLineIndex: number }> {
+}: CheckRuleListProps): Promise<{
+    richLines: RichLines;
+    endLineIndex: number;
+}> {
     // последняя строка с полностью разобранным текстом
     let endLineIndex = 0;
 
@@ -484,7 +568,10 @@ interface ParserProps {
     repositoryRules: GlobalRepositoryRules;
 }
 
-async function parser({ text, repositoryRules }: ParserProps): Promise<RichLines> {
+async function parser({
+    text,
+    repositoryRules,
+}: ParserProps): Promise<RichLines> {
     // разбиваем текст на строки
     const lines = text.split('\n');
 
@@ -533,7 +620,7 @@ async function parser({ text, repositoryRules }: ParserProps): Promise<RichLines
     }
     // console.log({ resultRichLines });
     return promiseLike(resultRichLines);
-};
+}
 
 type GlobalRepositoryConfig = Map<string | Symbol, RuleConfig[]>;
 
@@ -804,9 +891,7 @@ function createRule({
             return rule;
         },
         [RuleType.BEGIN_WHILE]: () => {
-            const config = ruleConfig as RuleTypeConfigType<
-                RuleType.BEGIN_WHILE
-            >;
+            const config = ruleConfig as RuleTypeConfigType<RuleType.BEGIN_WHILE>;
             const rule = {} as RuleTypeRuleGenType<RuleType.BEGIN_WHILE>;
             setMeta(rule, config);
             const {
@@ -936,8 +1021,8 @@ export function tokenize(text: string, lang: string = '') {
                 syntaxConfig,
                 repositoryRules,
             });
-
-        }).then(lines => {
+        })
+        .then((lines) => {
             console.log({ lines });
 
             // console.log("input:", text);

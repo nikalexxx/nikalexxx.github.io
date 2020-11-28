@@ -4,9 +4,7 @@ use wasm_bindgen::prelude::*;
 
 use fancy_regex::*;
 use js_sys::Array;
-use serde::{Serialize, Deserialize};
-
-
+use serde::{Deserialize, Serialize};
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -15,7 +13,7 @@ use serde::{Serialize, Deserialize};
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-extern {
+extern "C" {
     fn alert(s: &str);
 
     #[wasm_bindgen(js_namespace = console)]
@@ -33,14 +31,15 @@ pub fn greet() {
 
 #[wasm_bindgen]
 pub fn check_regex(regex_source: &str, text: &str) -> Array {
-    // utils::set_panic_hook();
+    // проброс ошибок в console.log
+    utils::set_panic_hook();
     let regex = Regex::new(&regex_source).unwrap();
+    let mut old_position = 0;
     let mut position = 0;
     let mut result: Vec<usize> = vec![];
     while position < text.len() {
-        // console_log!("position: {}", position);
         if let Some(caps) = regex.captures_from_pos(&text, position).unwrap() {
-            // console_log!("captures:{:#?}", caps);
+            // console_log!("captures:{:#?}, position: {}", caps, position);
             // количество групп
             // if position == 0 {
             //     // количество групп
@@ -48,7 +47,6 @@ pub fn check_regex(regex_source: &str, text: &str) -> Array {
             // }
             // let mut indexes: Vec<usize> = vec![];
             for i in 0..caps.len() {
-                // console_log!(" {}:", i);
                 if let Some(m) = caps.get(i) {
                     let start_i = m.start();
                     let end_i = m.end();
@@ -57,24 +55,23 @@ pub fn check_regex(regex_source: &str, text: &str) -> Array {
                     // пары индексов начала и конца для каждой группы
                     result.push(start_i);
                     result.push(end_i);
-                    // console_log!("{}: [{}..{}] \"{}\"", i, start_i, end_i, m.as_str());
-                    position = m.end();
-                } else {
-                    // console_log!("_");
-                    // indexes.push(-1);
-                    // indexes.push(-1);
+                    if i == 0 {
+                        position += end_i;
+                    }
                 }
             }
-            // result.append(&mut indexes);
-            // console_log!("");
-            for cap in caps.iter() {
-                // console_log!("iterate {:?}", cap);
+            if position == old_position {
+                // не должно произойти, так как если есть совпадение, то оно должно соответствовать нулевой группе
+                position += 1;
+                old_position = position;
             }
         } else {
-            // console_log!("no match");
             position = text.len();
+            old_position = position;
         }
     }
-    // let r = vec!["tmp"];
-    result.into_iter().map(|x| JsValue::from(x as i32)).collect()
+    result
+        .into_iter()
+        .map(|x| JsValue::from(x as i32))
+        .collect()
 }

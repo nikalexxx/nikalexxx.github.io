@@ -9,6 +9,9 @@ import { tokenize } from '../../services/syntaxHighlighter';
 const b = block('highlighting-text');
 
 function getClass(type: string): string {
+    if (!type) {
+        return 'unknown';
+    }
     const levels = type.split('.');
     if (levels[0] === 'keyword') {
         if (levels[1] === 'operator') {
@@ -17,6 +20,10 @@ function getClass(type: string): string {
         return 'keyword';
     } else if (levels[0] === 'variable') {
         return 'variable';
+    } else if (levels[0] === 'string') {
+        return 'string';
+    } else if (levels[0] === 'constant') {
+        return 'constant';
     } else if (levels[0] === 'support') {
         if (levels[1] === 'class') {
             return 'class';
