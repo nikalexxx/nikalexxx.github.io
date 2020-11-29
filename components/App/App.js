@@ -3,7 +3,6 @@ import './App.less';
 import {
     Component,
     E,
-    M,
     RouteLink,
     Switch,
     block,
@@ -43,6 +42,7 @@ const Menu = Component.Menu(({ state }) => {
             renderLink('projects', 'Проекты'),
             renderLink('physics', 'Физика'),
             renderLink('design', 'Дизайн'),
+            renderLink('catalog', 'Каталог'),
             // renderLink('my/ok', 'тест'),
             E.div.class(b('collapse-menu'))(
                 Button.onClick(() => {

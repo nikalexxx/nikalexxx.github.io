@@ -16,7 +16,6 @@ const Spin = Component.Spin(({ props, state, hooks }) => {
     return () => {
         const { size = 'l' } = props();
         const {active} = state();
-        console.log({ size });
         return E.div.class(b('', { size, active }))(
             E.div.class(b('hex-part')),
             E.div.class(b('hex-part')).style('transform: rotate(60deg)'),

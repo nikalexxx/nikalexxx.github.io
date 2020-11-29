@@ -1,0 +1,61 @@
+@import '../../../css/mixins.less';
+
+.themes {
+    margin: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    overflow: hidden;
+
+    & > div > div {
+        padding: 1rem .5rem;
+    }
+
+    &__header {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .theme_dark, .theme_light {
+        color: var(--color-text);
+        background-color: var(--color-background);
+    }
+
+    &__text-active {
+        color: var(--color-text-active);
+    }
+
+    &__text-accent {
+        color: var(--color-text-accent);
+    }
+
+    &__background-second {
+        background-color: var(--color-background-second);
+    }
+
+    &__background-prime {
+        background-color: var(--color-background-prime);
+    }
+
+    &__background-accent {
+        background-color: var(--color-background-accent);
+    }
+
+    &__border::after {
+        content: '';
+        display: inline-block;
+        width: 5rem;
+        height: 1em;
+        margin-left: 1em;
+        border: 2px dashed var(--color-border);
+    }
+
+    &__border-contrast::after {
+        content: '';
+        display: inline-block;
+        width: 5rem;
+        height: 1em;
+        margin-left: 1em;
+        border: 2px dashed var(--color-border-contrast);
+    }
+}

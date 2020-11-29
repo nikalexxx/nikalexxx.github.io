@@ -1,13 +1,6 @@
-        export {default as Breadcrumbs} from './Breadcrumbs/Breadcrumbs.js';
-        export {Page404} from './Page404/Page404';
-    export {default as Post} from './Post/Post.js';
-    export {default as Blog} from './Blog/Blog.js';
-    export {default as Physics} from './Physics/Physics.js';
-    export {default as StandardModel} from './StandardModel/StandardModel.js';
-    export {default as Projects} from './Projects/Projects.js';
-    export {default as Colors} from './Colors/Colors.js';
-    export {default as Unicode} from './Unicode/Unicode.js';
-    export {default as Design} from './Design/Design.js';
-    export {default as GameOfLife} from './GameOfLife/GameOfLife.js';
-    export {default as About} from './About/About.js';
-export {default as App} from './App/App.js';
+export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
+export { PageGrid } from './PageGrid/PageGrid';
+export { Tile } from './Tile/Tile';
+export { Page404 } from './Page404/Page404';
+
+export { default as App } from './App/App';

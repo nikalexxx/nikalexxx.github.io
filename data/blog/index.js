@@ -58,5 +58,11 @@ export default {
         creationTime: '2020-10-31T03:15:35',
         title: 'Формат электронной книги',
         tags: ['book', 'web', 'js']
+    },
+    10: {
+        type: 'js',
+        creationTime: '2020-11-29T03:15:35',
+        title: 'Обновление интерфейса и новые разделы',
+        tags: ['site']
     }
 }
