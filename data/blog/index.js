@@ -61,7 +61,7 @@ export default {
     },
     10: {
         type: 'js',
-        creationTime: '2020-11-29T03:15:35',
+        creationTime: '2020-11-29T04:27:12',
         title: 'Обновление интерфейса и новые разделы',
         tags: ['site']
     }
