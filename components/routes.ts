@@ -1,4 +1,4 @@
-import { About, Blog, Catalog, Colors, Design, GameOfLife, Physics, Post, Projects, StandardModel, Themes, Unicode } from "../pages";
+import { About, Blog, Book, Books, Catalog, Colors, Design, GameOfLife, Physics, Post, Projects, StandardModel, Themes, Unicode } from "../pages";
 
 import { Page404 } from '.';
 import { Page404Symbol } from "../utils/router";
@@ -21,6 +21,9 @@ export const routes = (params) => ({
     // ),
     blog: Blog,
     'blog/:id': Post.id(params.id),
+    books: Books,
+    'books/:name': Book.name(params.name),
+    'books/:name/:elem': Book.name(params.name).elem(params.elem),
     projects: Projects,
     'projects/unicode': Unicode,
     'projects/game-of-life': GameOfLife,

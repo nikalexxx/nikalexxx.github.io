@@ -158,17 +158,24 @@ export const DOM = elementObject => {
         const listener = eventListeners[eventName];
         element.addEventListener(eventName, listener, false);
     }
-    if (Object.keys(children).length) {
-        element.append(...Object.values(children).map(e => {
-            const dom = DOM(e);
-            if (!isPrimitive(e) && typeof e !== 'function') {
-                e.dom.parent = element;
-            }
-            return dom;
-        }));
+    if ('_html' in props) {
+        element.innerHTML = props._html;
+    } else {
+        if (Object.keys(children).length) {
+            element.append(...Object.values(children).map(e => {
+                const dom = DOM(e);
+                if (!isPrimitive(e) && typeof e !== 'function') {
+                    e.dom.parent = element;
+                }
+                return dom;
+            }));
+        }
     }
     elementObject.dom = {ref: element};
     element[elementSymbol] = elementObject;
+    if ('_ref' in props) {
+        props._ref(element);
+    }
     return element;
 }
 

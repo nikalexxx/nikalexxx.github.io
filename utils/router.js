@@ -33,12 +33,12 @@ export const getRouterState = (routes) => {
     }
     let resultParams = {};
     let resultPath = null;
+    let equal = false;
     for (const path in routes({})) {
         const pathStack = path.split('/');
         const params = {};
-        let equal = true;
-        for (let i = 0; i < pathStack.length; i++) {
-            if (i === stack.length) {
+        for (let i = 0; i < stack.length; i++) {
+            if (i === pathStack.length) {
                 equal = false;
                 break;
             }
@@ -49,10 +49,14 @@ export const getRouterState = (routes) => {
                 equal = false;
                 break;
             }
+            if (i === stack.length - 1) {
+                equal = true;
+            }
         }
         if (equal) {
             resultParams = params;
             resultPath = path;
+            break;
         }
     }
     if (resultPath === null) {

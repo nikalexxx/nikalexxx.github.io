@@ -1,13 +1,27 @@
 import './book.less';
 
 import { Component, block } from '../../utils/index.js';
+import { DOM, E } from '../../utils/element.js';
 import { _b, _h, _i, _pre, consoleStyle } from '../../utils/consoleStyle.js';
 
-import { E } from '../../utils/element.js';
+import { Tooltip } from '../../blocks';
 import { isPrimitive } from '../../utils/diff';
+import katex from 'katex';
 import { strToArray } from '../../utils/element.js';
 
 const b = block('book');
+const css = block('book');
+
+function renderFormula(text, isBlock = false) {
+    const str = Array.isArray(text) ? text[0] : text;
+    if (typeof str !== 'string') {
+        return 'Bad formula';
+    }
+    return katex.renderToString(str, {
+        displayMode: isBlock,
+        throwOnError: false,
+    });
+}
 
 function parseNewLines(text, newLine) {
     const result = [];
@@ -47,32 +61,53 @@ const BadExternalComponent = Component.BadExternalComponent(({ props }) => () =>
 const markerSymbol = Symbol('marker');
 const markerStart = Symbol('start');
 const markerEnd = Symbol('end');
+const keySymbol = Symbol('key');
+const sizeSymbol = Symbol('size');
 // ?
 const markerLine = Symbol('line');
 const markerBlock = Symbol('block');
 
 function getMarker(name, f) {
-    const func = function (...args) {
-        if (
-            args.length > 0 &&
-            Array.isArray(args[0]) &&
-            args[0].hasOwnProperty('raw')
-        ) {
-            // теговый шаблон
-            return f(
-                strToArray(args[0], ...args.slice(1))
-                    .map((e) => `${e}`)
-                    .join('')
-            );
-        } else {
-            // обычный вызов
-            return f(...args);
-        }
+    const getFunc = (props) => {
+        const func = function (...args) {
+            if (
+                args.length > 0 &&
+                Array.isArray(args[0]) &&
+                args[0].hasOwnProperty('raw')
+            ) {
+                // теговый шаблон
+                return f(props)(
+                    strToArray(args[0], ...args.slice(1))
+                        .map((e) => `${e}`)
+                        .join('')
+                );
+            } else {
+                // обычный вызов
+                const elem = f(props)(...args);
+                if (!isPrimitive(elem)) {
+                    elem[sizeSymbol] = args.reduce(
+                        (sum, arg) =>
+                            sum + (typeof arg === 'string' ? arg.length : 0),
+                        0
+                    );
+                }
+                return elem;
+            }
+        };
+        func[markerSymbol] = name;
+        return func;
     };
-    func[markerSymbol] = name;
-    func.start = { [markerStart]: name, builder: func };
-    func.end = { [markerEnd]: name, builder: func };
-    return func;
+    const getFuncProxy = (props) =>
+        new Proxy(getFunc(props), {
+            get(target, name) {
+                return (value) => getFuncProxy({ ...props, [name]: value });
+            },
+        });
+    // func[markerSymbol] = name;
+    // func.key = (key) => ({ [keySymbol]: key, builder: func });
+    // func.start = ({ [markerStart]: func[markerSymbol], builder: func });
+    // func.end = ({ [markerEnd]: func[markerSymbol], builder: func });
+    return getFuncProxy({});
 }
 
 const markerTypes = {
@@ -90,7 +125,7 @@ const j = (t) =>
         ? t
         : Object.keys(t).reduce((o, e) => ({ [e]: j(t[e]) }), {});
 
-const createHtmlBook = (strings, ...elements) => {
+const createHtmlBook = (meta, strings, ...elements) => {
     const newLine = E.br;
     const stringElements = strings
         .map((s) => parseNewLines(s, newLine))
@@ -203,38 +238,230 @@ const createHtmlBook = (strings, ...elements) => {
         }
         list.push(currentElem);
     }
-    return list.filter((e) => e);
+
+    const filteredList = list.filter((e) => e);
+    for (const key of Object.keys(meta)) {
+        filteredList[key] = meta[key];
+    }
+    // filteredList[sizeSymbol] = filteredList.reduce((sum, elem) => {
+    //     if (typeof elem === 'string') {
+    //         sum += elem.length;
+    //     } else if (Reflect.has(elem, sizeSymbol)) {
+    //         sum += elem[sizeSymbol];
+    //     }
+    //     return sum;
+    // }, 0);
+    for (const key of meta.setRefs.keys()) {
+        for (const setFunc of meta.setRefs.get(key)) {
+            setFunc(() => meta.refs.get(key));
+        }
+    }
+    return filteredList;
 };
 
 export function createBook(f) {
     return {
         to: (type) => {
             const types = {
-                html: () => ({
-                    V: createHtmlBook,
-                    book: createHtmlBook,
-                    b: getMarker('b', (t) => E.b(t)),
-                    i: getMarker('i', (t) => E.i(t)),
-                    sub: getMarker('sub', (t) => E.sub(t)),
-                    sup: getMarker('sup', (t) => E.sup(t)),
-                    code: getMarker('code', (t) => E.code(t)),
-                    pre: getMarker('pre', (t) => E.pre(t)),
-                    h: (l) => getMarker(`h${l}`, (t) => E[`h${l}`](t)),
-                    n: E.br,
-                    p: getMarker('p', (t) => E.p(t)),
-                    ul: getMarker('ul', (t) => E.ul(t)),
-                    li: getMarker('li', (t) => E.li(t)),
-                    img: (src, alt) => E.img.src(src).alt(alt),
-                    a: (href) => (text) => E.a.href(href)(text),
-                    external: (f) => {
-                        try {
-                            return f({ E, Component });
-                        } catch (e) {
-                            console.error(e);
-                            return BadExternalComponent.error(e);
+                html: () => {
+                    const refs = new Map();
+                    const b = getMarker('b', () => (t) => E.b(t));
+                    const i = getMarker('i', () => (t) =>
+                        E.i.class(css('i'))(t)
+                    );
+                    const a = getMarker('a', ({href}) => (t) => E.a.href(href)(t));
+                    const sub = getMarker('sub', () => (t) => E.sub(t));
+                    const sup = getMarker('sup', () => (t) => E.sup(t));
+                    const code = getMarker(
+                        'code',
+                        () => (t) => E.code(t),
+                        refs
+                    );
+
+                    const area = getMarker('area', ({ key, inline }) => (t) => {
+                        const elem = E.div.style`display: ${
+                            inline ? 'inline-' : ''
+                        }block;`
+                            ['data-key'](key)
+                            .id(key)(t);
+                        refs.set(key, elem);
+                        return elem;
+                    });
+
+                    const tooltip = getMarker('tooltip', ({ text }) => (t) => {
+                        return Tooltip.text(text)(
+                            E.span.class(css('label'))(t)
+                        );
+                    });
+
+                    const draft = getMarker('draft', () => (t) => {
+                        return E.div.class(css('draft'))(t);
+                    });
+
+                    const setRefs = new Map();
+                    const label = getMarker('label', ({ ref }) => (t) => {
+                        let text = null;
+                        if (!setRefs.has(ref)) {
+                            setRefs.set(ref, []);
                         }
-                    },
-                }),
+                        const setList = setRefs.get(ref);
+                        function setLabelClick(p) {
+                            text = p();
+                        }
+
+                        setList.push(setLabelClick);
+                        return Component.BookLabel(({ state, hooks }) => {
+                            state.init({ text: null });
+
+                            hooks.didMount(() => {
+                                state.set({ text });
+                            });
+
+                            return () => {
+                                const { text } = state();
+                                const textContent = E.div.class(
+                                    css('ref-content')
+                                )(
+                                    text,
+                                    E.a.class(css('ref-link')).onClick((e) => {
+                                        e.preventDefault();
+                                        const labelElement = document.querySelector(
+                                            `span[data-ref="${ref}"]`
+                                        );
+                                        labelElement.click();
+                                        const refElement = Array.from(
+                                            document.querySelectorAll(
+                                                `[data-key="${ref}"]`
+                                            )
+                                        ).filter(
+                                            (e) => !e.closest('.tooltip')
+                                        )[0];
+                                        if (refElement) {
+                                            refElement.scrollIntoView();
+                                            const activeClass = css('active');
+                                            refElement.classList.add(
+                                                activeClass
+                                            );
+                                            setTimeout(
+                                                () =>
+                                                    refElement.classList.remove(
+                                                        activeClass
+                                                    ),
+                                                2000
+                                            );
+                                        }
+                                    })(E.span.style`font-size: 2rem`('→'))
+                                );
+                                return Tooltip.text(textContent)(
+                                    E.span.class(css('label'))['data-ref'](ref)(
+                                        t
+                                    )
+                                );
+                            };
+                        })();
+                    });
+
+                    const headers = [];
+                    const h = (l) =>
+                        getMarker(`h${l}`, ({ key }) => (t) => {
+                            headers.push([l, t]);
+                            return E[`h${l}`]
+                                ['data-key'](key)
+                                .id(key || DOM(t).textContent)(t);
+                        });
+
+                    const ul = getMarker('ul', () => (t) => E.ul(t));
+                    const li = getMarker('li', () => (t) => E.li(t));
+                    const images = new Map();
+                    let imageIndex = 0;
+                    const img = getMarker(
+                        'img',
+                        ({ src, alt, position = 'center', height }) => (t) => {
+                            const isSvg = src.endsWith('.svg');
+                            const image = E.picture(
+                                isSvg &&
+                                    E.source.type`image/svg+xml`.srcSet(src),
+                                E.img
+                                    .src(src)
+                                    .alt(alt)
+                                    .style(
+                                        height &&
+                                            `max-height: ${Math.floor(
+                                                height * 100
+                                            )}vh;`
+                                    )
+                            );
+                            const content = t
+                                ? E.figure(image, E.figcaption(t))
+                                : image;
+
+                            const imageKey = String(imageIndex++);
+                            const img = E.div
+                                .class(css('img', { position }))
+                                ['data-image'](imageKey)(content);
+                            images.set(imageKey, img);
+                            return img;
+                        }
+                    );
+                    const pre = getMarker('pre', () => (t) => E.pre(t));
+                    const createBook = (...args) => {
+                        return createHtmlBook(
+                            { headers, refs, setRefs, images },
+                            ...args
+                        );
+                    };
+                    return {
+                        V: createBook,
+                        book: createBook,
+                        _: createBook,
+                        b,
+                        i,
+                        sub,
+                        sup,
+                        code,
+                        h,
+                        n: E.br,
+                        p: getMarker('p', (t) => E.p(t)),
+                        ul,
+                        li,
+                        img: (src, alt) => E.img.src(src).alt(alt),
+                        a: (href) => (text) => E.a.href(href)(text),
+                        meta: { draft },
+                        block: { area, ul, li, img, pre },
+                        text: { b, i, sub, sup, code, h, label, tooltip, a },
+                        math: {
+                            $: getMarker('$', () => (t) =>
+                                E.div.style`display: inline-block`._html(
+                                    renderFormula(t)
+                                )
+                            ),
+                            $$: getMarker('$$', () => (t) =>
+                                E.div
+                                    .style`display: block; text-align: center; overflow: scroll;`._html(
+                                    renderFormula(t, true)
+                                )
+                            ),
+                        },
+                        control: {
+                            start: (func) => ({
+                                [markerStart]: func[markerSymbol],
+                                builder: func,
+                            }),
+                            end: (func) => ({
+                                [markerEnd]: func[markerSymbol],
+                                builder: func,
+                            }),
+                        },
+                        external: (f) => {
+                            try {
+                                return f({ E, Component });
+                            } catch (e) {
+                                console.error(e);
+                                return BadExternalComponent.error(e);
+                            }
+                        },
+                    };
+                },
                 markdown: () => ({
                     V: (strings, ...elements) => {
                         const list = [strings[0]];

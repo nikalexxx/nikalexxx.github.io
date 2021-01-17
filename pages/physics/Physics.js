@@ -3,8 +3,6 @@ import './Physics.less';
 import { Component, E, RouteLink, block, style } from '../../utils';
 import { PageGrid, Tile } from '../../components';
 
-import { Button } from '../../blocks';
-
 const b = block('physics');
 
 const Physics = Component.Physics(() => {

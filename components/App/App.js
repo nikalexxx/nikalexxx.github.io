@@ -40,6 +40,7 @@ const Menu = Component.Menu(({ state }) => {
             renderLink('blog', 'Блог'),
             renderLink('about', 'Кто я?'),
             renderLink('projects', 'Проекты'),
+            // renderLink('books', 'Книги'),
             renderLink('physics', 'Физика'),
             renderLink('design', 'Дизайн'),
             renderLink('catalog', 'Каталог'),
