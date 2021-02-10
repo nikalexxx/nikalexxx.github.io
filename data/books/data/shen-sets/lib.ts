@@ -1,14 +1,13 @@
-import { enote, getHeaders } from './elements.js';
+import { getCustomElements } from './elements.js';
 
 export default (api) => {
-    const { book, _, text, block, meta, control } = api;
-    const { h, i, code, b } = text;
-    const {area} = block;
-    const {draft} = meta;
-    const {start, end} = control;
-    const {chapter} = getHeaders(h);
+    const { book, text, block, control } = api;
+    const { i, b } = text;
+    const { area } = block;
+    const { start, end } = control;
+    const { chapter } = getCustomElements(api);
     return book`
-${chapter('Литература')}
+${chapter.key('lib').noIndex(true)`Литература`}
 ${start(area.key('lib_1'))}
 [${b`1`}] П. С. Александров, ${i`Введение в теорию множеств и общую топологию.`} М.: Наука, 1977.
 ${end(area)}

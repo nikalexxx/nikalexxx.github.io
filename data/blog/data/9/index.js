@@ -1,7 +1,7 @@
 export default api => {
     const {book, external, control, text, block, _} = api;
     const {start, end} = control;
-    const {i, b, h, code, a} = text;
+    const {i, b, h, code, a, tooltip} = text;
     const {pre, ul, li, img} = block;
     const minibook = api => {
         const {book, text: {i, b}} = api;

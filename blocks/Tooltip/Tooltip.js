@@ -122,11 +122,14 @@ function getOptimizedSizes({
             cssTop: ({ textHeight }) => {
                 return textHeight;
             },
-            cssLeft: ({ position, textWidth, width }) => {
+            cssLeft: ({ position, textWidth, width, textStart }) => {
                 return {
                     start: textWidth - width,
                     end: 0,
-                    center: Math.floor((textWidth - width) / 2),
+                    center: Math.floor(
+                        (textWidth - width) / 2 +
+                            (textStart + textWidth / 2 - pageWidth / 2)
+                    ),
                 }[position];
             },
             cssWidth: ({ width }) => width,
@@ -139,11 +142,15 @@ function getOptimizedSizes({
             textEnd: pageHeight - textTop,
             contentWidth: contentHeight,
             contentHeight: contentWidth,
-            cssTop: ({ position, textHeight, width }) => {
+            cssTop: ({ position, textHeight, width, textStart }) => {
                 return {
                     start: textHeight - width,
                     end: 0,
-                    center: Math.floor((textHeight - width) / 2),
+                    // center: Math.floor((textHeight - width) / 2),
+                    center: Math.floor(
+                        (textHeight - width) / 2 +
+                            (textStart + textHeight / 2 - pageHeight / 2)
+                    ),
                 }[position];
             },
             cssLeft: ({ height }) => {
@@ -159,11 +166,15 @@ function getOptimizedSizes({
             textEnd: textTop + textHeight,
             contentWidth: contentHeight,
             contentHeight: contentWidth,
-            cssTop: ({ position, textHeight, width }) => {
+            cssTop: ({ position, textHeight, width, textStart }) => {
                 return {
                     start: 0,
                     end: textHeight - width,
-                    center: Math.floor((textHeight - width) / 2),
+                    // center: Math.floor((textHeight - width) / 2),
+                    center: Math.floor(
+                        (textHeight - width) / 2 +
+                            (pageHeight / 2 - (textStart + textHeight / 2))
+                    ),
                 }[position];
             },
             cssLeft: ({ textWidth }) => {

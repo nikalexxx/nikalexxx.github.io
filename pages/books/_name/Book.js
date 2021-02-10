@@ -1,8 +1,8 @@
 import './Book.less';
 
 import { Breadcrumbs, Page404 } from '../../../components';
-import { Button, Spin, Tooltip } from '../../../blocks';
-import { Component, E, RouteLink, block } from '../../../utils';
+import { Component, E, block } from '../../../utils';
+import { Spin, Tooltip } from '../../../blocks';
 
 import { DOM } from '../../../utils/element';
 import { Icon } from '../../../icons';
@@ -22,7 +22,7 @@ const BookHeaders = Component.BookHeaders(({ props }) => () => {
     const { headers, update } = props();
     const headersContent = E.div.class(b('headers'))(
         headers.map(([level, title]) => {
-            const id = DOM(title).textContent;
+            const id = DOM(title).textContent.trim();
             let current = false;
             const hash = window.location.hash;
             if (hash) {
@@ -55,7 +55,9 @@ const BookHeaders = Component.BookHeaders(({ props }) => () => {
         })
     );
     return E.div.class(b('headers-container', {}, b('control-container')))(
-        Tooltip.text(headersContent)(E.div.class(b('control-button'))(Icon.List.width`30px`.height`30px`))
+        Tooltip.text(headersContent)(
+            E.div.class(b('control-button'))(Icon.List.width`30px`.height`30px`)
+        )
     );
 });
 
@@ -76,9 +78,18 @@ const BookImages = Component.BookImages(({ props }) => () => {
         })
     );
     return E.div.class(b('images-container', {}, b('control-container')))(
-        Tooltip.text(imagesContent)(E.div.class(b('control-button'))(Icon.Image.width`30px`.height`30px`))
+        Tooltip.text(imagesContent)(
+            E.div.class(b('control-button'))(
+                Icon.Image.width`30px`.height`30px`
+            )
+        )
     );
 });
+
+const recursiveFlat = (list) =>
+    list.map((e) => (Array.isArray(e) ? recursiveFlat(e) : e)).flat();
+
+const bookCache = new Map();
 
 const Book = Component.Book(({ props, state, hooks }) => {
     state.init({
@@ -86,25 +97,36 @@ const Book = Component.Book(({ props, state, hooks }) => {
         headersFlag: false,
     });
 
+    function toHeader() {
+        const hash = window.location.hash;
+        if (hash) {
+            const id = decodeURIComponent(hash.slice(1));
+            const header = document.getElementById(id);
+            if (header) {
+                header.scrollIntoView();
+            }
+        }
+    }
+
+    function setBook(book) {
+        state.set({ text: book }, toHeader);
+    }
+
     hooks.didMount(() => {
         const { name } = props();
         if (!booksList.hasOwnProperty(name)) {
+            return;
+        }
+        if (bookCache.has(name)) {
+            window.setTimeout(() => setBook(bookCache.get(name)), 300);
             return;
         }
         const path = `../data/books/${name}/index.js?r=${window.appVersion}`;
         import(path)
             .then((data) => {
                 const book = createBook(data.default).to('html');
-                state.set({ text: book }, () => {
-                    const hash = window.location.hash;
-                    if (hash) {
-                        const id = decodeURIComponent(hash.slice(1));
-                        const header = document.getElementById(id);
-                        if (header) {
-                            header.scrollIntoView();
-                        }
-                    }
-                });
+                bookCache.set(name, book);
+                setBook(book);
             })
             .catch((e) => {
                 console.error(e);
@@ -112,22 +134,18 @@ const Book = Component.Book(({ props, state, hooks }) => {
             });
     });
 
-    function onRenderBook(e) {
-        // console.dir('book', e);
-    }
-
     function updateHeaders() {
         state.set((prev) => ({ headersFlag: !prev.headersFlag }));
     }
 
     return () => {
-        const { name, elem } = props();
+        const { name } = props();
         if (!booksList.hasOwnProperty(name)) {
             return Page404;
         }
         const { text } = state();
-        console.log({text});
-        const { title, authors } = booksList[name];
+        console.log({ text });
+        const { title } = booksList[name];
 
         return E.div.class(b())(
             Breadcrumbs.items([
@@ -135,19 +153,11 @@ const Book = Component.Book(({ props, state, hooks }) => {
                 [title, `books/${name}`],
             ]),
             E.div(
-                E.div(
-                    text?.images && BookImages.images(text.images),
-                    text?.headers &&
-                        BookHeaders.headers(text?.headers).update(updateHeaders)
-                ),
-                text === null
-                    ? E.div.class(b('loading'))(Spin.size('xl'))
-                    : E.div.class(b('container'))(
-                          E.div
-                              ._ref((e) => onRenderBook(e))
-                              .class(b('content'))(text)
-                      )
-            )
+                BookImages.images(text?.images ?? new Map()),
+                BookHeaders.headers(text?.headers ?? []).update(updateHeaders)
+            ),
+            E.div(text === null && E.div.class(b('loading'))(Spin.size('xl'))),
+            E.div.class(b('container'))(E.div.class(b('content'))(text))
         );
     };
 });

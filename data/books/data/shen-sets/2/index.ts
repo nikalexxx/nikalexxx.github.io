@@ -1,4 +1,4 @@
-import { getHeaders } from '../elements.js';
+import { getCustomElements } from '../elements.js';
 import paragraph1 from './1/index.js';
 import paragraph10 from './10/index.js';
 import paragraph11 from './11/index.js';
@@ -14,11 +14,11 @@ import paragraph8 from './8/index.js';
 import paragraph9 from './9/index.js';
 
 export default (api) => {
-    const { book, _, text, block, meta } = api;
-    const { h } = text;
-    const { chapter, paragraph } = getHeaders(h);
-    return _`
-${chapter('2. Упорядоченные множества')}
+    const { book } = api;
+
+    const {chapter} = getCustomElements(api);
+    return book`
+${chapter`Упорядоченные множества`}
 
 
 ${paragraph1(api)}

@@ -6,20 +6,22 @@ import { _b, _h, _i, _pre, consoleStyle } from '../../utils/consoleStyle.js';
 
 import { Tooltip } from '../../blocks';
 import { isPrimitive } from '../../utils/diff';
-import katex from 'katex';
+import { renderToString } from 'katex';
+// import {renderToString} from './katex-dist/katex.js';
 import { strToArray } from '../../utils/element.js';
 
 const b = block('book');
 const css = block('book');
 
 function renderFormula(text, isBlock = false) {
-    const str = Array.isArray(text) ? text[0] : text;
+    const str = Array.isArray(text) ? text.map(String).join('') : text;
     if (typeof str !== 'string') {
         return 'Bad formula';
     }
-    return katex.renderToString(str, {
+    return renderToString(str, {
         displayMode: isBlock,
         throwOnError: false,
+        output: 'html',
     });
 }
 
@@ -67,6 +69,10 @@ const sizeSymbol = Symbol('size');
 const markerLine = Symbol('line');
 const markerBlock = Symbol('block');
 
+function prepareText(text) {
+    return text.replace(/´/g, '\u0301');
+}
+
 function getMarker(name, f) {
     const getFunc = (props) => {
         const func = function (...args) {
@@ -77,9 +83,12 @@ function getMarker(name, f) {
             ) {
                 // теговый шаблон
                 return f(props)(
-                    strToArray(args[0], ...args.slice(1))
-                        .map((e) => `${e}`)
-                        .join('')
+                    strToArray(
+                        args[0].map((e) => prepareText(e)),
+                        ...args.slice(1)
+                    ).map((e) =>
+                        typeof e === 'string' ? parseNewLines(e, E.br) : e
+                    )
                 );
             } else {
                 // обычный вызов
@@ -128,7 +137,7 @@ const j = (t) =>
 const createHtmlBook = (meta, strings, ...elements) => {
     const newLine = E.br;
     const stringElements = strings
-        .map((s) => parseNewLines(s, newLine))
+        .map((s) => parseNewLines(prepareText(s), newLine))
         .filter((e) => e);
 
     const head = stringElements[0];
@@ -240,20 +249,33 @@ const createHtmlBook = (meta, strings, ...elements) => {
     }
 
     const filteredList = list.filter((e) => e);
-    for (const key of Object.keys(meta)) {
-        filteredList[key] = meta[key];
-    }
-    // filteredList[sizeSymbol] = filteredList.reduce((sum, elem) => {
-    //     if (typeof elem === 'string') {
-    //         sum += elem.length;
-    //     } else if (Reflect.has(elem, sizeSymbol)) {
-    //         sum += elem[sizeSymbol];
-    //     }
-    //     return sum;
-    // }, 0);
-    for (const key of meta.setRefs.keys()) {
-        for (const setFunc of meta.setRefs.get(key)) {
-            setFunc(() => meta.refs.get(key));
+    if (meta.root) {
+        for (const key of Object.keys(meta)) {
+            filteredList[key] = meta[key];
+        }
+        // filteredList[sizeSymbol] = filteredList.reduce((sum, elem) => {
+        //     if (typeof elem === 'string') {
+        //         sum += elem.length;
+        //     } else if (Reflect.has(elem, sizeSymbol)) {
+        //         sum += elem[sizeSymbol];
+        //     }
+        //     return sum;
+        // }, 0);
+        for (const key of meta.setRefs.keys()) {
+            if (!meta.refs.has(key)) {
+                console.error(`ref for ${key} does not exist`);
+            }
+            for (const setFunc of meta.setRefs.get(key)) {
+                setFunc(() => meta.refs.get(key));
+            }
+        }
+        for (const key of meta.setMetadata.keys()) {
+            if (!meta.metadata.has(key)) {
+                console.error(`metadata for ${key} does not exist`);
+            }
+            for (const setFunc of meta.setMetadata.get(key)) {
+                setFunc(meta.metadata.get(key) || {});
+            }
         }
     }
     return filteredList;
@@ -264,12 +286,17 @@ export function createBook(f) {
         to: (type) => {
             const types = {
                 html: () => {
-                    const refs = new Map();
+                    const refs = new Map(); // части книги
+                    const metadata = new Map(); // данные
+                    const setMetadata = new Map();
+
                     const b = getMarker('b', () => (t) => E.b(t));
                     const i = getMarker('i', () => (t) =>
                         E.i.class(css('i'))(t)
                     );
-                    const a = getMarker('a', ({href}) => (t) => E.a.href(href)(t));
+                    const a = getMarker('a', ({ href }) => (t) =>
+                        E.a.href(href)(t)
+                    );
                     const sub = getMarker('sub', () => (t) => E.sub(t));
                     const sup = getMarker('sup', () => (t) => E.sup(t));
                     const code = getMarker(
@@ -278,15 +305,63 @@ export function createBook(f) {
                         refs
                     );
 
-                    const area = getMarker('area', ({ key, inline }) => (t) => {
-                        const elem = E.div.style`display: ${
-                            inline ? 'inline-' : ''
-                        }block;`
-                            ['data-key'](key)
-                            .id(key)(t);
-                        refs.set(key, elem);
-                        return elem;
+                    const small = getMarker('small', ({inline}) => (t) => {
+                        return E.div.class(css('small', {inline}))(t);
                     });
+
+                    const area = getMarker(
+                        'area',
+                        ({ key, inline, meta }) => (t) => {
+                            const elem = E.div.class(css('area'))
+                                .style`display: ${
+                                inline ? 'inline-' : ''
+                            }block;`
+                                ['data-key'](key)
+                                .id(key)(t);
+                            refs.set(key, elem);
+                            if (meta) {
+                                metadata.set(key, meta);
+                            }
+                            return elem;
+                        }
+                    );
+
+                    const use = (...args) => {
+                        let key;
+                        if (
+                            args.length > 0 &&
+                            Array.isArray(args[0]) &&
+                            args[0].hasOwnProperty('raw')
+                        ) {
+                            // теговый шаблон
+                            key = strToArray(args[0], ...args.slice(1))
+                                .map(String)
+                                .join('');
+                        } else {
+                            // обычный вызов
+                            key = args[0];
+                        }
+                        if (!setMetadata.has(key)) {
+                            setMetadata.set(key, []);
+                        }
+                        return (func) => {
+                            let value = null;
+                            setMetadata.get(key).push((meta) => {
+                                value = func(meta);
+                            });
+
+                            return Component.Use(({ state, hooks }) => {
+                                state.init({ value: null });
+                                hooks.didMount(() => {
+                                    state.set({ value });
+                                });
+                                return () => {
+                                    const { value } = state();
+                                    return E.span(value);
+                                };
+                            });
+                        };
+                    };
 
                     const tooltip = getMarker('tooltip', ({ text }) => (t) => {
                         return Tooltip.text(text)(
@@ -297,6 +372,46 @@ export function createBook(f) {
                     const draft = getMarker('draft', () => (t) => {
                         return E.div.class(css('draft'))(t);
                     });
+
+                    const author = getMarker('author', () => (t) => {
+                        return E.span(t);
+                    })
+
+
+                    const Link = Component.Link(({ props }) => {
+                        function onLinkClick(e) {
+                            e.preventDefault();
+                            const { callbacks, ref } = props();
+                            if (callbacks && callbacks.hasOwnProperty('pre')) {
+                                callbacks.pre(e);
+                            }
+                            const refElement = Array.from(
+                                document.querySelectorAll(`[data-key="${ref}"]`)
+                            ).filter((e) => !e.closest('.tooltip'))[0];
+                            if (refElement) {
+                                refElement.scrollIntoView();
+                                const activeClass = css('active');
+                                refElement.classList.add(activeClass);
+                                setTimeout(
+                                    () =>
+                                        refElement.classList.remove(
+                                            activeClass
+                                        ),
+                                    2000
+                                );
+                            }
+                        }
+                        return () => {
+                            const { children } = props();
+                            return E.a
+                                .class(css('ref-link'))
+                                .onClick(onLinkClick)(children);
+                        };
+                    });
+
+                    const link = getMarker('link', ({ ref }) => (t) =>
+                        Link.ref(ref)(t)
+                    );
 
                     const setRefs = new Map();
                     const label = getMarker('label', ({ ref }) => (t) => {
@@ -317,39 +432,21 @@ export function createBook(f) {
                                 state.set({ text });
                             });
 
+                            function hideTooltip() {
+                                const labelElement = document.querySelector(
+                                    `span[data-ref="${ref}"]`
+                                );
+                                labelElement.click();
+                            }
+
                             return () => {
                                 const { text } = state();
                                 const textContent = E.div.class(
                                     css('ref-content')
                                 )(
                                     text,
-                                    E.a.class(css('ref-link')).onClick((e) => {
-                                        e.preventDefault();
-                                        const labelElement = document.querySelector(
-                                            `span[data-ref="${ref}"]`
-                                        );
-                                        labelElement.click();
-                                        const refElement = Array.from(
-                                            document.querySelectorAll(
-                                                `[data-key="${ref}"]`
-                                            )
-                                        ).filter(
-                                            (e) => !e.closest('.tooltip')
-                                        )[0];
-                                        if (refElement) {
-                                            refElement.scrollIntoView();
-                                            const activeClass = css('active');
-                                            refElement.classList.add(
-                                                activeClass
-                                            );
-                                            setTimeout(
-                                                () =>
-                                                    refElement.classList.remove(
-                                                        activeClass
-                                                    ),
-                                                2000
-                                            );
-                                        }
+                                    Link.ref(ref).callbacks({
+                                        pre: hideTooltip,
                                     })(E.span.style`font-size: 2rem`('→'))
                                 );
                                 return Tooltip.text(textContent)(
@@ -364,10 +461,10 @@ export function createBook(f) {
                     const headers = [];
                     const h = (l) =>
                         getMarker(`h${l}`, ({ key }) => (t) => {
-                            headers.push([l, t]);
+                            headers.push([l, E.div(t)]);
                             return E[`h${l}`]
                                 ['data-key'](key)
-                                .id(key || DOM(t).textContent)(t);
+                                .id(key || DOM(E.div(t)).textContent.trim())(t);
                         });
 
                     const ul = getMarker('ul', () => (t) => E.ul(t));
@@ -384,6 +481,7 @@ export function createBook(f) {
                                 E.img
                                     .src(src)
                                     .alt(alt)
+                                    // .loading('lazy')
                                     .style(
                                         height &&
                                             `max-height: ${Math.floor(
@@ -406,10 +504,33 @@ export function createBook(f) {
                     const pre = getMarker('pre', () => (t) => E.pre(t));
                     const createBook = (...args) => {
                         return createHtmlBook(
-                            { headers, refs, setRefs, images },
+                            {
+                                root: false,
+                                headers,
+                                refs,
+                                setRefs,
+                                images,
+                                metadata,
+                                setMetadata,
+                            },
                             ...args
                         );
                     };
+                    createBook.root = (...args) => {
+                        return createHtmlBook(
+                            {
+                                root: true,
+                                headers,
+                                refs,
+                                setRefs,
+                                images,
+                                metadata,
+                                setMetadata,
+                            },
+                            ...args
+                        );
+                    };
+
                     return {
                         V: createBook,
                         book: createBook,
@@ -426,9 +547,20 @@ export function createBook(f) {
                         li,
                         img: (src, alt) => E.img.src(src).alt(alt),
                         a: (href) => (text) => E.a.href(href)(text),
-                        meta: { draft },
-                        block: { area, ul, li, img, pre },
-                        text: { b, i, sub, sup, code, h, label, tooltip, a },
+                        meta: { draft, author },
+                        block: { area, ul, li, img, pre, small },
+                        text: {
+                            b,
+                            i,
+                            sub,
+                            sup,
+                            code,
+                            h,
+                            label,
+                            tooltip,
+                            a,
+                            link,
+                        },
                         math: {
                             $: getMarker('$', () => (t) =>
                                 E.div.style`display: inline-block`._html(
@@ -460,6 +592,7 @@ export function createBook(f) {
                                 return BadExternalComponent.error(e);
                             }
                         },
+                        use,
                     };
                 },
                 markdown: () => ({
