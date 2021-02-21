@@ -64,5 +64,11 @@ export default {
         creationTime: '2020-11-29T04:27:12',
         title: 'Обновление интерфейса и новые разделы',
         tags: ['site']
+    },
+    11: {
+        type: 'js',
+        creationTime: '2021-02-11T18:38:41',
+        title: 'Публикация электронной версии книги "Начала теории множеств"',
+        tags: ['book', 'js', 'math', 'set theory'],
     }
 }
