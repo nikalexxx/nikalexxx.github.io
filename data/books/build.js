@@ -1,4 +1,4 @@
-const { exec, spawn, execSync } = require('child_process');
+const { exec, execSync } = require('child_process');
 
 const { readdirSync } = require('fs');
 

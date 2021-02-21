@@ -7,7 +7,7 @@ export default (api) => {
     const { area } = block;
     const { $, $$ } = math;
 
-    const {paragraph, theorem, problem, proof, A, B, X} = getCustomElements(api);
+    const {paragraph, theorem, problem, proof, A, B, X, printNote} = getCustomElements(api);
 
     return _`
 ${paragraph.key('founded-sets')`Фундированные множества`}
@@ -156,7 +156,7 @@ ${problem`
 ${problem`
 Рассмотрим множество всех слов русского алфавита
 (точнее, всех конечных последовательностей русских букв, независимо от смысла)
-с ${label.ref('lexical-order')`лексикографическим порядком`}.
+с ${label.ref('lexical-order')`лексикографическим порядком`} ${printNote`(см. с. 44)`}.
 Будет ли это множество фундировано?
 `}
 

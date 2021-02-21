@@ -7,7 +7,7 @@ export default (api) => {
     const { ul, li } = block;
     const { $, $$ } = math;
 
-    const {paragraph, theorem, problem, proof, A, B, C, n } = getCustomElements(api);
+    const {paragraph, theorem, problem, proof, A, B, C, n, printNote } = getCustomElements(api);
 
     return _`
 ${paragraph`Операции над мощностями`}
@@ -120,7 +120,7 @@ a^{b + c} &= a^b \\times a^c; \\\\
 (Естественный вопрос: каков смысл индекса ${$`0`} в ${$`\\alef_0`}?
 что такое, скажем, ${$`\\alef_1`}?
 Обычно ${$`\\alef_1`} обозначает наименьшую несчётную мощность (как мы увидим, такая существует).
-Гипотеза континуума, о которой мы ${label.ref('сontinuum-hypothesis')`упоминали`}, утверждает, что ${$`\\frak{c} = \\alef_1`}.)
+Гипотеза континуума, о которой мы ${label.ref('сontinuum-hypothesis')`упоминали`} ${printNote`на с. 30`}, утверждает, что ${$`\\frak{c} = \\alef_1`}.)
 
 
 Известные нам свойства счётных множеств можно записать так:

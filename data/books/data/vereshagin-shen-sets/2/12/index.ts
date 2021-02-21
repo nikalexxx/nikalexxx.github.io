@@ -5,7 +5,7 @@ export default (api) => {
     const { i, b, label } = text;
     const { $, $$ } = math;
 
-    const {paragraph, theorem, problem, proof, A, B, C, n} = getCustomElements(api);
+    const {paragraph, theorem, problem, proof, A, B, C, n, printNote} = getCustomElements(api);
 
     return _`
 ${paragraph`Индуктивные определения и степени`}
@@ -61,7 +61,7 @@ ${$$`
 
 ${proof.start}
 Доказательство аналогично, нужно только проверить, что если ${$`\\tau < \\alpha\\gamma`} для предельного ${$`\\gamma`}, то ${$`\\tau < \\alpha\\beta`} для некоторого ${$`\\beta < \\gamma`}.
-Как мы видели ${label.ref('ord_lin-sum')`ранее`}, ординал ${$`\\tau`} имеет вид ${$`\\tau = \\alpha\\gamma' + \\alpha'`} при ${$`\\gamma' < \\gamma`};
+Как мы видели ${label.ref('ord_lin-sum')`ранее`} ${printNote`на с. 89`}, ординал ${$`\\tau`} имеет вид ${$`\\tau = \\alpha\\gamma' + \\alpha'`} при ${$`\\gamma' < \\gamma`};
 достаточно положить ${$`\\beta = \\gamma' + 1`}.
 ${proof.end}
 
@@ -261,7 +261,7 @@ ${proof.start}
 ${proof.end}
 
 
-Это утверждение обобщает описанную нами ${label.ref('ordinal-position')`ранее`} «позиционную систему обозначений с основанием ${$`\\alpha`}» для ординалов, меньших ${$`\\alpha^k`}; теперь вместо ${$`k`} можно использовать любой ординал.
+Это утверждение обобщает описанную нами ${label.ref('ordinal-position')`ранее`} ${printNote`(с. 90)`} «позиционную систему обозначений с основанием ${$`\\alpha`}» для ординалов, меньших ${$`\\alpha^k`}; теперь вместо ${$`k`} можно использовать любой ординал.
 
 
 Можно было бы сразу сказать, что элементами ${$`[B \\to A]`} являются формальные суммы вида

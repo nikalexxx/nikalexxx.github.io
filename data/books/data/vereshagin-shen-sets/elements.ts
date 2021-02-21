@@ -1,6 +1,5 @@
 export const ttt = '\\mathellipsis';
 
-
 function counter(start: number = 0, step: number = 1) {
     let current = start;
     return () => (current += step);
@@ -128,27 +127,29 @@ function getCustomHeader(api, level, name) {
     const levels = getLevels(headerLevels, name);
     const levelKey = levels.map((e) => e.n).join('.');
     const headerCounter = getCounter(`header_${levelKey}`);
-    return container<{ key: string, noIndex: boolean }, any>(({ key, noIndex }) => (t, ...list) => {
-        if (noIndex) {
-            return book`
+    return container<{ key: string; noIndex: boolean }, any>(
+        ({ key, noIndex }) => (t, ...list) => {
+            if (noIndex) {
+                return book`
             ${start(key ? area.key(key) : area)}
             ${h(level)(book(t, ...list))}
             ${end(area)}
             `;
-        }
-        const n = headerCounter();
-        const longN = `${levelKey}${levelKey === '' ? '' : '.'}${n}`;
-        const headerKey = `${name}_${key ?? n}`;
-        registerCounter(`header_${longN}`);
-        addHeaderLevel(headerLevels, name, n);
-        return book`
+            }
+            const n = headerCounter();
+            const longN = `${levelKey}${levelKey === '' ? '' : '.'}${n}`;
+            const headerKey = `${name}_${key ?? n}`;
+            registerCounter(`header_${longN}`);
+            addHeaderLevel(headerLevels, name, n);
+            return book`
         ${start(area.key(headerKey).meta({ n, longN }))}
         ${h(level)(book`
         ${b(`${longN}`)}. ${book(t, ...list)}
         `)}
         ${end(area)}
         `;
-    });
+        }
+    );
 }
 
 export function registerHeaders() {
@@ -180,5 +181,16 @@ export function getCustomElements(api) {
         Y: api.math.$`Y`,
         Z: api.math.$`Z`,
         M: api.math.$`M`,
+        printNote: container(() => (t) => {
+            return api.text.tooltip.text(
+                `Оригинальный текст приводится без изменений.
+
+
+                Но в электронном издании нет нумерации страниц.
+
+
+                Воспользуйтесь ссылкой рядом для навигации.`
+            )(t);
+        }),
     };
 }

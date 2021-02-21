@@ -265,9 +265,20 @@ export const Tooltip = Component.Tooltip(({ props, state }) => {
     let textContent;
     let content;
 
+    // function getPageSizes() {
+    //     // родитель тултипа
+    //     const parentArea = content.parentNode.parentNode;
+    //     const {width, height} = parentArea.getBoundingClientRect();
+    //     return {
+    //         width: Math.min(width, window.innerWidth),
+    //         height: Math.min(height, window.innerHeight),
+    //     }
+    // }
+
     function onTextContentClick(e) {
         e.stopPropagation();
         const textSizes = textContent.getBoundingClientRect();
+        // const pageSizes = getPageSizes();
         const sizesData = {
             contentWidth: content.offsetWidth,
             contentHeight: content.offsetHeight,

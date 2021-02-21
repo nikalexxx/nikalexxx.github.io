@@ -1,6 +1,6 @@
 import { getCustomElements } from '../../elements.js';
 
-const path = '/data/books/shen-sets/2/2';
+const path = '/data/books/vereshagin-shen-sets/2/2';
 
 export default (api) => {
     const { _, text, block, control, math } = api;
@@ -9,7 +9,7 @@ export default (api) => {
     const { ul, li, area, img } = block;
     const { $, $$ } = math;
 
-    const {paragraph, theorem, problem, proof, A, B, X, Y, n} = getCustomElements(api);
+    const {paragraph, theorem, problem, proof, A, B, X, Y, n, printNote} = getCustomElements(api);
 
     return _`
 ${paragraph`Изоморфизмы`}
@@ -100,7 +100,7 @@ ${end(ul)}
 
 ${problem`
 Докажите, что линейно упорядоченные множества ${$`\\Z \\times \\N`} и ${$`\\Z \\times \\Z`}
-(с описанным ${label.ref('multi-set-order')`выше`} порядком) не изоморфны.
+(с описанным ${label.ref('multi-set-order')`выше`} ${printNote`на с. 46`} порядком) не изоморфны.
 `}
 
 

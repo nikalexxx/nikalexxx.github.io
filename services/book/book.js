@@ -7,7 +7,6 @@ import { _b, _h, _i, _pre, consoleStyle } from '../../utils/consoleStyle.js';
 import { Tooltip } from '../../blocks';
 import { isPrimitive } from '../../utils/diff';
 import { renderToString } from 'katex';
-// import {renderToString} from './katex-dist/katex.js';
 import { strToArray } from '../../utils/element.js';
 
 const b = block('book');
@@ -305,8 +304,8 @@ export function createBook(f) {
                         refs
                     );
 
-                    const small = getMarker('small', ({inline}) => (t) => {
-                        return E.div.class(css('small', {inline}))(t);
+                    const small = getMarker('small', ({ inline }) => (t) => {
+                        return E.div.class(css('small', { inline }))(t);
                     });
 
                     const area = getMarker(
@@ -364,7 +363,7 @@ export function createBook(f) {
                     };
 
                     const tooltip = getMarker('tooltip', ({ text }) => (t) => {
-                        return Tooltip.text(text)(
+                        return Tooltip.text(E.div.class(css('ref-content'))(text))(
                             E.span.class(css('label'))(t)
                         );
                     });
@@ -375,8 +374,7 @@ export function createBook(f) {
 
                     const author = getMarker('author', () => (t) => {
                         return E.span(t);
-                    })
-
+                    });
 
                     const Link = Component.Link(({ props }) => {
                         function onLinkClick(e) {
@@ -490,7 +488,9 @@ export function createBook(f) {
                                     )
                             );
                             const content = t
-                                ? E.figure(image, E.figcaption(t))
+                                ? E.figure.class(
+                                      css('img-figure', { position })
+                                  )(image, E.figcaption(t))
                                 : image;
 
                             const imageKey = String(imageIndex++);

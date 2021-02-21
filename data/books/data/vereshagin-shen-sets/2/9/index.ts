@@ -1,6 +1,6 @@
 import { getCustomElements } from '../../elements.js';
 
-const path = '/data/books/shen-sets/2/9';
+const path = '/data/books/vereshagin-shen-sets/2/9';
 
 export default (api) => {
     const { _, text, block, control, math } = api;
@@ -9,7 +9,7 @@ export default (api) => {
     const { area, img } = block;
     const { $ } = math;
 
-    const {paragraph, theorem, problem, proof, A, B, C, n} = getCustomElements(api);
+    const {paragraph, theorem, problem, proof, A, B, C, n, printNote} = getCustomElements(api);
 
     return _`
 ${paragraph.key('cardinal-rules')`Свойства операций над мощностями`}
@@ -20,8 +20,8 @@ ${theorem`Если ${A} бесконечно, то множество ${$`A \\ti
 
 
 ${proof.start}
-Вполне упорядочим множество A.
-Мы ${label.ref('z+n')`уже знаем`}, что всякий элемент множества ${A} однозначно представляется в виде ${$`z + n`}, где ${$`z`} — предельный элемент (не имеющий непосредственно предыдущего), а ${$`n`} — натуральное число.
+Вполне упорядочим множество ${A}.
+Мы ${label.ref('z+n')`уже знаем`} ${printNote`(см. с. 56)`}, что всякий элемент множества ${A} однозначно представляется в виде ${$`z + n`}, где ${$`z`} — предельный элемент (не имеющий непосредственно предыдущего), а ${$`n`} — натуральное число.
 Это означает, что ${A} равномощно ${$`B \\times \\N`}, где ${B} — множество предельных элементов.
 (Тут есть небольшая трудность — последняя группа элементов конечна, если в множестве есть наибольший элемент.
 Но мы уже знаем, что добавление конечного или счётного множества не меняет мощности, так что этим можно пренебречь.)
