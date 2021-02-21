@@ -2,7 +2,6 @@ import './Blog.less';
 
 import { Component, E, RouteLink, block } from '../../utils';
 
-import { Button } from '../../blocks';
 import blog from '../../data/blog';
 
 const b = block('blog');
@@ -41,8 +40,6 @@ const Blog = Component.Blog(({ state }) => {
         state.set({ activeTags });
     }
 
-    const total = Object.keys(blog).length;
-
     const allTags = Object.values(blog)
         .map((e) => e.tags)
         .flat()
@@ -67,6 +64,7 @@ const Blog = Component.Blog(({ state }) => {
                 return tags.some((tag) => activeTags.has(tag));
             });
         }
+        console.log({blogKeys});
         return E.div.class(b())(
             E.div.class(b('tag-panel'))(
                 E.div
@@ -78,7 +76,7 @@ const Blog = Component.Blog(({ state }) => {
                         .onClick((e) => onTagClick(e.target.dataset.tag))(tag)
                 )
             ),
-            E.div(
+            E.div._forceUpdate(true)(
                 blogKeys
                     .sort((keyA, keyB) => {
                         const getMs = (key) =>
@@ -86,14 +84,10 @@ const Blog = Component.Blog(({ state }) => {
                         return getMs(keyB) - getMs(keyA);
                     })
                     .map((key) => {
-                        const { type, creationTime, title, tags } = blog[key];
+                        const { creationTime, title, tags } = blog[key];
                         return E.div.class(b('post-card'))(
                             E.div.class(b('title'))(
-                                // E.h3(title),
                                 E.h3(RouteLink.href(`blog/${key}`)(title))
-                                // E.div.class(b('read-button'))(
-                                //     RouteLink.href(`blog/${key}`)(Button('Читать'))
-                                // )
                             ),
                             E.p(DateTime.time(creationTime)),
                             E.p(

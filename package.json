@@ -1,12 +1,14 @@
 {
   "name": "nikalexxx.github.io",
-  "version": "1.11.1",
+  "version": "1.12.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-html": "node html-gen.js ${npm_package_version}",
-    "build": "npm run build-html; rm -Rf dist; parcel build index.html; cp -R data/ dist/data/; cp -R assets/ dist/assets/",
+    "build": "npm run build-html; rm -Rf dist; parcel build index.html; mkdir dist; mkdir dist/data; cp -R data/blog dist/data/blog; cp -R assets/ dist/assets/; npm run build-books",
+    "build-books": "node data/books/build.js",
+    "dev-books": "onchange \"./data/books/**/*\" -- npm run build-books",
     "deploy": "ENV=prod npm run build; gh-pages -d dist",
     "dev": "npm run build; parcel index.html"
   },
@@ -26,11 +28,13 @@
     "@babel/plugin-transform-runtime": "^7.12.1",
     "gh-pages": "^3.1.0",
     "less": "^3.11.1",
+    "onchange": "^7.1.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-wasm.rs": "^1.2.16",
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5"
+    "@babel/runtime": "^7.12.5",
+    "katex": "^0.12.0"
   }
 }

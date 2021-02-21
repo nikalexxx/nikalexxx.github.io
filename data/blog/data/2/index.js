@@ -1,4 +1,7 @@
-export default ({V, n, h, i, b, a, code}) => V`
+export default (api) => {
+    const {book, text} = api;
+    const {code, a, h} = text;
+    return book`
 Изначально для построения сайта я использовал нативные es6 модули.
 
 
@@ -24,13 +27,15 @@ export default ({V, n, h, i, b, a, code}) => V`
 
 
 — Использование css препроцессоров.
-Я решил использовать ${a('https://lesscss.org')('Less')}, так как он обладает минимумом нужных функций(мне нужен только nesting и переменные).
+Я решил использовать ${a.href('https://lesscss.org')('Less')}, так как он обладает минимумом нужных функций(мне нужен только nesting и переменные).
 Less можно использовать в рантайме, что я изначально и делал.
 Для каждого модуля я добавлял стили специально написанной функцией ${code('css(import.meta.url, \'./Example.less\')')}.
 Эта функция создавала элемент ${code('<link>')}, его уже подхватывал скрипт less и генерировал стили.
 В результате стили грузились после отрисовки контента и верстка "скакала".
+
+
 ${h(3)('Сборка')}
-Стал использовать ${a('https://parceljs.org')('Parcel')} из-за того, что он многое поддерживает из коробки и практически не требует настроек.
+Стал использовать ${a.href('https://parceljs.org')('Parcel')} из-за того, что он многое поддерживает из коробки и практически не требует настроек.
 Есть горячая замена — пересборка запускается при каждом изменении файлов.
 Так как для хостинга нужно, чтобы в корне лежал index.html, собираются только js и css ресурсы, а html обновляется отдельно nodejs скриптом.
 Файлам даются уникальные имена относительно версии проекта.
@@ -45,5 +50,6 @@ build: ${code('rm -Rf build;parcel build index.js --out-dir build --out-file ind
 dev: ${code('parcel watch index.js --out-dir build --out-file index.${npm_package_version}.js')}
 
 
-Для разработки использую расширение ${a('https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer')('Live Server')} для VSCode.
+Для разработки использую расширение ${a.href('https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer')('Live Server')} для VSCode.
 `;
+}

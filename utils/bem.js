@@ -4,7 +4,7 @@ const block = blockName => {
         const cssStack = [];
         const elementName = block + (element ? `__${element}` : '');
         cssStack.push(elementName);
-        for (const mod in modifiers) {
+        for (const mod in (modifiers || {})) {
             const value = modifiers[mod];
             if (typeof value === 'boolean') {
                 if (value) {
@@ -14,7 +14,7 @@ const block = blockName => {
                 cssStack.push(`${elementName}_${mod}_${value}`);
             }
         }
-        return cssStack.join(' ');
+        return `${cssStack.join(' ')}${mixin ? ` ${mixin}` : ''}`;
     };
 }
 

@@ -5,5 +5,100 @@
         border-radius: 4px;
         padding: 4px 8px;
         margin: 16px 4px;
+        align-items: stretch;
+    }
+
+    &__i {
+        font-style: italic;
+    }
+
+    &__label {
+        // text-decoration: underline dotted;
+        padding: 2px;
+        border-radius: 2px;
+        border-bottom: 1px dashed var(--color-border-contrast);
+
+        background-color: var(--book-label-current, var(--color-background));
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--color-background-second);
+        }
+    }
+
+    &__ref-link {
+        cursor: pointer;
+    }
+
+    &__ref-content {
+        max-width: 90vw;
+        padding: 4px 8px;
+
+        @media (min-width: 700px) {
+            max-width: 630px;
+        }
+    }
+
+    &__area {
+        margin: 0;
+        padding: 0;
+    }
+
+    &__small {
+        font-size: 0.9em;
+
+        &_inline {
+            display: inline-block;
+        }
+    }
+
+    &__img {
+        margin: 1em 0;
+
+        &_position {
+            &_inline {
+                margin: 0;
+                display: inline-block;
+            }
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        figcaption {
+            text-align: center;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+    }
+
+    &__img-figure {
+        display: flex;
+        flex-direction: column;
+        &_position {
+            &_center {
+                justify-content: center;
+
+                picture {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+
+    &__active {
+        background-color: var(--color-background-accent);
+        color: var(--color-text-accent);
+        transition: all 1s;
+    }
+
+    &__draft {
+        display: inline-block;
+        border: 2px solid red;
+        padding: 2px;
+        background-color: yellow;
+        color: black;
     }
 }
