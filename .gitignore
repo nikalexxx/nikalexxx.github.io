@@ -2,6 +2,5 @@
 
 node_modules
 .cache
-
 dist
 /index.html

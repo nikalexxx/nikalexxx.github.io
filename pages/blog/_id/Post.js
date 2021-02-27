@@ -23,7 +23,7 @@ const Post = Component.Post(({props, state, hooks: {didMount}}) => {
             return;
         }
         const {type} = blog[id];
-        const path = `../data/blog/data/${id}/index.${type}?r=${window.appVersion}`;
+        const path = `/data/blog/data/${id}/index.${type}?r=${window.appVersion}`;
         if (type === 'html') {
             fetch(path).then(e => {
                 // console.log(e.clone().blob());

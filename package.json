@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-data": "cp -R data/blog dist/data/blog; cp -R data/syntaxes dist/data/syntaxes; cp -R assets/ dist/assets/",
     "build-html": "node html-gen.js ${npm_package_version}",
-    "build": "npm run build-html; rm -Rf dist; parcel build index.html; mkdir dist; mkdir dist/data; cp -R data/blog dist/data/blog; cp -R assets/ dist/assets/; npm run build-books",
+    "build": "npm run build-html; rm -Rf dist; parcel build index.html; mkdir dist; mkdir dist/data; npm run copy-data; npm run build-books",
     "build-books": "node data/books/build.js",
     "dev-books": "onchange \"./data/books/**/*\" -- npm run build-books",
     "deploy": "ENV=prod npm run build; gh-pages -d dist",
@@ -31,7 +32,7 @@
     "onchange": "^7.1.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-wasm.rs": "^1.2.16",
-    "typescript": "^4.0.2"
+    "typescript": "^4.1.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
