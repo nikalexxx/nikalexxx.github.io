@@ -2,6 +2,7 @@
 
 .theme_dark {
     --color-text: var(--color-gray-light);
+    --color-text-secondary: var(--color-gray);
     --color-text-active: var(--color-blue);
     --color-text-accent: var(--color-red);
     --color-background: var(--color-dark);
@@ -14,6 +15,7 @@
 
 .theme_light {
     --color-text: var(--color-dark-gray);
+    --color-text-secondary: var(--color-gray-light-medium);
     --color-text-active: var(--color-blue);
     --color-text-accent: var(--color-red-light);
     --color-background: var(--color-white);
@@ -76,6 +78,10 @@ a[href*=github]::before {
     background-image: url('../assets/images/logo/github.svg'), linear-gradient(black, black);
     background-size: 150%, cover;
     transform: rotate(180deg);
+}
+
+a[data-clear-link]::before {
+    display: none;
 }
 
 p, h1, h2, h3, h4, h5, h6 {

@@ -1,0 +1,31 @@
+.collapse {
+    &__title {
+        display: inline-flex;
+        padding: 2px 4px;
+        border-radius: 2px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--color-background-second);
+        }
+
+        &_state {
+            &_closed {
+                color: var(--color-text-secondary);
+            }
+        }
+    }
+
+    &__sign {
+        padding: 0 4px;
+
+        &_state {
+            &_open {
+                color: var(--color-green-light);
+            }
+            &_close {
+                color: var(--color-red);
+            }
+        }
+    }
+}

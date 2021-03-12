@@ -124,7 +124,7 @@ const Page = E.div.class(b())(
             document.documentElement.classList.toggle('mobile-visible')
         ),
     E.main.class(b('content'))(Switch.routes(routes)),
-    E.footer.class(b('footer'))('© 2019-2020 Alexandr Nikolaichev')
+    E.footer.class(b('footer'))('© 2019-2021 Alexandr Nikolaichev')
 );
 
 export default Page;
