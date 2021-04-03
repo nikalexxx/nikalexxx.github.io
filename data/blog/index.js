@@ -70,5 +70,11 @@ export default {
         creationTime: '2021-02-11T18:38:41',
         title: 'Публикация электронной версии книги "Начала теории множеств"',
         tags: ['book', 'js', 'math', 'set theory'],
+    },
+    12: {
+        type: 'js',
+        creationTime: '2021-04-03T19:44:22',
+        title: 'Выпуск opensource библиотеки ts-pro',
+        tags: ['typescript', 'types', 'generics', 'opensource', 'npm']
     }
 }
