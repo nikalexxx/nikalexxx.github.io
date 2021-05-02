@@ -18,10 +18,10 @@ export default {
         tags: ['es6', 'parcel']
     },
     3: {
-        type: 'js',
+        type: 'javascript',
         creationTime: '2020-04-04T19:38:53',
         title: 'Переписал движок сайта на virtual DOM',
-        tags: ['js', 'virtual dom']
+        tags: ['javascript', 'virtual dom']
     },
     4: {
         type: 'js',
@@ -39,7 +39,7 @@ export default {
         type: 'js',
         creationTime: '2020-05-09T04:09:09',
         title: 'Игра «Жизнь» и клеточные автоматы в браузере',
-        tags: ['js', 'game of life', 'cellular automaton']
+        tags: ['javascript', 'game of life', 'cellular automaton']
     },
     7: {
         type: 'js',
@@ -51,13 +51,13 @@ export default {
         type: 'js',
         creationTime: '2020-08-24T00:32:17',
         title: 'Делегация обновления компонентов',
-        tags: ['js', 'virtual dom']
+        tags: ['javascript', 'virtual dom']
     },
     9: {
         type: 'js',
         creationTime: '2020-10-31T03:15:35',
         title: 'Формат электронной книги',
-        tags: ['book', 'web', 'js']
+        tags: ['book', 'web', 'javascript']
     },
     10: {
         type: 'js',
@@ -69,7 +69,7 @@ export default {
         type: 'js',
         creationTime: '2021-02-11T18:38:41',
         title: 'Публикация электронной версии книги "Начала теории множеств"',
-        tags: ['book', 'js', 'math', 'set theory'],
+        tags: ['book', 'javascript', 'math', 'set theory'],
     },
     12: {
         type: 'js',

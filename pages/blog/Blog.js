@@ -64,7 +64,6 @@ const Blog = Component.Blog(({ state }) => {
                 return tags.some((tag) => activeTags.has(tag));
             });
         }
-        console.log({blogKeys});
         return E.div.class(b())(
             E.div.class(b('tag-panel'))(
                 E.div
@@ -90,7 +89,7 @@ const Blog = Component.Blog(({ state }) => {
                                 E.h3(RouteLink.href(`blog/${key}`)(title))
                             ),
                             E.p(DateTime.time(creationTime)),
-                            E.p(
+                            E.div.class(b('tags'))(
                                 tags.map((tag) =>
                                     E.div
                                         .class(

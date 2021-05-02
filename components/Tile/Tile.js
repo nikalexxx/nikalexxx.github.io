@@ -1,14 +1,12 @@
 import './Tile.less';
 
-import { Component, block } from '../../utils';
-
-import { Button } from '../../blocks';
+import { Component, E, block } from '../../utils';
 
 const b = block('tile');
 
 export const Tile = Component.Tile(({props}) => {
     return () => {
         const {children} = props();
-        return Button.class(b())(children)
+        return E.div.class(b())(E.div(children))
     }
 })

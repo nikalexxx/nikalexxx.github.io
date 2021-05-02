@@ -6,14 +6,33 @@
     --h: calc(var(--r) / 2);
     --di: calc(var(--r) * sqrt(3) / 2);
     --w: 2px;
+    --p: 5s;
     --border-color: transparent;
     height: var(--d);
     width: var(--d);
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: 5s linear infinite rotating;
+    position: relative;
+    animation: var(--p) linear infinite rotating;
 
+    &_size {
+        &_s {
+            --r: 0.6em;
+            --p: 2s;
+        }
+        &_m {
+            --r: 1em;
+            --p: 3s;
+        }
+        &_l {
+            --r: 2em;
+            --p: 4s;
+        }
+        &_xl {
+            --r: 3.5em;
+        }
+    }
 
     @keyframes rotating {
         from {
@@ -25,32 +44,18 @@
 
     &_active {
         & > div {
-            border-color: var(--color-border);
+            border-color: var(--color-border-contrast);
         }
     }
 
     &__hex-part {
         position: absolute;
+        top: calc(var(--r) / 2);
         width: calc(var(--di) * 2);
-        height: calc(var(--r) + (1 * var(--w)));
+        height: calc(var(--r) + (var(--w) / sqrt(3) * 2));
         background-color: transparent;
         border-left: var(--w) solid transparent;
         border-right: var(--w) solid transparent;
         transition: all 1s ease-in-out;
-    }
-
-    &_size {
-        &_s {
-            --r: .6em;
-        }
-        &_m {
-            --r: 1em;
-        }
-        &_l {
-            --r: 2em;
-        }
-        &_xl {
-            --r: 3.5em;
-        }
     }
 }

@@ -16,11 +16,13 @@ const Books = Component.Books(() => {
                     const { title, authors } = booksList[name];
                     return RouteLink.href(`books/${name}`)(
                         Tile(
-                            E.h3(title),
-                            authors.map((author, i) => [
-                                i > 0 && ', ',
-                                E.i(author),
-                            ])
+                            E.div.class(b('tile'))(
+                                E.h3(title),
+                                authors.map((author, i) => [
+                                    i > 0 && ', ',
+                                    E.i(author),
+                                ])
+                            )
                         )
                     );
                 }),

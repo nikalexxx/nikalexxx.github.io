@@ -266,14 +266,14 @@ function renderTree(tree, topLevel = false) {
                 )
             );
         } else {
-            content = Collapse.title(
+            content = Collapse.open(true).title(
                 E.div.title(key)(meta in value ? value[meta].title : key)
             )(renderTree(value));
         }
         return E.li(content);
     });
     if (heap in tree) {
-        items.push(E.li(Collapse.title('...')(renderTree(tree[heap]))));
+        items.push(E.li(Collapse.open(true).title('...')(renderTree(tree[heap]))));
     }
     return E.ul.style(topLevel ? 'border: none' : '')(items);
 }

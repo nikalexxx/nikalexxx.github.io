@@ -5,29 +5,22 @@
     &__content {
         position: absolute;
         overflow: scroll;
-        // display: none;
-        // visibility: hidden;
         left: -9999px;
-        // opacity: 0;
         background-color: var(--color-background);
         border: 1px solid var(--color-border);
-        // padding: 4px 8px;
         border-radius: 2px;
-        // top: -100px;
         bottom: calc(100% + 4px);
         box-shadow: 0 0 1em rgba(0,0,0,1);
         min-width: 300px;
 
         &_visible {
             z-index: 9999;
-            // display: block;
-            // visibility: visible;
-            // transition: all .1s;
-            // opacity: 1;
         }
     }
 
     &__text {
+        cursor: pointer;
+
         &_current {
             --book-label-current: var(--color-background-accent);
         }

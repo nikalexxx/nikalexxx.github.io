@@ -16,10 +16,16 @@ const Design = Component.Design(() => {
                     Tile(
                         E.div.class(b('huge'))(
                             E.span.style('color: var(--color-red)')('Ц'),
-                            E.span.style('color: var(--color-green-light)')('в'),
+                            E.span.style('color: var(--color-green-light)')(
+                                'в'
+                            ),
                             E.span.style('color: var(--color-blue-sky)')('е'),
-                            E.span.style('color: var(--color-violet-light)')('т'),
-                            E.span.style('color: var(--color-orange-light)')('а')
+                            E.span.style('color: var(--color-violet-light)')(
+                                'т'
+                            ),
+                            E.span.style('color: var(--color-orange-light)')(
+                                'а'
+                            )
                         )
                     )
                 ),
@@ -27,8 +33,16 @@ const Design = Component.Design(() => {
                     Tile(
                         E.div.class(b('huge'))(
                             E.span.style('color: var(--color-black)')('Те'),
-                            E.span.style('color: var(--color-gray-light)')('мы'),
-                        ),
+                            E.span.style('color: var(--color-gray-light)')('мы')
+                        )
+                    )
+                ),
+                RouteLink.href('design/components')(
+                    Tile(
+                        E.div.style`color: var(--color-background); text-align: center;`.class(b('border'))(
+                            E.div.class(b('huge'))('Бл\u2699ки'),
+                            E.div.style`font-size: 32px;`('и компоненты')
+                        )
                     )
                 )
             )

@@ -12,10 +12,12 @@
     &__title {
         display: grid;
         grid-template-columns: auto 1fr;
+        margin-bottom: 8px;
         & > h3 {
             margin: 0;
             padding: 0;
             hyphens: auto;
+            font-size: 1.4em;
             & > a {
                 color: var(--color-text);
 
@@ -35,8 +37,11 @@
         padding-bottom: 16px;
         overflow-x: scroll;
     }
+    &__tags {
+        display: flex;
+    }
     &__tag {
-        display: inline-block;
+        display: inline-flex;
         margin: 4px;
         padding: 2px 8px;
         border-radius: 4px;
@@ -47,6 +52,33 @@
         &:hover {
             border: 1px solid var(--color-border);
             margin: 3px;
+        }
+
+        &[data-tag="typescript"]::before {
+            display: inline-block;
+            content: '';
+            width: 15px;
+            height: 15px;
+            margin-right: 4px;
+            background-image: url('../../assets/images/logo/typescript.svg');
+        }
+
+        &[data-tag="javascript"]::before {
+            display: inline-block;
+            content: '';
+            width: 15px;
+            height: 15px;
+            margin-right: 4px;
+            background-image: url('../../assets/images/logo/javascript.svg');
+        }
+
+        &[data-tag="css"]::before {
+            display: inline-block;
+            content: '';
+            width: 15px;
+            height: 15px;
+            margin-right: 4px;
+            background-image: url('../../assets/images/logo/css.svg');
         }
 
         &_active {

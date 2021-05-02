@@ -1,7 +1,23 @@
-import { About, Blog, Book, Books, Catalog, Colors, Design, GameOfLife, Physics, Post, Projects, StandardModel, Themes, Unicode } from "../pages";
+import {
+    About,
+    Blog,
+    Book,
+    Books,
+    Catalog,
+    Colors,
+    Components,
+    Design,
+    GameOfLife,
+    Physics,
+    Post,
+    Projects,
+    StandardModel,
+    Themes,
+    Unicode,
+} from '../pages';
 
 import { Page404 } from '.';
-import { Page404Symbol } from "../utils/router";
+import { Page404Symbol } from '../utils/router';
 
 export const routes = (params) => ({
     '/': Blog,
@@ -9,6 +25,7 @@ export const routes = (params) => ({
     design: Design,
     'design/colors': Colors,
     'design/themes': Themes,
+    'design/components': Components,
     // 'my/:state': E.div(
     //     E.ul(
     //         E.li`шейдеры gpu для параллельных вычислений`,
