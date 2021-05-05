@@ -8,6 +8,7 @@ import PencilAlt from './PencilAlt';
 import Play from './Play';
 import StepForward from './StepForward';
 import Sun from './Sun';
+import Times from './Times';
 
 export const Icon = {
     Ban,
@@ -19,5 +20,6 @@ export const Icon = {
     Play,
     Pause,
     StepForward,
+    Times,
     PencilAlt
 };

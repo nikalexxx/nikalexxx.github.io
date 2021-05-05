@@ -4,6 +4,7 @@ import {
     Button,
     Checkbox,
     Collapse,
+    Modal,
     Select,
     Spin,
     Tooltip,
@@ -152,6 +153,38 @@ Checkbox.onChange((e) =>
     'Текст подсказки',
     E.ul(E.li('и другие'), E.li('элементы')),
 ])('подсказка')`
+                        )
+                    )
+                ),
+                E.h2('Modal'),
+                E.div(
+                    E.div.class(b('example'))(
+                        Button.onClick(() =>
+                            Modal.open((close) =>
+                                E.div.style`width: 300px; background: var(--color-background); padding: 8px`(
+                                    'Здесь размещается контент, закрыть можно при клике вне контента, либо по действиям внутри ',
+                                    Button.onClick(close)('кнопка закрытия')
+                                )
+                            )
+                        )('открыть модальное окно')
+                    ),
+                    Collapse.title`code`(
+                        E.pre(
+                            '\n' +
+                                `Button.onClick(() =>
+    Modal.open((close) =>
+        E.div.style\`
+            width: 300px;
+            background: var(--color-background);
+            padding: 8px
+        \`(
+            'Здесь размещается контент,
+            закрыть можно при клике вне контента,
+            либо по действиям внутри ',
+            Button.onClick(close)('кнопка закрытия')
+        )
+    )
+)('открыть модальное окно')`
                         )
                     )
                 )

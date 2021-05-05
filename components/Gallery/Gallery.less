@@ -1,0 +1,22 @@
+.gallery {
+    display: grid;
+    --size: calc(100px + 10vw);
+    grid-template-columns: repeat(auto-fit, minmax(var(--size), 1fr));
+    gap: 4px;
+
+    &__tile {
+        background-position: center;
+        background-size: cover;
+        background-clip: padding-box;
+        height: var(--size);
+        --offset: 4px;
+        margin: var(--offset);
+        border-radius: 8px;
+
+        &:hover {
+            cursor: pointer;
+            margin: 0;
+            padding: var(--offset);
+        }
+    }
+}

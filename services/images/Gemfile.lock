@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    dimensions (1.3.0)
+
+PLATFORMS
+  universal-darwin-18
+
+DEPENDENCIES
+  dimensions
+
+BUNDLED WITH
+   2.2.16

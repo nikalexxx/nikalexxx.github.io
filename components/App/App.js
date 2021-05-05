@@ -43,6 +43,7 @@ const Menu = Component.Menu(({ state }) => {
             renderLink('books', 'Книги'),
             renderLink('physics', 'Физика'),
             renderLink('design', 'Дизайн'),
+            renderLink('travels', 'Путешествия'),
             renderLink('catalog', 'Каталог'),
             // renderLink('my/ok', 'тест'),
             E.div.class(b('collapse-menu'))(

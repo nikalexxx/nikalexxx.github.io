@@ -18,7 +18,7 @@ export default {
         tags: ['es6', 'parcel']
     },
     3: {
-        type: 'javascript',
+        type: 'js',
         creationTime: '2020-04-04T19:38:53',
         title: 'Переписал движок сайта на virtual DOM',
         tags: ['javascript', 'virtual dom']
@@ -76,5 +76,11 @@ export default {
         creationTime: '2021-04-03T19:44:22',
         title: 'Выпуск opensource библиотеки ts-pro',
         tags: ['typescript', 'types', 'generics', 'opensource', 'npm']
+    },
+    13: {
+        type: 'js',
+        creationTime: '2021-05-05T17:56:57',
+        title: 'Галерея изображений: CSS grid, webp и ffmpeg',
+        tags: ['css', 'grid', 'webp', 'ffmpeg', 'ruby']
     }
 }

@@ -1,0 +1,30 @@
+.image-viewer {
+    &__image {
+        max-width: 100vw;
+        max-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-bottom-left-radius: 8px;
+        color: rgba(255, 255, 255, 0.6);
+
+        &:hover {
+            cursor: pointer;
+            background-color: red;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+        }
+    }
+}

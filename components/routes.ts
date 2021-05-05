@@ -1,5 +1,6 @@
 import {
     About,
+    Altai,
     Blog,
     Book,
     Books,
@@ -13,6 +14,7 @@ import {
     Projects,
     StandardModel,
     Themes,
+    Travels,
     Unicode,
 } from '../pages';
 
@@ -46,6 +48,8 @@ export const routes = (params) => ({
     'projects/game-of-life': GameOfLife,
     physics: Physics,
     'physics/standard-model': StandardModel,
+    travels: Travels,
+    'travels/altai': Altai,
     catalog: Catalog,
     [Page404Symbol]: Page404,
 });
