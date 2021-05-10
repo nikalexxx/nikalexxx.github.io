@@ -5,4 +5,5 @@ export * from './design';
 export * from './physics';
 export * from './projects';
 export * from './travels';
+export * from './reports';
 export * from './catalog';

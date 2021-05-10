@@ -40,12 +40,13 @@ const Menu = Component.Menu(({ state }) => {
             renderLink('blog', 'Блог'),
             renderLink('about', 'Кто я?'),
             renderLink('projects', 'Проекты'),
+            renderLink('reports', 'Доклады'),
             renderLink('books', 'Книги'),
             renderLink('physics', 'Физика'),
             renderLink('design', 'Дизайн'),
             renderLink('travels', 'Путешествия'),
             renderLink('catalog', 'Каталог'),
-            // renderLink('my/ok', 'тест'),
+            // renderLink('plans', 'Планы'),
             E.div.class(b('collapse-menu'))(
                 Button.onClick(() => {
                     document.documentElement.classList.toggle('mobile-visible');

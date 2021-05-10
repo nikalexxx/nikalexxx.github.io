@@ -205,6 +205,7 @@ function componentConstructor(componentName) {
                     };
                     // }
                     if (firstAppend) {
+                        element.dom.ref.dataset['component'] = componentName;
                         window.dispatchEvent(new CustomEvent('didMount', {
                             detail: {
                                 componentNameSymbol: componentNameSymbol
