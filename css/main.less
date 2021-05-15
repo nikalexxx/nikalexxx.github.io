@@ -1,4 +1,4 @@
-@import './variables';
+@import "./variables";
 
 .theme_dark {
     --color-text: var(--color-gray-light);
@@ -46,8 +46,8 @@ a:hover {
     color: var(--color-text-accent);
 }
 
-a[href^=http]::after {
-    content: '⇧';
+a[href^="http"]::after {
+    content: "⇧";
     font-size: 0.5em;
     display: inline-block;
     transform: rotate(45deg) scaleY(1.5);
@@ -57,41 +57,55 @@ a[href^=http]::after {
 }
 
 .link-logo() {
-    content: '';
+    content: "";
     display: inline-block;
     background-position: center;
     margin-right: 2px;
     vertical-align: text-bottom;
-    box-shadow: 0 0 .2em rgba(0,0,0,.3);
+    box-shadow: 0 0 0.2em rgba(0, 0, 0, 0.3);
     background-repeat: no-repeat;
     border-radius: 4px;
     height: 1rem;
     width: 1rem;
 }
 
-a[href*=wikipedia]::before {
+a[href*="wikipedia"]::before {
     .link-logo();
-    background-image: url('../assets/images/logo/wikipedia.svg'), linear-gradient(var(--color-white), var(--color-white));
+    background-image: url("../assets/images/logo/wikipedia.svg"),
+        linear-gradient(var(--color-white), var(--color-white));
     background-size: 10px, cover;
 }
 
-a[href*=github]::before {
+.logo-github() {
     .link-logo();
-    background-image: url('../assets/images/logo/github.svg'), linear-gradient(black, black);
+    --color: var(--color-black);
+    background-image: url("../assets/images/logo/github.svg"),
+        linear-gradient(var(--color), var(--color));
     background-size: 150%, cover;
     transform: rotate(180deg);
+}
+
+a[href*="github"]::before {
+    .logo-github();
 }
 
 a[data-clear-link]::before {
     display: none;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     padding: 0;
     margin: 0;
 }
 
-h2, h3 {
+h2,
+h3 {
     padding: 8px 0;
 }
 
@@ -101,9 +115,9 @@ pre {
     padding: 16px;
     padding-top: 0;
     border-radius: 4px;
-    box-shadow: inset 0 0 .5em rgba(0,0,0,.3);
-    font-size: .8em;
-    font-family: 'Menlo', 'Courier New', Courier, monospace;
+    box-shadow: inset 0 0 0.5em rgba(0, 0, 0, 0.3);
+    font-size: 0.8em;
+    font-family: "Menlo", "Courier New", Courier, monospace;
     overflow: scroll;
 }
 
@@ -120,7 +134,8 @@ table {
     border: 1px solid var(--color-border);
 }
 
-td, th {
+td,
+th {
     border: 1px solid var(--color-border);
     padding: 4px;
 }
@@ -128,7 +143,7 @@ td, th {
 textarea {
     color: var(--color-text);
     background: var(--color-background);
-    font-size: .9em;
+    font-size: 0.9em;
     border: 1px solid var(--color-border);
     padding: 4px;
     min-height: 2em;

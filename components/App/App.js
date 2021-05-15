@@ -16,7 +16,6 @@ import { routes } from '../routes';
 
 const b = block('app');
 
-
 const Menu = Component.Menu(({ state }) => {
     const path = () => getRouterState(routes).path;
     state.init({ i: 0 });
@@ -25,7 +24,7 @@ const Menu = Component.Menu(({ state }) => {
     );
     function renderLink(href, title) {
         const current =
-            (typeof path() === 'string') &&
+            typeof path() === 'string' &&
             (path().startsWith(href) || (path() === '/' && href === 'blog'));
         return RouteLink.href(href)(
             E.div.class(b('menu-link', { current })).onClick(() => {
@@ -126,7 +125,10 @@ const Page = E.div.class(b())(
             document.documentElement.classList.toggle('mobile-visible')
         ),
     E.main.class(b('content'))(Switch.routes(routes)),
-    E.footer.class(b('footer'))('© 2019-2021 Alexandr Nikolaichev')
+    E.footer.class(b('footer'))(
+        E.div('© 2019-2021 Alexandr Nikolaichev'),
+        E.a.href('https://github.com/nikalexxx').target('_blank')('Github')
+    )
 );
 
 export default Page;
