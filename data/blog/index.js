@@ -82,5 +82,11 @@ export default {
         creationTime: '2021-05-05T17:56:57',
         title: 'Галерея изображений: CSS grid, webp и ffmpeg',
         tags: ['css', 'grid', 'webp', 'ffmpeg', 'ruby']
+    },
+    14: {
+        type: 'js',
+        creationTime: '2021-05-31T20:13:58',
+        title: 'Автоматический парсинг иконок для сайтов',
+        tags: ['ruby', 'favicon']
     }
 }
