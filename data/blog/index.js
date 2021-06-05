@@ -88,5 +88,11 @@ export default {
         creationTime: '2021-05-31T20:13:58',
         title: 'Автоматический парсинг иконок для сайтов',
         tags: ['ruby', 'favicon']
+    },
+    15: {
+        type: 'js',
+        creationTime: '2021-06-05T16:51:11',
+        title: 'Typescript для библиотеки fp-magic',
+        tags: ['typescript', 'opensource', 'npm', 'functor']
     }
 }
