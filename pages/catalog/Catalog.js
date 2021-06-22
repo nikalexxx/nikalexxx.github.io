@@ -220,6 +220,14 @@ const links = {
             [link]: 'https://ium.mccme.ru',
             title: 'Независимый московский университет',
         },
+        'e-maxx': {
+            [link]: 'https://e-maxx.ru/algo',
+            title: 'MAXimal::algo',
+        },
+        manim: {
+            [link]: 'https://3b1b.github.io/manim',
+            title: 'Manim'
+        }
     },
 };
 

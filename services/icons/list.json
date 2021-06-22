@@ -37,5 +37,7 @@
   "spec.whatwg.org": {},
   "web-standards.ru": {},
   "blog.csssr.com/ru": {},
-  "xstate.js.org/docs": {"html_link": "/"}
+  "xstate.js.org/docs": {"html_link": "/"},
+  "e-maxx.ru/algo": {"html_link": "/"},
+  "3b1b.github.io/manim": {"html_link": "/", "prefix": "manim/"}
 }

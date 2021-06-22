@@ -1,6 +1,6 @@
 export const icons = {
   "angular.io": "https://angular.io/assets/images/favicons/favicon-194x194.png",
-  "arxiv.org": "https://static.arxiv.org/static/browse/0.3.2.6/images/icons/favicon.ico",
+  "arxiv.org": "https://static.arxiv.org/static/browse/0.3.2.7/images/icons/favicon.ico",
   "brave.com": "https://brave.com/static-assets/images/brave-favicon.png",
   "browser.yandex.ru": "https://browser.yandex.ru/favicon.ico",
   "bureau.ru/books/manifesto": "https://bureau.ru/assets/images/icons/favicon-96x96.png",
@@ -12,7 +12,7 @@ export const icons = {
   "elm-lang.org": "https://elm-lang.org/favicon.ico",
   "git-scm.com": "https://git-scm.com/favicon.ico",
   "github.com": "https://github.githubassets.com/favicons/favicon.svg",
-  "habr.com/ru": "https://dr.habracdn.net/habr/oldassets/60b483d6/images/favicon-32x32.png",
+  "habr.com/ru": "https://dr.habracdn.net/habr/oldassets/60d08d8b/images/favicon-32x32.png",
   "infernojs.org": "https://infernojs.org/favicon.ico",
   "ium.mccme.ru": "https://ium.mccme.ru/favicon.ico",
   "lit.dev": "https://lit.dev/images/flame-favicon.svg",
@@ -37,5 +37,7 @@ export const icons = {
   "spec.whatwg.org": "https://resources.whatwg.org/logo.svg",
   "web-standards.ru": "https://web-standards.ru/images/icons/any-109fcff231.svg",
   "blog.csssr.com/ru": "https://blog.csssr.com/favicon/favicon-48x48.png",
-  "xstate.js.org/docs": "https://xstate.js.org/favicon.ico"
+  "xstate.js.org/docs": "https://xstate.js.org/favicon.ico",
+  "e-maxx.ru/algo": "https://e-maxx.ru/favicon.ico",
+  "3b1b.github.io/manim": "https://3b1b.github.io/manim/_static/icon.png"
 }

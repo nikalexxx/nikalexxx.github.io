@@ -12,6 +12,7 @@ $> = File.open('./icons.log', 'w')
 
 list.keys.each do |url|
     html_link = list[url]['html_link']
+    prefix = list[url]['prefix']
     html_path = html_link ? (html_link[0] == '/' ? "#{url}#{html_link}" : html_link) : url;
     html_url = "https://#{html_path}"
     response = Net::HTTP.get_response(URI(html_url))
@@ -40,7 +41,7 @@ list.keys.each do |url|
         href = '/favicon.ico'
     end
     puts max_size
-    icons_data[url] = href[0..3] == 'http' ? href : "https://#{url.sub(/\/$/, '').split('/')[0]}#{href[0] == '/' ? '' : '/' }#{href}"
+    icons_data[url] = href[0..3] == 'http' ? href : "https://#{url.sub(/\/$/, '').split('/')[0]}#{href[0] == '/' ? '' : '/' }#{prefix || ''}#{href}"
 end
 
 $> = File.open('./list.js', 'w')
