@@ -13,10 +13,12 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 export var ttt = '\\mathellipsis';
 function counter(start, step) {
@@ -32,7 +34,7 @@ function container(getFunc) {
             for (var _i = 1; _i < arguments.length; _i++) {
                 list[_i - 1] = arguments[_i];
             }
-            return getFunc(props).apply(void 0, __spreadArray([t], list));
+            return getFunc(props).apply(void 0, __spreadArrays([t], list));
         }, {
             get: function (target, name) {
                 return function (value) {
@@ -78,7 +80,7 @@ function getProblem(api) {
             }
             var n = problemCounter();
             var problemKey = "problem_" + (key !== null && key !== void 0 ? key : n);
-            return book(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n        ", "\n        ", "\n        ", "\n        "], ["\n        ", "\n        ", "\n        ", "\n        "])), start(area.key(problemKey).meta({ n: n })), small(templateObject_1 || (templateObject_1 = __makeTemplateObject(["", ". ", ""], ["", ". ", ""])), b(n), book.apply(void 0, __spreadArray([t], list))), end(area));
+            return book(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n        ", "\n        ", "\n        ", "\n        "], ["\n        ", "\n        ", "\n        ", "\n        "])), start(area.key(problemKey).meta({ n: n })), small(templateObject_1 || (templateObject_1 = __makeTemplateObject(["", ". ", ""], ["", ". ", ""])), b(n), book.apply(void 0, __spreadArrays([t], list))), end(area));
         };
     });
 }
@@ -97,7 +99,7 @@ function getTheorem(api) {
             }
             var n = theoremCounter();
             var theoremKey = "theorem_" + (key !== null && key !== void 0 ? key : n);
-            return book(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n        ", "\n        ", ". ", "\n        ", "\n        "], ["\n        ", "\n        ", ". ", "\n        ", "\n        "])), start(area.key(theoremKey).meta({ n: n })), b("\u0422\u0435\u043E\u0440\u0435\u043C\u0430 " + n + (name ? " (" + name + ")" : '')), book.apply(void 0, __spreadArray([t], list)), end(area));
+            return book(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n        ", "\n        ", ". ", "\n        ", "\n        "], ["\n        ", "\n        ", ". ", "\n        ", "\n        "])), start(area.key(theoremKey).meta({ n: n })), b("\u0422\u0435\u043E\u0440\u0435\u043C\u0430 " + n + (name ? " (" + name + ")" : '')), book.apply(void 0, __spreadArrays([t], list)), end(area));
         };
     });
 }
@@ -145,7 +147,7 @@ function getCustomHeader(api, level, name) {
                 list[_i - 1] = arguments[_i];
             }
             if (noIndex) {
-                return book(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n            ", "\n            ", "\n            ", "\n            "], ["\n            ", "\n            ", "\n            ", "\n            "])), start(key ? area.key(key) : area), h(level)(book.apply(void 0, __spreadArray([t], list))), end(area));
+                return book(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n            ", "\n            ", "\n            ", "\n            "], ["\n            ", "\n            ", "\n            ", "\n            "])), start(key ? area.key(key) : area), h(level)(book.apply(void 0, __spreadArrays([t], list))), end(area));
             }
             var n = headerCounter();
             var longN = "" + levelKey + (levelKey === '' ? '' : '.') + n;
@@ -153,7 +155,7 @@ function getCustomHeader(api, level, name) {
             registerCounter("header_" + longN);
             addHeaderLevel(headerLevels, name, n);
             return book(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n        ", "\n        ", "\n        ", "\n        "], ["\n        ", "\n        ",
-                "\n        ", "\n        "])), start(area.key(headerKey).meta({ n: n, longN: longN })), h(level)(book(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n        ", ". ", "\n        "], ["\n        ", ". ", "\n        "])), b("" + longN), book.apply(void 0, __spreadArray([t], list)))), end(area));
+                "\n        ", "\n        "])), start(area.key(headerKey).meta({ n: n, longN: longN })), h(level)(book(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n        ", ". ", "\n        "], ["\n        ", ". ", "\n        "])), b("" + longN), book.apply(void 0, __spreadArrays([t], list)))), end(area));
         };
     });
 }
