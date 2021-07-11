@@ -7,6 +7,7 @@ import {
 } from '../../../utils';
 
 import { Breadcrumbs } from '../../../components';
+import { Lang } from '../../../blocks';
 
 const b = block('themes');
 
@@ -25,7 +26,7 @@ const example = [
 
 const Themes = Component.Themes(() => {
     return () => E.div(
-        Breadcrumbs.items([['Дизайн', 'design'], ['Темы']]),
+        Breadcrumbs.items([[Lang.token`menu/design`, 'design'], [Lang.token`tile/themes`]]),
         E.div.class(b())(
             E.div.class(`theme_dark ${b('header')}`)(
                 E.div(E.h3('Тёмная тема'))

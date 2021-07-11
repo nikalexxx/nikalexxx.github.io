@@ -31,7 +31,7 @@ const Select = Component.Select(({props}) => {
     return () => {
         const groups = getPreparedValues(props().values);
         return E.div.class(b())(
-            E.select.class(b('native')).onChange(props().onChange)(
+            E.select.class(`${b('native')} ${props().className || ''}`).onChange(props().onChange)(
                 Object.keys(groups).map(name => {
                     const options = groups[name];
                     return E.optgroup.label(name)(

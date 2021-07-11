@@ -1,5 +1,7 @@
 import './App.less';
+import '../../services/langs/map';
 
+import { Button, Select } from '../../blocks/index.js';
 import {
     Component,
     E,
@@ -9,12 +11,15 @@ import {
     getRouterState,
     style,
 } from '../../utils/index.js';
+import { defaultLang, setLang } from '../../services/langs/model';
 
-import { Button } from '../../blocks/index.js';
 import { Icon } from '../../icons/index.js';
+import { Lang } from '../../blocks/LangToken/LangToken';
 import { routes } from '../routes';
 
 const b = block('app');
+
+setLang(localStorage.getItem('lang') || defaultLang);
 
 const Menu = Component.Menu(({ state }) => {
     const path = () => getRouterState(routes).path;
@@ -36,34 +41,31 @@ const Menu = Component.Menu(({ state }) => {
     }
     return () =>
         E.div(
-            renderLink('blog', 'Блог'),
-            renderLink('about', 'Кто я?'),
-            renderLink('projects', 'Проекты'),
-            renderLink('reports', 'Доклады'),
-            renderLink('books', 'Книги'),
-            renderLink('physics', 'Физика'),
-            renderLink('design', 'Дизайн'),
-            renderLink('travels', 'Путешествия'),
-            renderLink('catalog', 'Каталог'),
+            renderLink('blog', Lang.token`menu/blog`),
+            renderLink('about', Lang.token`menu/about`),
+            renderLink('projects', Lang.token`menu/projects`),
+            renderLink('reports', Lang.token`menu/reports`),
+            renderLink('books', Lang.token`menu/books`),
+            renderLink('physics', Lang.token`menu/physics`),
+            renderLink('design', Lang.token`menu/design`),
+            renderLink('travels', Lang.token`menu/travels`),
+            renderLink('catalog', Lang.token`menu/catalog`),
             // renderLink('plans', 'Планы'),
             E.div.class(b('collapse-menu'))(
                 Button.onClick(() => {
                     document.documentElement.classList.toggle('mobile-visible');
-                })('свернуть меню')
+                })(Lang.token`control/collapse-menu`)
             )
         );
 });
 
 const Header = Component.Header(({ state, hooks }) => {
     state.init({
-        theme: 'dark',
+        theme: localStorage.getItem('theme') || 'dark',
+        lang: localStorage.getItem('lang') || defaultLang,
     });
 
     hooks.didMount(() => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            state.set({ theme: savedTheme });
-        }
         setTheme();
     });
 
@@ -79,6 +81,13 @@ const Header = Component.Header(({ state, hooks }) => {
         window.dispatchEvent(new CustomEvent('theme', { detail: { theme } }));
     }
 
+    function setLanguage() {
+        const { lang } = state();
+        localStorage.setItem('lang', lang);
+        setLang(lang);
+        window.dispatchEvent(new CustomEvent('update-lang'));
+    }
+
     function toogleTheme() {
         state.set(
             (prevState) => ({
@@ -86,6 +95,10 @@ const Header = Component.Header(({ state, hooks }) => {
             }),
             () => setTheme()
         );
+    }
+
+    function toogleLanguage(lang) {
+        state.set({ lang }, () => setLanguage());
     }
 
     function getIcon() {
@@ -96,20 +109,31 @@ const Header = Component.Header(({ state, hooks }) => {
         }[theme]();
     }
 
-    return () =>
-        E.header.class(b('header'))(
+    return () => {
+        const { lang } = state();
+        return E.header.class(b('header'))(
             E.div.class(b('menu-toggle'))(
                 Button.onClick(() => {
                     document.documentElement.classList.toggle('mobile-visible');
                 })(E.div.style('width: 1em; height: 1em;')(Icon.Bars))
             ),
             RouteLink.href('/')(
-                E.h1.style(style({ textAlign: 'center' }))(
-                    'Александр Николаичев'
-                )
+                E.h1.style(style({ textAlign: 'center' }))(Lang.token`title`)
             ),
-            Button.onClick(toogleTheme)(getIcon())
+            Button.onClick(toogleTheme)(getIcon()),
+            Select.className(b('lang')).values(
+                [
+                    { value: 'ru', title: E.span('RU') },
+                    { value: 'en', title: E.span('EN') },
+                ].map((e) => {
+                    if (e.value === lang) {
+                        e.selected = true;
+                    }
+                    return e;
+                })
+            ).onChange((e) => toogleLanguage(e.target.value))
         );
+    };
 });
 
 const Page = E.div.class(b())(

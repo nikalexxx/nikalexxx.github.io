@@ -4,6 +4,7 @@ import {
     Button,
     Checkbox,
     Collapse,
+    Lang,
     Modal,
     Select,
     Spin,
@@ -18,7 +19,7 @@ const b = block('components');
 export const Components = Component.Components(() => {
     return () =>
         E.div(
-            Breadcrumbs.items([['Дизайн', 'design'], ['Блоки и компоненты']]),
+            Breadcrumbs.items([[Lang.token`menu/design`, 'design'], [Lang.token`tile/blocks`]]),
             E.div.class(b())(
                 E.h2('Button'),
                 E.div(

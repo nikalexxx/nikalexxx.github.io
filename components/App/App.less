@@ -19,12 +19,12 @@
         padding: 8px;
         min-height: 2em;
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr auto auto;
         gap: 1em;
         justify-content: stretch;
 
         @media (max-width: 700px) {
-            grid-template-columns: auto 1fr auto;
+            grid-template-columns: auto 1fr auto auto;
         }
 
         a {
@@ -65,6 +65,7 @@
     &__menu {
         grid-area: menu;
         background-color: var(--color-background-second);
+        width: 120px;
 
         @media (max-width: 700px) {
             position: fixed;
@@ -158,5 +159,9 @@
 
     &__scroll-top {
         cursor: pointer;
+    }
+
+    &__lang {
+        height: 100%;
     }
 }

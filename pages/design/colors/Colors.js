@@ -9,6 +9,7 @@ import {
 } from '../../../utils';
 
 import { Breadcrumbs } from '../../../components';
+import { Lang } from '../../../blocks';
 
 const colors = [
     'black',
@@ -65,7 +66,7 @@ const Colors = Component.Colors(({state, hooks}) => {
     });
 
     return () => E.div(
-        Breadcrumbs.items([['Дизайн', 'design'], ['Цвета']]),
+        Breadcrumbs.items([[Lang.token`menu/design`, 'design'], [Lang.token`tile/colors`]]),
         E.div.class(b())(
             colors.map(color => {
                 const code = getComputedStyle(document.documentElement).getPropertyValue(`--color-${color}`).trim();
