@@ -94,5 +94,11 @@ export default {
         creationTime: '2021-06-05T16:51:11',
         title: 'Typescript для библиотеки fp-magic',
         tags: ['typescript', 'opensource', 'npm', 'functor']
+    },
+    16: {
+        type: 'js',
+        creationTime: '2021-07-10T19:46:45',
+        title: 'Интернационализация сайта RU/EN',
+        tags: ['javascript', 'site']
     }
 }
