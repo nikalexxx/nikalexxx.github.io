@@ -2,7 +2,12 @@ import './HighlightingText.less';
 
 // @ts-nocheck
 import { Component, E, block } from '../../utils';
-import { RichLines, RichText } from '../../services/syntaxHighlighter/model';
+import {
+    FlatLines,
+    FlatText,
+    RichLines,
+    RichText,
+} from '../../services/syntaxHighlighter/model';
 
 import { tokenize } from '../../services/syntaxHighlighter';
 
@@ -33,18 +38,19 @@ function getClass(type: string): string {
     return type;
 }
 
-function getLineItem(item: RichText) {
-    if (typeof item === 'string') {
-        return item;
-    } else if (Array.isArray(item)) {
-        return E.span.class(b('t', { [getClass(item[0])]: true }))(
-            item[1].map((e) => getLineItem(e))
-        );
-    }
+function getLineItem(item: FlatText) {
+    const [text, groups] = item;
+
+    const classNames = (groups ?? []).reduce((names, group) => {
+        names[group[0]] = true;
+        return names;
+    }, {} as Record<string, true>);
+
+    return E.span.class(b('t', classNames))(text);
 }
 
-function getContent(richLines: RichLines) {
-    return richLines.map((line, i) => [
+function getContent(flatLines: FlatLines) {
+    return flatLines.map((line, i) => [
         E.div.class(b('number'))(i + 1),
         E.code.class(b('line'))(line.map((item) => getLineItem(item))),
     ]);
@@ -54,13 +60,19 @@ const cache: Record<string, Map<string, RichLines>> = {};
 
 export const HighlightingText = Component.HighlightingText(
     ({ props, state, hooks }) => {
-        state.init({ content: getContent(props().text.split('\n').map(e => [e])) });
+        state.init({
+            content: getContent(
+                props()
+                    .text.split('\n')
+                    .map((e) => [[e, null]])
+            ),
+        });
 
         const { text, lang } = props();
 
         hooks.didMount(() => {
             if (cache.hasOwnProperty(lang) && cache[lang].has(text)) {
-                state.set({content: cache[lang].get(text)});
+                state.set({ content: cache[lang].get(text) });
             } else {
                 tokenize(text, lang).then((richLines) => {
                     const content = getContent(richLines);

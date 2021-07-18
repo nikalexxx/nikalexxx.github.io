@@ -21,7 +21,5 @@
     "noEmit": true,
     "experimentalDecorators": true,
   },
-  "include": [
-    "src"
-  ]
+  "include": ["services"]
 }

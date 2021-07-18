@@ -4,10 +4,12 @@ import { CaptureGroups } from '../model';
 // @ts-ignore-line
 import module from '../../../regex/Cargo.toml';
 
+// import check_regex from '../../../regex/pkg/fantasy_regex_bg.wasm';
+
 /**
  * wasm port
  */
-const checkWasmRegex = module.check_regex as typeof wasmTypes.check_regex;
+const checkWasmRegex = module.check_regex as unknown as typeof wasmTypes.check_regex;
 
 // TODO: возможность искать только до первого совпадения в целях оптимизации
 export function checkRegex(regexSource: string, text: string): CaptureGroups[] {

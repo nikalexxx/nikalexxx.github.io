@@ -1,6 +1,16 @@
 // import './theme.css';
 
 import {
+    BeginEndPair,
+    CaptureGroups,
+    RuleCaptureConfig,
+    TextElementGroup,
+    TextElementRaw,
+    getTextGroup,
+    getTextRaw,
+    groupAdapter,
+} from './model';
+import {
     LevelConfig,
     RichLines,
     RichText,
@@ -21,12 +31,17 @@ import {
     RuleType,
     RuleWhileConfig,
     RuleWhileFields,
+    TextElement,
+    TextElementEndl,
+    TextElementType,
 } from './model';
+import { TextGroup, TextGroupToFlatText } from './model';
 import { checkRegex, prepareRegex } from './regex';
 import { parentSymbol, patternsSymbol } from './symbols';
 
-import { CaptureGroups } from './model';
 import { getCaptureGroups } from './captureGroups';
+import { getPairs } from './beginEndUtils';
+import { parseLines } from './textRawParsing';
 import { promiseLike } from './async';
 
 console.dir(
@@ -90,31 +105,40 @@ type CheckRuleByTypeProps<T extends RuleType> = {
 };
 
 type CheckMatchRuleProps = CheckRuleByTypeProps<RuleType.MATCH> & {
-    richLine: RichText[];
+    group: TextElementGroup;
 };
 
 async function checkMatchRule({
-    richLine,
+    group,
     rule: matchRule,
     repositoryRules,
-}: CheckMatchRuleProps): Promise<{ richLine: RichText[]; isRaw: boolean }> {
+}: CheckMatchRuleProps): Promise<null> {
     const { match, name, captures } = matchRule;
-    const existCaptures = Boolean(captures);
+    const existCaptures = captures !== undefined;
 
-    let isRaw = false;
-    const result: RichText[] = [];
+    /** найден первый неразобранный фрагмент, то есть мы больше не сдвигаем `group.group.currentRaw` */
+    let firstNextRawExist: boolean = false;
 
-    for (const text of richLine) {
-        if (typeof text !== 'string') {
-            // пропускаем уже разобранные части
-            result.push(text);
-            continue;
-        }
-        // const groups = text.match(match);
+    // текущий текстовый элемент, над которым мы проверяем правило
+    let currentCheckRaw: TextElementRaw | null = group.group.currentRaw;
 
-        // if (groups === null) {
-        //     isRaw = true;
-        // }
+    const currentNextEndl = group.group.currentRaw?.nextEndl;
+
+    // пока это текст до переноса строки и он вообще есть (для последней строки)
+    while (
+        currentCheckRaw !== null &&
+        currentCheckRaw.nextRaw !== null && // захватит последний ?
+        currentCheckRaw.nextEndl === currentNextEndl
+    ) {
+        const text = currentCheckRaw.raw;
+
+        let currentElement: TextElement = currentCheckRaw;
+
+        // await new Promise((r) => window.setTimeout(r, 100));
+
+        // console.log({ text, nextRaw: currentCheckRaw.nextRaw });
+
+        // индексы упорядочены
         const indexes = checkRegex(match, text);
 
         if (indexes.length > 0) {
@@ -122,16 +146,31 @@ async function checkMatchRule({
             for (const groups of indexes) {
                 const wholeGroup = groups[0];
                 const [startIndex, endIndex] = wholeGroup;
+
                 if (startIndex > currentIndex) {
                     // остатки неразобранного текста
-                    result.push(text.slice(currentIndex, startIndex));
+                    const startRaw = text.slice(currentIndex, startIndex);
+                    const startElementRaw = getTextRaw(startRaw);
+
+                    groupAdapter.addAfter.any.raw(
+                        group,
+                        currentElement,
+                        startElementRaw
+                    );
+                    currentElement = startElementRaw;
+
+                    if (!firstNextRawExist) {
+                        // нашли новый неразобранный текст
+                        firstNextRawExist = true;
+                        group.group.currentRaw = startElementRaw;
+                    }
                 }
 
                 // совпадающий текст
                 const wholeGroupText = text.slice(startIndex, endIndex);
 
-                let groupText: RichText[];
-                if (existCaptures && Object.keys(groups).length > 1) {
+                let textGroup: TextElementGroup | null = null;
+                if (captures && Object.keys(groups).length > 1) {
                     // есть правила для совпадений групп
                     // есть совпадения по группам внутри текущего текста
 
@@ -147,17 +186,24 @@ async function checkMatchRule({
                     let lastIndex: number = startIndex;
                     for (let j = 0; j < groupList.length; j++) {
                         const groupNumber = groupList[j];
-                        if (j === 0 && !groupText) {
-                            groupText = [];
+                        if (j === 0 && !textGroup) {
+                            // создаём пустой узел группу
+                            textGroup = getTextGroup();
                         }
                         const groupNumberStr = String(groupNumber);
                         const captureRuleConfig = captures[groupNumberStr];
+
+                        // правила для группы захвата
                         const rules = Array.isArray(captureRuleConfig)
                             ? captureRuleConfig
                             : [captureRuleConfig];
+
+                        // начало и конец группы захвата
                         const [startGroupIndex, endGroupIndex] = groups[
                             groupNumberStr
                         ];
+
+                        // текст группы захвата
                         const captureText = text.slice(
                             startGroupIndex,
                             endGroupIndex
@@ -165,9 +211,13 @@ async function checkMatchRule({
 
                         if (startGroupIndex > lastIndex) {
                             // текст до текущей группы
-                            groupText.push(
-                                text.slice(lastIndex, startGroupIndex)
+                            const lastText = text.slice(
+                                lastIndex,
+                                startGroupIndex
                             );
+                            const lastTextRaw = getTextRaw(lastText);
+
+                            groupAdapter.add.raw(textGroup!, lastTextRaw);
                         }
 
                         // сдвигаем границу
@@ -176,67 +226,106 @@ async function checkMatchRule({
                         if (captureText !== '') {
                             // есть что разбирать
 
+                            // единственный текстовый элемент
+                            const captureTextRaw = getTextRaw(captureText);
+
+                            // группа из этого элемента
+                            const captureTextGroup = getTextGroup();
+
+                            groupAdapter.add.raw(
+                                captureTextGroup,
+                                captureTextRaw
+                            );
+
+                            // здесь обрабатывается вложенность
                             // можно использовать сразу checkRuleList, так как текст в одной строке
-                            const {
-                                richLines,
-                                endLineIndex, // пока бесполезен
-                            } = await checkRuleList({
-                                lines: [[captureText]],
+                            await checkRuleList({
+                                group: captureTextGroup,
                                 ruleList: rules as any,
                                 repositoryRules,
                             });
 
-                            // добавляем разобранный текст
-                            groupText.push(richLines[0][0]);
+                            groupAdapter.add.group(
+                                textGroup!,
+                                captureTextGroup
+                            );
                         }
                     }
                     if (lastIndex < endIndex) {
                         // остаток текста до конца текущего совпадения
-                        groupText.push(text.slice(lastIndex, endIndex));
+                        const endText = text.slice(lastIndex, endIndex);
+                        const endTextRaw = getTextRaw(endText);
+
+                        groupAdapter.add.raw(textGroup!, endTextRaw);
                     }
                 }
-                if (!groupText) {
+                if (!textGroup) {
                     // внутренних совпадений нет
-                    groupText = [wholeGroupText];
+                    const wholeGroupTextRaw = getTextRaw(wholeGroupText);
+                    textGroup = getTextGroup();
+
+                    groupAdapter.add.raw(textGroup, wholeGroupTextRaw);
                 }
                 // разобранный текст
-                result.push([name ?? '', groupText, 0]);
+                textGroup.group.name = name ?? null;
+
+                groupAdapter.addAfter.any.group(
+                    group,
+                    currentElement,
+                    textGroup
+                );
+                currentElement = textGroup;
+
                 currentIndex = endIndex;
             }
+
             if (currentIndex < text.length) {
                 // остатки неразобранного текста до конца строки
-                result.push(text.slice(currentIndex, text.length));
+                const endText = text.slice(currentIndex, text.length);
+                const endTextRaw = getTextRaw(endText);
+
+                groupAdapter.addAfter.any.raw(
+                    group,
+                    currentElement,
+                    endTextRaw
+                );
+
+                if (!firstNextRawExist) {
+                    // нашли новый неразобранный текст
+                    firstNextRawExist = true;
+                    group.group.currentRaw = endTextRaw;
+                }
             }
+
+            // удаляем первоначальный текст из группы, так как мы заменили его
+            groupAdapter.remove.raw(group, currentCheckRaw);
+
+            currentCheckRaw = groupAdapter.get.next.raw(currentElement);
         } else {
-            result.push(text);
-            isRaw = true;
+            // переход к следующему сырому фрагменту
+            currentCheckRaw = currentCheckRaw.nextRaw;
         }
     }
 
-    return promiseLike({
-        richLine: result,
-        isRaw,
-    });
+    return promiseLike(null);
 }
 
 type CheckBeginEndRuleProps = CheckRuleByTypeProps<RuleType.BEGIN_END> & {
-    richLines: RichLines;
+    group: TextElementGroup;
 };
 
 type RichGroups = {
-    [lineIndex: string]: { // строка с совпадением
+    [lineIndex: string]: {
+        // строка с совпадением
         [blockIndex: string]: RichText[]; // номер блока и результат
-    }
-}
+    };
+};
 
 async function checkBeginEndRule({
-    richLines,
+    group,
     rule: beginEndRule,
     repositoryRules,
-}: CheckBeginEndRuleProps): Promise<{
-    richLines: RichLines;
-    endLineIndex: number;
-}> {
+}: CheckBeginEndRuleProps): Promise<null> {
     // begin ищем в первой строке, end - пока текст не кончится
     // только первая строка может быть с блоками, последующие - неразобранный текст
     const {
@@ -253,182 +342,226 @@ async function checkBeginEndRule({
     const existEndCaptures = Boolean(endCaptures);
     const existPatterns = Boolean(patterns);
 
-    const result: RichLines = [...richLines];
-    /**  */
-    const richGroups: RichGroups = {};
-
     // return { richLines, endLineIndex: 1 };
 
-    const firstLine = richLines[0];
-    let existsBeginEnd = false;
-    for (let i = 0; i < firstLine.length; i++) {
-        /** кусок первой строки */
-        const text = firstLine[i];
-        if (typeof text !== 'string') {
-            // пропускаем уже разобранные части
-            continue;
-        }
+    /** найден первый неразобранный фрагмент, то есть мы больше не сдвигаем `group.group.currentRaw` */
+    let firstNextRawExist: boolean = false;
+
+    // текущий текстовый элемент, над которым мы проверяем правило
+    let currentCheckRaw: TextElementRaw | null = group.group.currentRaw;
+
+    let prevBeginData = null;
+
+    const beginEndPairs: BeginEndPair[] = [];
+
+    while (
+        currentCheckRaw !== null && // элемент существует
+        (currentCheckRaw.next === null || // он последний или
+            (currentCheckRaw.next.type === TextElementType.Endl && // за ним перенос строки
+                currentCheckRaw.next.next?.type === TextElementType.Raw)) // с неразобранным текстом
+    ) {
+        // текст, который подлежит разбору
+        const text = currentCheckRaw.raw;
+
+        // индексы упорядочены
         const beginIndexes = checkRegex(begin, text);
-        if (beginIndexes.length > 0) {
-            // есть совпадение с началом
-            // console.log(name, { beginIndexes, begin, text, end });
-            // break;
+        const endIndexes = checkRegex(end, text);
 
-            // для каждого ищем end от текущего места в первой строке до конца всех строк
-            // смотрим следующие строки только если мы в последнем блоке
+        const { pairs, reserveStart } = getPairs(
+            currentCheckRaw,
+            beginIndexes,
+            endIndexes,
+            prevBeginData
+        );
 
-            let currentLastIndex = 0;
-            const isLastBlock = i === firstLine.length;
-            for (const beginGroups of beginIndexes) {
-                const wholeBeginGroup = beginGroups[0];
-                const [startBeginIndex, endBeginIndex] = wholeBeginGroup;
+        // найденные пары
+        beginEndPairs.concat(pairs);
 
-                if (startBeginIndex < currentLastIndex) {
-                    // часть текста уже была включена в предыдущую группу
-                    continue;
-                }
+        // висящий begin
+        prevBeginData = reserveStart;
 
-                // остаток от текущей строки
-                const endLineText = text.slice(endBeginIndex, text.length);
-
-                // строки для поиска конца
-                let linesForEndSearch: RichLines;
-
-                if (isLastBlock && richLines.length > 1) {
-                    // также смотрим следующие строки
-                    linesForEndSearch = [[endLineText], ...richLines.slice(1)];
-                } else {
-                    if (endLineText === '') {
-                        // блок закончился, дальше искать негде
-                        break;
-                    }
-                    linesForEndSearch = [[endLineText]];
-                }
-
-                // нужно только первое совпадение
-                let firstEndGroups: CaptureGroups;
-                let firstEndLineIndex: number;
-                // console.log({ linesForEndSearch });
-                for (let j = 0; j < linesForEndSearch.length; j++) {
-                    const line = linesForEndSearch[j];
-                    if (line.length > 1) {
-                        // такого вообще быть не должно
-                        // должны быть только сырые строки
-                        break;
-                    }
-                    const endText = line[0];
-                    if (typeof endText !== 'string') {
-                        break;
-                    }
-                    // debugger;
-                    const endIndexes = checkRegex(end, endText);
-                    // debugger;
-                    if (endIndexes.length > 0) {
-                        // нужно только первое совпадение
-                        const endGroups = endIndexes[0];
-                        firstEndGroups = endGroups;
-                        firstEndLineIndex = j;
-                        break;
-                    }
-                }
-
-                if (firstEndGroups) {
-                    // конец был найден
-                    console.log({
-                        name,
-                        text,
-                        begin,
-                        end,
-                        beginGroups,
-                        firstEndGroups,
-                    });
-                    const wholeEndGroup = firstEndGroups[0];
-                    // индексы относительно endBeginIndex
-                    const startEndIndex = wholeEndGroup[0] + endBeginIndex;
-                    const endEndIndex = wholeEndGroup[1] + endBeginIndex;
-                    if (firstEndLineIndex === 0) {
-                        // всё в пределах одной строки
-
-                        // конец разобранной группы
-                        currentLastIndex = endEndIndex;
-
-                        const textWithToken: RichText[] = [];
-                        if (startBeginIndex > 0) {
-                            // текст до начала совпадения
-                            textWithToken.push(text.slice(0, startBeginIndex));
-                        }
-                        // TODO: // разобрать вглубь
-                        textWithToken.push([name, [text.slice(startBeginIndex, endEndIndex)], 0]);
-                        if (endEndIndex < text.length) {
-                            // текст после совпадения
-                            textWithToken.push(text.slice(endEndIndex, text.length));
-                        }
-                        if (!richGroups[0]) {
-                            richGroups[0] = {};
-                        }
-                        // TODO: несколько групп
-                        richGroups[0][i] = textWithToken;
-                        existsBeginEnd = true;
-                    } else {
-                        // изменяем сразу несколько строк
-                    }
-                } else {
-                    // конец не был найден
-                    if (isLastBlock) {
-                        // продлеваем до конца текста
-                    } else {
-                    }
-                }
-            }
-        }
-    }
-    if (!existsBeginEnd) {
-        // ничего не нашли
-        return promiseLike({ richLines, endLineIndex: 1 });
+        currentCheckRaw = currentCheckRaw.nextRaw;
     }
 
-    if (Object.keys(richGroups).length > 0) {
-        console.log({name, begin, end, richGroups, text: richLines[0]});
+    if (beginEndPairs.length > 0) {
+        console.log({ beginEndPairs });
     }
 
-    for (const line of Object.keys(richGroups)) {
-        const blocks = richGroups[line];
-        const lineIndex = Number(line);
-        for (const block of Object.keys(blocks)) {
-            const richTexts = blocks[block];
-            const blockIndex = Number(block);
-            const currentLine = result[lineIndex];
-            result[lineIndex] = [];
-            if (blockIndex > 0) {
-                result[lineIndex].push(...currentLine.slice(0, blockIndex));
-            }
-            result[lineIndex].push(...richTexts);
-            if (blockIndex < currentLine.length - 1) {
-                result[lineIndex].push(...currentLine.slice(blockIndex, currentLine.length));
-            }
-        }
-    }
-    return promiseLike({richLines: result, endLineIndex: 1});
+    // const firstLine = richLines[0];
+    // let existsBeginEnd = false;
+    // for (let i = 0; i < firstLine.length; i++) {
+    //     /** кусок первой строки */
+    //     const text = firstLine[i];
+    //     if (typeof text !== 'string') {
+    //         // пропускаем уже разобранные части
+    //         continue;
+    //     }
+    //     const beginIndexes = checkRegex(begin, text);
+    //     if (beginIndexes.length > 0) {
+    //         // есть совпадение с началом
+    //         // console.log(name, { beginIndexes, begin, text, end });
+    //         // break;
 
+    //         // для каждого ищем end от текущего места в первой строке до конца всех строк
+    //         // смотрим следующие строки только если мы в последнем блоке
+
+    //         let currentLastIndex = 0;
+    //         const isLastBlock = i === firstLine.length;
+    //         for (const beginGroups of beginIndexes) {
+    //             const wholeBeginGroup = beginGroups[0];
+    //             const [startBeginIndex, endBeginIndex] = wholeBeginGroup;
+
+    //             if (startBeginIndex < currentLastIndex) {
+    //                 // часть текста уже была включена в предыдущую группу
+    //                 continue;
+    //             }
+
+    //             // остаток от текущей строки
+    //             const endLineText = text.slice(endBeginIndex, text.length);
+
+    //             // строки для поиска конца
+    //             let linesForEndSearch: RichLines;
+
+    //             if (isLastBlock && richLines.length > 1) {
+    //                 // также смотрим следующие строки
+    //                 linesForEndSearch = [[endLineText], ...richLines.slice(1)];
+    //             } else {
+    //                 if (endLineText === '') {
+    //                     // блок закончился, дальше искать негде
+    //                     break;
+    //                 }
+    //                 linesForEndSearch = [[endLineText]];
+    //             }
+
+    //             // нужно только первое совпадение
+    //             let firstEndGroups: CaptureGroups;
+    //             let firstEndLineIndex: number;
+    //             // console.log({ linesForEndSearch });
+    //             for (let j = 0; j < linesForEndSearch.length; j++) {
+    //                 const line = linesForEndSearch[j];
+    //                 if (line.length > 1) {
+    //                     // такого вообще быть не должно
+    //                     // должны быть только сырые строки
+    //                     break;
+    //                 }
+    //                 const endText = line[0];
+    //                 if (typeof endText !== 'string') {
+    //                     break;
+    //                 }
+    //                 // debugger;
+    //                 const endIndexes = checkRegex(end, endText);
+    //                 // debugger;
+    //                 if (endIndexes.length > 0) {
+    //                     // нужно только первое совпадение
+    //                     const endGroups = endIndexes[0];
+    //                     firstEndGroups = endGroups;
+    //                     firstEndLineIndex = j;
+    //                     break;
+    //                 }
+    //             }
+
+    //             if (firstEndGroups) {
+    //                 // конец был найден
+    //                 console.log({
+    //                     name,
+    //                     text,
+    //                     begin,
+    //                     end,
+    //                     beginGroups,
+    //                     firstEndGroups,
+    //                 });
+    //                 const wholeEndGroup = firstEndGroups[0];
+    //                 // индексы относительно endBeginIndex
+    //                 const startEndIndex = wholeEndGroup[0] + endBeginIndex;
+    //                 const endEndIndex = wholeEndGroup[1] + endBeginIndex;
+    //                 if (firstEndLineIndex === 0) {
+    //                     // всё в пределах одной строки
+
+    //                     // конец разобранной группы
+    //                     currentLastIndex = endEndIndex;
+
+    //                     const textWithToken: RichText[] = [];
+    //                     if (startBeginIndex > 0) {
+    //                         // текст до начала совпадения
+    //                         textWithToken.push(text.slice(0, startBeginIndex));
+    //                     }
+    //                     // TODO: // разобрать вглубь
+    //                     textWithToken.push([
+    //                         name,
+    //                         [text.slice(startBeginIndex, endEndIndex)],
+    //                         0,
+    //                     ]);
+    //                     if (endEndIndex < text.length) {
+    //                         // текст после совпадения
+    //                         textWithToken.push(
+    //                             text.slice(endEndIndex, text.length)
+    //                         );
+    //                     }
+    //                     if (!richGroups[0]) {
+    //                         richGroups[0] = {};
+    //                     }
+    //                     // TODO: несколько групп
+    //                     richGroups[0][i] = textWithToken;
+    //                     existsBeginEnd = true;
+    //                 } else {
+    //                     // изменяем сразу несколько строк
+    //                 }
+    //             } else {
+    //                 // конец не был найден
+    //                 if (isLastBlock) {
+    //                     // продлеваем до конца текста
+    //                 } else {
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    // if (!existsBeginEnd) {
+    //     // ничего не нашли
+    //     return promiseLike(null);
+    // }
+
+    // if (Object.keys(richGroups).length > 0) {
+    //     console.log({ name, begin, end, richGroups, text: richLines[0] });
+    // }
+
+    // for (const line of Object.keys(richGroups)) {
+    //     const blocks = richGroups[line];
+    //     const lineIndex = Number(line);
+    //     for (const block of Object.keys(blocks)) {
+    //         const richTexts = blocks[block];
+    //         const blockIndex = Number(block);
+    //         const currentLine = result[lineIndex];
+    //         result[lineIndex] = [];
+    //         if (blockIndex > 0) {
+    //             result[lineIndex].push(...currentLine.slice(0, blockIndex));
+    //         }
+    //         result[lineIndex].push(...richTexts);
+    //         if (blockIndex < currentLine.length - 1) {
+    //             result[lineIndex].push(
+    //                 ...currentLine.slice(blockIndex, currentLine.length)
+    //             );
+    //         }
+    //     }
+    // }
+    return promiseLike(null);
 }
 
 interface CheckRuleProps {
-    richLines: RichLines;
+    group: TextElementGroup;
     rule: Rule;
     repositoryRules: GlobalRepositoryRules;
 }
 
+/** проверка правила в зависимости от его типа */
 async function checkRule({
-    richLines,
+    group,
     rule,
     repositoryRules,
-}: CheckRuleProps): Promise<{ richLines: RichLines; endLineIndex: number }> {
+}: CheckRuleProps): Promise<null> {
     if (rule.disabled) {
         // отключенные правила
-        return promiseLike({
-            richLines,
-            endLineIndex: 0,
-        });
+        return promiseLike(null);
     }
 
     const type = rule.type;
@@ -436,123 +569,112 @@ async function checkRule({
     // console.log(type, {rule});
 
     if (type === RuleType.INCLUDE) {
+        // вложенные правила
         const includeRule = rule as RuleTypeRuleGenType<RuleType.INCLUDE>;
         const path = includeRule.include;
 
         // console.log({path});
 
         if (path[0] === '#') {
+            // правила из репозитория
             const name = path.slice(1);
-            const rules = repositoryRules.get(name);
-            const { richLines: lines, endLineIndex } = await checkRuleList({
-                lines: richLines,
+            const rules = repositoryRules.get(name)!;
+            await checkRuleList({
+                group,
                 ruleList: rules,
                 repositoryRules,
             });
 
-            return promiseLike({
-                richLines: lines,
-                endLineIndex,
-            });
+            return promiseLike(null);
         } else if (path[0] === '$') {
+            // специальные ссылки
             const name = path.slice(1);
             if (name === 'self') {
-                const rules = repositoryRules.get(patternsSymbol);
-                const { richLines: lines, endLineIndex } = await checkRuleList({
-                    lines: richLines,
+                // вся грамматика целиком
+                const rules = repositoryRules.get(patternsSymbol)!;
+                await checkRuleList({
+                    group,
                     ruleList: rules,
                     repositoryRules,
                 });
 
-                return promiseLike({
-                    richLines: lines,
-                    endLineIndex,
-                });
+                return promiseLike(null);
             } else if (name === 'base') {
                 // TODO: достать base
             }
         }
     } else if (type === RuleType.MATCH) {
+        // однострочные правила по регулярному выражению
         const matchRule = rule as RuleTypeRuleGenType<RuleType.MATCH>;
-        const richLine = richLines[0];
-        const {
-            richLine: line,
-            isRaw, // ещё есть неразобранные куски
-        } = await checkMatchRule({
-            richLine,
+
+        // мутируем группу внутри и смещаем указатель
+        await checkMatchRule({
+            group,
             rule: matchRule,
             repositoryRules,
         });
-        richLines[0] = line;
-        return promiseLike({
-            richLines,
-            endLineIndex: isRaw ? 0 : 1,
-        });
+
+        return promiseLike(null);
     } else if (type === RuleType.BEGIN_END) {
         const beginEndRule = rule as RuleTypeRuleGenType<RuleType.BEGIN_END>;
         // console.log('begin-end', beginEndRule);
-        const {
-            richLines: resultRichLines,
-            endLineIndex,
-        } = await checkBeginEndRule({
-            richLines,
+        // мутируем группу внутри и смещаем указатель
+        await checkBeginEndRule({
+            group,
             rule: beginEndRule,
             repositoryRules,
         });
-        return promiseLike({
-            richLines: resultRichLines,
-            endLineIndex,
-        });
+        return promiseLike(null);
     }
 
-    return promiseLike({
-        richLines,
-        endLineIndex: 0,
-    });
+    return promiseLike(null);
 }
 
 interface CheckRuleListProps {
-    lines: RichLines;
+    group: TextElementGroup;
     ruleList: Rule[];
     repositoryRules: GlobalRepositoryRules;
 }
 
 async function checkRuleList({
-    lines,
+    group,
     ruleList,
     repositoryRules,
-}: CheckRuleListProps): Promise<{
-    richLines: RichLines;
-    endLineIndex: number;
-}> {
-    // последняя строка с полностью разобранным текстом
-    let endLineIndex = 0;
-
-    let currentRichLines: RichLines = lines;
-
+}: CheckRuleListProps): Promise<null> {
     // console.log({ruleList});
 
+    // текущий сырой элемент
+    const currentRaw = group.group.currentRaw;
+    const currentEndl = group.group.currentRaw?.nextEndl ?? null;
+
     for (const rule of ruleList) {
-        const { richLines, endLineIndex: endIndex } = await checkRule({
-            richLines: currentRichLines,
+        // console.log({ rule }, currentRaw.raw);
+        // указатель на текущий элемент смещается внутри
+        await checkRule({
+            group,
             rule,
             repositoryRules,
         });
 
         // console.log('rules', {richLines, endIndex});
 
-        // обновляем разобранный текст, рассмотреть мутабельный объект
-        currentRichLines = richLines;
+        if (group.group.currentRaw === null) {
+            // дошли до конца текста
+            break;
+        }
 
-        if (endIndex > 0) {
+        // console.log(
+        //     { currentEndl, nextEndl: group.group.currentRaw.nextEndl },
+        //     currentEndl !== group.group.currentRaw.nextEndl
+        // );
+        if (currentEndl !== group.group.currentRaw.nextEndl) {
+            // строка - то есть всё от текущего указателя до endl, разобрана
             // смещение по begin/end(while), либо полностью заполнена строка с match
             break;
         }
     }
-    return promiseLike({
-        richLines: currentRichLines,
-        endLineIndex,
-    });
+
+    return promiseLike(null);
 }
 
 interface CheckSyntaxProps {
@@ -571,55 +693,53 @@ interface ParserProps {
 async function parser({
     text,
     repositoryRules,
-}: ParserProps): Promise<RichLines> {
+}: ParserProps): Promise<TextElementGroup> {
     // разбиваем текст на строки
     const lines = text.split('\n');
 
-    // текущая строка в исходном тексте
-    let lineIndex = 0;
+    const rootTextElementRaw = parseLines(lines);
 
-    // текущий символ
-    let charIndex = 0;
+    // корневая группа
+    const rootGroup = getTextGroup();
+    if (rootTextElementRaw) {
+        groupAdapter.add.raw(rootGroup, rootTextElementRaw);
+    }
 
-    // разобранный текст
-    const resultRichLines: RichLines = [];
+    console.log({ rootGroup });
 
-    // текст, подлежащий разбору
-    let currentRichLines: RichLines = lines.map((s) => [s]);
+    while (
+        rootGroup.group.currentRaw !== null &&
+        rootGroup.group.currentRaw.next !== null
+    ) {
+        // пока не дойдём до конца цепочки
+        console.log(rootGroup.group.currentRaw?.raw);
 
-    // let currentLineIndex
-
-    while (lineIndex < lines.length) {
-        // const line = lines[lineIndex];
+        const currentRaw = rootGroup.group.currentRaw;
 
         // проверка всех правил
-        const {
-            richLines, // частично разобранный текст
-            endLineIndex, // последняя строка в разобранной части текста, после идёт сырой; если в строке остались неразобранные части, равен 0
-        } = await checkRuleList({
-            lines: lines.slice(lineIndex).map((s) => [s]),
+        // мутируем цепь и меняем текущий элемент, он указывает на последний разобранный
+        await checkRuleList({
+            group: rootGroup,
             repositoryRules,
-            ruleList: repositoryRules.get(patternsSymbol),
+            ruleList: repositoryRules.get(patternsSymbol)!,
         });
-        // console.log({ richLines, endLineIndex });
 
-        // добавляем разобранную часть к остальным
-        resultRichLines.push(
-            ...richLines.slice(0, endLineIndex > 0 ? endLineIndex : 1)
-        );
-
-        // последняя разобранная строка в общем тексте
-        const endIndex = lineIndex + endLineIndex;
-
-        // двигаемся дальше по тексту
-        lineIndex =
-            endIndex > lineIndex
-                ? endIndex // продвинулись за счет правил begin/end(while, если не было пустот)
-                : lineIndex + 1; // в текущей строке остался неразобранный текст, но правила кончились
-        // charIndex = endCharIndex;
+        // если прогнали все правила, и ничего не нашли,
+        // указатель на текущий смещается на следующую строку, если она есть
+        if (currentRaw === rootGroup.group.currentRaw) {
+            rootGroup.group.currentRaw =
+                rootGroup.group.currentRaw.nextEndl?.nextRaw ?? null;
+        }
     }
-    // console.log({ resultRichLines });
-    return promiseLike(resultRichLines);
+
+    // двигаемся дальше по тексту
+    // lineIndex =
+    //     endIndex > lineIndex
+    //         ? endIndex // продвинулись за счет правил begin/end(while, если не было пустот)
+    //         : lineIndex + 1; // в текущей строке остался неразобранный текст, но правила кончились
+    // charIndex = endCharIndex;
+
+    return promiseLike(rootGroup);
 }
 
 type GlobalRepositoryConfig = Map<string | Symbol, RuleConfig[]>;
@@ -658,10 +778,10 @@ const generateGlobalRepository = (
     name: string | Symbol
 ) => {
     if ('repository' in config) {
-        const repository = config.repository;
+        const repository = config.repository!;
         for (const key of Object.keys(repository)) {
             const subTree = repository[key];
-            subTree[parentSymbol] = repository;
+            // subTree[parentSymbol] = repository;
 
             if (isRepositoryConfig(subTree)) {
                 // именованный репозиторий
@@ -680,7 +800,7 @@ const generateGlobalRepository = (
     }
     if ('patterns' in config) {
         // именованная группа правил
-        addRules(globalRepository, name, config.patterns);
+        addRules(globalRepository, name, config.patterns!);
     }
 };
 
@@ -717,7 +837,11 @@ function setMeta(rule: Rule, config: RuleConfig) {
 
 interface SetCapturesProps {
     rule: RuleGenType<RuleMathFields | RuleBeginFields>;
-    capturesName: string;
+    capturesName:
+        | 'captures'
+        | 'beginCaptures'
+        | 'endCaptures'
+        | 'whileCaptures';
     captures: RuleCapturesConfig<RuleConfig>;
     key: string;
     globalRepository: GlobalRepositoryConfig;
@@ -731,13 +855,16 @@ function setCaptures({
     globalRepository,
 }: SetCapturesProps): void {
     // mutable rule
-    rule[capturesName] = Object.keys(captures).reduce((res, groupKey) => {
-        res[groupKey] = {};
-        return res;
-    }, {});
+    (rule as any)[capturesName] = Object.keys(captures).reduce(
+        (res, groupKey) => {
+            res[groupKey] = {} as RuleCaptureConfig<any>;
+            return res;
+        },
+        {} as any
+    );
     for (const groupKey of Object.keys(captures)) {
         const groupConfig = captures[groupKey];
-        const groupRule = rule[capturesName][groupKey];
+        const groupRule = (rule as any)[capturesName][groupKey];
         const name = groupConfig.name;
         const patterns = groupConfig.patterns;
         if (name) {
@@ -768,7 +895,7 @@ function createRule({
     level = 0,
     key,
     ruleConfig,
-    rulesDependenciesMap,
+    rulesDependenciesMap = new Map(),
     globalRepository,
 }: CreateRuleProps): Rule {
     const type = getRuleType(ruleConfig);
@@ -927,7 +1054,7 @@ function createRule({
             }
             return rule;
         },
-    }[type]();
+    }[type]() as Rule;
 }
 
 // превращаем строки в регулярные выражения
@@ -939,7 +1066,7 @@ function generateRepositoryRules(
     const rulesDependenciesMap: RulesDependenciesMap = new Map();
     for (const key of globalRepository.keys()) {
         const rules: Rule[] = [];
-        for (const ruleConfig of globalRepository.get(key)) {
+        for (const ruleConfig of globalRepository.get(key)!) {
             const ruleKey = typeof key === 'string' ? key : ':root';
             const rule = createRule({
                 level: 0,
@@ -1022,7 +1149,8 @@ export function tokenize(text: string, lang: string = '') {
                 repositoryRules,
             });
         })
-        .then((lines) => {
+        .then((group) => {
+            const lines = TextGroupToFlatText(group.group);
             console.log({ lines });
 
             // console.log("input:", text);

@@ -1,8 +1,8 @@
 import { About, Blog, Book, Books, Catalog, Colors, Design, GameOfLife, Physics, Post, Projects, StandardModel, Themes, Unicode } from "../pages";
 
-import { Page404 } from '.';
 import { E } from "../utils";
 import { HighlightingText } from "./HighlightingText/HighlightingText";
+import { Page404 } from '.';
 import { Page404Symbol } from "../utils/router";
 
 const example = `
