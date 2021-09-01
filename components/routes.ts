@@ -22,6 +22,7 @@ import {
 import { E } from '../utils';
 import { Page404 } from '.';
 import { Page404Symbol } from '../utils/router';
+import { BloodTypes } from '../pages/projects/blood-types/BloodTypes';
 
 export const routes = (params) => ({
     '/': Blog,
@@ -48,6 +49,7 @@ export const routes = (params) => ({
     projects: Projects,
     'projects/unicode': Unicode,
     'projects/game-of-life': GameOfLife,
+    'projects/blood-types': BloodTypes,
     physics: Physics,
     'physics/standard-model': StandardModel,
     travels: Travels,

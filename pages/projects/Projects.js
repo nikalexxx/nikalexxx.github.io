@@ -3,8 +3,6 @@ import './Projects.less';
 import { Component, E, RouteLink, block } from '../../utils';
 import { PageGrid, Tile } from '../../components';
 
-import { Button } from '../../blocks';
-
 const b = block('projects');
 
 const Projects = Component.Projects(() => {
@@ -37,7 +35,15 @@ const Projects = Component.Projects(() => {
                             )
                         )
                     )
-                )
+                ),
+                RouteLink.href('projects/blood-types')(
+                    Tile(
+                        E.div.class(b('tile'))(
+                            'Группы крови',
+                            E.span.style`font-size: 4em; text-align: center;`('💉'),
+                        )
+                    )
+                ),
             )
         );
     };
