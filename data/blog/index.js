@@ -100,5 +100,11 @@ export default {
         creationTime: '2021-07-10T19:46:45',
         title: 'Интернационализация сайта RU/EN',
         tags: ['javascript', 'site']
+    },
+    17: {
+        type: 'js',
+        creationTime: '2021-08-28T01:13:09',
+        title: 'Схема переливания крови на SVG',
+        tags: ['svg', 'scheme']
     }
 }
