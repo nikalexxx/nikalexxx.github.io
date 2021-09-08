@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-html": "node html-gen.js ${npm_package_version}",
-    "build": "npm run build-html; rm -Rf dist; parcel build index.html; mkdir dist; mkdir dist/data; cp -R data/blog dist/data/blog; cp -R data/images dist/data/images; cp -R assets/ dist/assets/",
+    "build": "npm run build-html; rm -Rf dist; parcel build index.html; mkdir dist; mkdir dist/data; npm run build-blog; cp -R data/images dist/data/images; cp -R assets/ dist/assets/",
     "build-books": "node data/books/build.js",
     "build-blog": "rm -Rf dist/data/blog; cp -R data/blog dist/data/blog",
     "dev-books": "onchange \"./data/books/**/*\" -- npm run build-books",

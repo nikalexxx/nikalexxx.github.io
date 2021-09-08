@@ -36,7 +36,7 @@ const links = {
                         title: 'Svelte',
                     },
                     solid: {
-                        [link]: 'https://solidjs.com',
+                        [link]: 'https://www.solidjs.com',
                         title: 'SolidJS',
                     },
                     marko: {
