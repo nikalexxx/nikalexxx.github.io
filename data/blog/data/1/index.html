@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Filemaker article</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./filemaker.css" />
+</head>
+
+<body>
+
+    <h1>Создание приложения на Filemaker</h1>
+
+    <a href="https://www.filemaker.com">Filemaker</a> — решение для практически мгновенного создания приложений, в
+    основном для бизнеса.
+    <br>
+    На русском языке довольно мало ознакомительных материалов, отсюда и выросла данная публикация.
+    По итогу статьи получим аккуратное приложение для списка дел.
+
+    <figure>
+        <img src="./filemaker-introduction__view.png" />
+        <figcaption>Итоговый вид приложения</figcaption>
+    </figure>
+
+    <i>Осторожно, под катом много картинок!</i>
+    <cut />
+
+    <br><br>
+
+    <h2>Оглавление</h2>
+    <ul>
+        <li><a href="#place">Окружение</a></li>
+        <li><a href="#new-file">Новое приложение</a></li>
+        <li><a href="#tables">Таблицы</a></li>
+        <li><a href="#relationships">Связи</a></li>
+        <li><a href="#layout">Макет</a></li>
+        <li><a href="#scripts">Взаимодействие</a></li>
+        <li><a href="#epilogue">Послесловие</a></li>
+        <li><a href="#links">Ссылки</a></li>
+    </ul>
+
+    Все картинки кликабельны.
+
+    <h2 id="#place">Окружение</h2>
+
+    Я буду использовать Filemaker Pro 17 Advanced(For Central Europe) для Mac OS. Filemaker доступен также для Windows.
+    Все комбинации клавиш будут приводится для Mac OS.
+    <br>
+    <br>
+    Помимо известных возможностей Filemaker я буду активно использовать собственные практики и стили.
+    Совершенно не обязываю вас применять их, но мне они облегчают жизнь.
+
+    <h2 id="new-file">Новое приложение</h2>
+
+    Я создаю пустое приложение, но есть также несколько шаблонов, можно смотреть, как в них реализованы те или иные
+    функции.
+    <figure>
+        <img src="./filemaker-introduction__new-file.png" />
+        <figcaption>Создание нового проекта</figcaption>
+    </figure>
+
+    <h2 id="tables">Таблицы</h2>
+
+    Управление таблиц открывается через меню <i>File > Manage > Database...</i>, либо <abbr
+        title="Shift+Cmd+D">⇧⌘D</abbr>
+
+    <br>
+    <br>
+    Создадим нужные нам таблицы, в них будут хранится данные.
+
+    Разделяю таблицы на 3 основных вида(могут быть и другие)
+    <ul>
+        <li>.data — для фактических данных, вносимых пользователем</li>
+        <li>.view — для полей макета, представляющего интерфейс</li>
+        <li>.config — различные конфирагуционные данные(предопределенные списки, типы товаров и тд.)</li>
+    </ul>
+
+    <figure>
+        <img src="./filemaker-introduction__tables.png" />
+        <figcaption>Список таблиц</figcaption>
+    </figure>
+
+    По умолчанию в каждой таблице есть автоматически созданные поля, их можно оставить, можно и удалить, если вам в
+    будущем они не потребуются.
+    <br>
+    <br>
+    Добавим три новых поля в таблицу TodoList.data
+
+    <figure>
+        <img src="./filemaker-introduction__fields.png" />
+        <figcaption>Поля таблицы TodoList.data</figcaption>
+    </figure>
+
+    <ul>
+        <li>Text — текст заметки, string</li>
+        <li>Priority — приоритет(высокий/средний/низкий), enum</li>
+        <li>Status — выполнено/не выполнено, boolean</li>
+    </ul>
+
+    Так как мы ограничены существующими типами
+
+    <figure>
+        <img src="./filemaker-introduction__field-types.png" />
+        <figcaption>Типы полей</figcaption>
+    </figure>
+
+    то string укажем как Text, enum и boolean как Number
+
+    Подробнее о типах:
+
+    <ul>
+        <li>Text - простой текст, строка</li>
+        <li>Number - число(1, 2.3, 4e5, 6e-7, -8)</li>
+        <li>Date - дата</li>
+        <li>Time - время</li>
+        <li>Timestamp - временная отметка, можно получить дату и время</li>
+        <li>Container - поле для файлов(картинок, pdf и тд.)</li>
+        <li>Calculation - вычисляемое выражение</li>
+        <li>Summary - агрегирующие поле по всем записям(сумма, среднее, максимум и тд)</li>
+    </ul>
+
+    <br>
+    <br>
+
+    В таблицу TodoList.view добавим только поля Text и Priority, потому что поля этой таблицы соотвествуют форме ввода
+    новой записи в макете, и естественно мы не можем пометить задачу заранее решенной.
+
+    <br><br>
+
+    Наконец, в таблицу Status.config добавим поля Value(Number) и Title(Text). Эта техническая таблица статусов для
+    приоритетов задач. Можно сразу же её заполнить.
+
+    <figure>
+        <img src="./filemaker-introduction__status-data.png" />
+        <figcaption>Табличный вид макета</figcaption>
+    </figure>
+
+    <h2>Связи</h2>
+
+    Для каждой таблицы автоматически создаются интерфесы(самоназвание, внутри Filemaker они также называются таблицами,
+    подскажите, если есть устоявшееся русское именование) с теми же именами. Интерфейсы можно считать ссылками на
+    реальные таблицы. Всё взаимодействие в макетах и скриптах идёт именно через интерфейсы. Для любой таблицы может быть
+    создано несколько интерфейсов.
+
+    <br><br>
+
+    Например для таблицы Table с полем Field можно создать два интерфейса Table1 и Table2. Тогда обращения к полям
+    Table1::Field и Table2::Field будут запрашивать одно и тоже поле Field таблицы Table. Аналогично, при изменении
+    Table1::Field изменится и Table2::Field, потому что Table1 и Table2 отображают одну и ту же таблицу Table.
+
+    <br><br>
+
+    Интерфейсы можно связывать между собой различными отношениями. В нашем примере было автоматически создано три
+    интерфейса с соответствующими именами.
+
+    <figure>
+        <img src="./filemaker-introduction__relationships.png" />
+        <figcaption>Связи между интерфейсами</figcaption>
+    </figure>
+
+    Мне нужно связать TodoList.data и TodoList.view отношением x(all-to-all). Нужно это только для того, чтобы
+    отобразить данные таблицы TodoList.data в макете TodoList.view.
+
+    <figure>
+        <img src="./filemaker-introduction__relationship-edit.png" />
+        <figcaption>Отношение "все со всеми"</figcaption>
+    </figure>
+
+    Другие виды связей также полезны, например через отношение = можно разносить данные по разным таблицам и подгружать
+    при необходимости. Например есть таблица книг и таблица авторов, тогда в таблице книг можно связать поле Author с
+    таким же полем в таблице авторов, и получать информацию об авторе(возраст, язык и тд.).
+
+
+    <h2 id="layout">Макет</h2>
+
+    Макеты автоматически создаются для каждого интерфейса с такими же именами. Но для любого интерфейса можно создать
+    несколько макетов. Так как у меня будет по одному интерфейсу на таблицу, в дальнейшем говорить о таблицах,
+    подразумевая интерфейсы в зависимости от контекста.
+
+    <br><br>
+
+
+    Посмотреть список макетов можно через <i>File > Manage > Layouts...</i>, либо <abbr title="Shift+Cmd+L">⇧⌘L</abbr>
+
+    <figure>
+        <img src="./filemaker-introduction__layouts.png" />
+        <figcaption>Список макетов</figcaption>
+    </figure>
+
+    Весь UI будет располагаться в макете TodoList.view.
+
+    <figure>
+        <img src="./filemaker-introduction__layout-edit.png" />
+        <figcaption>Режим редактирования</figcaption>
+    </figure>
+
+    <h3>Немного о режиме редактирования</h3>
+
+    <br><br>
+
+    <figure>
+        <img src="./filemaker-introduction__layout-edit-zones.png" />
+        <figcaption>Режим редактирования</figcaption>
+    </figure>
+
+    Режим можно настроить под себя, скрыв или показав только нужные инструменты.
+
+    <ol>
+        <li>Область самого макета, на ней размещаются все визуальные объекты</li>
+        <li>
+            Инструменты для вставки новых объектов. Вот они по порядку
+            <ol>
+                <li>Текст</li>
+                <li>Линия</li>
+                <li>Фигура</li>
+                <li>Поле</li>
+                <li>Кнопка</li>
+                <li>Группа кнопок</li>
+                <li>Вкладки</li>
+                <li>Портал</li>
+                <li>Диаграмма</li>
+                <li>Веб просмотрщик(вставлять сайты или кастомный html)</li>
+            </ol>
+        </li>
+        <li>
+            Настройки для выбранного элемента. Четыре вкладки по порядку:
+            <ol>
+                <li>Положение на странице</li>
+                <li>Выбор заданных стилей</li>
+                <li>Внешний вид</li>
+                <li>Взаимодействие с данными</li>
+            </ol>
+        </li>
+        <li>Список полей и дерево объектов(удобно для выбора внутри группы объектов)</li>
+        <li>Строка с управляющими элементами, возможность перейти к другому макету или вернуться в режим просмотра</li>
+        <li>Строка для быстрого редактирования внешнего вида, копирует функционал из правой панели соответствующей
+            вкладки</li>
+    </ol>
+
+    <h3>Отображение</h3>
+
+    Чтобы отобразить данные таблицы TodoList.data, создадим портал. Портал позволяет отобразить на макете одной таблицы
+    данные связанной таблицы(ранее для этого мы и создавали связь). Разрешаем удалять записи и показываем скролл. Можно
+    ещё сортировать и фильтровать записи, но в этом примере я решил не усложнять.
+
+    <figure>
+        <img src="./filemaker-introduction__portal-setup.png" />
+        <figcaption>Настройки портала</figcaption>
+    </figure>
+
+    При редактировании мы настраиваем внешний вид отдельной строки портала. Все остальные строки будут выглядеть
+    единообразно.
+
+    Строка будет состоять из:
+
+    <ul>
+        <li>Чекбокс, которым мы помечаем выполненные задачи(TodoList.data::Status)</li>
+        <li>Текст задачи(TodoList.data::Text)</li>
+        <li>Приоритет с цветным индикатором(TodoList.data::Priority)</li>
+        <li>Крестик для удаления</li>
+    </ul>
+
+    Текст задачи представляет из мебя обычное текстовое поле. Но поле статуса хочется сделать красивым списком. Вид поля
+    можно настроить в правой панели, задав параметру Control style значение Pop-up menu.
+
+    <figure>
+        <img src="./filemaker-introduction__field-view-types.png" />
+        <figcaption>Все типы внешнего вида нативных полей</figcaption>
+    </figure>
+
+    Значения этого поля нужно задать в виде списка, для этого есть списки значений. Открываются из меню <i>File > Manage
+        > Value Lists...</i>.
+
+    <br><br>
+
+    Создаём список Status.enum, берём данные для него из таблицы Status.config, значение из поля Status.config::Value, а
+    при выборе на экране будет отображаться Status.config::Title.
+
+    <figure>
+        <img src="./filemaker-introduction__value-lists.png" />
+        <img src="./filemaker-introduction__value-list-edit.png" />
+        <img src="./filemaker-introduction__value-list.png" />
+        <figcaption>Листы значений</figcaption>
+    </figure>
+
+    В результате для поля TodoList.data::Priority получим
+
+    <figure>
+        <img src="./filemaker-introduction__popup-field.png" />
+        <figcaption>Pop-up поле</figcaption>
+    </figure>
+
+    Чекбокс должен быть зелёным и с галочкой, если задача выполнена. Индикатор статуса должен менять цвет в зависимости
+    от статуса. Различный внешний вид в зависимости от условий можно настроить с помощью условного форматирования. Можно
+    настроить различные параметры, но в основном работа идет с цветом текста и цветом фона.
+
+    <figure>
+        <img src="./filemaker-introduction__edit-menu.png" />
+        <img src="./filemaker-introduction__condition-formating.png" />
+        <figcaption>Условное форматирование</figcaption>
+    </figure>
+
+    Также с помощью условного форматирования я сделал серый цвет у текста и приоритета решенной задачи.
+
+    Сверху списка разместим область с добавлением новой задачи. При создании нужно указать текст и приоритет.
+    Непосредственно добавление должно происходить при нажатии кнопки плюс. В отличие от портала, который отображает
+    данные таблицы TodoList.data, новая запись будет редактироваться с помощью полей таблицы TodoList.view, и лишь при
+    нажатии на плюс данные будут переносится в TodoList.data.
+
+    <br><br>
+
+    Оформление текста и приоритета задачи делаем аналогично. Дополнительно делаем пару штрихов - при наведении мыши
+    подкрашиваем плюсик зеленым, а крестик красным; пишем заголовок и текст в подвал, блокируем клики на уже решенные
+    задачи(Я ставлю прозрачный прямоугольник поверх текста и статуса, который появляется, только если задача решена и
+    принимает на себя все клики, ничего с ними не делая. Можно пойти другим путём и для решенной задачи вместо тектового
+    поля показывать нередактируемый текст).
+
+    <br><br>
+
+    Оформление готово, теперь надо придать интерактивность. У нас 3 места, в которых должны происходить события в ответ
+    на клики пользователя: нажатие на плюс - создать новую задачу, нажатие на крестик - удалить задачу, нажатие на
+    чекбокс - пометить задачу как решенную/не решенную. Остальные вещи, такие как ввод текста и сохранение в полях,
+    FileMaker берёт на себя. Условное форматирование также пересчитывается автоматически.
+
+    <br><br>
+
+    <h2 id="scripts">Взаимодействие</h2>
+
+    Для интерактивности существуют скрипты. Открыть через <i>File > Manage > Scripts...</i>, либо <abbr
+        title="Shift+Cmd+S">⇧⌘S</abbr>
+
+    <figure>
+        <img src="./filemaker-introduction__scripts.png" />
+        <figcaption>Рабочая область скриптов</figcaption>
+    </figure>
+
+    Слева список скриптов, можно организовать древовидную структуру с помощью папок. Справа список всех шагов скрипта,
+    доступных для вызова. В центре вкладки с тектами скриптов. Стоит сказать, что текст скрипта не совсем текст, а лишь
+    графическое отображение внутреннего устройства скриптов. Его можно копировать и вставлять, но только в пределах
+    области скрипта. Есть минимальная подсветка и неплохое автодополнение.
+
+    <br><br>
+
+    Для организации действий оносительно конкретного макета я создаю скрипт с соответствующим именем. В нашем случаем
+    это скрипт TodoList.view в папке TodoList.
+
+    <h3>Немного о скриптах</h3>
+
+    Можно организовать условия (If/Else If/Else/End If) и циклы (Loop/Exit Loop If/End Loop). Скрипт может возвращать
+    значение (Exit Script), будучи вызванным другим скриптом (Perform Srcipt). Можно досрочно прервать скрипт (Halt
+    Script).
+
+    <br><br>
+
+    Можно задать переменные (Set Variable), как локальные($var) в пределах скрипта, так и глобальные($$var) в пределах
+    приложения. Глобальные переменные можно отображать на макетах(&lt;&lt;$$var&gt;&gt;)
+
+    <br><br>
+
+    Процедур не предусмотрено, подразумевается для повторяющихся действий использовать отдельные скрипты. Ниже я покажу,
+    как обошёл эту проблему.
+
+    <br><br>
+
+    Вычисляемые значения задаются с помощью выражений.
+
+    <figure>
+        <img src="./filemaker-introduction__calculation.png" />
+        <figcaption>Окно для ввода выражения</figcaption>
+    </figure>
+
+    Выражения всегда возвращают результат либо выдают ошибку.
+
+    <br>
+    <br>
+
+    Используется довольно необычный синтаксис: ¶ для переноса строк, & для конкатенации строк, функции сравнения
+    записываются одиночными символами(=,≠,&gt;,&lt;,≥,≤). Стоит однако сказать, что эти символы легко набирать на MacOS
+    с зажатой клавишой Alt(например ¶ — Alt+7). Математические операторы стандартны(+,-,/,*). Кавычки должны быть
+    двойными("text").
+    <br>
+    <br>
+
+    Выражения могут использовать функции. Есть большой набор библиотечных функций, но также можно создавать свои
+    кастомные. Тело функции представляет из себя выражение, вычисляемое от параметров и, если использовать, то от
+    локальных/глобальных переменных и полей таблиц. Число параметров у кастомных функций фиксированно(у библиотечных
+    может быть неограниченно). Функции можно вызывать рекурсивно(для 17 версии глубина стека вызовов 50000), в них нет
+    циклов(так как их нет в выражениях). <i>В 18 версии добавлена функция для цикла <a
+            href="https://www.filemaker.com/learning/custom-app-academy/303/while-and-setrecursion-calculation-functions">while</a>.</i>
+
+    <figure>
+        <img src="./filemaker-introduction__functions.png" />
+        <figcaption>Список кастомных функций</figcaption>
+    </figure>
+
+    <h3>Способ организации процедур</h3>
+
+
+    <i>При первом чтении эту часть можно пропустить, для корректной работы вы можете скопировать функции из исходников
+        по ссылке в конце статьи</i>.
+    <br><br>
+    Я не призываю использовать именно этот способ, вы можете делать по другому.
+    <br><br>
+
+    Раз нет нативных процедур, их можно легко эмулировать. Используем для этого следующий псевдокод
+
+    <pre>
+If(выполнение по умолчанию)
+    ...действия по умолчанию
+    [Exit Script]
+Else If(процедура 1)
+    ...действия для процедуры 1
+    [Exit Script]
+Else If(процедура 2)
+    ...действия для процедуры 2
+    [Exit Script]
+...
+End If
+</pre>
+
+    Если процедура должна вернуть значение, то используем Exit Script(value). Осталось понять, как отличать процедуры и
+    выполнение по умолчанию друг от друга. Для этого используем параметры скрипта.
+
+    <br><br>
+
+    Каждый скрипт можно вызвать с параметром. Так как параметр один, а часто хочется передать больше, будем использовать
+    для передачи <a
+        href="https://fmhelp.filemaker.com/help/17/fmp/en/index.html#page/FMP_Help/json-functions.html">JSON</a> . Будем
+    передавать скрытый параметр function, который определит, какую ветку скрипта исполнить, а полезные параметры
+    передадим в поле params. По умолчанию пусть function = "main".
+
+    <br><br>
+
+    Проверить, что в параметрах поле function = name, можно будет функцией function(name). Получить полезный параметр c
+    именем name из params можно будет функцией getParam(name). При вызове скрипта установить имя функции и параметры
+    можно будет функцией setParams(functionName, param1 & param2 & param3 & ...), где param1 и тд. задаются функцией
+    param(name, value, type), например param("name"; "Alex"; type.string). type.string - функция, созданная для
+    удобства, возвращает JSONString, аналогичные функции созданы и для остальных типов значений в FileMaker для
+    JSON(string, number, boolean, null, array, object, raw).
+
+    <br><br>
+
+    Пример
+    <br><br>
+    <i>example_script:</i>
+    <br>
+    <!--
+If [ function("main") ]
+    #ничего не делаем
+    #кстати, после решетки можно писать комментарии
+Else If [ function("dialog") ]
+    Show Custom Dialog [ Title: "Dialog"; Message: "Hi, " & getParam("name") & "!"; Default Button: “OK”, Commit: “Yes” ]
+End If
+-->
+    <div class="program block">
+
+        <div class="n">1</div>
+        <div style="padding-left:1em" class="line">
+            <span class="keyword">If</span> [ <span class="function">function</span>(<span
+                class="string">"​m​a​i​n​"​</span>) ]
+        </div>
+        <div class="n">2</div>
+        <div style="padding-left:2em" class="line comment">
+            #ничего не делаем
+        </div>
+        <div class="n">3</div>
+        <div style="padding-left:2em" class="line comment">
+            #кстати, после решетки можно писать комментарии
+        </div>
+        <div class="n">4</div>
+        <div style="padding-left:1em" class="line">
+            <span class="keyword">Else If</span> [ <span class="function">function</span>(<span
+                class="string">"​d​i​a​l​o​g​"​</span>) ]
+        </div>
+        <div class="n">5</div>
+        <div style="padding-left:2em" class="line">
+            Show Custom Dialog [ Title: <span class="string">"​D​i​a​l​o​g​"​</span>; Message: <span
+                class="string">"​H​i​,​ ​"​</span><span class="operator"> &amp; </span><span
+                class="function">getParam</span>(<span class="string">"​n​a​m​e​"​</span>)<span class="operator"> &amp;
+            </span><span class="string">"​!​"​</span>; Default Button: <span class="q">“OK”</span>, Commit: <span
+                class="q">“Yes”</span> ]
+        </div>
+        <div class="n">6</div>
+        <div style="padding-left:1em" class="line">
+            <span class="keyword">End If</span>
+        </div>
+
+
+    </div>
+
+    <br>
+    Вызвав этот скрипт следующим образом
+
+    <!-- <pre>
+Perform Script [ “example_script”; Parameter: setParams("dialog"; param("name"; "Alex"; type.string)) ]
+</pre> -->
+
+    <div class="program">
+        <div class="line">
+            <span class="keyword">Perform Script</span> [ <span class="q">“example_script”</span>; Parameter: <span
+                class="function">setParams</span>(<span class="string">"​d​i​a​l​o​g​"​</span>; <span
+                class="function">param</span>(<span class="string">"​n​a​m​e​"​</span>; <span
+                class="string">"​A​l​e​x​"​</span>; <span class="function">type.string</span>)) ]
+        </div>
+    </div>
+
+    <br>
+    Получим результат
+
+    <figure>
+        <img src="./filemaker-introduction__dialog.png" />
+        <figcaption>Вывод модального окна</figcaption>
+    </figure>
+
+    Ниже пример код всех используемых здесь функций, вы также можете посмотреть код всех функций на github.
+
+    <br><br>
+
+    <details>
+        <summary>function(functionName)</summary>
+        <!-- <pre>
+        Let([
+            param = Get(ScriptParameter);
+            name = JSONGetElement(If(param ≠ ""; param; "{}"); "function");
+            current = If(name ≠ ""; name; "main")];
+            current = functionName
+        )
+    </pre> -->
+
+        <div class="program block">
+            <div class="n">1</div>
+            <div style="padding-left:1em" class="line">
+                <span class="function">Let</span>([
+            </div>
+            <div class="n">2</div>
+            <div style="padding-left:2em" class="line">
+                param<span class="operator"> = </span><span class="function">Get</span>(<span
+                    class="get">ScriptParameter</span>);
+            </div>
+            <div class="n">3</div>
+            <div style="padding-left:2em" class="line">
+                name<span class="operator"> = </span><span class="function">JSONGetElement</span>(<span
+                    class="function">If</span>(param<span class="operator"> ≠ </span><span class="string">"​"​</span>;
+                param; <span class="string">"​{​}​"​</span>); <span class="string">"​f​u​n​c​t​i​o​n​"​</span>);
+            </div>
+            <div class="n">4</div>
+            <div style="padding-left:2em" class="line">
+                current<span class="operator"> = </span><span class="function">If</span>(name<span class="operator"> ≠
+                </span><span class="string">"​"​</span>; name; <span class="string">"​m​a​i​n​"​</span>)];
+            </div>
+            <div class="n">5</div>
+            <div style="padding-left:2em" class="line">
+                current<span class="operator"> = </span>functionName
+            </div>
+            <div class="n">6</div>
+            <div style="padding-left:1em" class="line">
+                )
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>getParam(paramName)</summary>
+        <!-- <pre>
+        JSONGetElement(Get(ScriptParameter); "params." & paramName)
+    </pre> -->
+        <div class="program block">
+            <div class="n">1</div>
+            <div style="padding-left:1em" class="line">
+                <span class="function">JSONGetElement</span>(<span class="function">Get</span>(<span
+                    class="get">ScriptParameter</span>); <span class="string">"​p​a​r​a​m​s​.​"​</span><span
+                    class="operator"> &amp; </span>paramName)
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>setParams(functionName; jsonParams)</summary>
+        <!-- <pre>
+        Let(
+            root = JSONSetElement("{}"; "function"; functionName; type.string);
+            JSONSetElement(root; "params"; "{" & Left(jsonParams; Length(jsonParams) - 1) & "}"; type.raw)
+        )
+    </pre> -->
+        <div class="program block">
+            <div class="n">1</div>
+            <div style="padding-left:1em" class="line">
+                <span class="function">Let</span>(
+            </div>
+            <div class="n">2</div>
+            <div style="padding-left:2em" class="line">
+                root<span class="operator"> = </span><span class="function">JSONSetElement</span>(<span
+                    class="string">"​{​}​"​</span>; <span class="string">"​f​u​n​c​t​i​o​n​"​</span>; functionName;
+                    <span
+                    class="function">type.string</span>);
+            </div>
+            <div class="n">3</div>
+            <div style="padding-left:2em" class="line">
+                <span class="function">JSONSetElement</span>(root; <span class="string">"​p​a​r​a​m​s​"​</span>; <span
+                    class="string">"​{​"​</span><span class="operator"> &amp; </span><span
+                    class="function">Left</span>(jsonParams; <span class="function">Length</span>(jsonParams)<span
+                    class="operator"> - </span><span class="number">1</span>)<span class="operator"> &amp; </span><span
+                    class="string">"​}​"​</span>; <span
+                    class="function">type.raw</span>)
+            </div>
+            <div class="n">5</div>
+            <div style="padding-left:1em" class="line">
+                )
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>param(name; value; type)</summary>
+        <!-- <pre>
+        Let(
+            json = JSONSetElement("{}"; name; value; type);
+            Middle(json; 2; Length(json) - 2) & ","
+        )
+    </pre> -->
+        <div class="program block">
+            <div class="n">1</div>
+            <div style="padding-left:1em" class="line">
+                <span class="function">Let</span>(
+            </div>
+            <div class="n">2</div>
+            <div style="padding-left:2em" class="line">
+                json<span class="operator"> = </span><span class="function">JSONSetElement</span>(<span
+                    class="string">"​{​}​"​</span>; name; value; type);
+            </div>
+            <div class="n">3</div>
+            <div style="padding-left:2em" class="line">
+                <span class="function">Middle</span>(json; <span class="number">2</span>; <span
+                    class="function">Length</span>(json)<span class="operator"> - </span><span
+                    class="number">2</span>)<span class="operator"> &amp; </span><span class="string">"​,​"​</span>
+            </div>
+            <div class="n">4</div>
+            <div style="padding-left:1em" class="line">
+                )
+            </div>
+        </div>
+    </details>
+
+    <h3>Обработчики событий</h3>
+
+    У нас есть 3 действия, и на каждое из них будет последовательность шагов скрипта.
+
+    <table>
+        <thead>
+            <tr>
+                <th>Имя процедуры</th>
+                <th>Что делает</th>
+                <th>Параметр вызова скрипта TodoList.view</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>addRecord</td>
+                <td>добавление новой записи</td>
+                <td>
+                    <!-- setParams("addNewRecord"; param("text"; TodoList.view::Text; type.string) & param("priority"; TodoList.view::Priority; type.number)) -->
+                    <div class="program">
+                        <div class="line"><span class="function">setParams</span>(<span
+                                class="string">"​a​d​d​N​e​w​R​e​c​o​r​d​"​</span>; <span
+                                class="function">param</span>(<span class="string">"​t​e​x​t​"​</span>; <span
+                                class="field">TodoList.view::Text</span>; <span
+                                class="function">type.string</span>)<span class="operator"> &amp;
+                            </span><span class="function">param</span>(<span class="string">"​p​r​i​o​r​i​t​y​"​</span>;
+                            <span class="field">TodoList.view::Priority</span>; <span
+                                class="function">type.number</span>))</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>deleteRecord</td>
+                <td>удаление существующей записи</td>
+                <td>
+                    <!-- setParams("deleteRecord"; "") -->
+                    <div class="program">
+                        <div class="line">
+                            <span class="function">setParams</span>(<span
+                                class="string">"​d​e​l​e​t​e​R​e​c​o​r​d​"​</span>; <span class="string">"​"​</span>)
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>toogleStatus</td>
+                <td>смена статуса</td>
+                <td>
+                    <!-- setParams("toogleStatus"; param("status"; TodoList.data::Status; type.number)) -->
+                    <div class="program">
+                        <div class="line">
+                            <span class="function">setParams</span>(<span
+                                class="string">"​t​o​o​g​l​e​S​t​a​t​u​s​"​</span>; <span
+                                class="function">param</span>(<span class="string">"​s​t​a​t​u​s​"​</span>; <span
+                                class="field">TodoList.data::Status</span>; <span class="function">type.number</span>))
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <details>
+        <summary>Полный код скрипта TodoList.view</summary>
+        <!--
+            If [ function("main") ]
+            Else If [ function("addNewRecord") ]
+            #добавление записи
+            If [ getParam("text") = "" ]
+            Show Custom Dialog [ Title: "Ошибка валидации"; Message: "Заполните текстовое поле"; Default Button: “OK”, Commit: “Yes” ]
+            Halt Script
+            End If
+            Go to Layout [ “TodoList.data” (TodoList.data) ]
+            Go to Record/Request/Page [ Last ]
+            New Record/Request
+            #заполняем поля полученными данными
+            Set Field [ TodoList.data::Text; getParam("text") ]
+            Set Field [ TodoList.data::Priority; getParam("priority") ]
+            Set Field [ TodoList.data::Status; 0 ]
+            Go to Layout [ original layout ]
+            #сбрасываем в начальное состояние
+            Set Field [ TodoList.view::Text; "" ]
+            Set Field [ TodoList.view::Priority; 0 ]
+            Else If [ function("deleteRecord") ]
+            #удаление записи
+            Delete Portal Row [ No dialog ]
+            Else If [ function("toogleStatus") ]
+            #смена статуса
+            Set Field [ TodoList.data::Status; If(getParam("status") = 0; 1; 0) ]
+            Go to Field [ ]
+            End If
+            Halt Script
+        -->
+        <div class="program block">
+
+            <div class="n">1</div>
+            <div style="padding-left:1em" class="line">
+                <span class="keyword">If</span> [ <span class="function">function</span>(<span
+                    class="string">"​m​a​i​n​"​</span>) ]
+            </div>
+            <div class="n">2</div>
+            <div style="padding-left:1em" class="line">
+                <span class="keyword">Else If</span> [ <span class="function">function</span>(<span
+                    class="string">"​a​d​d​N​e​w​R​e​c​o​r​d​"​</span>) ]
+            </div>
+            <div class="n">3</div>
+            <div style="padding-left:2em" class="line comment">
+                # добавление записи
+            </div>
+            <div class="n">4</div>
+            <div style="padding-left:2em" class="line">
+                <span class="keyword">If</span> [ <span class="function">getParam</span>(<span
+                    class="string">"​t​e​x​t​"​</span>)<span class="operator"> = </span><span class="string">"​"​</span>
+                ]
+            </div>
+            <div class="n">5</div>
+            <div style="padding-left:3em" class="line">
+                Show Custom Dialog [ Title: <span class="string">"​О​ш​и​б​к​а​ ​в​а​л​и​д​а​ц​и​и​"​</span>; Message:
+                <span class="string">"​З​а​п​о​л​н​и​т​е​ ​т​е​к​с​т​о​в​о​е​ ​п​о​л​е​"​</span>; Default Button: <span
+                    class="q">“OK”</span>, Commit: <span class="q">“Yes”</span> ]
+            </div>
+            <div class="n">6</div>
+            <div style="padding-left:3em" class="line">
+                <span class="keyword">Halt Script</span>
+            </div>
+            <div class="n">7</div>
+            <div style="padding-left:2em" class="line">
+                <span class="keyword">End If</span>
+            </div>
+            <div class="n">8</div>
+            <div style="padding-left:2em" class="line">
+                Go to Layout [ <span class="q">“TodoList.data”</span> (TodoList.data) ]
+            </div>
+            <div class="n">9</div>
+            <div style="padding-left:2em" class="line">
+                Go to Record/Request/Page [ Last ]
+            </div>
+            <div class="n">10</div>
+            <div style="padding-left:2em" class="line">
+                New Record/Request
+            </div>
+            <div class="n">11</div>
+            <div style="padding-left:2em" class="line comment">
+                # заполняем поля полученными данными
+            </div>
+            <div class="n">12</div>
+            <div style="padding-left:2em" class="line">
+                Set Field [ <span class="field">TodoList.data::Text</span>; <span class="function">getParam</span>(<span
+                    class="string">"​t​e​x​t​"​</span>) ]
+            </div>
+            <div class="n">13</div>
+            <div style="padding-left:2em" class="line">
+                Set Field [ <span class="field">TodoList.data::Priority</span>; <span
+                    class="function">getParam</span>(<span class="string">"​p​r​i​o​r​i​t​y​"​</span>) ]
+            </div>
+            <div class="n">14</div>
+            <div style="padding-left:2em" class="line">
+                Set Field [ <span class="field">TodoList.data::Status</span>; <span class="number">0</span> ]
+            </div>
+            <div class="n">15</div>
+            <div style="padding-left:2em" class="line">
+                Go to Layout [ original layout ]
+            </div>
+            <div class="n">16</div>
+            <div style="padding-left:2em" class="line comment">
+                # сбрасываем в начальное состояние
+            </div>
+            <div class="n">17</div>
+            <div style="padding-left:2em" class="line">
+                Set Field [ <span class="field">TodoList.view::Text</span>; <span class="string">"​"​</span> ]
+            </div>
+            <div class="n">18</div>
+            <div style="padding-left:2em" class="line">
+                Set Field [ <span class="field">TodoList.view::Priority</span>; <span class="number">0</span> ]
+            </div>
+            <div class="n">19</div>
+            <div style="padding-left:1em" class="line">
+                <span class="keyword">Else If</span> [ <span class="function">function</span>(<span
+                    class="string">"​d​e​l​e​t​e​R​e​c​o​r​d​"​</span>) ]
+            </div>
+            <div class="n">20</div>
+            <div style="padding-left:2em" class="line comment">
+                # удаление записи
+            </div>
+            <div class="n">21</div>
+            <div style="padding-left:2em" class="line">
+                Delete Portal Row [ No dialog ]
+            </div>
+            <div class="n">22</div>
+            <div style="padding-left:1em" class="line">
+                <span class="keyword">Else If</span> [ <span class="function">function</span>(<span
+                    class="string">"​t​o​o​g​l​e​S​t​a​t​u​s​"​</span>) ]
+            </div>
+            <div class="n">23</div>
+            <div style="padding-left:2em" class="line comment">
+                # смена статуса
+            </div>
+            <div class="n">24</div>
+            <div style="padding-left:2em" class="line">
+                Set Field [ <span class="field">TodoList.data::Status</span>; <span class="function">If</span>(<span
+                    class="function">getParam</span>(<span class="string">"​s​t​a​t​u​s​"​</span>)<span
+                    class="operator"> = </span><span class="number">0</span>; <span class="number">1</span>; <span
+                    class="number">0</span>) ]
+            </div>
+            <div class="n">25</div>
+            <div style="padding-left:2em" class="line">
+                Go to Field [ ]
+            </div>
+            <div class="n">26</div>
+            <div style="padding-left:1em" class="line">
+                <span class="keyword">End If</span>
+            </div>
+            <div class="n">27</div>
+            <div style="padding-left:1em" class="line">
+                <span class="keyword">Halt Script</span>
+            </div>
+
+
+        </div>
+    </details>
+
+    <br><br>
+
+    Рабочая версия готова!
+
+    <h2 id="epilogue">Послесловие</h2>
+
+    <h3>За кадром</h3>
+
+    Я оставил без рассмотрения такие второстепенные вещи(в контексте задачи, вообще они очень важны), как права
+    пользователей, кастомные меню, тригерры макетов и окон.
+
+    <h3>Ещё</h3>
+
+    Ещё есть поиск, отображение в виде листа и табличный вид, отложенные действия, обработка ошибок, встроенные
+    веб-страницы и их взаимодействия со скриптами, интерактивные диаграммы, SQL, сервер и раздача приложения клиентам,
+    скрипты на сервере, вызов функций операционной системы, генерация отчетности как экспорт таблиц, расширения
+    стандартного функционала с помощью модулей на C/C++.
+
+    <h3>Что дальше</h3>
+
+    Как оказалось, проще сделать, чем написать. Приложения для примера я написал примерно за два часа. Статью писал
+    минимум неделю. Получилось достаточно поверхностно, но я и не предполагал углубленный уровень. Более
+    узкоспециализированные материалы есть на русском языке на <a href="http://fmteam.ru">fmteam.ru</a>.
+
+    <br><br>
+
+    Сейчас я использую Filemaker для домашних проектов в качестве админки для генерации конфигурационных файлов для
+    статических сайтов. Но как я уже упоминал, для малого и среднего бизнеса FileMaker позволяет создать прототип
+    буквально на коленке за пару дней, а за несколько месяцев вполне можно довести до production-ready крупное
+    приложение.
+
+
+    <h2 id="links">Ссылки</h2>
+    <a href="https://github.com/nikalexxx/nikalexxx.github.io/blob/master/data/blog/data/1/index.html">Исходники статьи</a> — полный вариант статьи в html c подсветкой синтаксиса.
+    <br>
+    <a href="https://github.com/nikalexxx/Filemaker_functions/tree/master/fm_functions">Исходный код функций</a>
+    <br>
+    <a href="https://github.com/nikalexxx/Filemaker_tutorials/blob/master/filemaker_performance.pdf">Материалы моего доклада про быстродействие в FileMaker</a>
+    <br>
+    <a href="https://fmhelp.filemaker.com/help/17/fmp/en/#page/FMP_Help%2Findex.html">Официальная документация FileMaker 17</a>
