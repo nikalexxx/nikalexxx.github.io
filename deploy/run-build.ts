@@ -1,15 +1,33 @@
 import ghpages from 'gh-pages';
 
-const root = '..';
+const root = `${__dirname}/..`;
+const targetBranch = 'build';
+
+const errorCallback = (error: any) => console.error(error);
 
 // собранные страницы
-ghpages.publish(`${root}/dist`, {
-    push: false,
-});
+ghpages.publish(
+    `${root}/dist`,
+    {
+        push: false,
+        branch: targetBranch,
+    },
+    (error) => {
+        errorCallback(error);
+        addData();
+    }
+);
 
-// данные
-ghpages.publish(`${root}/data`, {
-    dest: 'data',
-    push: false,
-    add: true,
-});
+function addData() {
+    // данные
+    ghpages.publish(
+        `${root}/data`,
+        {
+            dest: 'data',
+            branch: targetBranch,
+            push: false,
+            add: true,
+        },
+        errorCallback
+    );
+}
