@@ -29,8 +29,7 @@ export const BloodTypes = Component.BloodTypes(({ state, hooks }) => {
                 E.br,
                 E.p(`${theme === 'light' ? 'Светлая' : 'Тёмная'} версия`),
                 E.picture(
-                    E.img.src(`${imgPath}/${theme}.svg`).width`722px`
-                        .height`649px`
+                    E.img.src(`${imgPath}/${theme}.svg`).width`100%`
                 ),
                 E.p`Указаны разрешенные направления переливаний эритроцитной массы в зависимости от группы в системе AB0 и резус-фактора. Также указаны направления переливания плазмы.`,
                 E.br,

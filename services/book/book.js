@@ -363,9 +363,9 @@ export function createBook(f) {
                     };
 
                     const tooltip = getMarker('tooltip', ({ text }) => (t) => {
-                        return Tooltip.text(E.div.class(css('ref-content'))(text))(
-                            E.span.class(css('label'))(t)
-                        );
+                        return Tooltip.text(
+                            E.div.class(css('ref-content'))(text)
+                        )(E.span.class(css('label'))(t));
                     });
 
                     const draft = getMarker('draft', () => (t) => {
@@ -471,26 +471,35 @@ export function createBook(f) {
                     let imageIndex = 0;
                     const img = getMarker(
                         'img',
-                        ({ src, alt, position = 'center', height }) => (t) => {
+                        ({ src, alt, position = 'center', height, width }) => (
+                            t
+                        ) => {
                             const isSvg = src.endsWith('.svg');
-                            const image = E.picture(
+                            const sizeStyle = `${
+                                height
+                                    ? `max-height: ${Math.floor(
+                                          height * 100
+                                      )}vh;`
+                                    : ''
+                            }${
+                                width
+                                    ? `max-width: ${Math.floor(width * 100)}vh;`
+                                    : ''
+                            }`;
+                            const image = E.picture.style(sizeStyle)(
                                 isSvg &&
                                     E.source.type`image/svg+xml`.srcSet(src),
-                                E.img
+                                E.img.style`max-height: 100%;max-width: 100%`
                                     .src(src)
                                     .alt(alt)
-                                    // .loading('lazy')
-                                    .style(
-                                        height &&
-                                            `max-height: ${Math.floor(
-                                                height * 100
-                                            )}vh;`
-                                    )
+                                // .loading('lazy')
                             );
                             const content = t
-                                ? E.figure.class(
-                                      css('img-figure', { position })
-                                  )(image, E.figcaption(t))
+                                ? E.figure
+                                      .class(css('img-figure', { position }))(
+                                      image,
+                                      E.figcaption(t)
+                                  )
                                 : image;
 
                             const imageKey = String(imageIndex++);

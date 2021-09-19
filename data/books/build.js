@@ -9,13 +9,12 @@ const dirList = readdirSync(`${__dirname}/data`, { withFileTypes: true })
 
 const getCommand = dirName => {
     const sourceDir = `${__dirname}/data/${dirName}`;
-    const outputDir = `dist/data/books/${dirName}`;
+    const outputDir = `${process.env.OUTPUT}/data/books/${dirName}`;
     const dataFiles = execSync(`find ${sourceDir}/** -name "*.svg"`)
         .toString()
         .split('\n')
         .filter(Boolean)
         .map(e => e.slice(sourceDir.length));
-    console.log(dataFiles);
     return {
         command: `tsc ${sourceDir}/index.ts -m esnext --outDir ${outputDir}`,
         copy: () => {

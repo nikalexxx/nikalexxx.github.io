@@ -16,7 +16,7 @@ ${h(3)`Идея схемы`}
 Схема представлена в светлой и тёмной версии.
 Полностью доступна для скачивания (${code`svg/pdf/png`}) и использования.
 
-${img.src('/data/images/schemes/blood-types/light.svg')('Светлая версия')}
+${img.width(1).height(1).src('/data/images/schemes/blood-types/light.svg')('Светлая версия')}
 
 
 ${h(3)`Процесс`}
