@@ -11,12 +11,14 @@ const errorCallback = (path: string, error: any) => {
     }
 };
 
+let stepIndex = 0;
 const getStep = (path: string, options: ghpages.PublishOptions) => (
     callbacks?: (() => any)[]
 ) => () => {
-    ghpages.publish(path, options, (error) => {
+    ghpages.publish(path, {...options, add: stepIndex > 0}, (error) => {
         errorCallback(path, error);
         if (!error) {
+            stepIndex++;
             callbacks?.forEach((e) => e());
         }
     });
@@ -24,7 +26,13 @@ const getStep = (path: string, options: ghpages.PublishOptions) => (
 
 // собранные страницы
 const addDist = getStep(`${root}/dist`, {
-    add: true,
+    push: false,
+    branch: targetBranch,
+});
+
+// собранные страницы
+const addBooks = getStep(`${root}/dist/books`, {
+    dest: 'data/books',
     push: true,
     branch: targetBranch,
 });
@@ -37,4 +45,4 @@ const addData = getStep(`${root}/data`, {
 });
 
 
-addData([addDist()])();
+addDist([addData([addBooks()])])();
