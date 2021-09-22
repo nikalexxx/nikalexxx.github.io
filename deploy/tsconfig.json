@@ -5,5 +5,7 @@
     "target": "es2017",
     "isolatedModules": true,
     "noEmit": false,
-  }
+    "types": ["node"]
+  },
+  "include": ["*"]
 }

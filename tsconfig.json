@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "es2020.string"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "es2020.string"],
     "downlevelIteration": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -19,9 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["."]
 }

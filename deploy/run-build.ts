@@ -30,8 +30,8 @@ const addDist = getStep(`${root}/dist`, {
     branch: targetBranch,
 });
 
-// собранные страницы
-const addBooks = getStep(`${root}/dist/books`, {
+// собранные книги
+const addBooks = getStep(`${root}/dist/data/books`, {
     dest: 'data/books',
     push: true,
     branch: targetBranch,
