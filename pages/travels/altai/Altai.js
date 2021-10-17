@@ -1,13 +1,13 @@
 import { Breadcrumbs, Gallery } from '../../../components';
 import { Component, E } from '../../../utils';
 
-import { Collapse } from '../../../blocks';
 import { imgList } from '../../../data/images/travels/altai/list';
+import { Lang } from '../../../blocks';
 
 export const Altai = Component.Altai(() => {
     return () =>
         E.div(
-            Breadcrumbs.items([['Путешествия', 'travels'], ['Алтай']]),
+            Breadcrumbs.items([[Lang.token`menu/travels`, 'travels'], ['Алтай']]),
             E.div.style`padding: 15px;`(
                 E.p(`
                 Алтай, 19-25 апреля 2021 года. Путешествие по окрестностям реки Катунь вблизи горы Малая Синюха.

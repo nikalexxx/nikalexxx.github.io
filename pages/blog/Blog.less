@@ -1,31 +1,44 @@
 .blog {
-    &__post-card {
-        padding: 16px;
-        &:not(:last-child) {
-            border-bottom: 1px solid var(--color-border);
-        }
-        &:first-child {
-            padding-top: 0;
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 200px);
+    padding: 8px;
+
+    @media (max-width: 700px) {
+        display: block;
+    }
+
+    &__list {
+        & a {
+            color: var(--color-text);
+
+            &:hover h3{
+                color: var(--color-text-accent);
+            }
         }
     }
 
+    &__tile {
+        display: block;
+    }
+
+    &__post-card {
+        width: 100%;
+        text-align: start;
+    }
+
     &__title {
-        display: grid;
-        grid-template-columns: auto 1fr;
         margin-bottom: 8px;
         & > h3 {
             margin: 0;
             padding: 0;
             hyphens: auto;
             font-size: 1.4em;
-            & > a {
-                color: var(--color-text);
-
-                &:hover {
-                    color: var(--color-text-accent);
-                }
-            }
         }
+    }
+    &__new {
+        font-size: 1rem;
+        color: var(--color-text-active)
+
     }
     &__time {
         font-size: 0.9em;
@@ -34,11 +47,20 @@
     &__tag-panel {
         display: flex;
         white-space: nowrap;
-        padding-bottom: 16px;
-        overflow-x: scroll;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        overflow: auto;
+
+        padding-left: 8px;
+
+        @media (max-width: 700px) {
+            padding-left: 0;
+            padding-top: 8px;
+        }
     }
     &__tags {
         display: flex;
+        flex-wrap: wrap;
     }
     &__tag {
         display: inline-flex;
@@ -46,55 +68,65 @@
         padding: 2px 8px;
         border-radius: 4px;
         font-size: 0.8em;
-        background-color: var(--color-background-second);
+        background-color: var(--color-background-prime);
+        border: 1px solid var(--color-border);
         cursor: pointer;
 
         &:hover {
-            border: 1px solid var(--color-border);
-            margin: 3px;
-        }
-
-        &[data-tag="typescript"]::before {
-            display: inline-block;
-            content: '';
-            width: 15px;
-            height: 15px;
-            margin-right: 4px;
-            background-image: url('../../assets/images/logo/typescript.svg');
-        }
-
-        &[data-tag="javascript"]::before {
-            display: inline-block;
-            content: '';
-            width: 15px;
-            height: 15px;
-            margin-right: 4px;
-            background-image: url('../../assets/images/logo/javascript.svg');
-        }
-
-        &[data-tag="css"]::before {
-            display: inline-block;
-            content: '';
-            width: 15px;
-            height: 15px;
-            margin-right: 4px;
-            background-image: url('../../assets/images/logo/css.svg');
-        }
-
-        &[data-tag="ruby"]::before {
-            display: inline-block;
-            content: '';
-            width: 15px;
-            height: 15px;
-            margin-right: 4px;
-            background-image: url('../../assets/images/logo/ruby.svg');
+            background-color: var(--color-background-second);
         }
 
         &_active {
             color: var(--color-text-accent);
+            background-color: var(--color-background-second);
         }
         &_hidden {
             display: none;
+        }
+
+        &[data-tag="typescript"]::before {
+            display: inline-block;
+            content: "";
+            width: 1.1em;
+            height: 1.1em;
+            margin-right: 4px;
+            background-image: url("../../assets/images/logo/typescript.svg");
+        }
+
+        &[data-tag="javascript"]::before {
+            display: inline-block;
+            content: "";
+            width: 1.1em;
+            height: 1.1em;
+            margin-right: 4px;
+            background-image: url("../../assets/images/logo/javascript.svg");
+        }
+
+        &[data-tag="css"]::before {
+            display: inline-block;
+            content: "";
+            width: 1.1em;
+            height: 1.1em;
+            margin-right: 4px;
+            background-image: url("../../assets/images/logo/css.svg");
+        }
+
+        &[data-tag="ruby"]::before {
+            display: inline-block;
+            content: "";
+            width: 1.1em;
+            height: 1.1em;
+            margin-right: 4px;
+            background-image: url("../../assets/images/logo/ruby.svg");
+        }
+
+        &[data-tag="svg"]::before {
+            display: inline-block;
+            content: "";
+            width: 1.1em;
+            height: 1.1em;
+            margin-right: 4px;
+            background-image: url("../../assets/images/logo/svg.svg");
         }
     }
     &__read-button {

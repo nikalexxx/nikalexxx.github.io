@@ -3,7 +3,7 @@ import './Unicode.less';
 import { Component, E, block } from '../../../utils';
 
 import { Breadcrumbs } from '../../../components';
-import { Button } from '../../../blocks';
+import { Button, Lang } from '../../../blocks';
 
 const b = block('unicode');
 
@@ -28,7 +28,7 @@ const Unicode = Component.Unicode(({ state }) => {
         const end = start * limit + limit;
         const endI = end > max ? max : end;
         return E.div(
-            Breadcrumbs.items([['Проекты', 'projects'], ['Юникод']]),
+            Breadcrumbs.items([[Lang.token`menu/projects`, 'projects'], ['Юникод']]),
             E.div.class(b())._forceUpdate(true)(
                 E.div.class(b('menu'))(
                     [...new Array(count).keys()].map((i) =>

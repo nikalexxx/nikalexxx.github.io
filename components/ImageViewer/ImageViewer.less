@@ -5,26 +5,62 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        --controll-width: 40px;
+        --controll-height: 40px;
+    }
+
+    &__loading {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 6;
+    }
+
+    &__control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0);
+        color: rgba(255, 255, 255, 0.6);
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+        }
     }
 
     &__close {
         position: absolute;
         top: 0;
         right: 0;
-        height: 40px;
-        width: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0.4);
-        border-bottom-left-radius: 8px;
-        color: rgba(255, 255, 255, 0.6);
+        height: var(--controll-height);
+        width: var(--controll-width);
+    }
 
-        &:hover {
-            cursor: pointer;
-            background-color: red;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
+    &__right {
+        position: absolute;
+        top: var(--controll-height);
+        right: 0;
+        bottom: 0;
+        width: var(--controll-width);
+    }
+
+    &__left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: var(--controll-width);
+        padding-top: var(--controll-height);
+
+        & > * {
+            transform: rotate(180deg);
         }
     }
 }

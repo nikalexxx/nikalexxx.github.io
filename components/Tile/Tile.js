@@ -7,6 +7,6 @@ const b = block('tile');
 export const Tile = Component.Tile(({props}) => {
     return () => {
         const {children, className } = props();
-        return E.div.class(`${b()}${className ? ` ${className}` : ''}`)(E.div(children))
+        return E.div.class(`${b()}${className ? ` ${className}` : ''}`)(children)
     }
 })

@@ -123,8 +123,8 @@ const Header = Component.Header(({ state, hooks }) => {
             Button.onClick(toogleTheme)(getIcon()),
             Select.className(b('lang')).values(
                 [
-                    { value: 'ru', title: E.span('RU') },
-                    { value: 'en', title: E.span('EN') },
+                    { value: 'ru', title: E.span('🇷🇺RU') },
+                    { value: 'en', title: E.span('🇬🇧EN') },
                 ].map((e) => {
                     if (e.value === lang) {
                         e.selected = true;

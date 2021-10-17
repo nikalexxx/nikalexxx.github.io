@@ -39,5 +39,12 @@ export const icons = {
   "blog.csssr.com/ru": "https://blog.csssr.com/favicon/favicon-48x48.png",
   "xstate.js.org/docs": "https://xstate.js.org/favicon.ico",
   "e-maxx.ru/algo": "https://e-maxx.ru/favicon.ico",
-  "3b1b.github.io/manim": "https://3b1b.github.io/manim/_static/icon.png"
+  "3b1b.github.io/manim": "https://3b1b.github.io/manim/_static/icon.png",
+  "webpack.js.org": "https://webpack.js.org/icon_512x512.png",
+  "rollupjs.org": "https://rollupjs.org/favicon.png",
+  "parceljs.org": "https://parceljs.org/favicon.fe6f9d11.ico",
+  "esbuild.github.io": "https://esbuild.github.io/favicon.svg",
+  "rome.tools": "https://rome.tools/img/favicon.png",
+  "vitejs.dev": "https://vitejs.dev/logo.svg",
+  "www.snowpack.dev": "https://www.snowpack.dev/favicon/apple-touch-icon.png",
 }

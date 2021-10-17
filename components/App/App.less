@@ -20,7 +20,7 @@
         min-height: 2em;
         display: grid;
         grid-template-columns: 1fr auto auto;
-        gap: 1em;
+        gap: 4px;
         justify-content: stretch;
 
         @media (max-width: 700px) {
@@ -42,8 +42,8 @@
                 font-size: 4vw;
             }
 
-            @media (max-width: 25em) {
-                font-size: 1em;
+            @media (max-width: 20em) {
+                font-size: 0.8em;
             }
         }
     }
@@ -141,7 +141,7 @@
     &__content {
         grid-area: content;
         position: relative;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding: 8px;
     }
 

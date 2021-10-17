@@ -14,11 +14,15 @@ const Physics = Component.Physics(() => {
             PageGrid(
                 RouteLink.href('physics/standard-model')(
                     Tile(
-                        Lang.token`tile/standart-model`.view(e => E.div.style`text-align: center`(e)),
-                        E.div.class(b('particles'))(
-                            'e',
-                            E.sup('–'),
-                            ', γ, H'
+                        E.div(
+                            Lang.token`tile/standart-model`.view((e) =>
+                                E.div.style`text-align: center`(e)
+                            ),
+                            E.div.class(b('particles'))(
+                                'e',
+                                E.sup('–'),
+                                ', γ, H'
+                            )
                         )
                     )
                 )

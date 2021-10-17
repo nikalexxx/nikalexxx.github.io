@@ -3,6 +3,8 @@ import './Blog.less';
 import { Component, E, RouteLink, block } from '../../utils';
 
 import blog from '../../data/blog';
+import { PageGrid, Tile } from '../../components';
+import { postList } from './model';
 
 const b = block('blog');
 
@@ -40,6 +42,7 @@ const Blog = Component.Blog(({ state }) => {
         state.set({ activeTags });
     }
 
+    let maxTagCount = 0;
     const allTags = Object.values(blog)
         .map((e) => e.tags)
         .flat()
@@ -48,6 +51,7 @@ const Blog = Component.Blog(({ state }) => {
                 obj[tag] = 0;
             }
             obj[tag]++;
+            maxTagCount = Math.max(maxTagCount, obj[tag]);
             return obj;
         }, {});
 
@@ -57,7 +61,7 @@ const Blog = Component.Blog(({ state }) => {
 
     return () => {
         const { activeTags } = state();
-        let blogKeys = Object.keys(blog);
+        let blogKeys = [...postList];
         if (activeTags.size > 0) {
             blogKeys = blogKeys.filter((key) => {
                 const { tags } = blog[key];
@@ -65,46 +69,66 @@ const Blog = Component.Blog(({ state }) => {
             });
         }
         return E.div.class(b())(
-            E.div.class(b('tag-panel'))(
-                E.div
-                    .class(b('tag', { active: activeTags.size === 0 }))
-                    .onClick(() => onTagClick('all'))(E.i('all')),
-                sortedTags.map((tag) =>
-                    E.div['data-tag'](tag)
-                        .class(b('tag', { active: activeTags.has(tag) }))
-                        .onClick((e) => onTagClick(e.target.dataset.tag))(tag)
+            E.div.class(b('list'))._forceUpdate(true)(
+                PageGrid.itemWidth(300)(
+                    blogKeys
+                        .map((key) => {
+                            const { creationTime, title, tags, image } = blog[
+                                key
+                            ];
+                            return RouteLink.href(`blog/${key}`)(
+                                Tile.className(b('tile'))(
+                                    E.div.class(b('post-card'))(
+                                        E.div.class(b('title'))(E.h3(title)),
+                                        image &&
+                                            E.img.src(image).width`30%`
+                                                .style`float: right; margin: 0 0 4px 4px`,
+                                        E.p(DateTime.time(creationTime)),
+                                        E.div.class(b('tags'))(
+                                            tags.map((tag) =>
+                                                E.div
+                                                    .class(
+                                                        b('tag', {
+                                                            active: activeTags.has(
+                                                                tag
+                                                            ),
+                                                        })
+                                                    )
+                                                    ['data-tag'](tag)
+                                                    .onClick((e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        onTagClick(
+                                                            e.target.dataset.tag
+                                                        );
+                                                    })(tag)
+                                            )
+                                        )
+                                    )
+                                )
+                            );
+                        })
                 )
             ),
-            E.div._forceUpdate(true)(
-                blogKeys
-                    .sort((keyA, keyB) => {
-                        const getMs = (key) =>
-                            Number(new Date(blog[key].creationTime));
-                        return getMs(keyB) - getMs(keyA);
-                    })
-                    .map((key) => {
-                        const { creationTime, title, tags } = blog[key];
-                        return E.div.class(b('post-card'))(
-                            E.div.class(b('title'))(
-                                E.h3(RouteLink.href(`blog/${key}`)(title))
-                            ),
-                            E.p(DateTime.time(creationTime)),
-                            E.div.class(b('tags'))(
-                                tags.map((tag) =>
-                                    E.div
-                                        .class(
-                                            b('tag', {
-                                                active: activeTags.has(tag),
-                                            })
-                                        )
-                                        ['data-tag'](tag)
-                                        .onClick((e) =>
-                                            onTagClick(e.target.dataset.tag)
-                                        )(tag)
-                                )
+            E.div.class(b('panel'))(
+                E.div.class(b('tag-panel'))(
+                    E.div.style`font-size: 1.2em`
+                        .class(b('tag', { active: activeTags.size === 0 }))
+                        .onClick(() => onTagClick('all'))(E.i('all')),
+                    sortedTags.map((tag) =>
+                        E.div['data-tag'](tag)
+                            .title(allTags[tag])
+                            .style(
+                                `font-size: calc(0.8em + (${
+                                    (allTags[tag] - 1) / maxTagCount
+                                } * 0.4em))`
                             )
-                        );
-                    })
+                            .class(b('tag', { active: activeTags.has(tag) }))
+                            .onClick((e) => onTagClick(e.target.dataset.tag))(
+                            tag
+                        )
+                    )
+                )
             )
         );
     };

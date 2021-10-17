@@ -483,23 +483,21 @@ export function createBook(f) {
                                     : ''
                             }${
                                 width
-                                    ? `max-width: ${Math.floor(width * 100)}vh;`
+                                    ? `max-width: ${Math.floor(width * 100)}vw;`
                                     : ''
                             }`;
                             const image = E.picture.style(sizeStyle)(
                                 isSvg &&
                                     E.source.type`image/svg+xml`.srcSet(src),
-                                E.img.style`max-height: 100%;max-width: 100%`
+                                E.img
+                                    .style(sizeStyle)
                                     .src(src)
                                     .alt(alt)
-                                // .loading('lazy')
                             );
                             const content = t
-                                ? E.figure
-                                      .class(css('img-figure', { position }))(
-                                      image,
-                                      E.figcaption(t)
-                                  )
+                                ? E.figure.class(
+                                      css('img-figure', { position })
+                                  )(image, E.figcaption(t))
                                 : image;
 
                             const imageKey = String(imageIndex++);

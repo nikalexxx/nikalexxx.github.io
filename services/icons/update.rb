@@ -15,10 +15,11 @@ list.keys.each do |url|
     prefix = list[url]['prefix']
     html_path = html_link ? (html_link[0] == '/' ? "#{url}#{html_link}" : html_link) : url;
     html_url = "https://#{html_path}"
+    puts html_url
+
     response = Net::HTTP.get_response(URI(html_url))
     doc = Nokogiri::HTML(response.body)
 
-    puts html_url
     if response.code != '200'
         puts "BAD CODE #{response.code}"
     end

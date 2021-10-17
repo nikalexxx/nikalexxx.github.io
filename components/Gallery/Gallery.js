@@ -52,7 +52,11 @@ function getSmallSizes({ width, height }) {
 export const Gallery = Component.Gallery(({ props, state, hooks }) => {
     let container;
 
-    state.init({ containerWidth: 0, webp: false });
+    state.init({
+        containerWidth: 0,
+        webp: false,
+        i: null,
+    });
 
     hooks.didMount(() => {
         checkWebpSupport((webp) => state.set({ webp }));
@@ -65,15 +69,37 @@ export const Gallery = Component.Gallery(({ props, state, hooks }) => {
         }
     });
 
+    let currentClose = () => {};
     return () => {
         const { imgList, imgPath } = props();
         const smallPath = `${imgPath}/small`;
-        const { webp } = state();
+        const { webp, i } = state();
 
         const format = webp ? 'webp' : 'jpg';
 
+        if (i !== null) {
+            const { name, extension, width, height } = imgList[i];
+            try {
+                currentClose();
+            } catch(e) {
+                currentClose = () => {};
+            }
+            Modal.open((close) => {
+                currentClose = close;
+                // console.log({i});
+                return ImageViewer.path(
+                    `${imgPath}/original/${name}.${extension}`
+                )
+                    .width(width)
+                    .height(height)
+                    .close(close)
+                    .toRight(i === imgList.length - 1 ? null : () => state.set({ i: i + 1 }))
+                    .toLeft(i === 0 ? null : () => state.set({ i: i - 1 }));
+            });
+        }
+
         return E.div._ref((e) => (container = e)).class(b())(
-            imgList.map((image) => {
+            imgList.map((image, i) => {
                 const { name, width, height, extension } = image;
                 const isVertical = height > width;
                 const short = isVertical ? width : height;
@@ -83,16 +109,7 @@ export const Gallery = Component.Gallery(({ props, state, hooks }) => {
 
                 return E.div
                     .class(b('tile'))
-                    .onClick(() =>
-                        Modal.open((close) =>
-                            ImageViewer.path(
-                                `${imgPath}/original/${name}.${extension}`
-                            )
-                                .width(width)
-                                .height(height)
-                                .close(close)
-                        )
-                    )
+                    .onClick(() => state.set({ i }))
                     .style(
                         `background-image: url(${smallPath}/${name}.${format})`
                     )();

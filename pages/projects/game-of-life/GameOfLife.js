@@ -3,6 +3,7 @@ import './GameOfLife.less';
 import {
     Button,
     Checkbox,
+    Lang,
     Select
 } from '../../../blocks';
 import {
@@ -743,7 +744,7 @@ const Game = Component.Game(({
         } = state();
 
         return E.div(
-            Breadcrumbs.items([['Проекты', 'projects'], ['Игра «Жизнь»']]),
+            Breadcrumbs.items([[Lang.token`menu/projects`, 'projects'], ['Игра «Жизнь»']]),
             E.div.class(b())(
                 E.div(
                     'Начальная конфигурация',

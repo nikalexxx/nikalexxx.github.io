@@ -2,7 +2,7 @@ import './Catalog.less';
 
 import { Component, E, block } from '../../utils';
 
-import { Collapse } from '../../blocks';
+import { Collapse, Lang } from '../../blocks';
 import { icons } from '../../services/icons/list';
 
 const b = block('catalog');
@@ -81,6 +81,39 @@ const links = {
                         [link]: 'https://xstate.js.org/docs',
                         title: 'XState',
                     },
+                },
+            },
+            builders: {
+                [meta]: {
+                    title: 'Инструменты сборки',
+                },
+                webpack: {
+                    title: 'Webpack',
+                    [link]: 'https://webpack.js.org',
+                },
+                rollup: {
+                    title: 'Rollup',
+                    [link]: 'https://rollupjs.org',
+                },
+                parcel: {
+                    title: 'Parcel',
+                    [link]: 'https://parceljs.org',
+                },
+                esbuild: {
+                    title: 'Esbuild',
+                    [link]: 'https://esbuild.github.io',
+                },
+                rome: {
+                    title: 'Rome',
+                    [link]: 'https://rome.tools',
+                },
+                vite: {
+                    title: 'Vite',
+                    [link]: 'https://vitejs.dev',
+                },
+                snowpack: {
+                    title: 'Snowpack',
+                    [link]: 'https://www.snowpack.dev',
                 },
             },
             languages: {
@@ -226,8 +259,8 @@ const links = {
         },
         manim: {
             [link]: 'https://3b1b.github.io/manim',
-            title: 'Manim'
-        }
+            title: 'Manim',
+        },
     },
 };
 
@@ -260,27 +293,29 @@ function renderTree(tree, topLevel = false) {
     }
     for (const levelKey of subLevels) {
         const value = tree[levelKey];
+        const caption =
+            meta in value
+                ? value[meta].title
+                : levelKey === heap
+                ? '...'
+                : levelKey;
         content.push(
-            E.li(
+            E.li.class(b('item'))(
                 Collapse.open(true).title(
-                    E.div.title(levelKey)(
-                        meta in value
-                            ? value[meta].title
-                            : levelKey === heap
-                            ? '...'
-                            : levelKey
-                    )
+                    E.div.class(b('title')).title(levelKey)(caption)
                 )(renderTree(value))
             )
         );
     }
-    return E.ul.style(topLevel ? 'border: none' : '')(content);
+    return E.ul.style(topLevel || subLevels.length === 0 ? 'border: none' : '')(
+        content
+    );
 }
 
 export const Catalog = Component.Catalog(() => {
     return () => {
         return E.div.class(b())(
-            E.h2('Каталог'),
+            E.h2(Lang.token`menu/catalog`),
             E.p(
                 'Полезные ссылки. При доступной локализации выбран русский язык.'
             ),

@@ -2,7 +2,7 @@ import './Book.less';
 
 import { Breadcrumbs, Page404 } from '../../../components';
 import { Component, E, block } from '../../../utils';
-import { Spin, Tooltip } from '../../../blocks';
+import { Lang, Spin, Tooltip } from '../../../blocks';
 
 import { DOM } from '../../../utils/element';
 import { Icon } from '../../../icons';
@@ -149,7 +149,7 @@ const Book = Component.Book(({ props, state, hooks }) => {
 
         return E.div.class(b())(
             Breadcrumbs.items([
-                ['Книги', 'books'],
+                [Lang.token`menu/books`, 'books'],
                 [title, `books/${name}`],
             ]),
             E.div(

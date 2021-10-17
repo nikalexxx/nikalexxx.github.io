@@ -1,6 +1,6 @@
 import { Component, E } from '../../../utils';
 import { Breadcrumbs } from '../../../components';
-import { Button } from '../../../blocks';
+import { Button, Lang } from '../../../blocks';
 
 const imgPath = '/data/images/schemes/blood-types';
 
@@ -24,7 +24,7 @@ export const BloodTypes = Component.BloodTypes(({ state, hooks }) => {
     return () => {
         const { theme } = state();
         return E.div(
-            Breadcrumbs.items([['Проекты', 'projects'], ['Группы крови']]),
+            Breadcrumbs.items([[Lang.token`menu/projects`, 'projects'], ['Группы крови']]),
             E.div.style`padding: 16px;`(
                 E.br,
                 E.p(`${theme === 'light' ? 'Светлая' : 'Тёмная'} версия`),

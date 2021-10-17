@@ -2,13 +2,14 @@ import './Projects.less';
 
 import { Component, E, RouteLink, block } from '../../utils';
 import { PageGrid, Tile } from '../../components';
+import { Lang } from '../../blocks';
 
 const b = block('projects');
 
 const Projects = Component.Projects(() => {
     return () => {
         return E.div.class(b())(
-            E.h2('Проекты'),
+            E.h2(Lang.token`menu/projects`),
             PageGrid(
                 RouteLink.href('projects/unicode')(
                     Tile(

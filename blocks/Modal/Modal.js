@@ -15,6 +15,11 @@ export const Modal = {
             document.body.removeChild(container);
         };
 
+        const update = content => {
+            container.lastElementChild.remove();
+            container.appendChild(content);
+        }
+
         const background = DOM(
             E.div.class(b('background')).onClick(() => close())
         );
