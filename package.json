@@ -11,7 +11,7 @@
     "dev-books": "onchange \"./data/books/**/*\" -- OUTPUT=dev-dist npm run build-books",
     "dev-blog": "onchange \"./data/blog/**/*\" -- npm run cp-dev-blog",
     "cp-dev-blog": "cp -R data/blog dev-dist/data",
-    "deploy": "ENV=prod npm run build; ts-node deploy/run-build.ts",
+    "deploy": "ENV=prod npm run build; cp -R data/blog dist/data; cp -R data/images dist/data",
     "dev": "rm -Rf dev-dist; mkdir dev-dist; cp -R data dev-dist/data; OUTPUT=dev-dist node data/books/build.js; INPUT=index.html OUTPUT=dev.html npm run patch-html; parcel -d dev-dist dev.html"
   },
   "repository": {
