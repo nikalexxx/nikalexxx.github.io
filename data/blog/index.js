@@ -105,6 +105,14 @@ export default {
         type: 'js',
         creationTime: '2021-08-28T01:13:09',
         title: 'Схема переливания крови на SVG',
-        tags: ['svg', 'scheme']
+        tags: ['svg', 'scheme'],
+        image: '/data/images/schemes/blood-types/light.svg',
+    },
+    18: {
+        type: 'js',
+        creationTime: '2021-10-17T22:02:40',
+        title: 'Обновление сайта — плитки, путешествия и просмотрщик картинок',
+        tags: ['site', 'javascript', 'css'],
+        image: '/data/images/travels/krasnodar-krai/small/BRwSQQF9m8.jpg',
     }
 }
