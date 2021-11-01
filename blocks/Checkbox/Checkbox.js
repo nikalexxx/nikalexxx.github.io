@@ -5,7 +5,7 @@ import {
     E,
     M,
     block
-} from '../../utils/index.js';
+} from '../../utils';
 
 const b = block('checkbox');
 

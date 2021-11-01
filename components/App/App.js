@@ -10,7 +10,7 @@ import {
     block,
     getRouterState,
     style,
-} from '../../utils/index.js';
+} from '../../utils';
 import { defaultLang, setLang } from '../../services/langs/model';
 
 import { Icon } from '../../icons/index.js';

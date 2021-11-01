@@ -4,7 +4,7 @@ import { Breadcrumbs, Page404 } from '../../../components';
 import { Component, E, block } from '../../../utils';
 import { Lang, Spin, Tooltip } from '../../../blocks';
 
-import { DOM } from '../../../utils/element';
+import { DOM } from '../../../utils';
 import { Icon } from '../../../icons';
 import { booksList } from '../../../data/books';
 import { createBook } from '../../../services/book/book.js';

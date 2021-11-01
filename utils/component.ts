@@ -1,92 +1,193 @@
-import {DOM, E, checkSubComponents, diffElements, getFlatNode, getNode, patchDOM} from './element.js';
-import {componentSymbol, elementSymbol} from './symbols.js';
+// @-ts-nocheck
+import { E, checkSubComponents } from './element';
+import { componentSymbol, elementSymbol } from './symbols';
 
-import {log} from './logger.js';
-import style from './style.js';
+import { getFlatNode } from './list';
+import { diffElements, patchDOM } from './render';
+import { isObject } from './type-helpers';
+import { isElement } from './dom';
+import {
+    Container,
+    VDOMComponent,
+    VDOMElement,
+    Content,
+    ComponentState,
+    ComponentProps,
+} from './vdom-model';
 
-const set = state => arg => {
-    let newObject;
+const getNewState = <S extends ComponentState>(state: S) => (
+    arg: S | ((s: S) => S)
+): S => {
+    let newObject: S = {} as S;
     if (typeof arg === 'object') {
         newObject = arg;
     } else if (typeof arg === 'function') {
         newObject = arg(state);
     }
-    return Object.assign({}, state, newObject);
-}
+    return newObject;
+};
 
-function getProps(element) {
-    if (element.nodeType === 3) { // textNode
-        return {};
-    }
-    const props = {};
-    for (let i = 0; i < element.attributes.length; i++) {
-        const attr = element.attributes[i];
-        props[attr.name] = attr.value;
-    }
-    return props;
-}
+// function getProps(element) {
+//     if (element.nodeType === 3) {
+//         // textNode
+//         return {};
+//     }
+//     const props = {};
+//     for (let i = 0; i < element.attributes.length; i++) {
+//         const attr = element.attributes[i];
+//         props[attr.name] = attr.value;
+//     }
+//     return props;
+// }
 
-function logAdd(element) {
-    console.log('%c + ', style({
-        color: 'green',
-        backgroundColor: '#dfd'
-    }), element);
-}
+// function logAdd(element: any) {
+//     console.log(
+//         '%c + ',
+//         style({
+//             color: 'green',
+//             backgroundColor: '#dfd',
+//         }),
+//         element
+//     );
+// }
 
-function logRemove(element) {
-    console.log('%c - ', style({
-        color: 'red',
-        backgroundColor: '#fdd'
-    }), element);
-}
+// function logRemove(element: any) {
+//     console.log(
+//         '%c - ',
+//         style({
+//             color: 'red',
+//             backgroundColor: '#fdd',
+//         }),
+//         element
+//     );
+// }
 
-function getElem(component) {
-    if (Array.isArray(component)) {
-        const fragment = document.createDocumentFragment();
-        fragment.append(...component.map(e => getElem(e)));
-        return fragment;
-    }
-    return (typeof component === 'function') ? component() : component;
-}
+// function getElem(component) {
+//     if (Array.isArray(component)) {
+//         const fragment = document.createDocumentFragment();
+//         fragment.append(...component.map((e) => getElem(e)));
+//         return fragment;
+//     }
+//     return typeof component === 'function' ? component() : component;
+// }
 
-function isTypeChanged(element, newElement) {
-    if (element && !newElement) {
-        return true;
-    }
-    if (element.nodeType !== newElement.nodeType) {
-        return true;
-    }
-    if (element.nodeName !== newElement.nodeName) {
-        return true;
-    }
-    return false;
-}
+// function isTypeChanged(element, newElement) {
+//     if (element && !newElement) {
+//         return true;
+//     }
+//     if (element.nodeType !== newElement.nodeType) {
+//         return true;
+//     }
+//     if (element.nodeName !== newElement.nodeName) {
+//         return true;
+//     }
+//     return false;
+// }
 
-function componentConstructor(componentName) {
-    if (!componentName.match(/[A-Za-z][A-Za-z0-9-_]*/)) {
-        throw new Error(`Component name shold be match with /[A-Za-z][A-Za-z0-9-_]*/`);
+type ErrorData = {
+    count: number;
+};
+
+type HandlerErrors = {
+    initState: ErrorData;
+};
+
+type HandlerData = {
+    count: number;
+    indexes: number[];
+    bump(): void;
+};
+
+type Handlers = {
+    didMount: HandlerData;
+    initState: HandlerData;
+};
+
+type ComponentParams<P extends ComponentProps, S extends ComponentState> = {
+    props?: () => P & { children: Content[] };
+    state?: (() => S) & {
+        init: (initState: S) => void;
+        set: (arg: S | ((s: S) => S), callback?: () => void) => void;
+        onChange: (...names: (keyof S)[]) => boolean;
+    };
+    hooks?: {
+        didMount: (callback: () => void) => void;
+    };
+};
+
+type MakeComponent<P, S> = (
+    params?: ComponentParams<P, S>
+) => () => VDOMComponent;
+
+const ComponentNameRegex = /^[A-Za-z][A-Za-z0-9-_]*$/;
+
+type LatinLetter =
+    | 'a'
+    | 'b'
+    | 'c'
+    | 'd'
+    | 'e'
+    | 'f'
+    | 'g'
+    | 'h'
+    | 'i'
+    | 'j'
+    | 'k'
+    | 'l'
+    | 'm'
+    | 'n'
+    | 'o'
+    | 'p'
+    | 'q'
+    | 'r'
+    | 's'
+    | 't'
+    | 'u'
+    | 'v'
+    | 'w'
+    | 'x'
+    | 'y'
+    | 'z';
+
+type AnyLetter = LatinLetter | Capitalize<LatinLetter>;
+type AnyLetter2 = `${AnyLetter}${AnyLetter}`;
+// type AnyLetter4 = `${AnyLetter2}${AnyLetter2}`;
+
+function componentConstructor(componentName: string) {
+    if (!ComponentNameRegex.test(componentName)) {
+        throw new Error(
+            `Component name shold be match with ${ComponentNameRegex.source}`
+        );
     }
 
-    const handlerErrors = new Proxy({}, {
-        get(target, name) {
+    const handlerErrors = new Proxy({} as HandlerErrors, {
+        get(target, name: keyof HandlerErrors) {
             if (!(name in target)) {
-                target[name] = {};
+                target[name] = { count: 0 };
             }
             return target[name];
-        }
+        },
     });
 
-    return function (makeComponent) {
-        const create = (initialProps = {}, children = []) => {
+    return function <P, S extends Record<string, any>>(
+        makeComponent: MakeComponent<P, S>
+    ) {
+        const create = (
+            initialProps: Partial<P> = {},
+            children: Content[] = []
+        ) => {
             // уникальный идентификатор для созданного элемента
             const componentNameSymbol = Symbol(componentName);
 
             // свойства компонента
-            const propsStore = {};
-            propsStore.props = initialProps;
+
+            type PropsType = P & { children: Content[] };
+            const propsStore: { props: PropsType } = {
+                props: { ...initialProps, children } as PropsType,
+            };
 
             // состояние компонента
-            let state = {};
+            let state: S = {} as S;
 
             // предыдущее состояние
             let prevState = {};
@@ -96,66 +197,69 @@ function componentConstructor(componentName) {
             // структура цепочки компонентов в элементе
             // [компонент, который возвращает массив] > [аналогично, только вложенный] > возвращает компонент > который возвращает этот элемент
 
-            let element = {};
+            let element: Container = null;
 
             // вызванные обработчики
             let handlerIndex = 0;
-            const handlers = new Proxy({}, {
-                get(target, name) {
+            const handlers = new Proxy({} as Handlers, {
+                get(target, name: keyof Handlers) {
                     if (!(name in target)) {
                         target[name] = {
                             count: 0,
                             indexes: [],
-                        };
+                        } as any;
                         target[name].bump = () => {
                             handlerIndex++;
                             target[name].count++;
                             target[name].indexes.push(handlerIndex);
-                        }
+                        };
                     }
                     return target[name];
-                }
+                },
             });
+
             // TODO: отслеживать вызовы и гарантировать порядок
 
-            function initState(startState) {
+            function initState(startState: S) {
                 if (handlers.initState.count !== 0) {
                     if (!handlerErrors.initState.count) {
                         handlerErrors.initState.count = 1;
-                        console.error(new Error('Повторный вызов инициализации состояния'));
+                        console.error(
+                            new Error('Повторный вызов инициализации состояния')
+                        );
                     }
                 }
                 handlers.initState.bump();
                 state = startState;
             }
 
-            let changedStateFields = {};
+            let changedStateFields: Set<keyof S> = new Set();
 
-            function setState(newState, callback) {
+            function setState(
+                newState: S | ((s: S) => S),
+                callback?: () => void
+            ) {
                 prevState = state;
-                const newStateObject = typeof newState === 'function' ? newState(state) : newState;
-                const change = {};
-                for (const field of Object.keys(newStateObject)) {
-                    change[field] = true;
-                }
-                changedStateFields = change;
-                state = set(state)(newState);
+                const newStateObject = getNewState(state)(newState);
+                changedStateFields = new Set(Object.keys(newStateObject));
+                state = { ...state, ...newStateObject };
                 rerender();
                 if (callback) {
                     callback();
                 }
             }
 
-            const changeState = (...names) => {
+            const changeState = (...names: (keyof S)[]) => {
                 for (const name of names) {
-                    if (changedStateFields[name]) {
+                    if (changedStateFields.has(name)) {
                         return true;
                     }
                 }
                 return false;
-            }
+            };
 
-            const stateClass = () => state; // перейти на прокси? тогда придумать название для остальных
+            const stateClass = () => state;
+            // перейти на прокси? тогда придумать название для остальных
             // сразу setState, initState
             // apply: state().set()
             // state[_].set() - _ Symbol
@@ -163,7 +267,8 @@ function componentConstructor(componentName) {
             // state[_.set]()
             stateClass.set = setState;
             stateClass.init = initState;
-            stateClass.onChange = changeState; // позволит писать _update(state.onChange('name', 'age'))
+            stateClass.onChange = changeState;
+            // позволит писать _update(state.onChange('name', 'age'))
             // в перспективе что-то вроде _related(['name', 'age'])
             // идея - писать в метаинформации объектов state данные о своём state - имя, компонент и т.д.
             // тогда при обновлении мы посмотрим, и если поля из state.set не имеют отношения к полям, от котрых зависит обновление, то элемент не обновляется
@@ -175,42 +280,62 @@ function componentConstructor(componentName) {
             // опять же можно немного подхачить и использовать препроцессор для отслеживания явного применения, он должен быть достаточно умным, чтобы отслеживать зависимости применения переменных;
             // но можно сделать зависимость от ввода или слуйность и препроцессор такое не поймает
 
-            element[componentNameSymbol] = true;
-
-            const didMount = callback => {
-                function onDidMount(event) {
-                    if (event.detail.componentNameSymbol === componentNameSymbol) {
+            const didMount = (callback: () => void) => {
+                function onDidMount(event: CustomEvent) {
+                    if (
+                        event.detail.componentNameSymbol === componentNameSymbol
+                    ) {
                         callback();
                     }
                 }
 
                 handlers.didMount.bump();
-                const didMountListener = window.addEventListener('didMount', onDidMount, false);
-            }
+
+                const didMountListener = window.addEventListener(
+                    'didMount',
+                    onDidMount,
+                    false
+                );
+            };
 
             let firstAppend = true;
 
             const storage = {};
-            const elements = [];
+            const elements: { first: boolean; element: string }[] = [];
 
             const mo = new MutationObserver(function (mutations, observer) {
-                if (element.dom && element.dom.ref.closest('html')) {
+                const htmlElement =
+                    isObject(element) && 'dom' in element ? element : null;
+                const htmlNode =
+                    htmlElement && htmlElement.dom
+                        ? htmlElement.dom.ref ?? null
+                        : null;
+                if (htmlElement && htmlNode) {
                     // element = false;
                     // const componentDOMSymbol = Symbol('componentDOMSymbol');
                     // if(!storage[componentDOMSymbol]) { // первый рендер
                     //     storage[componentDOMSymbol] = {first: true};
-                    elements[Object.keys(elements).length] = {
+                    elements.push({
                         first: true,
-                        element: element.innerHTML
-                    };
+                        element: isElement(htmlNode)
+                            ? htmlNode.innerHTML
+                            : htmlNode.nodeValue ?? '',
+                    });
                     // }
                     if (firstAppend) {
-                        element.dom.ref.dataset['component'] = componentName;
-                        window.dispatchEvent(new CustomEvent('didMount', {
-                            detail: {
-                                componentNameSymbol: componentNameSymbol
-                            }
-                        }));
+                        if (
+                            isElement(htmlNode) &&
+                            htmlNode instanceof HTMLElement
+                        ) {
+                            htmlNode.dataset['component'] = componentName;
+                        }
+                        window.dispatchEvent(
+                            new CustomEvent('didMount', {
+                                detail: {
+                                    componentNameSymbol: componentNameSymbol,
+                                },
+                            })
+                        );
                         firstAppend = false;
                         mo.disconnect();
                     }
@@ -222,19 +347,17 @@ function componentConstructor(componentName) {
             mo.observe(document, {
                 attributes: true,
                 childList: true,
-                subtree: true
+                subtree: true,
             });
 
-
             propsStore.props.children = children;
-
 
             const render = makeComponent({
                 props: () => propsStore.props,
                 state: stateClass,
                 hooks: {
-                    didMount
-                }
+                    didMount,
+                },
             });
 
             // другие компоненты первого уровня вложенности, которые встречаются в дереве
@@ -243,7 +366,6 @@ function componentConstructor(componentName) {
             const getSubComponents = () => subComponents;
 
             function rerender() {
-
                 // разбор всех вложенных массивов в один плоский массив
                 const newNode = getFlatNode(render());
 
@@ -251,11 +373,24 @@ function componentConstructor(componentName) {
                 const {
                     existSubComponents,
                     updateCallbacks,
-                    newElement
+                    newElement,
                 } = checkSubComponents({
                     node: newNode,
-                    subComponents: getSubComponents()
+                    subComponents: getSubComponents(),
                 });
+
+                // FIXME:
+                if (!isObject(element)) {
+                    return;
+                }
+                // if(Array.isArray(element)) {
+                //     return;
+                // }
+
+                if (!('dom' in element)) {
+                    return;
+                }
+
                 const dom = element.dom;
                 const componentData = element.component;
                 const diffElement = diffElements(element, newElement);
@@ -266,10 +401,23 @@ function componentConstructor(componentName) {
                 element = newElement;
                 // BUG: не сохраняется новый вид элемента
 
+                // FIXME:
+                if (!isObject(element)) {
+                    return;
+                }
+                // if(Array.isArray(element)) {
+                //     return;
+                // }
+
+                if (!('dom' in element)) {
+                    return;
+                }
+
                 // сохраняем данные комопнента
                 element.component = componentData;
 
-                if (dom) { // есть dom
+                if (dom) {
+                    // есть dom
                     // получить их diff, TODO: учитывая static
 
                     // сохраняем ссылку на dom
@@ -277,9 +425,9 @@ function componentConstructor(componentName) {
                     // надо перепривязать к dom всех потомков
 
                     // меняется dom до субкомпонентов
-                    patchDOM(dom.ref, diffElement);
-
-
+                    if (dom.ref) {
+                        patchDOM(dom.ref, diffElement);
+                    }
 
                     // при наличии субкомпонентов
                     if (existSubComponents) {
@@ -295,11 +443,8 @@ function componentConstructor(componentName) {
             // первый рендер
             element = checkSubComponents({
                 node: getFlatNode(render()),
-                subComponents: getSubComponents()
+                subComponents: getSubComponents(),
             }).newElement;
-
-
-
 
             // отдельная функция разбирает дерево и выделяет субкомпоненты, возвращая колбеки для их обновления
             // diff для таких комопнентов не покажет изменения
@@ -307,11 +452,10 @@ function componentConstructor(componentName) {
             // в каждом из них та же схема
             // полное дерево вычисляется при вызове функции DOM / patchDOM
 
-
             // так как render может возвратить массив, дополнительная проверка на массив
             if (Array.isArray(element)) {
                 for (const item of element) {
-                    setComponentData(item, {array: true})
+                    setComponentData(item, { array: true });
                 }
             } else {
                 setComponentData(element);
@@ -321,58 +465,81 @@ function componentConstructor(componentName) {
             одному элементу могут соответствовать несколько компонентов
             в поле component помечаем все уровни, добавляя на текущем уровне информацию о компоненте
             */
-            function setComponentData(element, {array = false} = {}) {
-                if (!element.component) {
-                    element.component = {level: 0};
+            function setComponentData(
+                element: Content,
+                { array = false } = {}
+            ) {
+                // FIXME:
+                if (!isObject(element)) {
+                    return;
                 }
-                const level = element.component.level;
-                element.component[String(level)] = {
+                if (!('dom' in element)) {
+                    return;
+                }
+                if (!element.component) {
+                    element.component = { currentLevel: 0, levels: {} };
+                }
+                componentNameSymbol;
+                const level = element.component.currentLevel;
+                element.component.levels[String(level)] = {
                     array,
                     name: componentName,
                     props: propsStore.props,
-                    state
-                }
-                element.component.level++;
+                    state,
+                    nameSymbol: componentNameSymbol,
+                };
+                element.component.currentLevel++;
             }
 
-            const componentFunction = () => element;
+            const componentFunction: VDOMComponent = (() =>
+                element) as VDOMComponent;
 
             // такая функция имеет символьное свойство по символу componentSymbol
             componentFunction[componentSymbol] = {
                 name: componentName,
-                changeProps: newProps => {
+                changeProps: (newProps: PropsType) => {
                     propsStore.props = newProps;
                     rerender();
                 },
-                getProps: () => propsStore.props
-            }
+                getProps: () => propsStore.props,
+            };
 
             return componentFunction;
-        }
+        };
 
-        function stableElement(props) {
-            return new Proxy((...children) => create({}, children), {
-                get(target, prop) {
-                    return function (value) {
+        function stableElement(props: Partial<P>) {
+            const getComponent = (...children: Content[]) =>
+                create({}, children);
+            return new Proxy(getComponent, {
+                get<K extends keyof P>(target: typeof getComponent, prop: K) {
+                    return function (value: P[K]) {
                         return stableElement({
                             ...props,
-                            [prop]: value
+                            [prop]: value,
                         });
-                    }
+                    };
                 },
                 apply(target, thisArg, argArray) {
                     return create(props, argArray);
-                }
-            })
+                },
+            });
         }
         return stableElement({});
     };
 }
 
-const Component = new Proxy({}, {
-    get: function (target, componentName) {
-        return componentConstructor(componentName)
+export const Component = new Proxy(
+    {} as Record<
+        string,
+        <P, S>(
+            builder: (params?: ComponentParams<P, S>) => () => Container
+        ) => VDOMComponent<P>
+    >,
+    {
+        get: function (target, componentName: string) {
+            return componentConstructor(componentName);
+        },
     }
-});
+);
 
-export default Component;
+const s = Component.ssss(() => () => 1);

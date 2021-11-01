@@ -4,7 +4,6 @@ import {
     Component,
     E,
     block,
-    css,
     style
 } from '../../../utils';
 

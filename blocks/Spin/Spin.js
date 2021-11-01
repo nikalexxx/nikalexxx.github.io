@@ -1,6 +1,6 @@
 import './Spin.less';
 
-import { Component, E, M, block } from '../../utils/index.js';
+import { Component, E, M, block } from '../../utils';
 
 const b = block('spin');
 

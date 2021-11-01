@@ -2,7 +2,7 @@ import './Modal.less';
 
 import { Component, E, block } from '../../utils';
 
-import { DOM } from '../../utils/element';
+import { DOM } from '../../utils';
 
 const b = block('modal');
 

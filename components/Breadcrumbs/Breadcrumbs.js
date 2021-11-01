@@ -6,9 +6,8 @@ import {
     M,
     RouteLink,
     block,
-    css,
     style,
-} from '../../utils/index.js';
+} from '../../utils';
 
 const b = block('breadcrumbs');
 

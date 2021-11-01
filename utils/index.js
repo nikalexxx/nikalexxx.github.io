@@ -1,10 +1,10 @@
-export {default as block} from './bem.js';
-export {default as style} from './style.js';
-export {default as css} from './css.js';
-export {E, S, M} from './element.js';
-export {default as Component} from './component.js';
-export {Switch, RouteLink, getRouterState} from './router.js';
-export {default as Custom} from './custom.js';
-export {log, setLogger, logAllLevels} from './logger.js';
-export {consoleStyle} from './consoleStyle.js';
-export {diff} from './diff.js';
+export { block } from './bem';
+export { style } from './style';
+export { E, S, M } from './element';
+export { Component } from './component';
+export { Switch, RouteLink, getRouterState } from './router.js';
+export { log, setLogger, logAllLevels } from './logger.js';
+export { consoleStyle } from './consoleStyle.js';
+export { diff } from './diff';
+export * from './render';
+

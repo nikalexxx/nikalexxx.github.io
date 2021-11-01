@@ -1,17 +1,17 @@
 import './node_modules/katex/dist/katex.css';
 
-import {logAllLevels, setLogger} from './utils/logger.js';
+import { logAllLevels, setLogger } from './utils/logger.js';
 
-import {App} from './components/index.js';
-import {DOM} from './utils/element.js';
+import { App } from './components/index.js';
+import { DOM } from './utils';
 
 setLogger({
     component: {
         props: {
-            [logAllLevels]: true
+            [logAllLevels]: true,
         },
-        [logAllLevels]: true
-    }
+        [logAllLevels]: true,
+    },
 });
 setLogger(false); // for production
 
