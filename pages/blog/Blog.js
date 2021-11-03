@@ -1,12 +1,42 @@
 import './Blog.less';
 
-import { Component, E, RouteLink, block } from '../../utils';
+import { Component, E, RouteLink, block, hash } from '../../utils';
 
 import blog from '../../data/blog';
 import { PageGrid, Tile } from '../../components';
 import { postList } from './model';
 
 const b = block('blog');
+
+const d = (f) => parseInt(f, 16) / 16;
+
+const getCircles = (title) => {
+    const h1 = hash(title);
+    const h = h1 + hash(h1 + title);
+    const circles = [];
+    for (let i = 0; i < 4; i++) {
+        const c = i * 4;
+        const x = d(h[c]) * 100;
+        const y = d(h[c + 1]) * 100;
+        const size = 0.3 + d(h[c + 2]) * 0.7;
+        const color = Math.trunc(360 * d(h[c + 3]));
+        circles.push({ x, y, size, color });
+    }
+    return circles
+        .sort((a1, a2) => a2.size - a1.size)
+        .map((e) =>
+            E.div.style`
+                position: absolute;
+                border-radius: 50%;
+                height: ${e.size * 180}%;
+                width: ${e.size * 180}%;
+                top: ${e.y - e.size * 50}%;
+                left: ${e.x - e.size * 50}%;
+                border: 2px solid gray;
+                border-color: hsl(${e.color}, 50%, 60%);
+            `()
+        );
+};
 
 const DateTime = Component.DateTime(({ props }) => () => {
     const { time } = props();
@@ -71,43 +101,55 @@ const Blog = Component.Blog(({ state }) => {
         return E.div.class(b())(
             E.div.class(b('list'))._forceUpdate(true)(
                 PageGrid.itemWidth(300)(
-                    blogKeys
-                        .map((key) => {
-                            const { creationTime, title, tags, image } = blog[
-                                key
-                            ];
-                            return RouteLink.href(`blog/${key}`)(
-                                Tile.className(b('tile'))(
-                                    E.div.class(b('post-card'))(
-                                        E.div.class(b('title'))(E.h3(title)),
+                    blogKeys.map((key) => {
+                        const { creationTime, title, tags, image } = blog[key];
+                        const circles = image ? [] : getCircles(title);
+                        return RouteLink.href(`blog/${key}`)(
+                            Tile.className(b('tile'))(
+                                E.div.class(b('post-card'))(
+                                    E.div
+                                        .class(b('image'))
+                                        .style(
+                                            image && !image.endsWith('svg')
+                                                ? `background: url(${image});background-size:cover`
+                                                : ''
+                                        )(
                                         image &&
-                                            E.img.src(image).width`30%`
-                                                .style`float: right; margin: 0 0 4px 4px`,
-                                        E.p(DateTime.time(creationTime)),
-                                        E.div.class(b('tags'))(
-                                            tags.map((tag) =>
-                                                E.div
-                                                    .class(
-                                                        b('tag', {
-                                                            active: activeTags.has(
-                                                                tag
-                                                            ),
-                                                        })
-                                                    )
-                                                    ['data-tag'](tag)
-                                                    .onClick((e) => {
-                                                        e.preventDefault();
-                                                        e.stopPropagation();
-                                                        onTagClick(
-                                                            e.target.dataset.tag
-                                                        );
-                                                    })(tag)
-                                            )
+                                            image.endsWith('svg') &&
+                                            E.img
+                                                .style`max-width: 100%;max-height:100%`.src(
+                                                image
+                                            ),
+                                        !image && circles,
+                                        E.div.class(b('image-opacity'))()
+                                    ),
+                                    E.div.class(b('title'))(E.h3(title)),
+
+                                    E.p(DateTime.time(creationTime)),
+                                    E.div.class(b('tags'))(
+                                        tags.map((tag) =>
+                                            E.div
+                                                .class(
+                                                    b('tag', {
+                                                        active: activeTags.has(
+                                                            tag
+                                                        ),
+                                                    })
+                                                )
+                                                ['data-tag'](tag)
+                                                .onClick((e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    onTagClick(
+                                                        e.target.dataset.tag
+                                                    );
+                                                })(tag)
                                         )
                                     )
                                 )
-                            );
-                        })
+                            )
+                        );
+                    })
                 )
             ),
             E.div.class(b('panel'))(

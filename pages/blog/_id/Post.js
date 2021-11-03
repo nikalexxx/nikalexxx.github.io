@@ -1,25 +1,28 @@
 import './Post.less';
 
 import { Breadcrumbs, Page404 } from '../../../components';
-import { Component, E, block, RouteLink } from '../../../utils';
+import { Component, E, block, RouteLink, textWithLink } from '../../../utils';
 
 import { Button, Lang, Spin } from '../../../blocks';
 import blog from '../../../data/blog';
 import { createBook } from '../../../services/book/book.js';
 import { postList, postOrder } from '../model';
+import { GithubApi } from '../../../services/api';
 
 const b = block('post');
 
 const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
     state.init({
         text: null,
+        comments: null,
     });
+
     didMount(() => {
         const { id } = props();
         if (!blog.hasOwnProperty(id)) {
             return;
         }
-        const { type } = blog[id];
+        const { type, comments } = blog[id];
         const path = `../data/blog/data/${id}/index.${type}?r=${window.appVersion}`;
         if (type === 'html') {
             fetch(path)
@@ -45,6 +48,25 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                     state.set({ text: 'Ошибка загрузки контента' });
                 });
         }
+        const existComments = comments && comments.githubIssue;
+        if (existComments) {
+            GithubApi.getIssueComments(
+                'nikalexxx',
+                'nikalexxx.github.io',
+                comments.githubIssue
+            )
+                .then((list) => state.set({ comments: list }))
+                .catch((e) => {
+                    console.error(e);
+                    state.set({
+                        comments: 'Ошибка получения комментариев',
+                    });
+                });
+        } else {
+            state.set({
+                comments: 'Комментарии для данного поста отключены',
+            });
+        }
     });
 
     return () => {
@@ -52,8 +74,8 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
         if (!blog.hasOwnProperty(id)) {
             return Page404;
         }
-        const { type } = blog[id];
-        const { text } = state();
+        const { type, comments: blogComments } = blog[id];
+        const { text, comments } = state();
         const { title, creationTime } = blog[id];
         const template = E.div.class(b('content'));
         let elem;
@@ -83,24 +105,17 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                 [title, `blog/${id}`],
             ]),
             E.h2(title),
-            E.em(
-                new Date(creationTime).toLocaleString('ru', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    timezone: 'UTC',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    second: 'numeric',
-                })
-            ),
+            E.em(prettyDate(new Date(creationTime))),
+            E.span.style`margin-left: 16px`,
+            E.a.href(
+                `https://github.com/nikalexxx/nikalexxx.github.io/tree/master/data/blog/data/${id}`
+            ).style('white-space: nowrap;')`Исходный код`,
             text === null && E.div.class(b('loading'))(Spin.size('xl')),
             E.div.class(b('container'))(elem),
-            E.div.class(b('nav'))(
-                postOrder[id] < postList.length
+            E.div.class(b('nav'))._forceUpdate(true)(
+                postOrder[id] < postList.length - 1
                     ? RouteLink.href(`blog/${postList[postOrder[id] + 1]}`)(
                           E.div.class(b('link'))('← Предыдущий пост')
-                        //   Button.class(b('link'))('← Предыдущий пост')
                       )
                     : E.div(),
                 postOrder[id] > 0
@@ -108,9 +123,64 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                           E.div.class(b('link'))('Следующий пост →')
                       )
                     : E.div()
+            ),
+            E.br,
+            E.div.class(b('comments'))(
+                E.div.class(b('comments-title'))(
+                    E.em.style(`margin-right: 8px`)`Комментарии`,
+                    blogComments &&
+                        blogComments.githubIssue &&
+                        E.a.href(
+                            `https://github.com/nikalexxx/nikalexxx.github.io/issues/${blogComments.githubIssue}`
+                        )(Button('Оставить комментарий (Github)'))
+                ),
+                comments === null && Spin.size`s`,
+                Array.isArray(comments) &&
+                    comments.map((comment) =>
+                        E.div.class(b('comment'))(
+                            E.div.class(b('comment-header'))(
+                                E.a
+                                    .href(comment.user.html_url)
+                                    .target('_blank')(
+                                    E.div.class(b('user'))(
+                                        E.img
+                                            .class(b('user-logo'))
+                                            .src(comment.user.avatar_url),
+                                        comment.user.login
+                                    )
+                                ),
+                                E.em.class(b('comment-date'))(
+                                    prettyDate(new Date(comment.created_at))
+                                )
+                            ),
+
+                            E.pre(
+                                textWithLink(
+                                    `\n${comment.body}`
+                                ).map(({ type, body }) =>
+                                    type === 'link'
+                                        ? E.a.href(body)(body)
+                                        : body
+                                )
+                            )
+                        )
+                    ),
+                typeof comments === 'string' && comments
             )
         );
     };
 });
 
 export default Post;
+
+function prettyDate(date) {
+    return date.toLocaleString('ru', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timezone: 'UTC',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+    });
+}

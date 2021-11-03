@@ -16,6 +16,10 @@
         -webkit-hyphens: auto;
         hyphens: auto;
 
+        a {
+            word-break: break-all;
+        }
+
         * {
             -ms-hyphens: none;
             -webkit-hyphens: none;
@@ -49,19 +53,65 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         height: 40px;
-        // margin-top: 8px;
-        // border-top: 1px solid var(--color-border);
+        padding: 5px 15px;
+        gap: 8px;
     }
     &__link {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100%;
-        width: 100%;
         border-radius: 4px;
+        padding: 4px;
 
-        &:hover {
-            background-color: var(--color-background-second);
+        background-color: var(--color-background-second);
+    }
+
+    &__comments {
+        max-width: 900px;
+        padding: 5px 15px;
+        margin: 5px;
+        margin-top: 40px;
+
+        a::before,
+        a::after {
+            display: none;
         }
+
+        pre {
+            margin: 4px 0;
+        }
+
+        a {
+            word-break: break-all;
+        }
+    }
+
+    &__comment {
+        margin-top: 16px;
+    }
+
+    &__comment-header {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        column-gap: 16px;
+    }
+
+    &__comment-date {
+        font-size: 0.8em;
+        color: var(--color-text-secondary);
+    }
+
+    &__user {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &__user-logo {
+        margin-right: 8px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
     }
 }

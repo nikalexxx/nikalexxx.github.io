@@ -144,7 +144,6 @@ const Book = Component.Book(({ props, state, hooks }) => {
             return Page404;
         }
         const { text } = state();
-        console.log({ text });
         const { title } = booksList[name];
 
         return E.div.class(b())(
