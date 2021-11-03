@@ -1,7 +1,7 @@
 import './Post.less';
 
 import { Breadcrumbs, Page404 } from '../../../components';
-import { Component, E, block, RouteLink } from '../../../utils';
+import { Component, E, block, RouteLink, textWithLink } from '../../../utils';
 
 import { Button, Lang, Spin } from '../../../blocks';
 import blog from '../../../data/blog';
@@ -48,12 +48,12 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                     state.set({ text: 'Ошибка загрузки контента' });
                 });
         }
-        const existComments = comments && comments.issue;
+        const existComments = comments && comments.githubIssue;
         if (existComments) {
             GithubApi.getIssueComments(
                 'nikalexxx',
                 'nikalexxx.github.io',
-                comments.issue
+                comments.githubIssue
             )
                 .then((list) => state.set({ comments: list }))
                 .catch((e) => {
@@ -106,13 +106,16 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
             ]),
             E.h2(title),
             E.em(prettyDate(new Date(creationTime))),
+            E.span.style`margin-left: 16px`,
+            E.a.href(
+                `https://github.com/nikalexxx/nikalexxx.github.io/tree/master/data/blog/data/${id}`
+            ).style('white-space: nowrap;')`Исходный код`,
             text === null && E.div.class(b('loading'))(Spin.size('xl')),
             E.div.class(b('container'))(elem),
-            E.div.class(b('nav'))(
-                postOrder[id] < postList.length
+            E.div.class(b('nav'))._forceUpdate(true)(
+                postOrder[id] < postList.length - 1
                     ? RouteLink.href(`blog/${postList[postOrder[id] + 1]}`)(
                           E.div.class(b('link'))('← Предыдущий пост')
-                          //   Button.class(b('link'))('← Предыдущий пост')
                       )
                     : E.div(),
                 postOrder[id] > 0
@@ -126,9 +129,9 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                 E.div.class(b('comments-title'))(
                     E.em.style(`margin-right: 8px`)`Комментарии`,
                     blogComments &&
-                        blogComments.issue &&
+                        blogComments.githubIssue &&
                         E.a.href(
-                            `https://github.com/nikalexxx/nikalexxx.github.io/issues/${blogComments.issue}`
+                            `https://github.com/nikalexxx/nikalexxx.github.io/issues/${blogComments.githubIssue}`
                         )(Button('Оставить комментарий (Github)'))
                 ),
                 comments === null && Spin.size`s`,
@@ -151,7 +154,15 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                                 )
                             ),
 
-                            E.pre(`\n${comment.body}`)
+                            E.pre(
+                                textWithLink(
+                                    `\n${comment.body}`
+                                ).map(({ type, body }) =>
+                                    type === 'link'
+                                        ? E.a.href(body)(body)
+                                        : body
+                                )
+                            )
                         )
                     ),
                 typeof comments === 'string' && comments
