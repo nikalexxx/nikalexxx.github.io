@@ -1,7 +1,7 @@
 import {
     Component,
     S
-} from '../utils/index.js';
+} from '../utils';
 
 export default Component.BanIcon(({props}) => () =>
     S.svg

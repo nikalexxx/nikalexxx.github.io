@@ -1,4 +1,4 @@
-import { Component, E } from './index.js';
+import { Component, E } from './core';
 
 const historyUpdate = new CustomEvent('historyUpdate');
 

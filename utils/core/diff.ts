@@ -1,4 +1,4 @@
-import { isPrimitive, Primitive, setType } from './type-helpers';
+import { isObject, isPrimitive, Primitive, setType } from './type-helpers';
 
 const diffObjectSchema = (t: any) => [
     t.delete, // Symbol('delete') для удаления примитива
@@ -78,6 +78,10 @@ export const raw = (value: unknown): Diff => {
     value[D.raw as any] = true;
     return value as Diff;
 };
+
+export function isDiffRaw<A, B, D extends Diff<A, B>>(diff: D | B): diff is B {
+    return isObject(diff) && rawSymbol in diff;
+}
 
 // TODO: добавить поддержку циклических ссылок
 export function diff<T1 extends unknown, T2 extends unknown>(

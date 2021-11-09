@@ -1,3 +1,5 @@
+import {P_Object} from 'ts-pro';
+
 import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
 import { Diff, diff, raw } from './diff';
 import {
@@ -8,9 +10,18 @@ import {
 } from './namespace';
 import './global';
 import { isObject, isPrimitive, Primitive, setType } from './type-helpers';
-import { VDOMComponent, Content, HTML_TAG, VDOMElement } from './vdom-model';
+import {
+    VDOMComponent,
+    Content,
+    HTML_TAG,
+    VDOMElement,
+    Container,
+    RawContainer,
+} from './vdom-model';
 import { strToArray } from './syntax-helpers';
 import { getNode } from './render';
+import { getFlatNode } from './list';
+import { ReactHTML } from 'react';
 
 export function checkSubComponents({ node, subComponents }: any) {
     // node - неразобранное дерево
@@ -77,8 +88,51 @@ export function checkSubComponents({ node, subComponents }: any) {
 type o = DocumentEventMap;
 // interface .+EventMap
 
+// теговый шаблон
+type StringBuilder = <T extends RawContainer>(
+    strings?: TemplateStringsArray | T,
+    ...elements: T[]
+) => (string | T)[];
+
+// теговый шаблон для свойства
+type PropsBuilder<K extends HTML_TAG> = <T>(
+    strings: TemplateStringsArray | T,
+    ...elements: T[]
+) => PropsBlock<K>;
+
+type CustomDOMAttributes = {
+    class: string;
+};
+
+type DOMAttribytes<TAG extends HTML_TAG> = keyof Exclude<Parameters<ReactHTML[TAG]>[0], null | undefined>;
+
+type CustomHandlerName<N extends string> = N extends `on${infer X}`
+    ? `on${Capitalize<X>}`
+    : N;
+
+// type CustomHandlerNames<T extends HTML_TAG> = CustomHandlerName<
+//     Extract<keyof HTMLElementTagNameMap[T], `on${string}`>
+// >;
+
+type Attributes<T extends HTML_TAG> =
+    | Exclude<DOMAttribytes<T>, 'className'>
+    | keyof CustomDOMAttributes
+    // | CustomHandlerNames<T>;
+
+type FBuilder = StringBuilder;
+
+type PropsBlock<T extends HTML_TAG> = FBuilder &
+    {
+        [A in Attributes<T>]: PropsBuilder<T>;
+    };
+
+type ElementBuilder = FBuilder &
+    {
+        [K in HTML_TAG]: PropsBlock<K>;
+    };
+
 const getElement = (namespace: DOMNamespaceName) =>
-    new Proxy(strToArray, {
+    new Proxy(strToArray as ElementBuilder, {
         get(target, tag: HTML_TAG) {
             const create = (
                 tagName: HTML_TAG = 'div',
@@ -93,6 +147,7 @@ const getElement = (namespace: DOMNamespaceName) =>
                     eventListeners: {},
                     subComponents: {},
                     nodeType: Node.ELEMENT_NODE,
+                    [elementSymbol]: true,
                 };
                 for (const prop in props) {
                     if (
@@ -115,17 +170,19 @@ const getElement = (namespace: DOMNamespaceName) =>
                         element.props![prop] = props[prop];
                     }
                 }
+
                 const nodes: Content[] = [];
                 for (let node of children.filter(
                     (e) => e !== false && e !== null && e !== undefined
                 )) {
                     const targetNode = getNode(node, false);
                     if (Array.isArray(targetNode)) {
-                        nodes.push(...targetNode.filter((e) => e));
+                        nodes.push(...getFlatNode(targetNode).filter((e) => e));
                     } else {
                         nodes.push(targetNode);
                     }
                 }
+
                 const dublicatedKeys = new Set();
                 for (let i = 0; i < nodes.length; i++) {
                     const node = nodes[i];
@@ -243,6 +300,12 @@ const getElement = (namespace: DOMNamespaceName) =>
 export const E = getElement('http://www.w3.org/1999/xhtml');
 export const S = getElement('http://www.w3.org/2000/svg');
 export const M = getElement('http://www.w3.org/1998/Math/MathML');
+
+
+E.a.href`https://yandex.ru`.target`_blank``Yandex`
+
+
+type d = Exclude<Parameters<ReactHTML['a']>[0], null | undefined>;
 
 // // резерв
 // E.$a

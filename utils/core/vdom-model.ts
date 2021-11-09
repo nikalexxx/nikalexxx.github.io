@@ -1,8 +1,9 @@
+import { ReactHTML } from 'react';
 import { DOMNamespace } from './namespace';
-import { componentSymbol } from './symbols';
-import { Primitive } from './type-helpers';
+import { componentSymbol, elementSymbol } from './symbols';
+import { isObject, Primitive } from './type-helpers';
 
-export type HTML_TAG = keyof HTMLElementTagNameMap;
+export type HTML_TAG = keyof ReactHTML;
 export type SVG_TAG = keyof SVGElementTagNameMap;
 
 export type Tags = {
@@ -11,9 +12,16 @@ export type Tags = {
     [DOMNamespace.mathml]: string;
 };
 
+// типы контента
 export type Content = VDOMElement | VDOMComponent | Primitive;
-export type Container = Content | Content[];
-// export type Container2 = (VDOMElement | Component | Primitive) | (VDOMElement | Component | Primitive)[];
+
+// тип контента до обработки
+export type RawContent = Content | (() => Content);
+
+// массивы любой вложенности
+export type Container = Content | (Content | Container)[];
+
+export type RawContainer = RawContent | (RawContent | RawContainer)[];
 
 export type CustomProps = {
     _ref?: (e: Element) => void;
@@ -49,7 +57,13 @@ export type VDOMElement<N extends DOMNamespace = DOMNamespace> = {
         currentLevel: number;
         levels: Record<string, ComponentData>;
     };
+
+    [elementSymbol]: true;
 };
+
+export function isVDOMElement(e: unknown): e is VDOMElement {
+    return isObject(e) && elementSymbol in e;
+}
 
 /** общий вид внутреннего состояния компонента */
 export type ComponentState = Record<string, any>;
@@ -62,6 +76,7 @@ export type VDOMComponent<P extends ComponentProps = ComponentProps> = (() =>
     | (VDOMElement | VDOMComponent | Primitive)[]) & {
     [componentSymbol]: {
         name: string;
+        nameSymbol: symbol;
         getProps(): P;
         changeProps(p: P): void;
     };
@@ -80,4 +95,8 @@ export type ComponentData<
 
 export function isComponent(e: unknown): e is VDOMComponent {
     return typeof e === 'function' && componentSymbol in e;
+}
+
+window.vdom = function vdom (e: Node | undefined | null) {
+    return e ? e[elementSymbol] : undefined;
 }

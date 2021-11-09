@@ -1,10 +1,9 @@
 import './book.less';
 
-import { Component, block, DOM, E, strToArray } from '../../utils';
+import { Component, block, DOM, E, strToArray, isPrimitive } from '../../utils';
 import { _b, _h, _i, _pre, consoleStyle } from '../../utils/consoleStyle.js';
 
 import { Tooltip } from '../../blocks';
-import { isPrimitive } from '../../utils/diff';
 import { renderToString } from 'katex';
 
 const b = block('book');

@@ -104,13 +104,13 @@ type Handlers = {
 };
 
 type ComponentParams<P extends ComponentProps, S extends ComponentState> = {
-    props?: () => P & { children: Content[] };
-    state?: (() => S) & {
+    props: () => P & { children: Content[] };
+    state: (() => S) & {
         init: (initState: S) => void;
         set: (arg: S | ((s: S) => S), callback?: () => void) => void;
         onChange: (...names: (keyof S)[]) => boolean;
     };
-    hooks?: {
+    hooks: {
         didMount: (callback: () => void) => void;
     };
 };
@@ -454,7 +454,7 @@ function componentConstructor(componentName: string) {
 
             // так как render может возвратить массив, дополнительная проверка на массив
             if (Array.isArray(element)) {
-                for (const item of element) {
+                for (const item of getFlatNode(element)) {
                     setComponentData(item, { array: true });
                 }
             } else {
@@ -497,6 +497,7 @@ function componentConstructor(componentName: string) {
             // такая функция имеет символьное свойство по символу componentSymbol
             componentFunction[componentSymbol] = {
                 name: componentName,
+                nameSymbol: componentNameSymbol,
                 changeProps: (newProps: PropsType) => {
                     propsStore.props = newProps;
                     rerender();
@@ -532,7 +533,7 @@ export const Component = new Proxy(
     {} as Record<
         string,
         <P, S>(
-            builder: (params?: ComponentParams<P, S>) => () => Container
+            builder: (params: ComponentParams<P, S>) => () => Container
         ) => VDOMComponent<P>
     >,
     {

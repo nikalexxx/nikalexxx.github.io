@@ -1,4 +1,4 @@
-import {E, Component} from '../utils/index.js';
+import {E, Component} from '../utils';
 
 let count  = 0;
 function getCustom(name, elements, didMount) {

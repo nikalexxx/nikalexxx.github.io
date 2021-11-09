@@ -1,7 +1,7 @@
 export const block = (blockName: string) => {
     const block = String(blockName);
     return function (
-        element: string,
+        element?: string,
         modifiers: Record<string, string | boolean> = {},
         mixin?: string
     ) {

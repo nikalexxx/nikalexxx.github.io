@@ -97,7 +97,7 @@ ${pre(`
 import {
     S,
     Component
-} from '../utils/index.js';
+} from '../utils';
 
 export default Component.MoonIcon(({props}) => () =>
     S.svg

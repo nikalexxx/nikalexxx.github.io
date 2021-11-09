@@ -1,4 +1,12 @@
-import { VDOMComponent, VDOMElement, isComponent, Container } from './vdom-model';
+import {
+    VDOMComponent,
+    VDOMElement,
+    isComponent,
+    Container,
+    Content,
+    isVDOMElement,
+    RawContainer,
+} from './vdom-model';
 import { isObject, isPrimitive, Primitive, setType } from './type-helpers';
 import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
 import { namespaceNames } from './namespace';
@@ -10,10 +18,12 @@ import {
     rawSymbol,
     metaSymbol,
     deleteSymbol,
+    arraySymbol,
 } from './diff';
 import { isElement } from './dom';
 import { getFlatNode } from './list';
-import { emptySymbol, diffArray, diffObject } from './diff';
+import { emptySymbol, diffArray, diffObject, isDiffRaw } from './diff';
+import { E } from './element';
 
 /*
 Использовать хэши от пропсов и потомков
@@ -40,28 +50,27 @@ export function diffElements(
             return diff.symbols.empty;
         }
 
-        if (isComponent(A)) {
-            // A - компонент
-            if (A[componentSymbol].name === B[componentSymbol].name) {
-                // сравниваем одинаковые компоненты
-                // раскрываем функции в деревья
-                return diffElements(
-                    getNode(A, true, true),
-                    getNode(B, true, true)
-                );
-            } else {
-                // возвращаем новый компонент, он раскроется в patchDOM
-                return raw(B);
-            }
+        if (!isComponent(A)) {
+            // компонент заменил дерево
+            return raw(B);
         }
 
-        // компонент заменил дерево
-        return raw(B);
+        // A - компонент
+        if (A[componentSymbol].nameSymbol !== B[componentSymbol].nameSymbol) {
+            // возвращаем новый компонент, он раскроется в patchDOM
+            return raw(B);
+        }
+
+        // сравниваем одинаковые компоненты
+        // раскрываем функции в деревья
+        return diffElements(getNode(A, true, true), getNode(B, true, true));
     }
+
     if (isComponent(A)) {
         // B - дерево, заменило компонент A
         return raw(B);
     }
+
     if (isPrimitive(B)) {
         return raw(B);
     }
@@ -80,7 +89,7 @@ export function diffElements(
         return diffArray(A, B, diffElements);
     }
 
-    // A и B компоненты
+    // A и B элементы
     if (A.nodeType !== B.nodeType) {
         return raw(B);
     }
@@ -93,12 +102,21 @@ export function diffElements(
     if (B.props?._forceUpdate) {
         return raw(B);
     }
-    if (B.props && '_update' in B.props && !B.props._update) {
+
+    if (B.props?._update === false) {
+        // явное запрещение обновления
         return diff.symbols.empty;
     }
-    const diffProps = diff(A.props, B.props);
-    const diffEventListeners = diff(A.eventListeners, B.eventListeners);
+
+    const diffProps = diff(A.props ?? {}, B.props ?? {});
+
+    const diffEventListeners = diff(
+        A.eventListeners ?? {},
+        B.eventListeners ?? {}
+    );
     if (typeof diffEventListeners === 'object' && diffEventListeners !== null) {
+        // здесь сохранялись старые обработчики событий для последующего удаления,
+        // но мы и так можем узнать их на месте
         // for (const eventName of Object.keys(diffEventListeners)) {
         //     if (diffEventListeners[eventName] === diff.symbols.delete) {
         //         if (!diffEventListeners[diff.symbols.meta]) {
@@ -113,27 +131,22 @@ export function diffElements(
         // }
     }
 
-    const diffChildren: Diff<Container, Container> = diffObject(
-        A.children ?? {},
-        B.children ?? {},
-        diffElements as any
-    );
+    const diffChildren: Diff<
+        VDOMElement['children'],
+        VDOMElement['children']
+    > = diffObject(A.children ?? {}, B.children ?? {}, diffElements as any);
 
-    const result: { props?: Diff; eventListeners?: Diff; children?: Diff } = {};
-    if (isObject(diffProps) && Object.keys(diffProps).length > 0) {
-        result.props = diffProps;
-    }
+    const fDiff: DiffByKeys<VDOMElement, VDOMElement> = {
+        props: diffProps,
+        eventListeners: diffEventListeners,
+        children: diffChildren,
+        tagName: emptySymbol,
+        namespace: emptySymbol,
+        nodeType: emptySymbol,
+        [elementSymbol]: emptySymbol,
+    };
 
-    if (isObject(diffEventListeners)) {
-        result.eventListeners = diffEventListeners;
-    }
-
-    if (isObject(diffChildren)) {
-        result.children = diffChildren;
-    }
-    // result[diff.symbols.new] = B;
-
-    return result as any;
+    return fDiff;
 }
 
 /**
@@ -147,105 +160,118 @@ export function getNode(
     if (Array.isArray(node)) {
         // делаем массив плоским
         return getFlatNode(node).flatMap((e) => getNode(e, expand, expandSub));
-    } else if (typeof node === 'function') {
-        if (subComponentSymbol in node && !expandSub) {
-            // суб-компоненты не раскрываем
-            return node;
-        }
-        if (componentSymbol in node && !expand) {
-            // компоненты не раскрываем, если не указано
-            return node;
-        } else {
-            // вызываемые прокси раскрываем в дерево
-            return getNode(node(), expand, expandSub);
-        }
-    } else {
+    }
+
+    if (!isComponent(node)) {
+        // элементы возвращаем как есть
         return node;
     }
+
+    if (subComponentSymbol in node && !expandSub) {
+        // суб-компоненты не раскрываем
+        return node;
+    }
+
+    if (!expand) {
+        // компоненты не раскрываем, если не указано
+        return node;
+    }
+
+    // вызываемые прокси раскрываем в дерево
+    return getNode(node(), expand, expandSub);
 }
 
-type DiffElements = {
-    props?: Diff;
-    eventListeners?: Diff;
-    children?: Diff;
-    dom?: any;
-};
-
-export const DOM = (elementObject: Container): Element | Text => {
+/** Создание dom из элементов */
+export const DOM = (elementObject: RawContainer): Element | Text => {
     if (isPrimitive(elementObject)) {
         return document.createTextNode(String(elementObject));
     }
-    if (typeof elementObject === 'function') {
+
+    if (isComponent(elementObject)) {
         if (subComponentSymbol in elementObject) {
             return DOM(getNode(elementObject, true, true));
-        } else {
-            return DOM(getNode(elementObject, true));
         }
+        return DOM(getNode(elementObject, true));
     }
-    setType<VDOMElement>(elementObject);
+
+    if (Array.isArray(elementObject)) {
+        if (elementObject.length === 1) {
+            return DOM(elementObject[0]);
+        }
+        return DOM((E as any).div(elementObject));
+    }
+
+    if (typeof elementObject === 'function') {
+        return DOM(elementObject());
+    }
+
     const {
         namespace,
         tagName,
         props = {},
-        children,
-        eventListeners,
+        children = {},
+        eventListeners = {},
     } = elementObject;
-    const element = document.createElementNS(
+
+    console.log({ elementObject });
+    const domElement = document.createElementNS(
         namespaceNames[namespace],
         tagName
     );
 
-    element[elementSymbol] = elementObject;
+    domElement[elementSymbol] = elementObject;
 
     // аттрибуты
     for (const prop of Object.keys(props)) {
-        if (prop.startsWith('_')) {
-            // element[elementSymbol]!.props![prop] = props[prop];
-        } else {
-            element.setAttribute(prop, String(props[prop]));
+        if (!prop.startsWith('_')) {
+            domElement.setAttribute(prop, String(props[prop]));
         }
     }
 
     // обработка событий
-    if (eventListeners) {
-        for (const eventName of Object.keys(eventListeners)) {
-            const listener = eventListeners[eventName];
-            element.addEventListener(eventName, listener, false);
-        }
+    for (const eventName of Object.keys(eventListeners)) {
+        domElement.addEventListener(
+            eventName,
+            eventListeners[eventName],
+            false
+        );
     }
 
     // содержимое элемента
-    if (props && '_html' in props) {
-        element.innerHTML = props._html;
-    } else {
-        if (children && Object.keys(children).length) {
-            element.append(
-                ...Object.values(children).map((e) => {
-                    const dom = DOM(e);
-                    if (!isPrimitive(e) && typeof e !== 'function') {
-                        setType<VDOMElement>(e);
-                        if (!e.dom) {
-                            e.dom = {};
-                        }
-                        e.dom.parent = element;
-                    }
-                    return dom;
-                })
-            );
-        }
+    if ('_html' in props) {
+        domElement.innerHTML = props._html;
+    } else if (Object.keys(children).length > 0) {
+        const childList = Object.values(children).map((child) => {
+            const dom = DOM(child);
+            if (!isPrimitive(child) && !isComponent(child)) {
+                if (!child.dom) {
+                    child.dom = {};
+                }
+                child.dom.parent = domElement;
+            }
+            return dom;
+        });
+        domElement.append(...childList);
     }
-    elementObject.dom = { ref: element };
-    element[elementSymbol] = elementObject;
+
+    // связь вирутального dom с реальным
+    if (!elementObject.dom) {
+        elementObject.dom = {};
+    }
+    elementObject.dom.ref = domElement;
+
+    domElement[elementSymbol] = elementObject;
+
+    // вызов функции для привязки к странице
     if ('_ref' in props) {
-        props._ref!(element);
+        props._ref!(domElement);
     }
-    return element;
+
+    return domElement;
 };
 
-export function patchDOM(
-    dom: Node,
-    diffObject: Diff<VDOMElement | Primitive, VDOMElement | Primitive>
-) {
+/** Точечное изменение dom по diff */
+export function patchDOM(dom: Node, diffObject: Diff<Container, Container>) {
     const parent = dom.parentNode;
 
     if (!parent) {
@@ -253,17 +279,17 @@ export function patchDOM(
             return DOM(diffObject);
         }
         if (rawSymbol in diffObject) {
-            setType<VDOMElement>(diffObject);
+            setType<Container>(diffObject);
             return DOM(diffObject);
         }
         return dom;
     }
 
-    if (diffObject === diff.symbols.empty) {
+    if (diffObject === emptySymbol) {
         return;
     }
 
-    if (diffObject === diff.symbols.delete) {
+    if (diffObject === deleteSymbol) {
         // слабые ссылки могли бы помочь
 
         // стираем информацию о vdom
@@ -283,28 +309,35 @@ export function patchDOM(
             if (dom.nodeValue !== text) {
                 dom.nodeValue = text; // обновляем текст
             }
-        } else {
-            setType<Element>(dom);
-            dom.replaceWith(document.createTextNode(text));
+        } else if (isElement(dom)) {
+            parent.replaceChild(document.createTextNode(text), dom);
         }
         return;
     }
 
     if (rawSymbol in diffObject) {
-        setType<VDOMElement>(diffObject);
+        setType<Container>(diffObject);
+
         const newDom = DOM(diffObject);
         parent.replaceChild(newDom, dom);
-        if (!diffObject.dom) {
-            diffObject.dom = {};
-        }
-        diffObject.dom.ref = newDom;
 
+        if (isVDOMElement(diffObject)) {
+            if (!diffObject.dom) {
+                diffObject.dom = {};
+            }
+            diffObject.dom.ref = newDom;
+        }
+
+        return;
+    }
+
+    if (arraySymbol in diffObject) {
         return;
     }
 
     setType<DiffByKeys<VDOMElement, VDOMElement>>(diffObject);
 
-    const { props = {}, eventListeners = {} } = diffObject;
+    const { props = {}, eventListeners: diffEventListeners = {} } = diffObject;
     type FullProps = Required<VDOMElement>['props'];
     type FullChildren = Required<VDOMElement>['children'];
     type FullEventListeners = Required<VDOMElement>['eventListeners'];
@@ -315,18 +348,20 @@ export function patchDOM(
     if (isObject(props)) {
         for (const propName in props) {
             const prop = props[propName];
-            const isCustomProp = propName.startsWith('_');
+
             if (prop === diff.symbols.empty) {
                 continue;
             }
 
+            const isCustomProp = propName.startsWith('_');
+
             if (prop === diff.symbols.delete) {
                 if (isCustomProp) {
                     delete dom[elementSymbol]?.props?.[propName];
-                } else {
-                    if (isElement(dom)) {
-                        dom.removeAttribute(propName);
-                    }
+                    continue;
+                }
+                if (isElement(dom)) {
+                    dom.removeAttribute(propName);
                 }
                 continue;
             }
@@ -344,23 +379,31 @@ export function patchDOM(
         }
     }
 
-    setType<
-        DiffByKeys<FullEventListeners, FullEventListeners> & {
-            [metaSymbol]: {
-                deleteListeners: Record<string, (e: Event) => void>;
-            };
+    const eventListeners = diffEventListeners as DiffByKeys<
+        FullEventListeners,
+        FullEventListeners
+    >;
+
+    // удаление старых перехватчиков событий
+    const oldListeners = dom[elementSymbol]?.eventListeners ?? {};
+    for (const eventName of Object.keys(oldListeners)) {
+        if (!(eventName in eventListeners)) {
+            dom.removeEventListener(eventName, oldListeners[eventName]);
+            delete oldListeners[eventName];
         }
-    >(eventListeners);
+    }
 
     // обновление перехватчиков событий
     for (const eventName of Object.keys(eventListeners)) {
         const listener = eventListeners[eventName];
-        if (listener === diff.symbols.delete) {
-            dom.removeEventListener(
-                eventName,
-                eventListeners[metaSymbol].deleteListeners[eventName]
-            );
-            delete eventListeners[diff.symbols.meta].deleteListeners[eventName];
+
+        if (listener === emptySymbol) {
+            continue;
+        }
+
+        if (listener === deleteSymbol && oldListeners[eventName]) {
+            dom.removeEventListener(eventName, oldListeners[eventName]);
+            delete oldListeners[eventName];
             continue;
         }
 
@@ -368,7 +411,7 @@ export function patchDOM(
             continue;
         }
 
-        // зачем это условие?
+        // заменяем старые обработчики на новые
         // if (!(rawSymbol in listener)) {
         //     dom.removeEventListener(
         //         eventName,
@@ -383,7 +426,6 @@ export function patchDOM(
         FullChildren,
         FullChildren
     >;
-    // setType<DiffByKeys<FullChildren, FullChildren>>(children);
 
     // обновление существующих потомков
     const list = Array.from(dom.childNodes);
@@ -405,24 +447,27 @@ export function patchDOM(
 
     // добавление новых потомков
     const newChildren = [];
-    if (isObject(children)) {
-        for (const key in children) {
-            const child = children[key];
-            if (child === emptySymbol) {
-                continue;
-            }
-            if (
-                (!isPrimitive(child) && !(rawSymbol in child)) ||
-                child === deleteSymbol
-            ) {
-                continue;
-            }
+    for (const key in children) {
+        const child = children[key];
+        if (child === emptySymbol) {
+            continue;
+        }
+        if (
+            (!isPrimitive(child) && !(rawSymbol in child)) ||
+            child === deleteSymbol
+        ) {
+            continue;
+        }
 
-            if (!updatedChildKeys.has(key) && isObject(child) && rawSymbol in child) {
-                newChildren.push(DOM(child as any));
-            }
+        if (
+            !updatedChildKeys.has(key) &&
+            isObject(child) &&
+            rawSymbol in child
+        ) {
+            newChildren.push(DOM(child as any));
         }
     }
+
     if (newChildren.length > 0 && isElement(dom)) {
         dom.append(...newChildren);
     }
@@ -433,9 +478,5 @@ export function patchDOM(
             diffObject1.dom = {};
         }
         diffObject1.dom.ref = dom;
-    }
-
-    if (!parent) {
-        return dom;
     }
 }

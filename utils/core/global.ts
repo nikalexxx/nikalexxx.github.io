@@ -9,4 +9,10 @@ declare global {
     export interface WindowEventMap {
         didMount: CustomEvent;
     }
+
+    export interface Window {
+        vdom(e: Node | undefined | null): VDOMElement | undefined;
+
+        appVersion: string;
+    }
 }
