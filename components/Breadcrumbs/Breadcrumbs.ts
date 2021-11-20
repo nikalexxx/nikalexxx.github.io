@@ -1,17 +1,20 @@
 import './Breadcrumbs.less';
+import { RawContainer } from '../../utils/core/vdom-model';
 
 import {
     Component,
     E,
-    M,
     RouteLink,
     block,
-    style,
 } from '../../utils';
 
 const b = block('breadcrumbs');
 
-export const Breadcrumbs = Component.Breadcrumbs(({ props }) => {
+interface Props {
+    items: [RawContainer, string][];
+}
+
+export const Breadcrumbs = Component.Breadcrumbs<Props>(({ props }) => {
     return () =>
         E.div.class(b())(
             props().items.map(([name, href], i) => {

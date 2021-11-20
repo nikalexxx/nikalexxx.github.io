@@ -3,7 +3,7 @@ import './Post.less';
 import { Breadcrumbs, Page404 } from '../../../components';
 import { Component, E, block, RouteLink } from '../../../utils';
 
-import { Button, Lang, Spin } from '../../../blocks';
+import { Lang, Spin } from '../../../blocks';
 import blog from '../../../data/blog';
 import { createBook } from '../../../services/book/book.js';
 import { postList, postOrder } from '../model';
@@ -77,7 +77,7 @@ const Post = Component.Post<{ id: keyof typeof blog }, { text: string | null }>(
                         100 +
                         'px';
                 }, 300);
-                elem = template(iframe);
+                elem = template(iframe());
             } else if (type === 'js') {
                 elem = template(text);
             } else {

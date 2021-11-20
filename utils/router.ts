@@ -4,19 +4,19 @@ const historyUpdate = new CustomEvent('historyUpdate');
 
 export const Page404Symbol = Symbol('404');
 
-function pushState(data, title, url) {
+function pushState(data: any, title: string, url: string) {
     history.pushState(data, title, url);
     window.dispatchEvent(historyUpdate);
 }
 
-function replaceState(data, title, url) {
+function replaceState(data: any, title: string, url: string) {
     history.replaceState(data, title, url);
     window.dispatchEvent(historyUpdate);
 }
 
 window.addEventListener('popstate', () => window.dispatchEvent(historyUpdate));
 
-export const getRouterState = (routes) => {
+export const getRouterState = (routes: any) => {
     if (!document.location.search) {
         return { params: {}, path: '/', routes: routes('') };
     }
@@ -32,7 +32,7 @@ export const getRouterState = (routes) => {
     let equal = false;
     for (const path in routes({})) {
         const pathStack = path.split('/');
-        const params = {};
+        const params: Record<string, string> = {};
         for (let i = 0; i < stack.length; i++) {
             if (i === pathStack.length) {
                 equal = false;
@@ -65,10 +65,10 @@ export const getRouterState = (routes) => {
     };
 };
 
-export const RouteLink = Component.RouteLink(({ props }) => {
+export const RouteLink = Component.RouteLink<{href: string}, never>(({ props }) => {
     return () => {
         const { href, children } = props();
-        const onLinkClick = (event) => {
+        const onLinkClick: any = (event: any) => {
             event.preventDefault();
             if (href === '/') {
                 pushState({ stack: [] }, '', '/');
@@ -89,7 +89,7 @@ export const RouteLink = Component.RouteLink(({ props }) => {
     };
 });
 
-export const Switch = Component.Switch(({ props, state }) => {
+export const Switch = Component.Switch<{routes: any}, {path: string | symbol, routes: Record<string | symbol, any>}>(({ props, state }) => {
     const { routes } = props();
     state.init(getRouterState(routes));
     window.addEventListener('historyUpdate', function () {

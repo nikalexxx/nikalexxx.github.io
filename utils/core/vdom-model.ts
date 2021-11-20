@@ -1,6 +1,6 @@
 import { ReactHTML } from 'react';
 import { DOMNamespace } from './namespace';
-import { componentSymbol, elementSymbol } from './symbols';
+import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
 import { isObject, Primitive } from './type-helpers';
 
 export type HTML_TAG = keyof ReactHTML;
@@ -13,7 +13,7 @@ export type Tags = {
 };
 
 // типы контента
-export type Content = VDOMElement | VDOMComponent | Primitive;
+export type Content = VDOMElement | VDOMComponent | VDOMFragment | Primitive;
 
 // тип контента до обработки
 export type RawContent = Content | (() => Content);
@@ -30,34 +30,41 @@ export type CustomProps = {
     _update?: boolean;
 };
 
-export type VDOMElement<N extends DOMNamespace = DOMNamespace> = {
+export type VDOMNode = {
+    /** вложенные ноды */
+    children?: Record<string, Content>;
+
+    subComponents?: Record<string, VDOMComponent>;
+
+    component?: {
+        currentLevel: number;
+        levels: Record<string, ComponentData>;
+    };
+};
+
+export type VDOMRefDom = {
+    /** привязка к реальному DOM */
+    dom?: {
+        ref?: Node; // на текущую ноду
+        parent?: Node; // на родительскую
+    };
+}
+
+export type VDOMFragment = VDOMNode & VDOMRefDom & {
+    isFragment: true;
+}
+
+export type VDOMElement<N extends DOMNamespace = DOMNamespace> = VDOMNode & VDOMRefDom & {
     nodeType: number;
     namespace: N;
     tagName: Tags[N];
     props?: Record<string, string> & CustomProps;
 
     /** обработчики событий */
-    eventListeners?: Record<string, (e: Event) => void>;
-
-    /** вложенные ноды */
-    children?: Record<string, Content>;
-
-    subComponents?: Record<string, any>;
+    eventListeners?: Record<string, EventListener>;
 
     /** для текстовых узлов */
     data?: string;
-
-    /** привязка к реальному DOM */
-    dom?: {
-        ref?: Node;
-        parent?: Node;
-    };
-
-    component?: {
-        currentLevel: number;
-        levels: Record<string, ComponentData>;
-    };
-
     [elementSymbol]: true;
 };
 
@@ -71,15 +78,15 @@ export type ComponentState = Record<string, any>;
 /** общий вид внешних свойств компонента */
 export type ComponentProps = Record<string, any>;
 
-export type VDOMComponent<P extends ComponentProps = ComponentProps> = (() =>
-    | (VDOMElement | VDOMComponent | Primitive)
-    | (VDOMElement | VDOMComponent | Primitive)[]) & {
+export type VDOMComponent<P extends ComponentProps = ComponentProps> = (() => VDOMFragment) & {
     [componentSymbol]: {
-        name: string;
-        nameSymbol: symbol;
+        name: string; // отображаемое имя компонента
+        nameSymbol: symbol; // уникальный символ компонента
+        instance: number; // номер инстанса
         getProps(): P;
         changeProps(p: P): void;
     };
+    [subComponentSymbol]?: true;
 };
 
 export type ComponentData<
@@ -97,6 +104,6 @@ export function isComponent(e: unknown): e is VDOMComponent {
     return typeof e === 'function' && componentSymbol in e;
 }
 
-window.vdom = function vdom (e: Node | undefined | null) {
+window.vdom = function vdom(e: Node | undefined | null) {
     return e ? e[elementSymbol] : undefined;
-}
+};

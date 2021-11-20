@@ -153,7 +153,7 @@ export function diffElements(
  * Раскрывает функции компонентов
  */
 export function getNode(
-    node: Container,
+    node: RawContainer,
     expand = false,
     expandSub = false
 ): Container {
@@ -164,7 +164,7 @@ export function getNode(
 
     if (!isComponent(node)) {
         // элементы возвращаем как есть
-        return node;
+        return typeof node === 'function' ? node() : node;
     }
 
     if (subComponentSymbol in node && !expandSub) {
@@ -182,7 +182,7 @@ export function getNode(
 }
 
 /** Создание dom из элементов */
-export const DOM = (elementObject: RawContainer): Element | Text => {
+export const DOM = (elementObject: RawContainer): Element | Text | DocumentFragment => {
     if (isPrimitive(elementObject)) {
         return document.createTextNode(String(elementObject));
     }
@@ -198,7 +198,11 @@ export const DOM = (elementObject: RawContainer): Element | Text => {
         if (elementObject.length === 1) {
             return DOM(elementObject[0]);
         }
-        return DOM((E as any).div(elementObject));
+        const fragment = document.createDocumentFragment();
+        for (const item of elementObject) {
+            fragment.appendChild(DOM(item));
+        }
+        return fragment;
     }
 
     if (typeof elementObject === 'function') {
