@@ -186,4 +186,14 @@ export default {
             githubIssue: 25,
         },
     },
+    20: {
+        type: 'js',
+        creationTime: '2021-11-30T17:05:24',
+        title: 'Модель гравитации в браузере',
+        tags: ['typescript', 'physics', 'gravitation', 'animation'],
+        image: '/data/blog/data/20/gravitation-vectors.svg',
+        comments: {
+            githubIssue: 45,
+        },
+    },
 };
