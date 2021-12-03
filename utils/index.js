@@ -10,3 +10,4 @@ export { consoleStyle } from './consoleStyle.js';
 export { diff } from './diff.js';
 export { textWithLink } from './parser';
 export { hash } from './simpleHash';
+export { memo } from './memo';

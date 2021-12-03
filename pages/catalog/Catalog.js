@@ -132,6 +132,10 @@ const links = {
                     [link]: 'https://reasonml.github.io/ru',
                     title: 'ReasonML',
                 },
+                pureScript: {
+                    [link]: 'https://www.purescript.org',
+                    title: 'PureScript',
+                },
             },
             browsers: {
                 [meta]: {
@@ -179,10 +183,23 @@ const links = {
                         title: 'WHATWG',
                     },
                 },
-                [heap]: {
+                guides: {
+                    [meta]: { title: 'Обучающие материалы' },
                     mdn: {
                         [link]: 'https://developer.mozilla.org/ru',
                         title: 'MDN',
+                    },
+                    learnJS: {
+                        [link]: 'https://learn.javascript.ru',
+                        title: 'Learn Javascript',
+                    },
+                    doka: {
+                        [link]: 'https://doka.guide',
+                        title: 'Дока',
+                    },
+                    devDocs: {
+                        [link]: 'https://devdocs.io',
+                        title: 'Dev Docs',
                     },
                 },
             },

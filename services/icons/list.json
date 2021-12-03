@@ -46,5 +46,9 @@
   "rome.tools": {},
   "vitejs.dev": {},
   "www.snowpack.dev": {},
-  "xstate.js.org/docs": {"html_link": "/"}
+  "xstate.js.org/docs": {"html_link": "/"},
+  "www.purescript.org": {},
+  "doka.guide": {},
+  "devdocs.io": {},
+  "learn.javascript.ru": {}
 }

@@ -10,6 +10,7 @@ import {
     Crimea,
     Design,
     GameOfLife,
+    Gravitation,
     KrasnodarKrai,
     Physics,
     Post,
@@ -20,6 +21,7 @@ import {
     Themes,
     Travels,
     Unicode,
+    Video,
 } from '../pages';
 
 import { E } from '../utils';
@@ -55,12 +57,14 @@ export const routes = (params) => ({
     'projects/blood-types': BloodTypes,
     physics: Physics,
     'physics/standard-model': StandardModel,
+    'physics/gravitation': Gravitation,
     travels: Travels,
     'travels/altai': Altai,
     'travels/krasnodar-krai': KrasnodarKrai,
     'travels/crimea': Crimea,
     'travels/smolensk': Smolensk,
     reports: Reports,
+    video: Video,
     catalog: Catalog,
     [Page404Symbol]: Page404,
 });

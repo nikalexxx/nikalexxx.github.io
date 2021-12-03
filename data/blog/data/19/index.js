@@ -36,7 +36,7 @@ ${h(3)`Устройство комментариев`}
 
 Осталось отобразить их на странице сайта.
 Для этого я связываю пост и issue в конфиге блога следующим образом (пример данного поста)
-${pre`
+${pre.lang('javascript')`
 19: {
     type: 'js',
     creationTime: '2021-11-02T22:04:15',
@@ -65,7 +65,7 @@ https://api.github.com/repos/<login>/<repo>/issues/<issue>/comments
 Скроем её за абстракцией API, описав нужные поля ответа (есть ${a.href(
         'https://github.com/github/rest-api-description'
     )`полная спецификация апи`}, но мне нужен лишь маленький кусочек, можно описать на месте)
-${pre`
+${pre.lang('typescript')`
 export interface Comment {
     created_at: string;
     updated_at: string;
@@ -184,7 +184,7 @@ ${h(3)`Превью поста по хэшу заголовка`}
 
 Для каждой плитки задан плавный переход от картинки к названию — картинки растворяется к низу.
 Это сделано с помощью дополнительного блока, который абсолютным позиционированием ставится поверх картинки и имеет линейный градиент от прозрачного к цвету фона.
-${pre`
+${pre.lang('css')`
 background: linear-gradient(
     to bottom,
     transparent,
@@ -232,7 +232,7 @@ export function hash(str: string) {
 
 
 Чтобы получить 64 бита, функция hash применяется два раза
-${pre`
+${pre.lang('javascript')`
 const h1 = hash(title);
 const h = h1 + hash(h1 + title);
 `}
@@ -254,7 +254,7 @@ ${li`${code`e`} — цвет круга как угол в модели ${a.href
 ${ul.end}
 
 Каждый символ переводится в десятичную дробь функцией
-${pre`
+${pre.lang('javascript')`
 const d = char => parseInt(char, 16) / 16;
 `}
 Далее эта дробь используется уже в css для генерации процентов от высоты/ширины блоков (круг это div c ${code`border-radius: 50%`}) и угла в hsl().

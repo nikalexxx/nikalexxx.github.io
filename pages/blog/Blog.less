@@ -1,10 +1,22 @@
 .blog {
-    display: grid;
-    grid-template-columns: 1fr minmax(auto, 200px);
-    padding: 8px;
+    &__blog {
+        display: grid;
+        grid-template-columns: 1fr minmax(auto, 200px);
+        grid-template-rows: auto 1fr;
+        padding: 8px;
 
-    @media (max-width: 700px) {
-        display: block;
+        @media (max-width: 700px) {
+            display: block;
+        }
+    }
+
+    &__new {
+        min-height: 20px;
+    }
+
+    &__new-mark {
+        color: var(--color-text-accent);
+        margin-right: 20px;
     }
 
     &__list {
@@ -61,10 +73,6 @@
             hyphens: auto;
             font-size: 1.4em;
         }
-    }
-    &__new {
-        font-size: 1rem;
-        color: var(--color-text-active);
     }
     &__time {
         font-size: 0.9em;
@@ -153,6 +161,15 @@
             height: 1.1em;
             margin-right: 4px;
             background-image: url("../../assets/images/logo/svg.svg");
+        }
+
+        &[data-tag="site"]::before {
+            display: inline-block;
+            content: "";
+            width: 1.1em;
+            height: 1.1em;
+            margin-right: 4px;
+            background-image: url("../../assets/images/logo/nikalexxx.svg");
         }
     }
     &__read-button {

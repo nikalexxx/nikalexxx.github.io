@@ -6,4 +6,5 @@ export * from './physics';
 export * from './projects';
 export * from './travels';
 export * from './reports';
+export * from './video';
 export * from './catalog';

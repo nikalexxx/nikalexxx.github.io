@@ -1,6 +1,6 @@
 import './Blog.less';
 
-import { Component, E, RouteLink, block, hash } from '../../utils';
+import { Component, E, RouteLink, block, hash, memo } from '../../utils';
 
 import blog from '../../data/blog';
 import { PageGrid, Tile } from '../../components';
@@ -37,6 +37,16 @@ const getCircles = (title) => {
             `()
         );
 };
+
+const memoGetCircles = memo(getCircles);
+
+const newMessage = E.span(
+    'Моделирование гравитации по теории тяготения Ньютона'
+);
+const messageDateStr = '2021-11-30';
+const messageDate = new Date(messageDateStr);
+const needNewMessage = () =>
+    Math.floor((new Date() - messageDate) / 86400000) < 14;
 
 const DateTime = Component.DateTime(({ props }) => () => {
     const { time } = props();
@@ -98,76 +108,90 @@ const Blog = Component.Blog(({ state }) => {
                 return tags.some((tag) => activeTags.has(tag));
             });
         }
-        return E.div.class(b())(
-            E.div.class(b('list'))._forceUpdate(true)(
-                PageGrid.itemWidth(300)(
-                    blogKeys.map((key) => {
-                        const { creationTime, title, tags, image } = blog[key];
-                        const circles = image ? [] : getCircles(title);
-                        return RouteLink.href(`blog/${key}`)(
-                            Tile.className(b('tile'))(
-                                E.div.class(b('post-card'))(
-                                    E.div
-                                        .class(b('image'))
-                                        .style(
-                                            image && !image.endsWith('svg')
-                                                ? `background: url(${image});background-size:cover`
-                                                : ''
-                                        )(
-                                        image &&
-                                            image.endsWith('svg') &&
-                                            E.img
-                                                .style`max-width: 100%;max-height:100%`.src(
-                                                image
-                                            ),
-                                        !image && circles,
-                                        E.div.class(b('image-opacity'))()
-                                    ),
-                                    E.div.class(b('title'))(E.h3(title)),
+        return E.div(
+            needNewMessage() &&
+                E.div.style`padding: 8px;`(
+                    RouteLink.href(`physics/gravitation`)(
+                        Tile.className(b('new'))(
+                            E.span.class(b('new-mark'))('NEW!'),
+                            newMessage
+                        )
+                    )
+                ),
+            E.div.class(b('blog'))(
+                E.div.class(b('list'))._forceUpdate(true)(
+                    PageGrid.itemWidth(300)(
+                        blogKeys.map((key) => {
+                            const { creationTime, title, tags, image } =
+                                blog[key];
+                            const circles = image ? [] : memoGetCircles(title);
+                            return RouteLink.href(`blog/${key}`)(
+                                Tile.className(b('tile'))(
+                                    E.div.class(b('post-card'))(
+                                        E.div
+                                            .class(b('image'))
+                                            .style(
+                                                image && !image.endsWith('svg')
+                                                    ? `background: url(${image});background-size:cover`
+                                                    : ''
+                                            )(
+                                            image &&
+                                                image.endsWith('svg') &&
+                                                E.img
+                                                    .style`max-width: 100%;max-height:100%`.src(
+                                                    image
+                                                ),
+                                            !image && circles,
+                                            E.div.class(b('image-opacity'))()
+                                        ),
+                                        E.div.class(b('title'))(E.h3(title)),
 
-                                    E.p(DateTime.time(creationTime)),
-                                    E.div.class(b('tags'))(
-                                        tags.map((tag) =>
-                                            E.div
-                                                .class(
-                                                    b('tag', {
-                                                        active: activeTags.has(
-                                                            tag
-                                                        ),
-                                                    })
-                                                )
-                                                ['data-tag'](tag)
-                                                .onClick((e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                    onTagClick(
-                                                        e.target.dataset.tag
-                                                    );
-                                                })(tag)
+                                        E.p(DateTime.time(creationTime)),
+                                        E.div.class(b('tags'))(
+                                            tags.map((tag) =>
+                                                E.div
+                                                    .class(
+                                                        b('tag', {
+                                                            active: activeTags.has(
+                                                                tag
+                                                            ),
+                                                        })
+                                                    )
+                                                    ['data-tag'](tag)
+                                                    .onClick((e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        onTagClick(
+                                                            e.target.dataset.tag
+                                                        );
+                                                    })(tag)
+                                            )
                                         )
                                     )
                                 )
-                            )
-                        );
-                    })
-                )
-            ),
-            E.div.class(b('panel'))(
-                E.div.class(b('tag-panel'))(
-                    E.div.style`font-size: 1.2em`
-                        .class(b('tag', { active: activeTags.size === 0 }))
-                        .onClick(() => onTagClick('all'))(E.i('all')),
-                    sortedTags.map((tag) =>
-                        E.div['data-tag'](tag)
-                            .title(allTags[tag])
-                            .style(
-                                `font-size: calc(0.8em + (${
-                                    (allTags[tag] - 1) / maxTagCount
-                                } * 0.4em))`
-                            )
-                            .class(b('tag', { active: activeTags.has(tag) }))
-                            .onClick((e) => onTagClick(e.target.dataset.tag))(
-                            tag
+                            );
+                        })
+                    )
+                ),
+                E.div(
+                    E.div.class(b('tag-panel'))(
+                        E.div.style`font-size: 1.2em`
+                            .class(b('tag', { active: activeTags.size === 0 }))
+                            .onClick(() => onTagClick('all'))(E.i('all')),
+                        sortedTags.map((tag) =>
+                            E.div['data-tag'](tag)
+                                .title(allTags[tag])
+                                .style(
+                                    `font-size: calc(0.8em + (${
+                                        (allTags[tag] - 1) / maxTagCount
+                                    } * 0.4em))`
+                                )
+                                .class(
+                                    b('tag', { active: activeTags.has(tag) })
+                                )
+                                .onClick((e) =>
+                                    onTagClick(e.target.dataset.tag)
+                                )(tag)
                         )
                     )
                 )

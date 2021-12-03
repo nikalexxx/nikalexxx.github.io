@@ -7,6 +7,7 @@ GEM
 
 PLATFORMS
   universal-darwin-18
+  universal-darwin-20
 
 DEPENDENCIES
   nokogiri

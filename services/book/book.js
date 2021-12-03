@@ -1,16 +1,41 @@
 import './book.less';
 
+import { renderToString } from 'katex';
+import Prism from 'prismjs';
+
 import { Component, block } from '../../utils/index.js';
 import { DOM, E } from '../../utils/element.js';
 import { _b, _h, _i, _pre, consoleStyle } from '../../utils/consoleStyle.js';
 
 import { Tooltip } from '../../blocks';
 import { isPrimitive } from '../../utils/diff';
-import { renderToString } from 'katex';
 import { strToArray } from '../../utils/element.js';
 
 const b = block('book');
 const css = block('book');
+
+const langGrammar = {
+    javascript: Prism.languages.javascript,
+    typescript: Prism.languages.typescript,
+    css: Prism.languages.css,
+};
+
+
+function renderColorCode(text, lang) {
+    const getStr = (s) =>
+        Array.isArray(s)
+            ? s
+                  .map((e) => (Array.isArray(e) ? getStr(e) : e))
+                  .map((e) => (typeof e !== 'string' ? '\n' : e))
+                  .map(String)
+                  .join('')
+            : s;
+    const str = getStr(text);
+    if (typeof str !== 'string') {
+        return 'Bad code';
+    }
+    return Prism.highlight(str, langGrammar[lang], lang);
+}
 
 function renderFormula(text, isBlock = false) {
     const str = Array.isArray(text) ? text.map(String).join('') : text;
@@ -52,11 +77,13 @@ function parseNewLines(text, newLine) {
     return result;
 }
 
-const BadExternalComponent = Component.BadExternalComponent(({ props }) => () =>
-    E.div.class(b('bad-external-component'))(
-        E.h3('Bad external component'),
-        E.details(E.summary('error'), E.p(`${props().error}`))
-    )
+const BadExternalComponent = Component.BadExternalComponent(
+    ({ props }) =>
+        () =>
+            E.div.class(b('bad-external-component'))(
+                E.h3('Bad external component'),
+                E.details(E.summary('error'), E.p(`${props().error}`))
+            )
 );
 
 const markerSymbol = Symbol('marker');
@@ -290,11 +317,15 @@ export function createBook(f) {
                     const setMetadata = new Map();
 
                     const b = getMarker('b', () => (t) => E.b(t));
-                    const i = getMarker('i', () => (t) =>
-                        E.i.class(css('i'))(t)
+                    const i = getMarker(
+                        'i',
+                        () => (t) => E.i.class(css('i'))(t)
                     );
-                    const a = getMarker('a', ({ href }) => (t) =>
-                        E.a.href(href)(t)
+                    const a = getMarker(
+                        'a',
+                        ({ href }) =>
+                            (t) =>
+                                E.a.href(href)(t)
                     );
                     const sub = getMarker('sub', () => (t) => E.sub(t));
                     const sup = getMarker('sup', () => (t) => E.sup(t));
@@ -310,19 +341,20 @@ export function createBook(f) {
 
                     const area = getMarker(
                         'area',
-                        ({ key, inline, meta }) => (t) => {
-                            const elem = E.div.class(css('area'))
-                                .style`display: ${
-                                inline ? 'inline-' : ''
-                            }block;`
-                                ['data-key'](key)
-                                .id(key)(t);
-                            refs.set(key, elem);
-                            if (meta) {
-                                metadata.set(key, meta);
+                        ({ key, inline, meta }) =>
+                            (t) => {
+                                const elem = E.div.class(css('area'))
+                                    .style`display: ${
+                                    inline ? 'inline-' : ''
+                                }block;`
+                                    ['data-key'](key)
+                                    .id(key)(t);
+                                refs.set(key, elem);
+                                if (meta) {
+                                    metadata.set(key, meta);
+                                }
+                                return elem;
                             }
-                            return elem;
-                        }
                     );
 
                     const use = (...args) => {
@@ -407,8 +439,11 @@ export function createBook(f) {
                         };
                     });
 
-                    const link = getMarker('link', ({ ref }) => (t) =>
-                        Link.ref(ref)(t)
+                    const link = getMarker(
+                        'link',
+                        ({ ref }) =>
+                            (t) =>
+                                Link.ref(ref)(t)
                     );
 
                     const setRefs = new Map();
@@ -471,44 +506,51 @@ export function createBook(f) {
                     let imageIndex = 0;
                     const img = getMarker(
                         'img',
-                        ({ src, alt, position = 'center', height, width }) => (
-                            t
-                        ) => {
-                            const isSvg = src.endsWith('.svg');
-                            const sizeStyle = `${
-                                height
-                                    ? `max-height: ${Math.floor(
-                                          height * 100
-                                      )}vh;`
-                                    : ''
-                            }${
-                                width
-                                    ? `max-width: ${Math.floor(width * 100)}vw;`
-                                    : ''
-                            }`;
-                            const image = E.picture.style(sizeStyle)(
-                                isSvg &&
-                                    E.source.type`image/svg+xml`.srcSet(src),
-                                E.img
-                                    .style(sizeStyle)
-                                    .src(src)
-                                    .alt(alt)
-                            );
-                            const content = t
-                                ? E.figure.class(
-                                      css('img-figure', { position })
-                                  )(image, E.figcaption(t))
-                                : image;
+                        ({ src, alt, position = 'center', height, width }) =>
+                            (t) => {
+                                const isSvg = src.endsWith('.svg');
+                                const sizeStyle = `${
+                                    height
+                                        ? `max-height: ${Math.floor(
+                                              height * 100
+                                          )}vh;`
+                                        : ''
+                                }${
+                                    width
+                                        ? `max-width: ${Math.floor(
+                                              width * 100
+                                          )}vw;`
+                                        : ''
+                                }`;
+                                const image = E.picture.style(sizeStyle)(
+                                    isSvg &&
+                                        E.source.type`image/svg+xml`.srcSet(
+                                            src
+                                        ),
+                                    E.img.style(sizeStyle).src(src).alt(alt)
+                                );
+                                const content = t
+                                    ? E.figure.class(
+                                          css('img-figure', { position })
+                                      )(image, E.figcaption(t))
+                                    : image;
 
-                            const imageKey = String(imageIndex++);
-                            const img = E.div
-                                .class(css('img', { position }))
-                                ['data-image'](imageKey)(content);
-                            images.set(imageKey, img);
-                            return img;
-                        }
+                                const imageKey = String(imageIndex++);
+                                const img = E.div
+                                    .class(css('img', { position }))
+                                    ['data-image'](imageKey)(content);
+                                images.set(imageKey, img);
+                                return img;
+                            }
                     );
-                    const pre = getMarker('pre', () => (t) => E.pre(t));
+                    const pre = getMarker(
+                        'pre',
+                        ({ lang }) =>
+                            (t) =>
+                                lang
+                                    ? E.pre._html(renderColorCode(t, lang))
+                                    : E.pre(t)
+                    );
                     const createBook = (...args) => {
                         return createHtmlBook(
                             {
@@ -569,16 +611,20 @@ export function createBook(f) {
                             link,
                         },
                         math: {
-                            $: getMarker('$', () => (t) =>
-                                E.div.style`display: inline-block`._html(
-                                    renderFormula(t)
-                                )
+                            $: getMarker(
+                                '$',
+                                () => (t) =>
+                                    E.div.style`display: inline-block`._html(
+                                        renderFormula(t)
+                                    )
                             ),
-                            $$: getMarker('$$', () => (t) =>
-                                E.div
-                                    .style`display: block; text-align: center; overflow: scroll;`._html(
-                                    renderFormula(t, true)
-                                )
+                            $$: getMarker(
+                                '$$',
+                                () => (t) =>
+                                    E.div
+                                        .style`display: block; text-align: center; overflow: scroll;`._html(
+                                        renderFormula(t, true)
+                                    )
                             ),
                         },
                         control: {
