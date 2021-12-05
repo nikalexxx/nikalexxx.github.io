@@ -1,8 +1,8 @@
 // export * from './global';
-export * from './type-helpers';
-export * from './syntax-helpers';
+export * from './utils/type-helpers';
+export * from './utils/syntax-helpers';
 export * from './list';
-export * from './diff';
+export * from './utils/diff';
 export * from './render';
 export * from './dom';
 export * from './element';

@@ -1,5 +1,5 @@
-import { raw } from './diff';
 import { setType } from './type-helpers';
+
 /** разбор тегового шаблона */
 export function strToArray<T>(
     strings: TemplateStringsArray,

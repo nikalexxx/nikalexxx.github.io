@@ -1,9 +1,12 @@
-import { elementSymbol } from './symbols';
+import { componentSymbol, elementSymbol } from './symbols';
 import { VDOMElement } from './vdom-model';
 
 declare global {
     export interface Node {
         [elementSymbol]?: VDOMElement;
+        [componentSymbol]?: {
+            components: Map<string, {start: Node, end: Node}>;
+        }
     }
 
     export interface WindowEventMap {

@@ -1,7 +1,7 @@
 import { P_Object } from 'ts-pro';
 
 import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
-import { Diff, diff, raw } from './diff';
+import { Diff, diff, raw } from './utils/diff';
 import {
     namespaceNames,
     namespaceCodes,
@@ -9,7 +9,7 @@ import {
     DOMNamespaceName,
 } from './namespace';
 import './global';
-import { isObject, isPrimitive, Primitive, setType } from './type-helpers';
+import { isObject, isPrimitive, Primitive, setType } from './utils/type-helpers';
 import {
     VDOMComponent,
     Content,
@@ -23,7 +23,7 @@ import {
     VDOMNode,
     VDOMFragment,
 } from './vdom-model';
-import { strToArray, isTemplateString } from './syntax-helpers';
+import { strToArray, isTemplateString } from './utils/syntax-helpers';
 import { getNode } from './render';
 import { getFlatNode } from './list';
 import { ReactHTML } from 'react';
@@ -99,6 +99,10 @@ export function checkSubComponents({
     };
 }
 
+export function getNodeKey(node: Node, index: number): string {
+    return node[elementSymbol]?.props?._key ?? `${index}`;
+}
+
 // document.addEventListener('load', );
 type o = DocumentEventMap;
 // interface .+EventMap
@@ -148,6 +152,7 @@ type ElementBuilder = StringBuilder & {
     [K in HTML_TAG]: PropsBlock<K>;
 };
 
+/** получение пустого элемента без свойст, событий и содержимого */
 function getEmptyVDOMElement(
     namespace: DOMNamespaceName,
     tagName: HTML_TAG
@@ -174,8 +179,14 @@ function isListener(propName: string, value: any): value is EventListener {
     );
 }
 
-const getEventName = (prop: string) => prop[2].toLowerCase() + prop.slice(3);
+/**
+ * получение типа dom события на основе имени метода
+ * @example 'onClick' -> 'click'
+ */
+const getEventName = (prop: string) =>
+    `${prop[2].toLowerCase()}${prop.slice(3)}`;
 
+/** Добавление свойств к элементу */
 function addProps(
     element: VDOMElement,
     props: VDOMElement['props'] & VDOMElement['eventListeners']
@@ -247,7 +258,10 @@ export function getChildren(nodes: Content[]): {
     return { children, dublicatedKeys };
 }
 
-export function getSubComponents(prefix: string, nodes: Content[]): Record<string, VDOMComponent> {
+export function getSubComponents(
+    prefix: string,
+    nodes: Content[]
+): Record<string, VDOMComponent> {
     const subComponents: Record<string, VDOMComponent> = {};
 
     for (let i = 0; i < nodes.length; i++) {

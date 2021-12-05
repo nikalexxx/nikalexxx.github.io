@@ -6,8 +6,16 @@ import {
     Content,
     isVDOMElement,
     RawContainer,
+    FullEventListeners,
+    FullChildren,
+    FullProps,
 } from './vdom-model';
-import { isObject, isPrimitive, Primitive, setType } from './type-helpers';
+import {
+    isObject,
+    isPrimitive,
+    Primitive,
+    setType,
+} from './utils/type-helpers';
 import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
 import { namespaceNames } from './namespace';
 import {
@@ -19,11 +27,11 @@ import {
     metaSymbol,
     deleteSymbol,
     arraySymbol,
-} from './diff';
+} from './utils/diff';
 import { isElement } from './dom';
 import { getFlatNode } from './list';
-import { emptySymbol, diffArray, diffObject, isDiffRaw } from './diff';
-import { E } from './element';
+import { emptySymbol, diffArray, diffObject, isDiffRaw } from './utils/diff';
+import { getNodeKey } from './element';
 
 /*
 Использовать хэши от пропсов и потомков
@@ -63,7 +71,10 @@ export function diffElements(
 
         // сравниваем одинаковые компоненты
         // раскрываем функции в деревья
-        return diffElements(getNode(A, true, true), getNode(B, true, true));
+        return diffElements(
+            getNode({ node: A, expand: true, expandSub: true }),
+            getNode({ node: B, expand: true, expandSub: true })
+        );
     }
 
     if (isComponent(A)) {
@@ -131,10 +142,8 @@ export function diffElements(
         // }
     }
 
-    const diffChildren: Diff<
-        VDOMElement['children'],
-        VDOMElement['children']
-    > = diffObject(A.children ?? {}, B.children ?? {}, diffElements as any);
+    const diffChildren: Diff<VDOMElement['children'], VDOMElement['children']> =
+        diffObject(A.children ?? {}, B.children ?? {}, diffElements as any);
 
     const fDiff: DiffByKeys<VDOMElement, VDOMElement> = {
         props: diffProps,
@@ -149,17 +158,24 @@ export function diffElements(
     return fDiff;
 }
 
+type GetNodeOptions = {
+    node: RawContainer;
+    expand?: boolean;
+    expandSub?: boolean;
+};
 /**
  * Раскрывает функции компонентов
  */
-export function getNode(
-    node: RawContainer,
+export function getNode({
+    node,
     expand = false,
-    expandSub = false
-): Container {
+    expandSub = false,
+}: GetNodeOptions): Container {
     if (Array.isArray(node)) {
         // делаем массив плоским
-        return getFlatNode(node).flatMap((e) => getNode(e, expand, expandSub));
+        return getFlatNode(node).flatMap((e) =>
+            getNode({ node: e, expand, expandSub })
+        );
     }
 
     if (!isComponent(node)) {
@@ -178,20 +194,24 @@ export function getNode(
     }
 
     // вызываемые прокси раскрываем в дерево
-    return getNode(node(), expand, expandSub);
+    return getNode({ node: node(), expand, expandSub });
 }
 
 /** Создание dom из элементов */
-export const DOM = (elementObject: RawContainer): Element | Text | DocumentFragment => {
+export const DOM = (
+    elementObject: RawContainer
+): Element | Text | DocumentFragment => {
     if (isPrimitive(elementObject)) {
         return document.createTextNode(String(elementObject));
     }
 
     if (isComponent(elementObject)) {
         if (subComponentSymbol in elementObject) {
-            return DOM(getNode(elementObject, true, true));
+            return DOM(
+                getNode({ node: elementObject, expand: true, expandSub: true })
+            );
         }
-        return DOM(getNode(elementObject, true));
+        return DOM(getNode({ node: elementObject, expand: true }));
     }
 
     if (Array.isArray(elementObject)) {
@@ -274,213 +294,13 @@ export const DOM = (elementObject: RawContainer): Element | Text | DocumentFragm
     return domElement;
 };
 
-/** Точечное изменение dom по diff */
-export function patchDOM(dom: Node, diffObject: Diff<Container, Container>) {
-    const parent = dom.parentNode;
-
-    if (!parent) {
-        if (isPrimitive(diffObject)) {
-            return DOM(diffObject);
-        }
-        if (rawSymbol in diffObject) {
-            setType<Container>(diffObject);
-            return DOM(diffObject);
-        }
-        return dom;
-    }
-
-    if (diffObject === emptySymbol) {
-        return;
-    }
-
-    if (diffObject === deleteSymbol) {
-        // слабые ссылки могли бы помочь
-
-        // стираем информацию о vdom
-        delete dom[elementSymbol];
-
-        // удаляем узел
-        parent.removeChild(dom);
-
-        return;
-    }
-
-    if (isPrimitive(diffObject)) {
-        const text = String(diffObject);
-        // TODO: добавить другие типы
-        if (dom.nodeType === Node.TEXT_NODE) {
-            // текстовый узел
-            if (dom.nodeValue !== text) {
-                dom.nodeValue = text; // обновляем текст
-            }
-        } else if (isElement(dom)) {
-            parent.replaceChild(document.createTextNode(text), dom);
-        }
-        return;
-    }
-
-    if (rawSymbol in diffObject) {
-        setType<Container>(diffObject);
-
-        const newDom = DOM(diffObject);
-        parent.replaceChild(newDom, dom);
-
-        if (isVDOMElement(diffObject)) {
-            if (!diffObject.dom) {
-                diffObject.dom = {};
-            }
-            diffObject.dom.ref = newDom;
-        }
-
-        return;
-    }
-
-    if (arraySymbol in diffObject) {
-        return;
-    }
-
-    setType<DiffByKeys<VDOMElement, VDOMElement>>(diffObject);
-
-    const { props = {}, eventListeners: diffEventListeners = {} } = diffObject;
-    type FullProps = Required<VDOMElement>['props'];
-    type FullChildren = Required<VDOMElement>['children'];
-    type FullEventListeners = Required<VDOMElement>['eventListeners'];
-
-    setType<DiffByKeys<FullProps, FullProps>>(props);
-
-    // обновление свойств
-    if (isObject(props)) {
-        for (const propName in props) {
-            const prop = props[propName];
-
-            if (prop === diff.symbols.empty) {
-                continue;
-            }
-
-            const isCustomProp = propName.startsWith('_');
-
-            if (prop === diff.symbols.delete) {
-                if (isCustomProp) {
-                    delete dom[elementSymbol]?.props?.[propName];
-                    continue;
-                }
-                if (isElement(dom)) {
-                    dom.removeAttribute(propName);
-                }
-                continue;
-            }
-
-            if (typeof prop !== 'string') {
-                continue;
-            }
-
-            if (isCustomProp) {
-                continue;
-            }
-            if (isElement(dom)) {
-                dom.setAttribute(propName, prop);
-            }
-        }
-    }
-
-    const eventListeners = diffEventListeners as DiffByKeys<
-        FullEventListeners,
-        FullEventListeners
-    >;
-
-    // удаление старых перехватчиков событий
-    const oldListeners = dom[elementSymbol]?.eventListeners ?? {};
-    for (const eventName of Object.keys(oldListeners)) {
-        if (!(eventName in eventListeners)) {
-            dom.removeEventListener(eventName, oldListeners[eventName]);
-            delete oldListeners[eventName];
-        }
-    }
-
-    // обновление перехватчиков событий
-    for (const eventName of Object.keys(eventListeners)) {
-        const listener = eventListeners[eventName];
-
-        if (listener === emptySymbol) {
-            continue;
-        }
-
-        if (listener === deleteSymbol && oldListeners[eventName]) {
-            dom.removeEventListener(eventName, oldListeners[eventName]);
-            delete oldListeners[eventName];
-            continue;
-        }
-
-        if (typeof listener !== 'function') {
-            continue;
-        }
-
-        // заменяем старые обработчики на новые
-        // if (!(rawSymbol in listener)) {
-        //     dom.removeEventListener(
-        //         eventName,
-        //         eventListeners[diff.symbols.meta].deleteListeners[eventName]
-        //     );
-        //     delete eventListeners[diff.symbols.meta].deleteListeners[eventName];
-        // }
-        dom.addEventListener(eventName, listener, false);
-    }
-
-    const children = diffObject.children as DiffByKeys<
-        FullChildren,
-        FullChildren
-    >;
-
-    // обновление существующих потомков
-    const list = Array.from(dom.childNodes);
-    const updatedChildKeys: Set<string> = new Set();
+function getChildNodes(node: Node): Record<string, Node> {
+    const nodes: Record<string, Node> = {};
+    const list = Array.from(node.childNodes);
     for (let i = 0; i < list.length; i++) {
         const child = list[i];
-        const key = child[elementSymbol]?.props?._key ?? `${i}`;
-
-        if (key in children) {
-            const childDiff = children[key];
-            if (childDiff === deleteSymbol) {
-                dom.removeChild(child);
-            } else {
-                patchDOM(child, childDiff);
-                updatedChildKeys.add(key);
-            }
-        }
+        const key = getNodeKey(child, i);
+        nodes[key] = child;
     }
-
-    // добавление новых потомков
-    const newChildren = [];
-    for (const key in children) {
-        const child = children[key];
-        if (child === emptySymbol) {
-            continue;
-        }
-        if (
-            (!isPrimitive(child) && !(rawSymbol in child)) ||
-            child === deleteSymbol
-        ) {
-            continue;
-        }
-
-        if (
-            !updatedChildKeys.has(key) &&
-            isObject(child) &&
-            rawSymbol in child
-        ) {
-            newChildren.push(DOM(child as any));
-        }
-    }
-
-    if (newChildren.length > 0 && isElement(dom)) {
-        dom.append(...newChildren);
-    }
-
-    if (rawSymbol in diffObject) {
-        const diffObject1 = diffObject as VDOMElement;
-        if (!diffObject1.dom) {
-            diffObject1.dom = {};
-        }
-        diffObject1.dom.ref = dom;
-    }
+    return nodes;
 }
