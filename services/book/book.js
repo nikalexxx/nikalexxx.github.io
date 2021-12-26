@@ -11,6 +11,8 @@ import { Tooltip } from '../../blocks';
 import { isPrimitive } from '../../utils/diff';
 import { strToArray } from '../../utils/element.js';
 
+import './htmlBook';
+
 const b = block('book');
 const css = block('book');
 
