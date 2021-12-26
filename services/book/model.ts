@@ -93,7 +93,7 @@ type SimpleStringTemplate<
 type BookUseBuilder = (key: string) => (meta: any) => any;
 type BookUse = BookUseBuilder | SimpleStringTemplate<BookUseBuilder>;
 
-type BookCreator = (
+export type BookCreator = (
     text: TemplateStringsArray,
     ...elements: BookSchema
 ) => BookSchema;
@@ -117,6 +117,12 @@ type BookEnd = <T extends BookElement<any, any>>(
 ) => Builder<T> & { [markerEnd]: ElementName<T> };
 
 export type Book = (api: BookApi) => BookSchema;
+
+
+const bookCreator: BookCreator = (text, ...elements) => {
+
+    return [];
+}
 
 // const api = {
 //     meta: {

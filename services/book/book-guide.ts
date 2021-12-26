@@ -1,6 +1,6 @@
 import { Book } from './model';
 
-const bookGiudeRu: Book = (api) => {
+export const bookGiudeRu: Book = (api) => {
     const { book, header } = api;
 
     return book.root`
