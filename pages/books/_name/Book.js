@@ -8,8 +8,16 @@ import { DOM } from '../../../utils/element';
 import { Icon } from '../../../icons';
 import { booksList } from '../../../data/books';
 import { createBook } from '../../../services/book/book.js';
+import { createHtmlBook } from '../../../services/book/htmlBook';
 
 const b = block('book');
+/**
+ * @type Partial<Record<keyof typeof booksList, 'html' | 'parvis'>>
+ */
+const bookTypes = {
+    'js-book': 'html',
+    'vereshagin-shen-sets': 'parvis',
+};
 
 function highlightElement(element) {
     const activeClass = b('active');
@@ -62,7 +70,7 @@ const BookHeaders = Component.BookHeaders(({ props }) => () => {
 });
 
 const BookImages = Component.BookImages(({ props }) => () => {
-    const { images } = props();
+    const { images, type } = props();
     const imagesContent = E.div.class(b('images'))(
         [...images.keys()].map((key) => {
             return E.div.class(b('image')).onClick(() => {
@@ -74,7 +82,9 @@ const BookImages = Component.BookImages(({ props }) => () => {
                     imageElement.scrollIntoView();
                     highlightElement(imageElement);
                 }
-            })(images.get(key));
+            })(
+                type === 'html' ? E.div._html(images.get(key)) : images.get(key)
+            );
         })
     );
     return E.div.class(b('images-container', {}, b('control-container')))(
@@ -124,7 +134,12 @@ const Book = Component.Book(({ props, state, hooks }) => {
         const path = `../data/books/${name}/index.js?r=${window.appVersion}`;
         import(path)
             .then((data) => {
-                const book = createBook(data.default).to('html');
+                let book;
+                if (bookTypes[name] === 'parvis') {
+                    book = createBook(data.default).to('html');
+                } else {
+                    book = createHtmlBook(data.default);
+                }
                 bookCache.set(name, book);
                 setBook(book);
             })
@@ -152,11 +167,24 @@ const Book = Component.Book(({ props, state, hooks }) => {
                 [title, `books/${name}`],
             ]),
             E.div(
-                BookImages.images(text?.images ?? new Map()),
-                BookHeaders.headers(text?.headers ?? []).update(updateHeaders)
+                BookImages.images(text?.images ?? new Map()).type(
+                    bookTypes[name]
+                ),
+                BookHeaders.headers(
+                    text?.headers ??
+                        text?.contents?.map((e) => [e.level, e.text]) ??
+                        []
+                ).update(updateHeaders)
             ),
             E.div(text === null && E.div.class(b('loading'))(Spin.size('xl'))),
-            E.div.class(b('container'))(E.div.class(b('content'))(text))
+            E.div.class(b('container'))(
+                text &&
+                    E.div.class(b('content'))(
+                        bookTypes[name] === 'parvis'
+                            ? text
+                            : E.div._html(text.tokens.join('\n'))
+                    )
+            )
         );
     };
 });

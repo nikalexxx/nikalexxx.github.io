@@ -1,7 +1,9 @@
-export const booksList: Record<
-    string,
-    { title: string; authors: string[]; image: string }
-> = {
+export const booksList = {
+    'js-book': {
+        title: 'Книжный формат BookBox',
+        authors: ['А.С. Николаичев'],
+        image: '/data/books/js-book/logo.svg',
+    },
     'vereshagin-shen-sets': {
         title: 'Начала теории множеств',
         authors: ['Н.К. Верещагин', 'A. Шень'],
