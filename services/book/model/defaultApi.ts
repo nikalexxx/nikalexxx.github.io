@@ -1,4 +1,4 @@
-import { BookApi, TextFormatApi, UtilApi } from './api';
+import { BookApi, TextFormatApi, UtilApi, WebApi } from './api';
 import {
     Api,
     BookElementProps,
@@ -49,8 +49,8 @@ const proxyBuilder = <T extends (...args: any[]) => any>(
     return getProxy({});
 };
 
-function getElementProxy<Api>() {
-    return function g<T extends keyof Api>(
+function getElementProxy<CApi extends Api<any>>() {
+    return function g<T extends keyof CApi>(
         name: T,
         prepare: TemplatePrepare = String.raw
     ) {
@@ -62,7 +62,7 @@ function getElementProxy<Api>() {
         );
         builder[markerSymbol] = name;
 
-        return builder as unknown as Api[T];
+        return builder as unknown as CApi[T];
     };
 }
 
@@ -92,6 +92,7 @@ bookCreator.root = bookCreator;
 const getRootProxy =
     getElementProxy<Omit<BookApi, 'format' | 'book' | 'start' | 'end'>>();
 const getFormatProxy = getElementProxy<Api<TextFormatApi>>();
+const getWebProxy = getElementProxy<Api<WebApi>>();
 export const defaultBookApi: BookApi = {
     title: getRootProxy('title'),
     authors: getRootProxy('authors'),
@@ -104,6 +105,11 @@ export const defaultBookApi: BookApi = {
         pre: getFormatProxy('pre'),
         i: getFormatProxy('i'),
         b: getFormatProxy('b'),
+    },
+    web: {
+        video: getWebProxy('web-video' as any),
+        audio: getWebProxy('web-audio' as any),
+        message: getWebProxy('web-message' as any),
     },
     header: getRootProxy('header'),
     code: getRootProxy('code'),
@@ -121,6 +127,7 @@ export const defaultBookApi: BookApi = {
     video: getRootProxy('video'),
     audio: getRootProxy('audio'),
     use: getRootProxy('use'),
+    counter: getRootProxy('counter'),
 
     start: bookStart,
     end: bookEnd,

@@ -109,4 +109,42 @@
             rgb(255, 217, 179) 40px
         );
     }
+
+    &__label-mark {
+        display: none;
+    }
+
+    &__label-data {
+        display: none;
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        grid-template-rows: 1fr auto;
+
+        & > div {
+            max-height: 50vh;
+            background-color: var(--color-background);
+            box-shadow: 0 0 10px black;
+        }
+    }
 }
+
+.book__label-mark:checked + label + .book__label-data {
+    display: grid;
+}
+
+.book__label-mark + label {
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.book__label-mark:checked + label {
+    background: var(--color-background-accent);
+    color: var(--color-text-accent);
+}
+

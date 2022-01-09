@@ -1,16 +1,6 @@
-import { BookElements } from './api';
-import { BookBuilder, BookElementSchema, BookSchema } from './model';
+import { BookElements, BookApi } from './api';
+import { BookBuilder, BookElementSchema, BookHeader, BookMeta, BookSchema } from './model';
 
-type BookHeader = {
-    text: string;
-    key: string;
-    level: number;
-};
-
-export type BookMeta<T> = {
-    contents: BookHeader[];
-    images: Map<string, T[]>;
-};
 
 function getGroup<T>({
     condition,
@@ -29,6 +19,40 @@ function getGroup<T>({
                 }
                 if (condition(item)) {
                     result.push(map(item));
+                    continue;
+                }
+                addContents(item.children);
+            }
+        };
+
+        addContents(schema);
+
+        return result;
+    };
+}
+
+function getObjectsByHeader({
+    condition,
+}: {
+    condition: (item: BookElementSchema) => boolean;
+}) {
+    return (schema: BookSchema): Record<string, string[]> => {
+        const result: Record<string, string[]> = {};
+        let currentHeader = 'root';
+
+        const addContents = (schema: BookSchema) => {
+            for (const item of schema) {
+                if (typeof item === 'string') {
+                    continue;
+                }
+                if (item.name === 'header') {
+                    currentHeader = item.props.key as string;
+                }
+                if (condition(item)) {
+                    if (!result[currentHeader]) {
+                        result[currentHeader] = [];
+                    }
+                    result[currentHeader].push(item.props.key as string);
                     continue;
                 }
                 addContents(item.children);
@@ -65,22 +89,35 @@ const getImageList = getGroup({
 });
 const getImages = <T>(
     schema: BookSchema,
-    builder: BookBuilder<T>
-): BookMeta<T>['images'] => {
+): BookMeta['images'] => {
     const imageList = getImageList(schema);
-    let i = 0;
-    return new Map(imageList.map((image) => [`${i++}`, builder([image])]));
+    return {
+        keysList: imageList.map(e => e.props.key as string),
+        keysByHeader: getObjectsByHeader({condition: (e) => e.name === 'image'})(schema)
+    };
 };
 
-export function getBookMeta<T>({
+function getElementsByKeys(schema: BookSchema): Record<string, BookElementSchema> {
+    const result: Record<string, BookElementSchema>  = {};
+    for (const item of schema) {
+        if (typeof item === 'string') {
+            continue;
+        }
+        result[item.props.key as string] = item;
+    }
+    return result;
+}
+
+export function getBookMeta<T, A extends BookApi>({
     schema,
-    builder,
+    api
 }: {
     schema: BookSchema;
-    builder: BookBuilder<T>;
-}): BookMeta<T> {
+    api: A;
+}): BookMeta {
     return {
         contents: getContents(schema),
-        images: getImages(schema, builder),
+        images: getImages(schema),
+        elementsByKeys: getElementsByKeys(schema),
     };
 }

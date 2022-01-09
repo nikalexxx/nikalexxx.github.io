@@ -23,7 +23,9 @@ export type BookStart = <T extends BookElement<any, any>['api']>(
  */
 export type BookEndMark = { __end: string; props: BookElementProps };
 
-export type BookEnd = <T extends BookElement<any, any>['api']>(elem: T) => BookEndMark;
+export type BookEnd = <T extends BookElement<any, any>['api']>(
+    elem: T
+) => BookEndMark;
 
 export type BookElementProps = Record<string, Primitive | unknown>;
 
@@ -36,7 +38,8 @@ export type BookElementSchema = {
 };
 
 export type BookRawItem = BookItem | BookStartMark | BookEndMark | BookResult;
-export type BookRawSchema = BookRawItem[];
+export type BookRawSchema = (BookRawItem | ((...children: BookRawSchema) => BookRawItem))[];
+export type BookRawFlatSchema = (BookItem | BookStartMark | BookEndMark | BookResult<BookRawFlatSchema>)[];
 
 export type GetSchema = <Children extends BookItem[]>(
     ...children: Children | [TemplateStringsArray, ...Children]
@@ -71,10 +74,34 @@ type SimpleStringTemplate<F extends (arg: string) => any> =
         ? (strList: string[], ...values: any[]) => R
         : never;
 
-export type BookResult = { schema: BookRawSchema };
+export type BookResult<S = BookRawSchema> = { schema: S };
 export type BookCreator = (
     text: TemplateStringsArray,
     ...elements: BookSchema
 ) => BookResult;
 
-export type BookBuilder<T = unknown> = (schema: BookSchema) => T[];
+export type BookHeader = {
+    text: string;
+    key: string;
+    level: number;
+};
+
+export type BookMeta = {
+    contents: BookHeader[];
+    images: {
+        keysList: string[];
+        keysByHeader: Record<string, string[]>;
+    };
+    elementsByKeys: Record<string, BookElementSchema>;
+};
+export type BookStore<T> = {
+    /**
+     * хранилище токенов по ключам
+     */
+    dataByKeys: Record<string, T[]>;
+};
+
+export type BookBuilder<T = unknown> = (
+    schema: BookSchema,
+    getStore: (builder: BookBuilder<T>) => BookStore<T>
+) => T[];

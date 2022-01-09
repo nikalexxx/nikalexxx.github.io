@@ -12,13 +12,14 @@ import {
 export type BookElements = MetaApi &
     BlockApi &
     MediaApi &
-    LayoutApi & { format: TextFormatApi };
+    LayoutApi & { format: TextFormatApi; web: WebApi};
 
-export type ElementsApi = Api<Omit<BookElements, 'format'>> & {
+export type ElementsApi = Api<Omit<BookElements, 'format' | 'web'>> & {
     format: Api<TextFormatApi>;
+    web: Api<WebApi>;
 };
 
-export type BookApi = ElementsApi & UtilApi;
+export type BookApi = ElementsApi & UtilApi & StoreApi;
 
 export interface MetaApi {
     title: BookElement<'title'>;
@@ -75,6 +76,12 @@ export interface TextFormatApi {
     pre: BookElement<'pre'>;
 }
 
+export interface WebApi {
+    video: BookElement<'web-video', {type: 'youtube'} & MediaProps>;
+    audio: BookElement<'web-audio', {type: 'souncloud'} & MediaProps>;
+    message: BookElement<'web-message', {type: 'telegram' | 'twitter'} & MediaProps>;
+}
+
 /**
  * Элементы, которые определяют верстку остальных элементов
  */
@@ -86,13 +93,26 @@ export interface LayoutApi {
     small: BookElement<'small', { inline: boolean }>;
 }
 
-export interface UtilApi {
+export interface StoreApi {
     /**
      * Использует заданную мета-информацию для вывода её части
      *
      * key — ключ, по которому ищется мета
      */
-    use: BookElement<'use', { key: string }>;
+    use: BookElement<'use', { ref: string }>;
+    counter: BookElement<
+        'counter',
+        {
+            start: string;
+            end: string;
+            use: string;
+            initial: number;
+            step: number;
+        }
+    >;
+}
+
+export interface UtilApi {
     start: BookStart;
     end: BookEnd;
     book: BookCreator & { root: BookCreator };
