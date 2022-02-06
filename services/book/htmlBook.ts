@@ -77,14 +77,23 @@ const htmlBuilder = createBookBuilder<string>({
                     `<pre data-key="${key}">${e}</pre>`,
         },
         web: {
-            video: ({type, src, alt}) => e => {
-                if (type === 'youtube') {
-                    return `<div><iframe height="315" width="560" src=${src} frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen /></div>`
+            video: (props) => (children) => {
+                const { type, src, alt, width, height } = props;
+                if (type === 'youtube' || type === 'vimeo') {
+                    return getWebVideo({ ...props, children });
                 }
                 return '';
             },
-            audio: () => e => '',
-            message: () => e => '',
+            audio:
+                ({ src }) =>
+                (e) =>
+                    `<iframe width="100%" scrolling="no" frameborder="no"" src="${src}">${e.join(
+                        '\n'
+                    )}</iframe>`,
+            message:
+                ({ src }) =>
+                (e) =>
+                    `<iframe width="100%" height="400" frameborder="no"" src="${src}"></iframe>`,
         },
         code:
             ({ lang, key }) =>
@@ -96,13 +105,13 @@ const htmlBuilder = createBookBuilder<string>({
             ({ key, ref }) =>
             (e, store) => {
                 return `
-                    <input type="checkbox" id="${`label-${key}`}" class="${css('label-mark')}" value="1"/>
+                    <input type="checkbox" id="${`label-${key}`}" class="${css(
+                    'label-mark'
+                )}" value="1"/>
                     <label data-key="${key}" for="${`label-${key}`}" style="cursor: pointer; text-decoration: underline;">${e}</label>
                     <div class="${css('label-data')}">
                     <label for="${`label-${key}`}">&nbsp;</label>
-                    <div>${
-                        store.dataByKeys[ref]
-                    }</div></div>`;
+                    <div>${store.dataByKeys[ref]}</div></div>`;
             },
         tooltip:
             ({ content, key }) =>
@@ -193,6 +202,37 @@ function getImage({
               <figcaption>${children.join('')}</figcaption>
           </figure>`
             : image;
+
+    const img = `<div class="${css('img', { position })}" data-image="imageKey">
+        ${content}
+    </div>`;
+    return img;
+}
+
+function getWebVideo({
+    type,
+    src,
+    alt,
+    position,
+    height = 1,
+    width = 1,
+    children,
+}: BookElements['web']['video']['props'] & { children: string[] }) {
+    const heightSize = Math.floor(+height * 100);
+    const widthSize = Math.floor(+width * 100);
+
+    const sizeBlockStyle = `${
+        height ? `max-height: ${heightSize}%; max-height: ${heightSize}vh;` : ''
+    }${width ? `max-width: ${widthSize}%; max-width: ${widthSize}%;` : ''}`;
+
+    const video = `<iframe style="height: 100vh; width: 100vw;${sizeBlockStyle}" src=${src} frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen ></iframe>`;
+    const content =
+        children.length > 0
+            ? `<figure class="${css('img-figure', { position })}">
+              ${video}
+              <figcaption>${children.join('')}</figcaption>
+          </figure>`
+            : video;
 
     const img = `<div class="${css('img', { position })}" data-image="imageKey">
         ${content}

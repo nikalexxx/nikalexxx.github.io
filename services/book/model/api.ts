@@ -38,6 +38,11 @@ export type MediaProps = {
     alt: string;
 };
 
+export type SizeProps = {
+    width: string | number;
+    height: string | number;
+}
+
 /**
  * Блоки-атомы, из которых состоит книга, не считая обычного текста.
  */
@@ -56,14 +61,11 @@ export interface BlockApi {
 export interface MediaApi {
     image: BookElement<
         'image',
-        MediaProps & {
-            height: string | number;
-            width: string | number;
-        } & LayoutProps
+        MediaProps & SizeProps & LayoutProps
     >;
     video: BookElement<
         'video',
-        MediaProps & { height: string; width: string } & LayoutProps
+        MediaProps & SizeProps & LayoutProps
     >;
     audio: BookElement<'audio', MediaProps & { title: string }>;
 }
@@ -77,8 +79,8 @@ export interface TextFormatApi {
 }
 
 export interface WebApi {
-    video: BookElement<'web-video', {type: 'youtube'} & MediaProps>;
-    audio: BookElement<'web-audio', {type: 'souncloud'} & MediaProps>;
+    video: BookElement<'web-video', {type: 'youtube' | 'vimeo'} & MediaProps & SizeProps & LayoutProps>;
+    audio: BookElement<'web-audio', {type: 'soundcloud'} & MediaProps>;
     message: BookElement<'web-message', {type: 'telegram' | 'twitter'} & MediaProps>;
 }
 

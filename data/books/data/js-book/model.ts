@@ -138,7 +138,32 @@ ${header.level(2)`Пространство Web`}
 ${header.level(3)`web.video`}
 Позволяет встраивать видео с известных сайтов.
 
+
 Пример с youtube
-${web.video.type('youtube').src('https://www.youtube.com/embed/i-1PqnzaxrI')}
+${web.video.type('youtube').height(2/3).src('https://www.youtube.com/embed/i-1PqnzaxrI')}
+
+
+Пример с vimeo
+${web.video.type('vimeo').height(1/2).src('https://player.vimeo.com/video/317852618?h=7b3f53e9a8')}
+
+${header.level(3)`web.audio`}
+Позволяет встраивать аудио с известных сайтов.
+
+Пример с soundcloud
+${web.audio.type('soundcloud').src('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1200979963&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true')`souncloud audio`}
+
+
+Пример с яндекс музыкой
+${web.audio.type('yandex.music').src('https://music.yandex.ru/iframe/#track/99670583/6245956')}
+
+Пример с spotify
+${web.audio.type('spotify').src('https://open.spotify.com/embed/episode/4heUTne5WTKm49zlJw5g9B?utm_source=generator')}
+
+${header.level(3)`web.message`}
+Сообщения с самых разных онлайн платформ
+
+Пример с телеграм
+${web.message.src('https://t.me/durov_russia/38?embed=1')}
+
 `;
 };
