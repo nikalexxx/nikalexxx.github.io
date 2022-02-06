@@ -27,11 +27,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.34284299"
-     inkscape:cx="1050.3675"
-     inkscape:cy="2170.96"
+     inkscape:zoom="0.26010029"
+     inkscape:cx="1520.1508"
+     inkscape:cy="2277.5453"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:object-paths="true"
      inkscape:snap-intersection-paths="true"
@@ -755,8 +755,21 @@
        inkscape:export-ydpi="89.965508"
        sodipodi:arc-type="arc" />
     <path
+       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3446"
+       sodipodi:type="arc"
+       sodipodi:cx="230.1875"
+       sodipodi:cy="-260.96878"
+       sodipodi:rx="10.583329"
+       sodipodi:ry="10.583355"
+       sodipodi:start="2.9236691"
+       sodipodi:end="4.7082814"
+       sodipodi:open="true"
+       sodipodi:arc-type="arc"
+       d="m 219.85448,-258.68063 a 10.583329,10.583355 0 0 1 2.06646,-8.89656 10.583329,10.583355 0 0 1 8.22309,-3.97486" />
+    <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 230.18749,-348.58334 1e-5,95.25001"
+       d="m 230.18749,-348.58334 1e-5,88.93751"
        id="path3618"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -779,12 +792,20 @@
        d="m 383.64586,-541.72916 10e-6,43.92084"
        style="display:inline;opacity:1;fill:none;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
+       inkscape:connector-curvature="0"
+       id="path3629"
+       d="m 291.04167,-548.04167 c -10.58334,10.58334 -3.96875,21.16667 -21.16667,33.07292"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path4653-4-0-0-1"
-       d="m 370.41665,-523.20834 -113.77081,10e-6"
+       d="m 370.41667,-521.58334 -240.77081,10e-6"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="89.965508"
@@ -831,12 +852,20 @@
        sodipodi:open="true"
        sodipodi:arc-type="arc" />
     <path
+       style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 230.1875,-257.00002 c 0,7.9375 -5.29169,13.22918 -13.22919,13.22917"
+       id="path5889-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="89.965508"
+       inkscape:export-ydpi="89.965508" />
+    <path
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path4653-4-8"
-       d="m 216.95833,-240.10416 -58.20833,-1e-5"
+       d="M 216.95833,-243.77085 H 171.97917"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="89.965508"
@@ -846,24 +875,38 @@
        id="path4288"
        d="m 230.1875,-345.93752 c 3e-5,-7.9375 2.64583,-10.58334 7.93752,-15.875"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <ellipse
-       ry="10.583355"
-       rx="10.583329"
-       cy="-271.06049"
-       cx="246.06276"
+    <path
+       inkscape:connector-curvature="0"
+       id="path3473"
+       d="m 246.0625,-280.81251 c -1e-5,-5.29166 10.58333,-11.90624 21.16667,-5.29166"
+       style="display:inline;opacity:1;fill:none;stroke:#282828;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
        id="ellipse3608"
-       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       sodipodi:type="arc"
+       sodipodi:cx="246.06276"
+       sodipodi:cy="-271.06049"
+       sodipodi:rx="10.583329"
+       sodipodi:ry="10.583355"
+       sodipodi:start="4.1751824"
+       sodipodi:end="5.4353383"
+       sodipodi:open="true"
+       sodipodi:arc-type="arc"
+       d="m 240.64687,-280.15309 a 10.583329,10.583355 0 0 1 12.41781,1.15659" />
     <path
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path5808"
-       d="M 259.29166,-268.90625 153.68665,-163.30124"
+       d="M 264.58333,-272.875 158.97832,-167.26999"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#3cb183;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#3cb183;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 267.22917,-284.78125 c -3e-5,7.9375 -2.64583,10.58334 -7.93752,15.875"
+       d="m 267.22916,-283.45834 c -3e-5,7.9375 -2.64583,10.58334 -7.93752,15.875"
        id="path5826"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -929,7 +972,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path2953"
-       d="m 246.0625,-321.82292 c 0,15.87499 13.22916,51.59375 28.04584,64.78543"
+       d="m 246.0625,-321.82292 c 0,19.84375 18.52083,56.88541 39.6875,76.46459"
        style="display:inline;fill:none;stroke:#c87137;stroke-width:1.587;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
@@ -1078,14 +1121,6 @@
        id="ellipse4212"
        sodipodi:arc-type="arc" />
     <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       sodipodi:nodetypes="cc"
-       style="display:inline;opacity:1;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.11667, 2.11667;stroke-dashoffset:5.29166;stroke-opacity:1"
-       d="m 250.03125,-513.94792 -6.61458,-17.19791"
-       id="path4154"
-       inkscape:connector-curvature="0" />
-    <path
        inkscape:connector-curvature="0"
        id="path4118"
        d="M 539.75,-433.24999 H 529.16667"
@@ -1140,14 +1175,6 @@
        id="ellipse4064"
        style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        sodipodi:arc-type="arc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4040"
-       d="m 328.08333,-549.66666 -23.8125,-2.64583"
-       style="display:inline;opacity:1;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.11667, 2.11667;stroke-dashoffset:5.29166;stroke-opacity:1"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
     <path
        inkscape:connector-curvature="0"
        id="path4038"
@@ -1358,7 +1385,7 @@
     <ellipse
        style="display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:#282828;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="ellipse3259-8"
-       cx="182.5627"
+       cx="180.97522"
        cy="-259.94794"
        rx="10.583329"
        ry="10.583355" />
@@ -1681,7 +1708,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path4589"
-       d="m 158.74998,-642.27083 v 317.5"
+       d="m 158.74998,-562.89583 v 238.125"
        style="fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="89.965508"
@@ -1750,7 +1777,7 @@
     <path
        inkscape:connector-curvature="0"
        id="path5788-8-3"
-       d="m 257.96875,-495.125 -5.29167,23.81249"
+       d="m 246.0625,-479.25 -15.875,13.22917"
        style="display:inline;fill:none;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
        sodipodi:nodetypes="cc"
        inkscape:export-xdpi="90"
@@ -1758,7 +1785,7 @@
     <path
        inkscape:connector-curvature="0"
        id="path4245"
-       d="m 246.0625,-455.43751 3.96875,-15.875"
+       d="m 246.0625,-460.72917 -15.875,-5.29166"
        style="display:inline;fill:none;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
        sodipodi:nodetypes="cc"
        inkscape:export-xdpi="90"
@@ -1767,7 +1794,7 @@
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
        style="fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 251.35416,-642.27082 v 190.5"
+       d="M 224.89584,-600.95834 V -479.25"
        id="path884"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
@@ -1790,22 +1817,6 @@
     <path
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path4653"
-       d="m 304.27081,-642.27082 v 177.27083"
-       style="fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       style="display:inline;fill:none;stroke:#5555ff;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 489.47916,-527.44163 c 10.58334,0 15.875,-3.70417 15.875,-14.2875"
-       id="path2504"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="89.965508"
-       inkscape:export-ydpi="89.965508" />
-    <path
-       inkscape:export-ydpi="89.965508"
-       inkscape:export-xdpi="89.965508"
        sodipodi:open="true"
        d="m 251.98813,-488.08837 a 239.44792,238.125 0 0 1 282.24988,-67.90702 239.44792,238.125 0 0 1 140.5362,252.71669"
        sodipodi:end="0.1463329"
@@ -1818,6 +1829,22 @@
        id="ellipse1503"
        style="fill:none;fill-opacity:1;stroke:#c87137;stroke-width:1.5875;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        sodipodi:arc-type="arc" />
+    <path
+       inkscape:export-ydpi="89.965508"
+       inkscape:export-xdpi="89.965508"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4653"
+       d="m 291.04162,-642.27082 v 164.04166"
+       style="fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="display:inline;fill:none;stroke:#5555ff;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 489.47916,-527.44163 c 10.58334,0 15.875,-3.70417 15.875,-14.2875"
+       id="path2504"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="89.965508"
+       inkscape:export-ydpi="89.965508" />
     <path
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
@@ -2161,7 +2188,7 @@
        style="display:inline;fill:none;stroke:#800080;stroke-width:3.175;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 251.35416,-451.77083 c 2e-5,7.9375 2.64582,10.58334 7.9375,15.875"
+       d="m 224.89581,-478.22918 c 2e-5,7.9375 2.64582,10.58334 7.9375,15.875"
        id="path6701"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -2185,7 +2212,7 @@
        style="display:inline;opacity:1;fill:none;stroke:#ff0000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 304.27084,-464.99998 c 3e-5,7.9375 2.64583,10.58334 7.9375,15.875"
+       d="m 291.04165,-478.22917 c 3e-5,7.9375 2.64583,10.58334 7.9375,15.875"
        id="path6728"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -2453,7 +2480,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path2931"
-       d="m 179.91666,-270.22917 -1e-5,-42.37082"
+       d="m 179.91666,-249.0625 -1e-5,-63.53749"
        style="fill:none;stroke:#00aad4;stroke-width:2.646;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="89.965508"
@@ -2481,7 +2508,7 @@
        inkscape:export-ydpi="89.965508" />
     <path
        style="fill:none;stroke:#c87137;stroke-width:1.5875;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 314.85416,-216.29166 -40.74582,-40.74583"
+       d="m 314.85416,-216.29166 -30.16249,-30.1625"
        id="path2959"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -2533,7 +2560,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path4653-4-8-3"
-       d="m 145.52083,-226.87499 v 68.79164"
+       d="m 158.75,-227.89583 -1e-5,69.81248"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -2580,14 +2607,6 @@
        inkscape:export-xdpi="89.965508"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
-       id="path4653-4-0-0"
-       d="m 243.41665,-573.47916 v 37.04166"
-       style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <path
-       inkscape:export-ydpi="89.965508"
-       inkscape:export-xdpi="89.965508"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
        id="path4653-4-0-0-6-9"
        d="m 531.28337,-446.47917 -33.86669,-33.86668"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
@@ -2607,14 +2626,6 @@
        id="path4514"
        d="m 339.98958,-254.65625 -6.61458,6.61458 -47.625,47.62501"
        style="fill:none;stroke:#ff0000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       inkscape:export-ydpi="89.965508"
-       inkscape:export-xdpi="89.965508"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path4653-4-0-0-1-4"
-       d="m 230.1875,-586.70832 -58.20839,-4e-5"
-       style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
@@ -2661,7 +2672,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path4653-4-0-0-6"
-       d="m 158.74999,-650.20832 1e-5,50.27082"
+       d="m 121.7083,-644.91661 1e-5,108.47915"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -2708,24 +2719,8 @@
        inkscape:export-xdpi="89.965508"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
-       id="path911-6-9"
-       d="m 243.41665,-536.43749 c 0,7.9375 5.29167,13.22917 13.22917,13.22916"
-       style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <path
-       inkscape:export-ydpi="89.965508"
-       inkscape:export-xdpi="89.965508"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path911-6-9-9"
-       d="m 243.41665,-573.47916 c 0,-7.9375 -5.29169,-13.22918 -13.22919,-13.22917"
-       style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <path
-       inkscape:export-ydpi="89.965508"
-       inkscape:export-xdpi="89.965508"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
        id="path911-6-9-9-0"
-       d="m 158.75,-599.9375 c 0,7.9375 5.29169,13.22918 13.22919,13.22917"
+       d="m 121.70831,-536.43746 c 0,7.9375 5.29169,13.22918 13.22919,13.22917"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        style="display:inline;opacity:1;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -2868,53 +2863,11 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       sodipodi:open="true"
-       d="m 276.75495,-523.60155 a 10.583329,10.583354 0 0 1 7.44288,-9.97821 10.583329,10.583354 0 0 1 11.78659,4.00465"
-       sodipodi:end="5.6686342"
-       sodipodi:start="3.1537545"
-       sodipodi:ry="10.583354"
-       sodipodi:rx="10.583329"
-       sodipodi:cy="-523.47284"
-       sodipodi:cx="287.33749"
-       sodipodi:type="arc"
-       id="path4156"
-       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       sodipodi:arc-type="arc" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       sodipodi:nodetypes="cc"
-       style="display:inline;opacity:1;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.11667, 2.11667;stroke-dashoffset:5.29166;stroke-opacity:1"
-       d="m 285.75,-533.79167 17.19792,-18.52083"
-       id="path4158"
-       inkscape:connector-curvature="0" />
-    <path
-       sodipodi:open="true"
-       d="m 232.24196,-587.06114 a 10.583329,10.583354 0 0 1 10.16164,-2.73908 10.583329,10.583354 0 0 1 7.50056,7.38263"
-       sodipodi:end="6.0102449"
-       sodipodi:start="3.9287133"
-       sodipodi:ry="10.583354"
-       sodipodi:rx="10.583329"
-       sodipodi:cy="-579.5647"
-       sodipodi:cx="239.7126"
-       sodipodi:type="arc"
-       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path4162"
-       sodipodi:arc-type="arc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4180"
-       d="M 185.20833,-573.47916 174.625,-586.70832"
-       style="display:inline;opacity:1;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.11667, 2.11667;stroke-dashoffset:5.29166;stroke-opacity:1"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
        sodipodi:nodetypes="cc"
        style="display:inline;opacity:1;fill:none;stroke:#282828;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
-       d="m 254,-380.03125 -1.32292,-13.22917"
+       d="m 254,-380.03125 -1.32292,-10.58333"
        id="path4186"
        inkscape:connector-curvature="0" />
     <path
@@ -3015,14 +2968,6 @@
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e94282;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        inkscape:connector-curvature="0"
-       id="path4290"
-       d="m 174.625,-240.10417 9.26042,-7.93749"
-       style="display:inline;opacity:1;fill:none;stroke:#000000;stroke-width:0.529167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.11667, 2.11667;stroke-dashoffset:5.29166;stroke-opacity:1"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <path
-       inkscape:connector-curvature="0"
        id="path5788"
        d="m 246.0625,-425.31249 17.19792,2.64583"
        style="display:inline;opacity:1;fill:none;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
@@ -3031,7 +2976,7 @@
        inkscape:export-ydpi="90" />
     <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#3cb183;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 145.52082,-147.49995 1e-5,148.16663563"
+       d="m 174.62502,-184.54164 1e-5,148.166658"
        id="path5806"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -3075,7 +3020,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path5828-3"
-       d="m 145.52081,-145.875 c 3e-5,-7.9375 2.64583,-10.58334 7.93752,-15.875"
+       d="m 174.62499,-174.97921 c 3e-5,-7.9375 2.64583,-10.58334 7.93752,-15.875"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#3cb183;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="89.965508"
@@ -3128,7 +3073,7 @@
     <g
        id="g5906-3"
        style="display:inline"
-       transform="translate(-378.35418,-929.04168)">
+       transform="translate(-378.35418,-934.33335)">
       <ellipse
          ry="3.1750102"
          rx="3.175"
@@ -3235,7 +3180,7 @@
        style="fill:none;stroke:#aad400;stroke-width:3.175;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e15d29;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 349.25011,-650.20832 -1.1e-4,54.23957"
+       d="m 336.02095,-650.20832 -1.1e-4,54.23957"
        id="path5965"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -3247,7 +3192,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path5969"
-       d="m 346.60409,-647.56258 -50.27082,10e-6"
+       d="m 333.37493,-647.56258 -50.27082,10e-6"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e15d29;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#e15d29;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -3452,7 +3397,7 @@
     <path
        inkscape:connector-curvature="0"
        id="path6373"
-       d="m 246.0625,-389.59375 13.22916,-7.63542"
+       d="m 246.0625,-390.61458 h 13.22917"
        style="display:inline;opacity:1;fill:none;stroke:#282828;stroke-width:1.05833;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29;stroke-opacity:1"
        sodipodi:nodetypes="cc"
        inkscape:export-xdpi="90"
@@ -3575,46 +3520,38 @@
        d="m 445.82292,-327.41666 c -7.9375,3e-5 -10.58334,2.64583 -15.875,7.9375"
        style="display:inline;fill:none;stroke:#000080;stroke-width:3.175;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
-       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path3606"
        sodipodi:type="arc"
-       sodipodi:cx="216.95827"
-       sodipodi:cy="-221.58327"
+       sodipodi:cx="214.84163"
+       sodipodi:cy="-223.69991"
        sodipodi:rx="10.583329"
        sodipodi:ry="10.583354"
        sodipodi:start="0.81526041"
        sodipodi:end="2.3450337"
-       d="m 224.21503,-213.8796 a 10.583329,10.583354 0 0 1 -14.65632,-0.13705"
+       d="m 222.09839,-215.99624 a 10.583329,10.583354 0 0 1 -14.65632,-0.13705"
        sodipodi:open="true"
        sodipodi:arc-type="arc" />
     <path
-       d="m 240.55595,-238.00569 a 10.583329,10.583355 0 0 1 -9.91483,-2.81752"
-       sodipodi:open="true"
-       sodipodi:end="2.3562787"
-       sodipodi:start="1.3390589"
-       sodipodi:ry="10.583355"
-       sodipodi:rx="10.583329"
-       sodipodi:cy="-248.30614"
-       sodipodi:cx="238.12529"
-       sodipodi:type="arc"
-       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833333;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="display:inline;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="ellipse3614"
-       sodipodi:arc-type="arc" />
-    <path
-       style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 230.1875,-253.33334 c 0,7.9375 -5.29169,13.22918 -13.22919,13.22917"
-       id="path5889-2"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="89.965508"
-       inkscape:export-ydpi="89.965508" />
+       sodipodi:type="arc"
+       sodipodi:cx="248.17906"
+       sodipodi:cy="-249.06256"
+       sodipodi:rx="10.583329"
+       sodipodi:ry="10.583355"
+       sodipodi:start="3.9650143"
+       sodipodi:end="4.9670029"
+       sodipodi:arc-type="arc"
+       d="m 240.98541,-256.8252 a 10.583329,10.583355 0 0 1 9.85929,-2.47952"
+       sodipodi:open="true" />
     <path
        inkscape:export-ydpi="89.965508"
        inkscape:export-xdpi="89.965508"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3641"
-       d="m 145.52079,-226.87499 c 0,-7.9375 5.29169,-13.22918 13.22919,-13.22917"
+       d="m 158.75,-230.54165 c 0,-7.9375 5.29169,-13.22918 13.22919,-13.22917"
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#f7a600;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        style="display:inline;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#6cb644;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -3642,7 +3579,7 @@
        style="display:inline;opacity:1;fill:none;stroke:#ffcc00;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 312.20833,-449.12499 27.78125,27.78124"
+       d="m 298.97916,-462.35416 41.01042,41.01041"
        id="path3731"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -3734,7 +3671,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3459"
-       d="m 315.91249,-379.27499 -56.62083,-56.62083"
+       d="m 315.91249,-379.27499 -83.07916,-83.07916"
        style="fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="89.965508"
@@ -3849,6 +3786,51 @@
        sodipodi:nodetypes="cc"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3488"
+       d="m 174.625,-253.03125 -6.61458,5.29167"
+       style="display:inline;opacity:1;fill:none;stroke:#282828;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3577"
+       d="m 252.67708,-317.85417 11.90625,5.29166"
+       style="display:inline;opacity:1;fill:none;stroke:#282828;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3607"
+       d="m 242.09375,-521.58333 -17.19792,29.10416"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       id="ellipse3414-9"
+       style="display:inline;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       sodipodi:type="arc"
+       sodipodi:cx="280.06442"
+       sodipodi:cy="-517.2525"
+       sodipodi:rx="10.583329"
+       sodipodi:ry="10.583354"
+       sodipodi:start="2.4244717"
+       sodipodi:end="3.5164266"
+       sodipodi:arc-type="arc"
+       d="m 272.08776,-510.29694 a 10.583329,10.583354 0 0 1 -1.87185,-10.83032"
+       sodipodi:open="true" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3631"
+       d="m 291.04167,-548.04167 21.16666,7.9375"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833, 3.175;stroke-dashoffset:10.5833;stroke-opacity:1"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
   <g
      style="display:inline"
@@ -3913,23 +3895,15 @@
        style="display:inline;fill:none;stroke:#00aad4;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 157.69154,509.02089 h 5.29167"
+       d="m 154.78125,584.72918 h 5.29167"
        id="path7402"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path7404"
-       d="m 157.69154,487.85418 h 5.29167"
-       style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
        style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 157.69154,466.6875 h 5.29167"
+       d="m 154.51652,466.6875 h 5.29167"
        id="path7406"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -3941,39 +3915,15 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path7408"
-       d="m 157.69154,445.52079 h 5.29167"
+       d="m 154.51655,429.64578 h 5.29167"
        style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 157.69154,424.35411 h 5.29167"
-       id="path7410"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path7412"
-       d="m 157.69154,403.18737 h 5.29167"
-       style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 157.69154,382.02069 h 5.29167"
-       id="path7414"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path7416"
-       d="m 154.51652,382.02069 h 5.29167"
+       d="m 154.51652,355.56234 h 5.29167"
        style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
@@ -3983,6 +3933,26 @@
        id="path7412-4"
        d="m 583.83981,518.25665 -3.74177,-3.74176"
        style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <g
+       id="g3598"
+       transform="translate(0,-52.916667)">
+      <path
+         style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 157.69154,382.02069 h 5.29167"
+         id="path7414"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path7416"
+         d="m 154.51652,382.02069 h 5.29167"
+         style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
     <path
        style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 631.46484,470.63162 -3.74177,-3.74176"
@@ -4101,11 +4071,11 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path7467"
-       d="m 308.50404,379.37497 h -5.29167"
+       d="m 295.27485,379.37497 h -5.29167"
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 308.50404,395.25001 h -5.29167"
+       d="m 295.27485,405.83335 h -5.29167"
        id="path7469"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4113,7 +4083,7 @@
        inkscape:export-ydpi="90" />
     <path
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 308.50404,305.29156 h -5.29167"
+       d="m 292.09986,315.8749 h -5.29167"
        id="path7473"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4125,11 +4095,11 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path7477"
-       d="m 308.50404,286.7707 h -5.29167"
+       d="m 292.09986,292.06237 h -5.29167"
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 308.50404,268.24987 h -5.29167"
+       d="m 292.09986,268.24987 h -5.29167"
        id="path7481"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4141,11 +4111,11 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path7485"
-       d="m 308.50404,249.72901 h -5.29167"
+       d="m 295.27488,249.72901 h -5.29167"
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 308.50404,249.72901 h -5.29167"
+       d="m 295.27488,249.72901 h -5.29167"
        id="path7487"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4153,7 +4123,7 @@
        inkscape:export-ydpi="90" />
     <path
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 305.32902,249.72901 h -5.29167"
+       d="m 292.09986,249.72901 h -5.29167"
        id="path7489"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4165,7 +4135,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path7491"
-       d="m 305.32902,249.72901 h -5.29167"
+       d="m 292.09986,249.72901 h -5.29167"
        style="display:inline;fill:none;stroke:#008000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
@@ -4497,7 +4467,7 @@
        inkscape:export-ydpi="90" />
     <path
        style="display:inline;fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 255.58734,331.74994 h -5.29167"
+       d="M 225.95397,379.37497 H 220.6623"
        id="path7673"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4505,23 +4475,15 @@
        inkscape:export-ydpi="90" />
     <path
        style="display:inline;fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 255.58734,294.70822 h -5.29167"
+       d="M 225.95397,315.8749 H 220.6623"
        id="path7681"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path7685"
-       d="m 255.58734,276.18736 h -5.29167"
-       style="display:inline;fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
        style="display:inline;fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 255.58734,276.18736 h -5.29167"
+       d="m 229.12899,292.06237 h -5.29167"
        id="path7687"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4529,20 +4491,12 @@
        inkscape:export-ydpi="90" />
     <path
        style="display:inline;fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 252.41232,276.18736 h -5.29167"
+       d="M 225.95397,292.06237 H 220.6623"
        id="path7689"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path7691"
-       d="m 252.41232,276.18736 h -5.29167"
-       style="display:inline;fill:none;stroke:#800080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
@@ -4936,20 +4890,12 @@
        d="m 512.76249,370.90834 3.74177,3.74177"
        style="display:inline;fill:none;stroke:#ff6600;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
-       style="display:inline;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 194.73332,551.35417 h -5.29166"
-       id="path3106"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path2981"
-       d="m 205.60005,657.43328 -3.74178,3.74176"
+       d="m 200.30838,652.14161 -3.74178,3.74176"
        style="display:inline;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -4960,16 +4906,8 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path2995"
-       d="m 203.48336,528.8833 -3.74176,-3.74178"
-       style="display:inline;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
        style="display:inline;fill:none;stroke:#00aad4;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 178.85831,584.69169 h 5.29166"
+       d="m 178.59375,584.72917 h 5.29166"
        id="path3053"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -4981,7 +4919,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3058"
-       d="m 178.85831,604.27086 h 5.29166"
+       d="m 178.59375,603.25 h 5.29166"
        style="display:inline;fill:none;stroke:#00aad4;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
@@ -4989,7 +4927,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3075"
-       d="m 239.71241,670.94607 h 5.29167"
+       d="m 239.44792,658.81249 h 5.29167"
        style="display:inline;fill:none;stroke:#ffcc00;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
@@ -5025,7 +4963,7 @@
        style="display:inline;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="display:inline;fill:none;stroke:#ffcc00;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 239.71241,683.64606 h 5.29167"
+       d="m 239.44792,679.97917 h 5.29167"
        id="path4028"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -5063,6 +5001,30 @@
        id="path3471"
        d="m 190.49987,567.22916 v -5.29167"
        style="display:inline;fill:none;stroke:#00aad4;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path3444"
+       d="m 187.07918,544.22914 -3.74176,-3.74178"
+       style="display:inline;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="display:inline;fill:none;stroke:#008080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 165.36459,603.25001 h 5.29167"
+       id="path3592"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="display:inline;fill:none;stroke:#000080;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 154.78125,542.39582 h 5.29167"
+       id="path3594"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
   <g
      sodipodi:insensitive="true"
@@ -5996,7 +5958,7 @@
     <a
        id="a2943-3"
        style="display:inline"
-       transform="translate(20.108332,-64.558332)">
+       transform="translate(9.5249983,-48.683331)">
       <g
          id="g2941-6">
         <ellipse
@@ -6022,7 +5984,7 @@
     <a
        id="a2943-35"
        style="display:inline"
-       transform="translate(89.958332,-119.0625)">
+       transform="translate(74.083331,-110.06667)">
       <g
          id="g2941-62">
         <ellipse
@@ -6355,7 +6317,7 @@
     <g
        id="g7991-2-8-3"
        style="display:inline"
-       transform="translate(-179.91666,238.12499)">
+       transform="translate(-187.85416,234.45831)">
       <ellipse
          ry="3.1750102"
          rx="3.175"
@@ -7874,7 +7836,7 @@
       </g>
     </g>
     <g
-       transform="translate(-20.108315,12.170831)"
+       transform="translate(-25.399982,12.170831)"
        id="g3147">
       <g
          transform="translate(-183.09168,51.858351)"
@@ -7949,7 +7911,7 @@
          inkscape:export-ydpi="90" />
     </g>
     <g
-       transform="translate(-3.7041667,-6.8791667)"
+       transform="translate(-20.108334,-23.283334)"
        id="g3763">
       <ellipse
          ry="3.1750102"
@@ -7972,7 +7934,7 @@
     </g>
     <g
        id="g4333"
-       transform="translate(-10.583333)">
+       transform="translate(-11.1125)">
       <g
          id="g3178"
          transform="translate(-41.804156,12.170826)">
@@ -8274,7 +8236,7 @@
          style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32291;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <g
-       transform="translate(-120.12085,-15.87501)"
+       transform="translate(-127.00001,-14.25001)"
        style="display:inline"
        id="g3393">
       <g
@@ -8302,7 +8264,7 @@
     </g>
     <g
        id="g3403"
-       transform="translate(-97.895833,-193.14589)">
+       transform="translate(-111.12499,-188.87498)">
       <ellipse
          ry="3.1750102"
          rx="3.175"
@@ -9548,7 +9510,7 @@
     </g>
     <g
        id="g4048"
-       transform="translate(-259.29168,-125.67708)">
+       transform="translate(-280.45836,-118.7979)">
       <g
          transform="translate(15.875)"
          id="g4046">
@@ -9687,7 +9649,7 @@
          style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32291;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <a
-       transform="translate(57.679163,-98.954157)"
+       transform="translate(33.86666,-79.37499)"
        style="display:inline"
        id="a4106">
       <g
@@ -9713,7 +9675,7 @@
       </g>
     </a>
     <g
-       transform="translate(-259.29168,-168.01044)"
+       transform="translate(-285.75001,-146.54167)"
        id="g4126">
       <g
          id="g4124"
@@ -9740,7 +9702,7 @@
     </g>
     <g
        id="g4134"
-       transform="translate(-259.29168,-236.80215)">
+       transform="translate(-285.75003,-189.17712)">
       <g
          transform="translate(15.875)"
          id="g4132">
@@ -9767,7 +9729,7 @@
     <g
        id="g4142"
        style="display:inline"
-       transform="translate(-152.92918,-24.341676)">
+       transform="translate(-154.78126,-14.250015)">
       <g
          id="g4140"
          transform="translate(-26.458334,-5.2916667)">
@@ -9792,7 +9754,7 @@
       </g>
     </g>
     <g
-       transform="translate(-164.04169,-79.375011)"
+       transform="translate(-185.20834,-14.250015)"
        style="display:inline"
        id="g4150">
       <g
@@ -9821,7 +9783,7 @@
     <g
        id="g4170"
        style="display:inline"
-       transform="translate(-222.25006,-79.375011)">
+       transform="translate(-248.70841,-15.875007)">
       <g
          id="g4168"
          transform="translate(-26.458334,-5.2916667)">
@@ -9847,7 +9809,7 @@
     </g>
     <g
        id="g4178"
-       transform="translate(-59.795816,-303.21262)">
+       transform="translate(-86.254151,-239.71258)">
       <g
          id="g4176"
          transform="translate(-183.09168,51.858351)">
@@ -10015,7 +9977,7 @@
       </g>
     </a>
     <a
-       transform="translate(7.9374988,-24.870831)"
+       transform="translate(7.9374988,-30.162498)"
        style="display:inline"
        id="a4252">
       <g
@@ -10113,7 +10075,7 @@
     <g
        id="g5906-9"
        style="display:inline"
-       transform="translate(-436.29789,55.562486)">
+       transform="translate(-437.62081,53.21873)">
       <ellipse
          ry="3.1750102"
          rx="3.175"
@@ -10136,7 +10098,7 @@
     <g
        id="g5906-8"
        style="display:inline"
-       transform="translate(-414.33762,28.045832)">
+       transform="translate(-393.96455,9.5624783)">
       <ellipse
          ry="3.1750102"
          rx="3.175"
@@ -10838,7 +10800,7 @@
          inkscape:export-ydpi="90" />
     </g>
     <g
-       transform="translate(-391.58334,5.8208242)"
+       transform="translate(-377.82498,-14.816667)"
        style="display:inline"
        id="g3590">
       <ellipse
@@ -10862,7 +10824,7 @@
     </g>
     <g
        id="g3596"
-       transform="translate(-21.166667,42.862505)">
+       transform="translate(-21.166667,24.114554)">
       <ellipse
          ry="3.1750102"
          rx="3.175"
@@ -10883,7 +10845,7 @@
          inkscape:export-ydpi="90" />
     </g>
     <g
-       transform="translate(-165.62932,105.83334)"
+       transform="translate(-167.21683,104.24583)"
        id="g3604"
        style="display:inline">
       <g
@@ -10911,7 +10873,7 @@
     </g>
     <g
        id="g3459"
-       transform="translate(-15.875,-5.2916667)">
+       transform="translate(-15.875,14.816666)">
       <g
          id="g3200"
          transform="translate(-198.43763,50.270839)">
@@ -11069,7 +11031,7 @@
          style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32291;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <g
-       transform="translate(-124.35414,227.5417)"
+       transform="translate(-124.35414,206.37502)"
        style="display:inline"
        id="g3721">
       <ellipse
@@ -11141,7 +11103,7 @@
     </g>
     <g
        id="g3549"
-       transform="translate(-7.4082573,15.91249)">
+       transform="translate(-7.4082573,22.262491)">
       <ellipse
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -11326,8 +11288,16 @@
      inkscape:groupmode="layer">
     <rect
        ry="2.9423435"
+       y="621.36963"
+       x="193.5887"
+       height="6.7718978"
+       width="32.541313"
+       id="rect3899-3"
+       style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       ry="2.9423435"
        y="572.42169"
-       x="292.27814"
+       x="297.04071"
        height="6.7718978"
        width="32.541313"
        id="rect3899"
@@ -11352,22 +11322,22 @@
        id="text2253"
        y="561.40857"
        x="433.91663"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#008000;stroke-width:0.264583;fill-opacity:1;"
          y="561.40857"
          x="433.91663"
          id="tspan2251"
          sodipodi:role="line"><tspan
    id="tspan2209"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';fill:#000000">Т</tspan>еатральная</tspan></text>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';fill:#008000;fill-opacity:1;">Т</tspan>еатральная</tspan></text>
     <text
        id="text2253-3"
        y="550.8252"
        x="434.44586"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#ff0000;stroke-width:0.264583;fill-opacity:1;"
          y="550.8252"
          x="434.44586"
          id="tspan2251-6"
@@ -11384,10 +11354,10 @@
        id="text2253-7"
        y="575.62335"
        x="434.19653"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000080;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
          id="tspan3736"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000080;stroke-width:0.264583;fill-opacity:1;"
          y="575.62335"
          x="434.19653"
          sodipodi:role="line">Площадь Революции</tspan></text>
@@ -11395,10 +11365,10 @@
        id="text2253-7-6"
        y="581.98383"
        x="341.18002"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000080;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
          id="tspan2205-4"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000080;stroke-width:0.264583;fill-opacity:1;"
          y="581.98383"
          x="341.18002"
          sodipodi:role="line">Арбатская</tspan></text>
@@ -11422,14 +11392,14 @@
        id="text2253-7-6-7"
        y="582.24304"
        x="392.42548"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
          id="tspan3909"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#ff0000;stroke-width:0.264583;fill-opacity:1;"
          y="582.24304"
          x="392.42548"
          sodipodi:role="line">Библиотека</tspan><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#ff0000;stroke-width:0.264583;fill-opacity:1;"
          y="587.66638"
          x="392.42548"
          sodipodi:role="line"
@@ -11465,15 +11435,15 @@
        id="text2253-7-6-5-0"
        y="553.75848"
        x="384.00781"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.7;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#00aad4;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:0.7;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#00aad4;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:center;text-anchor:middle;fill:#00aad4;fill-opacity:1;stroke-width:0.264583;"
          y="553.75848"
          x="384.00781"
          sodipodi:role="line"
          id="tspan3496">Александровский</tspan><tspan
          id="tspan3911"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:center;text-anchor:middle;fill:#00aad4;fill-opacity:1;stroke-width:0.264583;"
          y="561.16681"
          x="384.00781"
          sodipodi:role="line">           сад</tspan></text>
@@ -11481,9 +11451,9 @@
        id="text2253-3-5"
        y="512.54376"
        x="428.5675"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#ff0000;stroke-width:0.264583;fill-opacity:1;"
          y="512.54376"
          x="428.5675"
          id="tspan2251-6-2"
@@ -11500,10 +11470,10 @@
        id="text2253-3-5-3"
        y="523.71558"
        x="466.99088"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#800080;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
          id="tspan3738"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#800080;stroke-width:0.264583;fill-opacity:1;"
          y="523.71558"
          x="466.99088"
          sodipodi:role="line">Кузнецкий мост</tspan></text>
@@ -11709,9 +11679,9 @@
        id="text2253-3-4-1-1"
        y="452.34558"
        x="437.3623"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#ff6600;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583;fill:#ff6600;fill-opacity:1;"
          y="452.34558"
          x="437.3623"
          id="tspan2251-6-7-2-8"
@@ -11745,22 +11715,22 @@
        style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-8"
-       y="573.66846"
-       x="331.75729"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       y="575.25598"
+       x="341.28244"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#00aad4;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="573.66846"
-         x="331.75729"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#00aad4;fill-opacity:1;stroke-width:0.264583"
+         y="575.25598"
+         x="341.28244"
          id="tspan2251-6-7-2-9"
          sodipodi:role="line">Арбатская</tspan></text>
     <text
        id="text2253-3-4-1-8-2"
        y="560.47516"
        x="328.18781"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#00aad4;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583;fill:#00aad4;fill-opacity:1;"
          y="560.47516"
          x="328.18781"
          id="tspan2251-6-7-2-9-4"
@@ -11769,9 +11739,9 @@
        id="text2253-3-4-1-8-2-0"
        y="596.28497"
        x="328.02475"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329999999999949px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000080;fill-opacity:1;stroke:none;stroke-width:0.264583;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555999999999983px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583;fill:#000080;fill-opacity:1;"
          y="596.28497"
          x="328.02475"
          id="tspan2251-6-7-2-9-4-1"
@@ -11980,12 +11950,12 @@
     <text
        id="text2253-3-4-1-8-2-0-3-0-2-7"
        y="578.01239"
-       x="292.26474"
+       x="295.43979"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
          y="578.01239"
-         x="292.26474"
+         x="295.43979"
          id="tspan2251-6-7-2-9-4-1-3-0-9-0"
          sodipodi:role="line">Киевская</tspan></text>
     <text
@@ -12123,21 +12093,21 @@
          sodipodi:role="line">Красносельская</tspan></text>
     <rect
        ry="2.9423435"
-       y="498.48483"
-       x="254.12335"
+       y="490.5473"
+       x="238.24834"
        height="6.7718978"
        width="32.541313"
        id="rect3899-4-8-4-9"
        style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-6-9"
-       y="504.12875"
-       x="253.92212"
+       y="496.19122"
+       x="236.98878"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
-         y="504.12875"
-         x="253.92212"
+         y="496.19122"
+         x="236.98878"
          id="tspan2251-6-7-2-1-3"
          sodipodi:role="line">Шелепиха</tspan></text>
     <rect
@@ -12159,40 +12129,48 @@
          x="260.06094"
          id="tspan2251-6-7-2-9-4-1-3-0-9-0-9"
          sodipodi:role="line">Студенческая</tspan></text>
+    <rect
+       ry="2.9423435"
+       y="569.77588"
+       x="251.0033"
+       height="6.7718978"
+       width="32.541313"
+       id="rect3579"
+       style="fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-8-2-0-3-0-2-7-1-8"
-       y="579.57245"
-       x="252.74202"
+       y="575.33911"
+       x="251.6837"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
-         y="579.57245"
-         x="252.74202"
+         y="575.33911"
+         x="251.6837"
          id="tspan2251-6-7-2-9-4-1-3-0-9-0-9-4"
          sodipodi:role="line">Кутузовская</tspan></text>
     <rect
        ry="2.8797576"
-       y="547.68744"
-       x="247.64996"
+       y="545.57074"
+       x="284.16241"
        height="6.6145835"
        width="46.302094"
        id="rect3899-4-8-4-9-5-3"
        style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-8-2-0-3-0-2-7-1-8-5"
-       y="552.84613"
-       x="247.51889"
+       y="550.72943"
+       x="284.03134"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:start;text-anchor:start;fill:#000000;stroke-width:0.264583"
-         y="552.84613"
-         x="247.51889"
+         y="550.72943"
+         x="284.03134"
          sodipodi:role="line"
          id="tspan3438">Деловой центр    </tspan></text>
     <rect
        ry="2.9423435"
-       y="528.17181"
-       x="284.98892"
+       y="531.34686"
+       x="300.33472"
        height="6.7718978"
        width="32.541313"
        id="rect3899-4-8-4"
@@ -12200,39 +12178,42 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="280.35364"
-       y="533.9726"
+       x="295.69943"
+       y="537.14764"
        id="text2053"><tspan
          sodipodi:role="line"
          id="tspan2051"
-         x="280.35364"
-         y="533.9726"
+         x="295.69943"
+         y="537.14764"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583">Выставочная</tspan></text>
     <rect
        ry="2.9423435"
-       y="521.22919"
-       x="230.1875"
-       height="11.90627"
-       width="11.90625"
-       id="rect3899-4-8-4-3"
-       style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
+       y="525.72711"
+       x="187.8542"
+       height="6.614563"
+       width="54.239582"
+       id="rect3590"
+       style="fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-8-2-0-3-0-2-7-1-8-5-3"
-       y="527.01599"
-       x="242.09245"
+       y="530.72021"
+       x="241.56329"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;fill:#000000;stroke-width:0.264583"
-         y="527.01599"
-         x="242.09245"
-         id="tspan2251-6-7-2-9-4-1-3-0-9-0-9-4-0-6"
-         sodipodi:role="line">Деловой</tspan><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;fill:#000000;stroke-width:0.264583"
-         y="532.4657"
-         x="242.09245"
+         y="530.72021"
+         x="241.56329"
          sodipodi:role="line"
          id="tspan3552"
-         dx="0 0 0 0 0">центр</tspan></text>
+         dx="0 0 0 0 0 0 0 0 0 0 0 0 0">Деловой центр</tspan></text>
+    <rect
+       ry="2.9423435"
+       y="535.37988"
+       x="222.42824"
+       height="6.7718978"
+       width="32.541313"
+       id="rect3581"
+       style="fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -12244,63 +12225,42 @@
          x="202.5006"
          y="540.77429"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583">Международная</tspan></text>
-    <rect
-       ry="1.5497531"
-       y="488.91248"
-       x="192.61664"
-       height="17.991873"
-       width="25.400057"
-       id="rect2991"
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-6-9-2"
-       y="494.81256"
+       y="499.04596"
        x="216.7067"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#808080;stroke-width:0.264583"
-         y="494.81256"
-         x="216.7067"
-         id="tspan2251-6-7-2-1-3-0"
-         sodipodi:role="line">Улица</tspan><tspan
          id="tspan2123"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#808080;stroke-width:0.264583"
-         y="500.31491"
+         y="499.04596"
          x="216.7067"
-         sodipodi:role="line">народного</tspan><tspan
+         sodipodi:role="line">Улица народного</tspan><tspan
          id="tspan2125"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#808080;stroke-width:0.264583"
-         y="505.81726"
+         y="504.54831"
          x="216.7067"
          sodipodi:role="line">ополчения</tspan></text>
-    <rect
-       ry="1.5497531"
-       y="529.11609"
-       x="202.51334"
-       height="6.4798555"
-       width="20.457287"
-       id="rect2473"
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-6-9-6"
-       y="533.94928"
-       x="199.03183"
+       y="549.29517"
+       x="186.86101"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#808080;stroke-width:0.264583"
-         y="533.94928"
-         x="199.03183"
+         y="549.29517"
+         x="186.86101"
          id="tspan2251-6-7-2-1-3-1"
          sodipodi:role="line">Мнёвники</tspan></text>
     <text
        id="text2253-3-4-1-6-9-6-5"
-       y="552.99945"
-       x="195.90923"
+       y="604.85797"
+       x="139.28831"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#808080;stroke-width:0.264583"
-         y="552.99945"
-         x="195.90923"
+         y="604.85797"
+         x="139.28831"
          id="tspan2251-6-7-2-1-3-1-5"
          sodipodi:role="line">Терехово</tspan></text>
     <text
@@ -12333,7 +12293,7 @@
     <rect
        ry="2.9423435"
        y="555.6925"
-       x="149.74043"
+       x="155.0321"
        height="6.7718978"
        width="32.541313"
        id="rect3899-58"
@@ -12341,12 +12301,12 @@
     <text
        id="text2253-3-4-1-6-9-6-5-6"
        y="560.94611"
-       x="146.6615"
+       x="151.95317"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
          y="560.94611"
-         x="146.6615"
+         x="151.95317"
          id="tspan2251-6-7-2-1-3-1-5-5"
          sodipodi:role="line">Багратионовская</tspan></text>
     <text
@@ -12362,33 +12322,33 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Фили</tspan></text>
     <rect
        ry="2.9423435"
-       y="624.95386"
-       x="154.65866"
+       y="631.30383"
+       x="155.717"
        height="6.7718978"
        width="32.541313"
        id="rect3899-5"
        style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text2253-3-4-1-6-9-6-5-4-9"
-       y="629.7782"
-       x="154.01859"
+       y="636.65735"
+       x="149.25616"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
-         y="629.7782"
-         x="154.01859"
+         y="636.65735"
+         x="149.25616"
          id="tspan2251-6-7-2-1-3-1-5-7-3"
-         sodipodi:role="line">Кунцевкая</tspan></text>
+         sodipodi:role="line">Кунцевcкая</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="141.31845"
-       y="646.71161"
+       x="139.20181"
+       y="627.6615"
        id="text2244"><tspan
          sodipodi:role="line"
          id="tspan2242"
-         x="141.31845"
-         y="646.71161"
+         x="139.20181"
+         y="627.6615"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#808080;stroke-width:0.264583">Можайская</tspan></text>
     <rect
        ry="2.9423435"
@@ -12532,12 +12492,12 @@
     <text
        id="text2425"
        y="437.87961"
-       x="223.8701"
+       x="250.32846"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
          y="437.87961"
-         x="223.8701"
+         x="250.32846"
          id="tspan2423"
          sodipodi:role="line">Зорге</tspan></text>
     <text
@@ -13973,22 +13933,25 @@
        x="166.68744"
        y="667.77087"
        ry="1.5497531" />
+    <rect
+       ry="2.9423435"
+       y="703.82715"
+       x="225.13"
+       height="6.7718978"
+       width="32.541313"
+       id="rect3899-70"
+       style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="228.8539"
-       y="691.70184"
+       x="263.77896"
+       y="709.16443"
        id="text3459"><tspan
-         sodipodi:role="line"
-         id="tspan3457"
-         x="228.8539"
-         y="691.70184"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;fill:#000000;stroke-width:0.264583">Мичуринский</tspan><tspan
          id="tspan3461"
          sodipodi:role="line"
-         x="228.8539"
-         y="697.15155"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;fill:#000000;stroke-width:0.264583">проспект</tspan></text>
+         x="263.77896"
+         y="709.16443"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;fill:#000000;stroke-width:0.264583">Мичуринский проспект</tspan></text>
     <text
        id="text3467"
        y="726.09784"
@@ -14093,116 +14056,128 @@
          x="204.19595"
          y="873.7359"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#808080;stroke-width:0.264583">Внуково</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="244.11061"
-       y="621.40442"
-       id="text3507"><tspan
-         sodipodi:role="line"
-         id="tspan3505"
-         x="244.11061"
-         y="621.40442"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583">Парк Победы</tspan></text>
+    <g
+       id="g3503"
+       transform="translate(0,15.875)">
+      <rect
+         ry="2.9423435"
+         y="600.73199"
+         x="242.27206"
+         height="6.7718978"
+         width="32.541313"
+         id="rect3468"
+         style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="243.05229"
+         y="606.05853"
+         id="text3507"><tspan
+           sodipodi:role="line"
+           id="tspan3505"
+           x="243.05229"
+           y="606.05853"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583">Парк Победы</tspan></text>
+    </g>
+    <rect
+       ry="2.9423435"
+       y="636.18628"
+       x="243.8597"
+       height="6.7718978"
+       width="32.541313"
+       id="rect3486"
+       style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text3515"
-       y="656.32953"
-       x="245.69814"
+       y="641.51282"
+       x="244.11081"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="656.32953"
-         x="245.69814"
+         y="641.51282"
+         x="244.11081"
          id="tspan3513"
          sodipodi:role="line">Минская</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="245.74333"
-       y="671.14624"
+       x="246.27249"
+       y="660.03369"
        id="text3521"><tspan
          id="tspan3008"
          sodipodi:role="line"
-         x="245.74333"
-         y="671.14624"
+         x="246.27249"
+         y="660.03369"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:start;text-anchor:start;stroke-width:0.264583">Ломоносовский</tspan><tspan
          sodipodi:role="line"
-         x="245.74333"
-         y="676.59595"
+         x="246.27249"
+         y="665.4834"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:start;text-anchor:start;stroke-width:0.264583"
          id="tspan4320">проспект</tspan></text>
     <text
        id="text3527"
-       y="685.96289"
-       x="246.22728"
+       y="681.20038"
+       x="245.69812"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="685.96289"
-         x="246.22728"
+         y="681.20038"
+         x="245.69812"
          id="tspan3525"
          sodipodi:role="line">Раменки</tspan></text>
     <text
        id="text3533"
-       y="622.99152"
-       x="228.16808"
+       y="620.87488"
+       x="225.80952"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;stroke-width:0.264583"
-         y="622.99152"
-         x="228.16808"
+         y="620.87488"
+         x="225.80952"
          id="tspan3531"
          sodipodi:role="line">Славянский</tspan><tspan
          id="tspan3535"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;stroke-width:0.264583"
-         y="628.44122"
-         x="228.16808"
+         y="626.32458"
+         x="225.80952"
          sodipodi:role="line">бульвар</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="216.0648"
-       y="680.14197"
+       x="200.18979"
+       y="674.85022"
        id="text3541"><tspan
          sodipodi:role="line"
-         x="216.0648"
-         y="680.14197"
+         x="200.18979"
+         y="674.85022"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#808080;stroke-width:0.264583"
          id="tspan3539">Аминьевское</tspan><tspan
          id="tspan3545"
          sodipodi:role="line"
-         x="216.0648"
-         y="685.64435"
+         x="200.18979"
+         y="680.3526"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end;fill:#808080;stroke-width:0.264583">шоссе</tspan></text>
     <text
        id="text3549"
-       y="664.66309"
-       x="171.00345"
+       y="659.3714"
+       x="167.82841"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#808080;stroke-width:0.264583"
-         y="664.66309"
-         x="171.00345"
+         y="659.3714"
+         x="167.82841"
          id="tspan3547"
          sodipodi:role="line">Давыдково</tspan></text>
-    <rect
-       ry="2.9423435"
-       y="505.36392"
-       x="166.81082"
-       height="6.7718978"
-       width="32.541313"
-       id="rect3899-4-8-4-9-8"
-       style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="164.10669"
-       y="510.66605"
+       x="111.18999"
+       y="579.45795"
        id="text3553"><tspan
          sodipodi:role="line"
          id="tspan3551"
-         x="164.10669"
-         y="510.66605"
+         x="111.18999"
+         y="579.45795"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Молодёжная</tspan></text>
     <rect
        ry="1.5497531"
@@ -14214,138 +14189,106 @@
        style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text3557"
-       y="489.49942"
-       x="164.10669"
+       y="542.41614"
+       x="111.18999"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="489.49942"
-         x="164.10669"
+         y="542.41614"
+         x="111.18999"
          id="tspan3555"
          sodipodi:role="line">Крылатское</tspan></text>
-    <rect
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect2996"
-       width="20.457287"
-       height="6.4798555"
-       x="174.46719"
-       y="463.49963"
-       ry="1.5497531" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="164.10669"
+       x="116.48166"
        y="468.33279"
        id="text3561"><tspan
          sodipodi:role="line"
          id="tspan3559"
-         x="164.10669"
+         x="116.48166"
          y="468.33279"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Строгино</tspan></text>
-    <rect
-       ry="1.5497531"
-       y="442.33301"
-       x="164.94232"
-       height="6.4798555"
-       width="20.457287"
-       id="rect2998"
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text3565"
-       y="447.16617"
-       x="164.10669"
+       y="431.2912"
+       x="116.48166"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="447.16617"
-         x="164.10669"
+         y="431.2912"
+         x="116.48166"
          id="tspan3563"
          sodipodi:role="line">Мякинино</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="164.10684"
-       y="425.99954"
+       x="100.60683"
+       y="388.95795"
        id="text3569"><tspan
          sodipodi:role="line"
          id="tspan3567"
-         x="164.10684"
-         y="425.99954"
+         x="100.60683"
+         y="388.95795"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Волоколамская</tspan></text>
     <text
        id="text3573"
-       y="405.36209"
-       x="164.10699"
+       y="357.73718"
+       x="127.0653"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="405.36209"
-         x="164.10699"
+         y="357.73718"
+         x="127.0653"
          id="tspan3571"
          sodipodi:role="line">Митино</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="190.56479"
-       y="357.73718"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="183.74023"
+       y="325.98734"
        id="text3577"><tspan
-         id="tspan2338"
          sodipodi:role="line"
-         x="190.56479"
-         y="357.73718"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.264583">Пятницкое шоссе</tspan></text>
-    <rect
-       ry="2.9423435"
-       y="398.99167"
-       x="284.42709"
-       height="6.6145835"
-       width="23.81251"
-       id="rect3899-4-9-7"
-       style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none;stroke-width:2.52773;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.26386, 1.26386;stroke-dashoffset:0;stroke-opacity:1" />
+         x="183.74023"
+         y="325.98734"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:'FreeSans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end;stroke-width:0.264583"
+         id="tspan3602">Пятницкое шоссе</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="261.44107"
-       y="404.01297"
+       x="252.97446"
+       y="414.59628"
        id="text3585"><tspan
          sodipodi:role="line"
          id="tspan3583"
-         x="261.44107"
-         y="404.01297"
+         x="252.97446"
+         y="414.59628"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Панфиловская</tspan></text>
-    <rect
-       ry="2.8240321"
-       y="345.40552"
-       x="299.22672"
-       height="6.9883947"
-       width="21.921345"
-       id="rect2818"
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.47639;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.23819, 1.23819;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text3589"
-       y="419.35876"
-       x="256.14899"
+       y="435.23373"
+       x="187.35725"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="419.35876"
-         x="256.14899"
+         y="435.23373"
+         x="187.35725"
          id="tspan3587"
          sodipodi:role="line">Октябрьское</tspan><tspan
          id="tspan3591"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="424.80844"
-         x="256.14899"
+         y="440.68341"
+         x="187.35725"
          sodipodi:role="line">Поле</tspan></text>
     <text
        id="text3595"
-       y="356.91705"
-       x="253.50383"
+       y="379.14194"
+       x="231.80798"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="356.91705"
-         x="253.50383"
+         y="379.14194"
+         x="231.80798"
          id="tspan3593"
          sodipodi:role="line">Стрешнево</tspan></text>
     <rect
@@ -14359,53 +14302,45 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="311.18259"
-       y="397.66287"
+       x="295.30762"
+       y="408.24619"
        id="text3599"><tspan
          sodipodi:role="line"
          id="tspan3597"
-         x="311.18259"
-         y="397.66287"
+         x="295.30762"
+         y="408.24619"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Аэропорт</tspan></text>
     <text
        id="text3605"
        y="381.7879"
-       x="311.18259"
+       x="295.30762"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
          y="381.7879"
-         x="311.18259"
+         x="295.30762"
          id="tspan3603"
          sodipodi:role="line">Сокол</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="323.35361"
-       y="364.32541"
+       x="245.03708"
+       y="345.27539"
        id="text3609"><tspan
          sodipodi:role="line"
          id="tspan3607"
-         x="323.35361"
-         y="364.32541"
+         x="245.03708"
+         y="345.27539"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Войковская</tspan></text>
-    <rect
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.47639;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.23819, 1.23819;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect3784"
-       width="21.921345"
-       height="6.9883947"
-       x="300.28433"
-       y="336.93863"
-       ry="2.8240321" />
     <text
        id="text3613"
-       y="350.56705"
-       x="298.48203"
+       y="361.15036"
+       x="309.06534"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="350.56705"
-         x="298.48203"
+         y="361.15036"
+         x="309.06534"
          id="tspan3611"
          sodipodi:role="line">Балтийская</tspan></text>
     <rect
@@ -14427,24 +14362,16 @@
          x="344.52005"
          y="322.52142"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Лихоборы</tspan></text>
-    <rect
-       ry="2.8240321"
-       y="302.54282"
-       x="336.2684"
-       height="6.9883947"
-       width="21.921345"
-       id="rect9133"
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.47639;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.23819, 1.23819;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="309.59525"
-       y="307.70462"
+       x="230.22032"
+       y="318.28793"
        id="text3621"><tspan
          id="tspan3623"
          sodipodi:role="line"
-         x="309.59525"
-         y="307.70462"
+         x="230.22032"
+         y="318.28793"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Водный стадион</tspan></text>
     <rect
        ry="2.8240321"
@@ -14494,57 +14421,57 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Дмитровская</tspan></text>
     <text
        id="text3635"
-       y="383.9046"
-       x="256.6785"
+       y="399.77957"
+       x="182.59509"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="383.9046"
-         x="256.6785"
+         y="399.77957"
+         x="182.59509"
          id="tspan3633"
          sodipodi:role="line">Щукинская</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="256.6785"
-       y="333.63391"
+       x="192.12012"
+       y="381.25882"
        id="text3639"><tspan
          sodipodi:role="line"
          id="tspan3637"
-         x="256.6785"
-         y="333.63391"
+         x="192.12012"
+         y="381.25882"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Спартак</tspan></text>
     <text
        id="text3643"
-       y="315.11307"
-       x="256.6785"
+       y="360.09219"
+       x="181.53677"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="315.11307"
-         x="256.6785"
+         y="360.09219"
+         x="181.53677"
          id="tspan3641"
          sodipodi:role="line">Тушинская</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="256.6785"
-       y="296.59222"
+       x="177.30342"
+       y="317.75885"
        id="text3647"><tspan
          sodipodi:role="line"
          id="tspan3645"
-         x="256.6785"
-         y="296.59222"
+         x="177.30342"
+         y="317.75885"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Сходненская</tspan></text>
     <text
        id="text3651"
-       y="278.07138"
-       x="256.6785"
+       y="293.94635"
+       x="182.59509"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="278.07138"
-         x="256.6785"
+         y="293.94635"
+         x="182.59509"
          id="tspan3649"
          sodipodi:role="line">Планерная</tspan></text>
     <text
@@ -14558,23 +14485,15 @@
          x="347.16602"
          id="tspan3653"
          sodipodi:role="line">Коптево</tspan></text>
-    <rect
-       ry="2.8240321"
-       y="283.49289"
-       x="330.44748"
-       height="6.9883947"
-       width="21.921345"
-       id="rect3790"
-       style="fill:#ffffff;fill-opacity:0.686275;stroke:none;stroke-width:2.47639;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.23819, 1.23819;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text3661"
-       y="289.18378"
-       x="309.59525"
+       y="294.47543"
+       x="237.62871"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
-         y="289.18378"
-         x="309.59525"
+         y="294.47543"
+         x="237.62871"
          sodipodi:role="line"
          id="tspan3659">Речной вокзал</tspan></text>
     <rect
@@ -14582,29 +14501,29 @@
        id="rect3792"
        width="21.921345"
        height="6.9883947"
-       x="326.74326"
+       x="313.51416"
        y="265.50104"
        ry="2.8240321" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="309.59525"
+       x="243.44954"
        y="270.66302"
        id="text3667"><tspan
          id="tspan3665"
          sodipodi:role="line"
-         x="309.59525"
+         x="243.44954"
          y="270.66302"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583">Беломорская</tspan></text>
     <text
        id="text3671"
        y="252.14224"
-       x="309.59525"
+       x="296.36615"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;stroke-width:0.264583"
          y="252.14224"
-         x="309.59525"
+         x="296.36615"
          sodipodi:role="line"
          id="tspan3669">Ховрино</tspan></text>
     <text
@@ -15219,7 +15138,7 @@
     <rect
        ry="2.9423435"
        y="509.80984"
-       x="211.66666"
+       x="212.19582"
        height="7.0787139"
        width="38.36459"
        id="rect3899-4-8-4-31"
@@ -15270,6 +15189,44 @@
          x="331.9472"
          id="tspan2251-6-7-2-1-35"
          sodipodi:role="line">Беларусская</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.45;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="271.6272"
+       y="607.11688"
+       id="text3484"><tspan
+         sodipodi:role="line"
+         id="tspan3482"
+         x="271.6272"
+         y="607.11688"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583">Поклонная </tspan><tspan
+         sodipodi:role="line"
+         x="271.6272"
+         y="612.14325"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         id="tspan3506">гора</tspan></text>
+    <text
+       id="text3492"
+       y="647.76996"
+       x="124.38522"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#000000;stroke-width:0.264583"
+         y="647.76996"
+         x="124.38522"
+         id="tspan3490"
+         sodipodi:role="line">Кунцевcкая</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="233.17387"
+       y="685.24445"
+       id="text3459-0"><tspan
+         id="tspan3461-5"
+         sodipodi:role="line"
+         x="233.17387"
+         y="685.24445"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:0.5;font-family:FreeSans;-inkscape-font-specification:FreeSans;text-align:end;text-anchor:end;fill:#000000;stroke-width:0.264583">Аминьевская</tspan></text>
   </g>
   <g
      style="display:none"
