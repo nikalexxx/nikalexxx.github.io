@@ -43,6 +43,6 @@
     "babel-plugin-prismjs": "^2.1.0",
     "katex": "^0.15.0",
     "madge": "^5.0.1",
-    "prismjs": "^1.25.0"
+    "prismjs": "^1.27.0"
   }
 }
