@@ -1,13 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    mini_portile2 (2.4.0)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.13.2-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.2-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.2-x86_64-linux)
+      racc (~> 1.4)
+    racc (1.6.0)
 
 PLATFORMS
   universal-darwin-18
   universal-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   nokogiri
