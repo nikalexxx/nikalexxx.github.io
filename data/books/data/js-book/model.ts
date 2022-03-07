@@ -140,7 +140,7 @@ ${header.level(3)`web.video`}
 
 
 Пример с youtube
-${web.video.type('youtube').height(2/3).src('https://www.youtube.com/embed/i-1PqnzaxrI')}
+${web.video.type('youtube').height('70%').src('https://www.youtube.com/embed/i-1PqnzaxrI')}
 
 
 Пример с vimeo
@@ -163,7 +163,7 @@ ${header.level(3)`web.message`}
 Сообщения с самых разных онлайн платформ
 
 Пример с телеграм
-${web.message.src('https://t.me/durov_russia/38?embed=1')}
+${web.message.type`telegram`.src('https://t.me/durov_russia/38?embed=1')}
 
 `;
 };

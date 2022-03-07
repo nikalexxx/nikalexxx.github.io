@@ -182,7 +182,7 @@ const Book = Component.Book(({ props, state, hooks }) => {
                     E.div.class(b('content'))(
                         bookTypes[name] === 'parvis'
                             ? text
-                            : E.div._html(text.tokens.join('\n'))
+                            : E.div.class`book-box`._html(text.tokens.join('\n'))
                     )
             )
         );

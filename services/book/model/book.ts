@@ -1,6 +1,18 @@
-import { BookApi, BookElements, ElementsApi } from './api';
+import {
+    BookApi,
+    BookElements,
+    ElementsApi,
+    LevelApiName,
+    TextFormatApi,
+    WebApi,
+} from './api';
 import { defaultBookApi } from './defaultApi';
-import { getBookMeta } from './meta';
+import {
+    getBookLinkedSchema,
+    getLinkedLeafList,
+    getSchemaFromLinkedList,
+} from './linkedSchema';
+import { BookMeta, getBookMeta } from './meta';
 import {
     BookBuilder,
     BookElementProps,
@@ -12,16 +24,19 @@ import {
     BookResult,
     BookRawItem,
     BookStore,
-    BookMeta,
     BookRawFlatSchema,
+    LevelElements,
 } from './model';
-import { templateToList } from './utils';
+import { getStore } from './store';
+import { flatList, templateToList } from './utils';
+import { BookElement } from './model';
+import { LevelApiNameSet } from './api';
 
 export type Book = (api: BookApi) => { schema: BookRawSchema };
 
 export type BookData<T> = {
     tokens: T[];
-    meta: BookMeta;
+    meta: BookMeta<T>;
     store: BookStore<T>;
 };
 
@@ -41,7 +56,7 @@ export function getPureSchema(schema: BookRawSchema): BookSchema {
         stack.length > 0 ? stack[stack.length - 1].children : result;
 
     for (const item of schema) {
-        console.log({ item });
+        // console.log({ item });
         // куда класть текущие элементы
         const target = getTarget();
 
@@ -56,7 +71,7 @@ export function getPureSchema(schema: BookRawSchema): BookSchema {
                 item instanceof Proxy) ||
             typeof item === 'function'
         ) {
-            console.log('proxy', { item });
+            // console.log('proxy', { item });
             target.push(...getPureSchema([(item as any)()]));
         } else if ('__start' in item) {
             // текущая область
@@ -118,7 +133,7 @@ function addKeysToSchema(
         } else {
             bumpKey(item.name);
             item.props.key = `${item.name}-${keys.get(item.name)}`;
-            console.log({ item });
+            // console.log({ item });
             addKeysToSchema(item.children, keys);
         }
     }
@@ -153,28 +168,11 @@ function calculateCounters(
         if (props.use) {
             const value = counters.get(props.use) ?? 0;
             item.children = [`${value}`];
-            console.log('counter', { item });
+            // console.log('counter', { item });
             const step = steps.get(props.use) ?? 1;
             counters.set(props.use, value + step);
         }
     }
-}
-
-function getStore<T>({
-    builder,
-    meta,
-    schema,
-}: {
-    schema: BookSchema;
-    builder: BookBuilder<T>;
-    meta: BookMeta;
-}): BookStore<T> {
-    const result: BookStore<T> = { dataByKeys: {} };
-    for (const [key, elem] of Object.entries(meta.elementsByKeys)) {
-        // console.log({ key });
-        result.dataByKeys[key] = builder([elem], (e) => result);
-    }
-    return result;
 }
 
 export function createBookParser<A extends BookApi>({ api }: { api: A }) {
@@ -185,18 +183,28 @@ export function createBookParser<A extends BookApi>({ api }: { api: A }) {
     }): (book: Book) => BookData<T> {
         return (book) => {
             const { schema: rawSchema } = book(api);
-            const schema = getPureSchema(rawSchema);
+            let schema = getPureSchema(rawSchema);
             addKeysToSchema(schema);
-            console.log({ schema });
+            // console.log({ schema });
             calculateCounters(schema);
-            const meta = getBookMeta({ schema, api });
-            console.log({ schema, meta });
-            return {
-                tokens: builder(schema, (e) =>
-                    getStore({ builder: e, schema, meta })
-                ),
+            const linkedSchema = getBookLinkedSchema(schema, true);
+            const leafList = getLinkedLeafList(linkedSchema);
+            const tokensSchema = getSchemaFromLinkedList(linkedSchema.tree);
+            const store = getStore({ builder, schema });
+            const meta = getBookMeta({ schema, store, builder });
+            console.log({
+                schema,
                 meta,
-                store: getStore({ builder, schema, meta }),
+                linkedSchema,
+                leafList,
+                tokensSchema,
+                store,
+            });
+            schema = tokensSchema;
+            return {
+                tokens: builder(schema, store),
+                meta,
+                store,
             };
         };
     };
@@ -204,56 +212,85 @@ export function createBookParser<A extends BookApi>({ api }: { api: A }) {
 
 export const createBook = createBookParser({ api: defaultBookApi });
 
-type BookBuilderParams<Token> = {
-    elements: {
-        [Name in keyof Omit<BookElements, 'format' | 'web'>]: (
-            props: BookElements[Name]['props']
-        ) => (children: Token[], store: BookStore<Token>) => Token;
-    } & {
-        format: {
-            [Name in keyof BookElements['format']]: (
-                props: BookElements['format'][Name]['props']
-            ) => (children: Token[]) => Token;
-        };
-        web: {
-            [Name in keyof BookElements['web']]: (
-                props: BookElements['web'][Name]['props']
-            ) => (children: Token[]) => Token;
-        };
-    };
-    string: (str: string) => Token;
+type GetToken<Token> = (params: {
+    children: Token[];
+    store: BookStore<Token>;
+}) => Token;
+
+type SynteticElements = {
+    text: BookElement<'text', { raw: string }>;
+    page: BookElement<'page', { count: number }>;
+    counter: BookElement<'counter'>;
+    error: BookElement<'error', { props: Record<string, any>; name: string }>;
 };
+const synteticElementNameSet = new Set(['text', 'page', 'counter', 'error']);
+
+type TokenGetter<Props, Token> = (props: Partial<Props>) => GetToken<Token>;
+
+type TokenGetterList<T extends Record<keyof T, BookElement<string>>, Token> = {
+    [Name in keyof T]: TokenGetter<T[Name]['props'], Token>;
+};
+
+type BookBuilderParams<Token> = {
+    elements: TokenGetterList<Omit<BookElements, LevelApiName>, Token> & {
+        format: TokenGetterList<LevelElements<TextFormatApi>, Token>;
+        web: TokenGetterList<LevelElements<WebApi>, Token>;
+    };
+    synteticElements: TokenGetterList<SynteticElements, Token>;
+};
+
+type BookBuilderElements<Token> = Token extends string
+    ? Record<
+          string,
+          BookBuilderElements<Token> | TokenGetter<BookElementProps, Token>
+      >
+    : never;
 
 export function createBookBuilder<Token>({
     elements,
-    string,
+    synteticElements,
 }: BookBuilderParams<Token>): BookBuilder<Token> {
-    const builder: BookBuilder<Token> = (schema, getStore) =>
-        schema
-            .map((item) => {
-                // console.log(item);
-                if (typeof item === 'string') {
-                    return string(item);
-                }
-                let elemBuilder;
-                if (item.name.startsWith('web')) {
-                    console.log(item.name.slice(4));
-                    elemBuilder = elements.web[item.name.slice(4)];
-                } else {
-                    elemBuilder =
-                        elements[item.name] ??
-                        (() => (e: Token[]) => {
-                            const r = string(`${e.join('')}`);
-                            console.log('c', { e, r });
-                            return r;
-                        });
-                }
-                return elemBuilder(item.props)(
-                    builder(item.children, getStore),
-                    getStore(builder)
-                );
-            })
-            .flat(Infinity);
+    const builder: BookBuilder<Token> = (schema, store) => {
+        const getItemBuilder: (
+            store: BookStore<Token>
+        ) => (item: BookItem) => Token = (store) => (item) => {
+            if (typeof item === 'string') {
+                return synteticElements.text({ raw: item, key: '' })({
+                    children: [],
+                    store,
+                });
+            }
+            const { name } = item;
+            let targetElements =
+                elements as unknown as BookBuilderElements<Token>;
+            if (synteticElementNameSet.has(name)) {
+                targetElements =
+                    synteticElements as unknown as BookBuilderElements<Token>;
+            }
+            const path = name.split('.');
+            let elemBuilder: TokenGetter<BookElementProps, Token> = path.reduce(
+                (elems, name) => ((elems as any)[name] ?? {}) as any,
+                targetElements as any
+            );
+            if (typeof elemBuilder !== 'function') {
+                console.log(item);
+                elemBuilder = synteticElements.error as TokenGetter<
+                    BookElementProps,
+                    Token
+                >;
+                return elemBuilder({ props: item.props, name: item.name })({
+                    children: builder(item.children, store),
+                    store,
+                });
+            }
+            return elemBuilder(item.props)({
+                children: builder(item.children, store),
+                store,
+            });
+        };
+        const itemBuilder = getItemBuilder(store);
+        return flatList(schema.map(itemBuilder));
+    };
 
     return builder;
 }

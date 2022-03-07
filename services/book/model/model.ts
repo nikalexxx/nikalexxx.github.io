@@ -5,9 +5,6 @@ export type BookScope = 'html' | 'markdown' | 'tex' | 'custom';
 type Primitive = string | number | boolean | null;
 // type Serialize = Primitive | Serialize[] | Record<string, Serialize>;
 
-interface Builder<T> {
-    builder: T;
-}
 
 /**
  * Метка старта элемента. Нужна только для проставления символа начала области элемента
@@ -29,17 +26,53 @@ export type BookEnd = <T extends BookElement<any, any>['api']>(
 
 export type BookElementProps = Record<string, Primitive | unknown>;
 
-export type BookItem = BookElementSchema | string;
-export type BookSchema = BookItem[];
 export type BookElementSchema = {
     name: string;
     props: BookElementProps;
     children: BookSchema;
 };
 
+export type BookItem = BookElementSchema | string;
+
+// схема дерева
+export type BookSchema = BookItem[];
+
+export type BookLayoutView = 'block' | 'inline';
+
+export type BookLinkedItem = {
+    bookElementSchema: BookElementSchema;
+    firstChild: BookLinkedItem | null;
+    lastChild: BookLinkedItem | null;
+    previous: BookLinkedItem | null;
+    next: BookLinkedItem | null;
+    previousLeaf: BookLinkedItem | null;
+    nextLeaf: BookLinkedItem | null;
+    parent: BookLinkedItem | null;
+    raw: string | null;
+    view: BookLayoutView;
+};
+
+// схема связного дерева
+export type BookLinkedSchema = {
+    start: BookLinkedItem | null;
+    end: BookLinkedItem | null;
+    tree: BookLinkedItem[];
+};
+
 export type BookRawItem = BookItem | BookStartMark | BookEndMark | BookResult;
-export type BookRawSchema = (BookRawItem | ((...children: BookRawSchema) => BookRawItem))[];
-export type BookRawFlatSchema = (BookItem | BookStartMark | BookEndMark | BookResult<BookRawFlatSchema>)[];
+
+// схема дерева до разбора
+export type BookRawSchema = (
+    | BookRawItem
+    | ((...children: BookRawSchema) => BookRawItem)
+)[];
+
+export type BookRawFlatSchema = (
+    | BookItem
+    | BookStartMark
+    | BookEndMark
+    | BookResult<BookRawFlatSchema>
+)[];
 
 export type GetSchema = <Children extends BookItem[]>(
     ...children: Children | [TemplateStringsArray, ...Children]
@@ -66,6 +99,14 @@ export type Api<T extends Record<keyof T, BookElement<string>>> = {
     [Name in keyof T]: T[Name]['api'];
 };
 
+export type LevelApi<T extends Record<keyof T, BookElement<string>>> = {
+    [Name in keyof T as Name extends `${string}.${infer X}` ? X : Name]: T[Name]['api'];
+};
+
+export type LevelElements<T extends Record<keyof T, BookElement<string>>> = {
+    [Name in keyof T as Name extends `${string}.${infer X}` ? X : Name]: T[Name];
+};
+
 /**
  * Создаёт простой теговый шаблон для функции от строкового аргумента
  */
@@ -80,21 +121,20 @@ export type BookCreator = (
     ...elements: BookSchema
 ) => BookResult;
 
-export type BookHeader = {
+export type BookHeader<T> = {
+    value: T[];
     text: string;
     key: string;
     level: number;
 };
 
-export type BookMeta = {
-    contents: BookHeader[];
-    images: {
-        keysList: string[];
-        keysByHeader: Record<string, string[]>;
-    };
-    elementsByKeys: Record<string, BookElementSchema>;
-};
+
 export type BookStore<T> = {
+    /**
+     * хранилище элементов по ключам
+     */
+    elementsByKeys: Record<string, BookElementSchema>;
+
     /**
      * хранилище токенов по ключам
      */
@@ -103,5 +143,5 @@ export type BookStore<T> = {
 
 export type BookBuilder<T = unknown> = (
     schema: BookSchema,
-    getStore: (builder: BookBuilder<T>) => BookStore<T>
+    store: BookStore<T>
 ) => T[];

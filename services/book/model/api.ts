@@ -7,17 +7,25 @@ import {
     BookScope,
     BookStart,
     ElementName,
+    LevelApi,
 } from './model';
 
 export type BookElements = MetaApi &
     BlockApi &
     MediaApi &
-    LayoutApi & { format: TextFormatApi; web: WebApi};
+    LayoutApi & { format: TextFormatApi; web: WebApi };
 
-export type ElementsApi = Api<Omit<BookElements, 'format' | 'web'>> & {
-    format: Api<TextFormatApi>;
-    web: Api<WebApi>;
+export type LevelApiName = 'format' | 'web';
+export const LevelApiNameList: LevelApiName[] = ['format', 'web'];
+export const LevelApiNameSet: Set<string> = new Set(LevelApiNameList);
+
+export type LevelElementsApi = {
+    format: LevelApi<TextFormatApi>;
+    web: LevelApi<WebApi>;
 };
+
+export type ElementsApi = Api<Omit<BookElements, LevelApiName>> &
+    LevelElementsApi;
 
 export type BookApi = ElementsApi & UtilApi & StoreApi;
 
@@ -27,10 +35,12 @@ export interface MetaApi {
     draft: BookElement<'draft'>;
 }
 
+export type LayoutPosition = 'inline' | 'end' | 'start' | 'center';
+
 export type LayoutProps = {
     block: boolean;
     inline: boolean;
-    position: 'inline' | 'right' | 'left' | 'center';
+    position: 'inline' | 'end' | 'start' | 'center';
 };
 
 export type MediaProps = {
@@ -41,7 +51,7 @@ export type MediaProps = {
 export type SizeProps = {
     width: string | number;
     height: string | number;
-}
+};
 
 /**
  * Блоки-атомы, из которых состоит книга, не считая обычного текста.
@@ -58,30 +68,48 @@ export interface BlockApi {
     external: BookElement<'external', { scope?: BookScope }>;
 }
 
+export const defaultBlockNameList: (keyof BlockApi)[] = [
+    'strong',
+    'em',
+    'header',
+    'code',
+    'label',
+    'link',
+    'tooltip',
+    'math',
+    'external',
+];
+export const defaultBlockNames: Set<keyof BlockApi> = new Set(
+    defaultBlockNameList
+);
+
 export interface MediaApi {
-    image: BookElement<
-        'image',
-        MediaProps & SizeProps & LayoutProps
-    >;
-    video: BookElement<
-        'video',
-        MediaProps & SizeProps & LayoutProps
-    >;
+    image: BookElement<'image', MediaProps & SizeProps & LayoutProps>;
+    video: BookElement<'video', MediaProps & SizeProps & LayoutProps>;
     audio: BookElement<'audio', MediaProps & { title: string }>;
 }
 
 export interface TextFormatApi {
-    b: BookElement<'b'>;
-    i: BookElement<'i'>;
-    sup: BookElement<'sup'>;
-    sub: BookElement<'sub'>;
-    pre: BookElement<'pre'>;
+    'format.b': BookElement<'format.b'>;
+    'format.i': BookElement<'format.i'>;
+    'format.sup': BookElement<'format.sup'>;
+    'format.sub': BookElement<'format.sub'>;
+    'format.pre': BookElement<'format.pre'>;
 }
 
 export interface WebApi {
-    video: BookElement<'web-video', {type: 'youtube' | 'vimeo'} & MediaProps & SizeProps & LayoutProps>;
-    audio: BookElement<'web-audio', {type: 'soundcloud'} & MediaProps>;
-    message: BookElement<'web-message', {type: 'telegram' | 'twitter'} & MediaProps>;
+    'web.video': BookElement<
+        'web.video',
+        { type: 'youtube' | 'vimeo' } & MediaProps & SizeProps & LayoutProps
+    >;
+    'web.audio': BookElement<
+        'web.audio',
+        { type: 'soundcloud' } & MediaProps & SizeProps & LayoutProps
+    >;
+    'web.message': BookElement<
+        'web.message',
+        { type: 'telegram' | 'twitter' } & MediaProps & SizeProps & LayoutProps
+    >;
 }
 
 /**
