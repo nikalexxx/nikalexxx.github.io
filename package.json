@@ -51,6 +51,6 @@
     "@babel/runtime": "^7.13.10",
     "@bookbox/preset-web": "^0.1.1",
     "katex": "^0.15.0",
-    "mermaid": "^9.0.1"
+    "mermaid": "^9.1.2"
   }
 }
