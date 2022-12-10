@@ -1,0 +1,237 @@
+[
+  "\nНедавно я летал на Алтай, и у меня накопились фото с природой.\nРешил сделать галерею изображений и рассказать о технических моментах.\n\nПосмотреть на конечный результат можно ",
+  {
+    "name": "link",
+    "props": {
+      "href": "?/travels/altai"
+    },
+    "children": [
+      "здесь"
+    ]
+  },
+  ".\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Подготовка изображений"
+    ]
+  },
+  "\nОригиналы изображений все были размером 3000x4000 (и альбомной, и портретной ориентации).\nГрузить все изображения на одну страницу — значит бездумно расходовать трафик.\nДля каждого изображения я создал его маленькие копии (",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "jpg"
+    ]
+  },
+  " и ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "webp"
+    ]
+  },
+  "), которые бы вписывались в прямоугольник 320x240 (ориентация сохраняется, то есть для вертикальных фото прямоугольник имел вид 240x320).\n\n\nТак как сайт статический, все изображения должны быть получены заранее.\nЯ использовал возможности утилиты ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://ffmpeg.org/"
+    },
+    "children": [
+      "ffmpeg"
+    ]
+  },
+  " для конвертации формата и масштабирования.\nПомимо этого, я создал список изображений ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "list.js"
+    ]
+  },
+  " с указанием их имени, расширения и размеров.\n\n\nФормат списка:\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\ntype ImgList = Array<{\n    name: string;\n    extension: string;\n    width: number;\n    height: number;\n}>;\n"
+    ]
+  },
+  "\n\nСтруктура директорий фиксированная, имеет вид\n",
+  {
+    "name": "code",
+    "props": {},
+    "children": [
+      "\n// tree -L 1\n.\n├── list.js <- сгенерированный список\n├── original/ <- оригиналы изображений\n└── small/ <- уменьшенные копии\n"
+    ]
+  },
+  "\n\n\nЗапишем значения уменьшенных сторон в ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "config.json"
+    ]
+  },
+  "\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "json"
+    },
+    "children": [
+      "\n{\n    \"longSize\": 320,\n    \"shortSize\": 240\n}\n"
+    ]
+  },
+  "\n\nДля запуска использовал ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://www.ruby-lang.org/ru/"
+    },
+    "children": [
+      "ruby"
+    ]
+  },
+  ". Создадим файл ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "generate.rb"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "ruby"
+    },
+    "children": [
+      "\nrequire 'json'\nrequire 'dimensions'\n\n\noriginal = 'original'\nsmall = 'small'\nextensions = ['jpg', 'png']\n\n\nDir.chdir(File.expand_path(File.dirname(__FILE__)))\n\n\nconfig = JSON.parse(IO.read('config.json'))\nlongSize = config['longSize']\nshortSize = config['shortSize']\n\n\nDir.chdir(ENV['IMG_DIR'])\nDir.chdir(\"./#{original}\")\nlist = Dir.glob(\"*.{#{extensions.join(',')}}\").map{|path|\n    list = path.split('.')\n    name = list[0..-2].join('.')\n    extension = list[-1]\n    dimensions = Dimensions.dimensions(path)\n\n    {name: name, extension: extension, width: dimensions[0], height: dimensions[1]}\n}\n\n\nDir.chdir('..')\n\n\nif Dir.exist?(small)\n    `rm -Rf #{small}`\n    Dir.mkdir(small)\nend\n\n\nlist.each{|item|\n    name = item[:name]\n    extension = item[:extension]\n\n    isVertical = item[:height] > item[:width]\n    width = isVertical ? shortSize : longSize\n    height = isVertical ? longSize : shortSize\n    ratio_view = \"#{width}/#{height}\"\n\n    command = ->(target_extension){\n        \"ffmpeg -i #{original}/#{name}.#{extension} -vf scale=\"'if(gt(a,#{ratio_view}),#{width},-1)':'if(gt(a,#{ratio_view}),-1,#{height})'\" #{small}/#{name}.#{target_extension}\"\n    }\n\n    # генерация изображений\n    `#{command['webp']}`\n    `#{command['jpg']}`\n}\n\n\n$> = File.open('./list.js', 'w')\nputs \"export const imgList = [\"\nlist.each{|img| puts \"\t#{img.to_json},\"}\nputs \"];\"\n"
+    ]
+  },
+  "\n\n\nНастроим локальное окружение, создадим Gemfile\n",
+  {
+    "name": "code",
+    "props": {},
+    "children": [
+      "\nsource 'https://rubygems.org'\ngem 'dimensions'\n"
+    ]
+  },
+  "\nи установим зависимости ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "bundle install"
+    ]
+  },
+  "\n\n\nПример запуска\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "shell"
+    },
+    "children": [
+      "\nIMG_DIR=../../data/images/travels/altai bundle exec ruby generate.rb\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Компонент галереи"
+    ]
+  },
+  "\nКогда картинки готовы, приступим к браузерной стороне.\n\n\nМы хотим создать сетку из маленьких превью, и по клику показывать просмотрщик с оригинальным изображением.\nИспользуем grid для построения.\n\n\nШаг сетки делаем адаптивным к размерам окна, минимум 100px плюс 10% ширины.\n\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "css"
+    },
+    "children": [
+      "\n--size: calc(100px + 10vw);\ndisplay: grid;\ngrid-template-columns: repeat(auto-fit, minmax(var(--size), 1fr));\ngap: 4px;\n"
+    ]
+  },
+  "\n\nДля каждой плитки маленькое изображение будет фоном.\nЕго надо растянуть по размерам блока.\nСам блок должен иметь вариативную высоту.\nНу и добавить эффект раздутия при наведении\n\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "less"
+    },
+    "children": [
+      "\nbackground-position: center;\nbackground-size: cover;\nbackground-clip: padding-box;\nheight: var(--size);\n--offset: 4px;\nmargin: var(--offset);\nborder-radius: 8px;\n\n\n&:hover {\n    cursor: pointer;\n    margin: 0;\n    padding: var(--offset);\n}\n"
+    ]
+  },
+  "\n\nЧтобы загрузить картинку для фона, предварительно проверим, поддерживает ли браузер ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://ru.wikipedia.org/wiki/WebP"
+    },
+    "children": [
+      "webp"
+    ]
+  },
+  " изображения.\n\n\nДля этого создадим изображение webp высотой 2 пикселя и проверим, сможет ли браузер его обработать.\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nfunction checkWebpSupport(callback) {\n    const webpImg = new Image();\n\n    const check = () => callback(webpImg.height === 2);\n    webpImg.onload = check;\n    webpImg.onerror = check;\n\n    webpImg.src =\n        'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';\n}\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Просмотрщик изображений"
+    ]
+  },
+  "\nПри клике открывается модальное окно.\nЯ написал отдельный компонент для этого, реализацию можно посмотреть на ",
+  {
+    "name": "link",
+    "props": {
+      "href": "?/design/components"
+    },
+    "children": [
+      "странице компонентов"
+    ]
+  },
+  ".\n\n\nУже внутри него помещается просмотрщик изображения.\nГлавная его работа в том, чтобы растягивать изображение на всю доступную область браузера.\n\nИщется максимальный ограничивающий прямоугольник с соотношением сторон, аналогичным оригинальной картинке (помним, что все ширины и высоты нам известны ещё с этапа генерации).\n\nВместе с тем и ширина, и высота ограничиваются размерами окна.\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "less"
+    },
+    "children": [
+      "\n&__image {\n    max-width: 100vw;\n    max-height: 100vh;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n"
+    ]
+  },
+  "\nВ этих рамках и помещается изображение.\n\n\nТак как для каждого изображения соотношения сторон разные, то стили вычисляем динамически.\nНиже приведён исходный код метода рендера компонента.\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst { path, height, width, close } = props();\n\n\nconst isVertical = height > width;\nconst short = isVertical ? width : height;\nconst long = isVertical ? height : width;\n\n\nconst ratio = long / short;\n\n\nreturn E.div\n    .class(b('image'))\n    .onClick(() => {\n        close();\n    })\n    .style(\n        `${isVertical ? 'height' : 'width'}: 100v${\n            isVertical ? 'h' : 'w' // бо´льшую сторону растягиваем на максимум\n        }; ${isVertical ? 'width' : 'height'}: ${100 / ratio}v${\n            isVertical ? 'h' : 'w' // меньшую масштабируем\n        }`\n    )(\n    E.img\n        .src(path)\n        .alt(path)\n        // растягиваем саму картинку с сохранением пропорций\n        .style(`${isVertical ? 'width' : 'height'}: 100%`)\n        .onClick((e) => e.stopPropagation()),\n    E.div.class(b('close'))(Icon.Times.width`20px`.height`20px`)\n)\n"
+    ]
+  },
+  "\n"
+]

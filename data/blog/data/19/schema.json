@@ -1,0 +1,411 @@
+[
+  "\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Github как сервис комментариев"
+    ]
+  },
+  "\nС комментариями изначально была проблема.\nВо-первых, их нужно где-то хранить.\nРаз сайт статический, то вполне подошло бы хранение в виде файлов, например, в папке ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "comments"
+    ]
+  },
+  " для каждого поста.\n\n\nВо-вторых, комментарии должен кто-то писать, и нельзя давать кому угодно доступ к исходному коду.\nПоднимать свой сервер долго, хотя в будущем я надеюсь к нему придти (есть хороший движок ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://github.com/umputun/remark42"
+    },
+    "children": [
+      "remark42"
+    ]
+  },
+  ", поднять можно в ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://cloud.yandex.ru/"
+    },
+    "children": [
+      "Яндекс.Облаке"
+    ]
+  },
+  ").\nМожно было обойтись без сервера и манипулировать файлами в отдельной ветке репозитория, но это по сути с нуля проектирование базы данных на файлах, плюс авторизация всё равно через github.\n\n\nТак что были выбраны комментарии самого Github как самые простые в реализации.\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Устройство комментариев"
+    ]
+  },
+  "\nДля каждого нового поста создаётся issue (пока руками) вида ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "comments/blog/<post-id>"
+    ]
+  },
+  ".\nНапример, для данного поста это ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://github.com/nikalexxx/nikalexxx.github.io/issues/25"
+    },
+    "children": [
+      "https://github.com/nikalexxx/nikalexxx.github.io/issues/25"
+    ]
+  },
+  ". Ставлю тег ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "comment"
+    ]
+  },
+  " и сразу закрываю issue, чтобы не мешалось в общем списке.\n\n\nС псевдо-серверной частью всё.\nЛюбой пользователь, авторизованный через Github, может написать комментарий.\n\n\nОсталось отобразить их на странице сайта.\nДля этого я связываю пост и issue в конфиге блога следующим образом (пример данного поста)\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\n19: {\n    type: 'js',\n    creationTime: '2021-11-02T22:04:15',\n    title: 'Комментарии с Github API и генерация превью по хэшу',\n    tags: ['site', 'javascript', 'github', 'api'],\n    comments: {\n        githubIssue: 25,\n    },\n},\n"
+    ]
+  },
+  "\n\n\nПользуясь открытостью ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://docs.github.com/en/rest"
+    },
+    "children": [
+      "API Github"
+    ]
+  },
+  " на чтение данных публичных репозиториев, запрашиваю список комментариев для данного issue.\n\nРучка для комментариев выглядит так\n",
+  {
+    "name": "code",
+    "props": {},
+    "children": [
+      "\nhttps://api.github.com/repos/&lt;login>/&lt;repo>/issues/&lt;issue>/comments\n"
+    ]
+  },
+  "\nДля этого поста можно посмотреть её ответ ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://api.github.com/repos/nikalexxx/nikalexxx.github.io/issues/25/comments"
+    },
+    "children": [
+      "https://api.github.com/repos/nikalexxx/nikalexxx.github.io/issues/25/comments"
+    ]
+  },
+  "\n\n\nСкроем её за абстракцией API, описав нужные поля ответа (есть ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://github.com/github/rest-api-description"
+    },
+    "children": [
+      "полная спецификация апи"
+    ]
+  },
+  ", но мне нужен лишь маленький кусочек, можно описать на месте)\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\nexport interface Comment {\n    created_at: string;\n    updated_at: string;\n    body: string;\n    user: {\n        login: string;\n        avatar_url: string;\n        html_url: string;\n    }\n}\n\nexport function getIssueComments(login: string, repo: string, issue: string): Promise<Comment[]> {\n    return fetch(\n        `https://api.github.com/repos/${login}/${repo}/issues/${issue}/comments`\n    ).then((response) => response.json());\n}\n"
+    ]
+  },
+  "\n\n\nВ списке выводим каждый комментарий, ",
+  {
+    "name": "tooltip",
+    "props": {
+      "content": "\n\nE.div.class(b('comment'))(\n    E.div.class(b('comment-header'))(\n        E.a\n            .href(comment.user.html_url)\n            .target('_blank')(\n            E.div.class(b('user'))(\n                E.img\n                    .class(b('user-logo'))\n                    .src(comment.user.avatar_url),\n                comment.user.login\n            )\n        ),\n        E.em.class(b('comment-date'))(\n            prettyDate(new Date(comment.created_at))\n        )\n    ),\n\n    E.pre(\n        textWithLink(\n            `\n${comment.body}`\n        ).map(({ type, body }) =>\n            type === 'link'\n                ? E.a.href(body)(body)\n                : body\n        )\n    )\n)\n"
+    },
+    "children": [
+      "так выглядит код компонента"
+    ]
+  },
+  "\n\nКомментарии в самом гитхабе поддерживают ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://guides.github.com/features/mastering-markdown/"
+    },
+    "children": [
+      "markdown"
+    ]
+  },
+  ", но тащить сторонний движок или писать свой с нуля не хотелось.\nПоэтому необходимый минимум обеспечивает функция ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "textWithLink"
+    ]
+  },
+  ".\nОна находит в тексте безопасные ссылки и делает их кликабельными.\nБольше никаких других манипуляций.\n\n\n",
+  {
+    "name": "tooltip",
+    "props": {
+      "content": "\nconst SafetyLink = /\\bhttps:\\/\\/([a-z-]+\\.)?[a-z-]+\\.[a-z-]+(\\/[a-z-]*)*\\b/g;\n\ntype Item = { type: 'text' | 'link'; body: string };\nexport function textWithLink(text: string): any {\n    const result: Item[] = [];\n    let currentIndex = 0;\n    for (const elem of text.matchAll(SafetyLink)) {\n        const link: string = elem[0];\n        const { index } = elem;\n\n        result.push(\n            {\n                type: 'text',\n                body: text.substring(currentIndex, index),\n            },\n            {\n                type: 'link',\n                body: link,\n            }\n        );\n\n        currentIndex = index + link.length;\n    }\n    if (currentIndex < text.length) {\n        result.push({\n            type: 'text',\n            body: text.substring(currentIndex),\n        });\n    }\n\n    return result;\n}\n\n"
+    },
+    "children": [
+      "код textWithLink"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Превью поста по хэшу заголовка"
+    ]
+  },
+  "\nДля некоторых статей (как например текущая) мне было сложно придумать картинку для привлечения внимания.\nВ блоге до недавнего времени вообще не было картинок, добавил только в предыдущем посте.\nНо они смотрелись достаточно скованно в углу плитки, поэтому я вынес их наверх.\n\n\nДля некоторых постов я добавил картинки (",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/blog/11"
+    },
+    "children": [
+      "Книга по теории множеств"
+    ]
+  },
+  ", ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/blog/1"
+    },
+    "children": [
+      "Руководство по filemaker"
+    ]
+  },
+  ", ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/blog/4"
+    },
+    "children": [
+      "Стандартная модель элементарных частиц"
+    ]
+  },
+  ", ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/blog/6"
+    },
+    "children": [
+      "Клеточный автомат \"Жизнь\""
+    ]
+  },
+  "). Для ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/blog/16"
+    },
+    "children": [
+      "поста про интернализацию"
+    ]
+  },
+  " картинкой послужил инлайновый svg c флагами.\n\n\nДля каждой плитки задан плавный переход от картинки к названию — картинки растворяется к низу.\nЭто сделано с помощью дополнительного блока, который абсолютным позиционированием ставится поверх картинки и имеет линейный градиент от прозрачного к цвету фона.\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "css"
+    },
+    "children": [
+      "\nbackground: linear-gradient(\n    to bottom,\n    transparent,\n    transparent 70%,\n    var(--color-background-prime)\n);\nposition: absolute;\nwidth: 100%;\nheight: 100%;\ntop: 0;\nleft: 0;\n"
+    ]
+  },
+  "\n\n\nЕсли картинка не задана, то в качестве фона генерируются цветные круги.\nТак как я не хотел, чтобы при каждом обновлении страницы круги менялись, я не мог генерировать их рандомно.\nВ то же время они должны быть уникальными, то есть для разных постов не должно быть одинаковых картинок.\n\n\nРешение — брать хэш от заголовка поста и на его основе создавать картинку.\nВ качестве хэш-функции я взял ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://en.wikipedia.org/wiki/MurmurHash"
+    },
+    "children": [
+      "MurmurHash"
+    ]
+  },
+  " из-за быстроты выполнения.\n\n\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nexport function hash(str: string) {\n    let l = str.length;\n    let hval = 0x811c9dc5;\n\n    for (let i = 0; i < l; i++) {\n        hval ^= str.charCodeAt(i);\n        hval +=\n            (hval << 1) +\n            (hval << 4) +\n            (hval << 7) +\n            (hval << 8) +\n            (hval << 24);\n    }\n    return ('0000000' + (hval >>> 0).toString(16)).substr(-8);\n}\n\n"
+    ]
+  },
+  "\n\n\nЧтобы получить 64 бита, функция hash применяется два раза\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst h1 = hash(title);\nconst h = h1 + hash(h1 + title);\n"
+    ]
+  },
+  "\n\n\nВ результате для каждого заголовка получена строка вида ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "dc1e483ca0f1c339"
+    ]
+  },
+  ".\nЕё я разбиваю на 4 части, это описания 4 кругов.\n\n\nВозьмем из примера выше первую четверть строки ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "dc1e"
+    ]
+  },
+  ".\nЧто значит каждый символ?\n",
+  {
+    "name": "list",
+    "props": {},
+    "children": [
+      "\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "",
+          {
+            "name": "format.pre",
+            "props": {},
+            "children": [
+              "d"
+            ]
+          },
+          " — смещение по оси x"
+        ]
+      },
+      "\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "",
+          {
+            "name": "format.pre",
+            "props": {},
+            "children": [
+              "c"
+            ]
+          },
+          " — смещение по оси y"
+        ]
+      },
+      "\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "",
+          {
+            "name": "format.pre",
+            "props": {},
+            "children": [
+              "1"
+            ]
+          },
+          " — диаметр круга"
+        ]
+      },
+      "\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "",
+          {
+            "name": "format.pre",
+            "props": {},
+            "children": [
+              "e"
+            ]
+          },
+          " — цвет круга как угол в модели ",
+          {
+            "name": "link",
+            "props": {
+              "href": "https://ru.wikipedia.org/wiki/HSL"
+            },
+            "children": [
+              "HSL"
+            ]
+          },
+          ""
+        ]
+      },
+      "\n"
+    ]
+  },
+  "\n\nКаждый символ переводится в десятичную дробь функцией\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst d = char => parseInt(char, 16) / 16;\n"
+    ]
+  },
+  "\nДалее эта дробь используется уже в css для генерации процентов от высоты/ширины блоков (круг это div c ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "border-radius: 50%"
+    ]
+  },
+  ") и угла в hsl().\n\n",
+  {
+    "name": "image",
+    "props": {
+      "src": "/data/blog/data/19/preview-example.png",
+      "height": 0.5,
+      "width": 1
+    },
+    "children": [
+      "Картинка для строки dc1e483ca0f1c339"
+    ]
+  },
+  "\n\n\nПосмотреть, как это выглядит, можно прямо на ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/"
+    },
+    "children": [
+      "общей странице блога"
+    ]
+  },
+  "\n"
+]
