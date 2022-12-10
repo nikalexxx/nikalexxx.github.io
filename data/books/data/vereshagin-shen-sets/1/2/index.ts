@@ -1,14 +1,16 @@
+import { BookApi } from '@bookbox/preset-web';
 import { getCustomElements } from '../../elements.js';
 
-export default (api) => {
-    const { _, text, math } = api;
-    const { i, label } = text;
-    const { $, $$ } = math;
+export default (api: BookApi) => {
+    const { book, format, math, label } = api;
+    const { i } = format;
+    const $ = math;
+    const $$ = math.block();
 
     const {problem, paragraph, theorem, proof} = getCustomElements(api);
 
     const simdiff = '\\vartriangle';
-    return _`
+    return book`
 ${paragraph`Число элементов`}
 Число элементов в конечном множестве ${$`A`} называют также его мощностью и обозначают ${$`|A|`} (а также ${$`\\#A`}).
 (Вскоре мы будем говорить о мощностях и для бесконечных множеств.)
@@ -104,7 +106,7 @@ ${problem`
 `}
 
 
-Это число называется ${i(_`числом сочетаний из ${$`n`} по ${$`k`}`)} и обозначается ${$`C^k_n`} в русских книжках;
+Это число называется ${i(book`числом сочетаний из ${$`n`} по ${$`k`}`)} и обозначается ${$`C^k_n`} в русских книжках;
 в иностранных обычно используется обозначение ${$`\\binom{n}{k}`}
 
 

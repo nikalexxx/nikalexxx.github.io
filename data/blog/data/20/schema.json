@@ -1,0 +1,459 @@
+[
+  "\nTL;DR планеты вращаются вокруг светил согласно классической теории гравитации и показывают свою скорость и ускорение.\n\nПосмотреть демо и поиграться можно на странице ",
+  {
+    "name": "link",
+    "props": {
+      "href": "?/physics/gravitation"
+    },
+    "children": [
+      "Гравитация"
+    ]
+  },
+  " в разделе ",
+  {
+    "name": "link",
+    "props": {
+      "href": "?/physics"
+    },
+    "children": [
+      "Физика"
+    ]
+  },
+  ".\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Модель всемирного тяготения"
+    ]
+  },
+  "\nЧтобы рассчитать силу гравитационного притяжения между двумя материальными точками, воспользуемся классической ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation"
+    },
+    "children": [
+      "формулой Ньютона"
+    ]
+  },
+  ":\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\nF = G\\frac{m_1 m_2}{r^2}\n"
+    ]
+  },
+  "\nгде ",
+  {
+    "name": "math",
+    "props": {},
+    "children": [
+      "m_1"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {},
+    "children": [
+      "m_2"
+    ]
+  },
+  " — массы тел, ",
+  {
+    "name": "math",
+    "props": {},
+    "children": [
+      "r"
+    ]
+  },
+  " — расстояние между ними, ",
+  {
+    "name": "math",
+    "props": {},
+    "children": [
+      "G"
+    ]
+  },
+  " — гравитационная постоянная.\n\n\nДля каждого тела рассмотрим попарно взаимодействие с остальными телами, на рисунке красным обозначены единичные векторы\n",
+  {
+    "name": "image",
+    "props": {
+      "src": "/data/blog/data/20/gravitation-vectors.svg",
+      "width": 0.9,
+      "height": 0.9
+    },
+    "children": [
+      "Центральное тело и направление сил притяжения от остальных тел"
+    ]
+  },
+  "\n\nДля расчёта ускорения силу рассчитывать не нужно, ведь по ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion#Newton's_second_law"
+    },
+    "children": [
+      "второму закону Ньютона"
+    ]
+  },
+  " ускорение пропорционально массе тела:\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n\\vec{a} = \\frac{\\vec{F}}{M}\n"
+    ]
+  },
+  "\n\nи если просуммировать все вектора сил от остальных тел, то массу рассматриваемого тела можно сократить (здесь и далее считаем, что она не равна нулю)\n\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n\\begin{split}\n\\textcolor{orange}{M}\\vec{a} &= G\\vec{e_1}\\frac{\\textcolor{orange}{M} m_1}{r_1^2} + G\\vec{e_2}\\frac{\\textcolor{orange}{M} m_2}{r_2^2} + ... + G\\vec{e_n}\\frac{\\textcolor{orange}{M} m_n}{r_n^2}\\\\\n&=\\sum_{\\mathclap{1\\le i\\le n}} G\\vec{e_i}\\frac{\\textcolor{orange}{M} m_i}{r_i^2}\n\\end{split}\n"
+    ]
+  },
+  "\n\n\nДля простоты возьмём гравитационную постоянную равной 1 (численное значение имеет смысл только в сравнении с другими ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://en.wikipedia.org/wiki/Coupling_constant"
+    },
+    "children": [
+      "константами взаимодействий"
+    ]
+  },
+  ").\n\n\nИтоговое уравнение для ускорения имеет вид\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n\\vec{a} = \\sum_{\\mathclap{1\\le i\\le n}} \\vec{e_i}\\frac{m_i}{r_i^2}\n"
+    ]
+  },
+  "\n\nПерепишем его явно через вектор положения каждого тела в системе отсчёта основного тела ",
+  {
+    "name": "math",
+    "props": {},
+    "children": [
+      "\\vec{R_i} = \\{x_i,\\ y_i,\\ z_i\\}"
+    ]
+  },
+  "\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n\\vec{a} = \\sum_{\\mathclap{1\\le i\\le n}} \\frac{\\vec{R_i}}{|\\vec{R_i}|}\\frac{m_i}{|\\vec{R_i}|^2}\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Реализация в браузере"
+    ]
+  },
+  "\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 4
+    },
+    "children": [
+      "Подсчёт ускорения"
+    ]
+  },
+  "\nСначала создадим звёзды и планеты.\nНа самом деле разницы с точки зрения кода не будет, все они будут просто небесными телами и отличаться только массой.\n\n\nУстройство небесного тела\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\ntype Body = {\n    coords: Coords; // координаты центра\n    speed: Speed; // скорость\n    acceleration: Acceleration; // ускорение\n    mass: number;\n    color: string; // цвет только для отображения на экране, в физике не участвует\n};\n"
+    ]
+  },
+  "\n\nКоординаты, скорость и ускорение описываются также досточно лаконично.\nДля простоты модели третьей координаты ",
+  {
+    "name": "math",
+    "props": {},
+    "children": [
+      "z"
+    ]
+  },
+  " не будет.\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\ntype Axes = 'x' | 'y';\ntype Vector<T> = Record<Axes, T>;\n\n\ntype S = number; // координаты\ntype Coords = Vector<S>;\n\n\ntype V = number; // скорость\ntype Speed = Vector<V>;\n\n\ntype A = number; // ускорение\ntype Acceleration = Vector<A>;\n"
+    ]
+  },
+  "\n\n\nЧтобы реализовать формулу выше, необходимо посчитать сумму векторов, для этого сначала вычислим каждый вектор\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\n// current: Body — текущее тело, для которого считаем ускорение\n// bodyList: Body[] — остальные тела, которые создают ускорение\n\n\nconst accelerationVectors: Acceleration[] = bodyList.map(\n    ({ mass, coords }) => {\n        // считаем относительные координаты, по умолчанию метрика евклидова\n        const localX = metrika.getX(current.coords, coords);\n        const localY = metrika.getY(current.coords, coords);\n\n\n        // квадрат расстояния\n        const L2 = localX ** 2 + localY ** 2;\n\n\n        // само расстояние\n        const L = Math.sqrt(L2);\n\n\n        // единичные вектора\n        const vX = localX / L;\n        const vY = localY / L;\n\n\n        // длина вектора ускорения\n        const a = mass / metrika.powerK(L2);\n\n        return {\n            x: vX * a,\n            y: vY * a,\n        };\n    }\n);\n"
+    ]
+  },
+  "\n\nДалее просто просуммируем их\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\nconst sumAcceleration: Acceleration = {\n    x: accelerationVectors.map(v => v.x).reduce(sum),\n    y: accelerationVectors.map(v => v.y).reduce(sum),\n};\n"
+    ]
+  },
+  "\n\nВектор ускорения посчитан!\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 4
+    },
+    "children": [
+      "Метрика"
+    ]
+  },
+  "\nВ коде выше для рассчёта относительных координат был использован отдельный объект метрики.\nЭтот объект не совпадает с классическим определением ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://en.wikipedia.org/wiki/Metric_space"
+    },
+    "children": [
+      "метрического пространства"
+    ]
+  },
+  ", так как, во-первых, высчитываются отдельные координаты вместо расстояния, во-вторых, не требуется соблюдение ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://en.wikipedia.org/wiki/Triangle_inequality"
+    },
+    "children": [
+      "неравенства треугольника"
+    ]
+  },
+  ".\n\n\nМетрика устроена как группа методов\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\ntype S = number; // координаты\n\ntype Metrika = {\n    getX(c1: Coords, c2: Coords): S;\n    getY(c1: Coords, c2: Coords): S;\n\n\n    // нормализация (для конечных пространств типа тора)\n    normalizeX(c: Coords): S;\n    normalizeY(c: Coords): S;\n    powerK(l: number): number;\n};\n"
+    ]
+  },
+  "\n\nДля плоского пространства она будет иметь вид\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\n// плоское пространство\nconst defaultMetrika: Metrika = {\n    getX: (c1, c2) => c2.x - c1.x,\n    getY: (c1, c2) => c2.y - c1.y,\n    normalizeX: (c) => c.x,\n    normalizeY: (c) => c.y,\n    powerK: (l) => l,\n};\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 4
+    },
+    "children": [
+      "Движение тел"
+    ]
+  },
+  "\nОбщая идея такова — итеративно рассчитывать ускорение, затем скорость и координаты.\nПлавность анимации обеспечит вызов такого пересчёта в ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://developer.mozilla.org/ru/docs/Web/API/window/requestAnimationFrame"
+    },
+    "children": [
+      "window.requestAnimationFrame"
+    ]
+  },
+  "\n\n\nПосле получения вектора ускорения посчитаем скорость, так как ускорение это просто изменение скорости, то результатирующая скорость получится суммированием\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\nconst speed = {\n    x: current.speed.x + sumAcceleration.x,\n    y: current.speed.y + sumAcceleration.y,\n};\n"
+    ]
+  },
+  "\n\nАналогично, скорость — это изменение координат\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\nconst coords = {\n    x: current.coords.x + speed.x,\n    y: current.coords.y + speed.y,\n};\n"
+    ]
+  },
+  "\n\n\nДля всех тел сначала посчитаем новые позиции/скорости/ускорения, потом обновим данные для каждого тела\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\nexport function positionStep(list: Body[], metrika = defaultMetrika) {\n    // считаем новые данные относительно старых позиций\n    const newPositions = list.map((body, i) =>\n        getPosition(\n            body,\n            list.filter((_, j) => i !== j),\n            metrika\n        )\n    );\n\n    // и только потом обновляем все тела\n    list.forEach((body, i) => updatePosition(body, newPositions[i]));\n}\n"
+    ]
+  },
+  "\n\nЭта функция как раз и будет вызываться в ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "window.requestAnimationFrame"
+    ]
+  },
+  "\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nlet requestId; // идентификатор для отмены вызова\n\nfunction step() {\n    // та самая метрика, которую можно менять извне\n    const { metrika } = props();\n\n\n    // список тел в текущем стейте\n    const { list } = state();\n\n\n    // пересчёт векторов и положений\n    positionStep(list, metrika);\n\n\n    // тик рендера\n    state.set((prev) => ({ flag: !prev.flag }));\n\n\n    // управление анимацией\n    const needStep = state().animation;\n    if (needStep) {\n        requestId = window.requestAnimationFrame(step);\n    } else {\n        requestId && window.cancelAnimationFrame(requestId);\n    }\n}\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Визуальная часть"
+    ]
+  },
+  "\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 4
+    },
+    "children": [
+      "Отрисовка"
+    ]
+  },
+  "\nВсё действие происходит внутри элемента 500x500px.\nВсе тела представлены как элементы ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "div"
+    ]
+  },
+  " с ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "border-radius: 50%"
+    ]
+  },
+  " и абсолютным позиционированием, их координаты в модели совпадают с координатами в css.\nВсе вычисления ведутся в пискелях.\nЦвет тел задаётся сразу и не меняется, а размер вычисляется как кубический корень из массы с неким коэфициентом (считаем плотность тел постоянной, значит масса пропорциональна объёму, а значит кубу линейного размера).\n\n\nВектор скорости показан зелёным цветом, вектор ускорения красным.\nВ начале тела не имеют ускорения\n",
+  {
+    "name": "image",
+    "props": {
+      "src": "/data/blog/data/20/gravitation-start.png",
+      "width": 0.9,
+      "height": 0.9
+    },
+    "children": [
+      "Пример начального положения"
+    ]
+  },
+  "\n\nВ процессе ускорение появляется и постоянно меняется, как и скорость\n",
+  {
+    "name": "image",
+    "props": {
+      "src": "/data/blog/data/20/gravitation-process.png",
+      "width": 0.9,
+      "height": 0.9
+    },
+    "children": [
+      "Пример положения тел спустя некоторое время"
+    ]
+  },
+  "\n\n\nПо умолчанию вектора скрыты, как и массы тел, их можно включить через кнопки управления (также можно сбросить до начального состояния).\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 4
+    },
+    "children": [
+      "Встраивание в сайт"
+    ]
+  },
+  "\nЗавёл отдельную страницу ",
+  {
+    "name": "link",
+    "props": {
+      "href": "?/physics/gravitation"
+    },
+    "children": [
+      "Гравитация"
+    ]
+  },
+  ".\nВ разделе ",
+  {
+    "name": "link",
+    "props": {
+      "href": "?/physics"
+    },
+    "children": [
+      "Физика"
+    ]
+  },
+  ", где находится страница, добавил соответствующую плитку с анимацией планеты, которая вращается вокруг звезды (но там всё проще, css анимация через ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "rotate"
+    ]
+  },
+  ").\nВ блоге также над всеми записями появилась плашка с переходом на страницу, она будет мной в дальнейшем использована для новых событий (показывается первые две недели после появления).\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Проблемы и хитрости"
+    ]
+  },
+  "\nТак как шаг итерации не зависит от масштаба, то при близком расположении тел начинает проявлятся ошибка округления.\nЗакон сохранения импульса перестаёт работать и тела разгоняются до бесконечности.\n\n\nЧтобы это обойти, в уравнение для вычисления ускорения я беру не расстояние между телами, а сумму этого расстояния с диаметром тела.\nТаким образом задаётся максимальная сила, что может действовать на тело.\n\n\nВ метрике тора также не выполняется закон сохранения импульса, и поэтому там сила зависит не от квадрата расстояния, а просто от расстояния.\n"
+]

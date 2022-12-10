@@ -1,3 +1,5 @@
+import { BookApi } from "@bookbox/preset-web";
+
 export const ttt = '\\mathellipsis';
 
 function counter(start: number = 0, step: number = 1) {
@@ -7,9 +9,9 @@ function counter(start: number = 0, step: number = 1) {
 
 function container<P, R>(getFunc: (A: P) => (t: any, ...list: any[]) => R) {
     const getFuncProxy = (props: P) =>
-        new Proxy((t, ...list) => getFunc(props)(t, ...list) as any, {
+        new Proxy((t: any, ...list: any[]) => getFunc(props)(t, ...list) as any, {
             get(target, name) {
-                return (value) => getFuncProxy({ ...props, [name]: value });
+                return (value: any) => getFuncProxy({ ...props, [name]: value });
             },
         });
 
@@ -40,12 +42,10 @@ function getCounter(key: string) {
     throw new Error(`Counter for ${key} does not exist`);
 }
 
-function getProblem(api) {
-    const { control, book, text, block } = api;
-    const { start, end } = control;
-    const { b } = text;
-    const { area, small } = block;
-    const problemCounter = getCounter(counterKeys.problem);
+function getProblem(api: BookApi) {
+    const { book, format, area, start, end } = api;
+    const { b, small } = format;
+    const problemCounter = getCounter(counterKeys.problem)!;
     return container<{ key: string }, any>(({ key }) => (t, ...list) => {
         const n = problemCounter();
         const problemKey = `problem_${key ?? n}`;
@@ -57,12 +57,10 @@ function getProblem(api) {
     });
 }
 
-function getTheorem(api) {
-    const { control, book, text, block } = api;
-    const { start, end } = control;
-    const { b } = text;
-    const { area } = block;
-    const theoremCounter = getCounter(counterKeys.theorem);
+function getTheorem(api: BookApi) {
+    const { start, end, book, format, area } = api;
+    const { b } = format;
+    const theoremCounter = getCounter(counterKeys.theorem)!;
     return container<{ key: string; name: string }, any>(
         ({ key, name }) => (t, ...list) => {
             const n = theoremCounter();
@@ -119,20 +117,18 @@ function getLevels(tree: HeaderTree, name: string): HeaderLevel[] {
     return levels;
 }
 
-function getCustomHeader(api, level, name) {
-    const { control, book, text, block } = api;
-    const { start, end } = control;
-    const { b, h } = text;
-    const { area } = block;
+function getCustomHeader(api: any, level: any, name: any) {
+    const { start, end, book, header, area, format } = api;
+    const { b } = format;
     const levels = getLevels(headerLevels, name);
     const levelKey = levels.map((e) => e.n).join('.');
-    const headerCounter = getCounter(`header_${levelKey}`);
+    const headerCounter = getCounter(`header_${levelKey}`)!;
     return container<{ key: string; noIndex: boolean }, any>(
         ({ key, noIndex }) => (t, ...list) => {
             if (noIndex) {
                 return book`
             ${start(key ? area.key(key) : area)}
-            ${h(level)(book(t, ...list))}
+            ${header.level(level)(book(t, ...list))}
             ${end(area)}
             `;
             }
@@ -143,7 +139,7 @@ function getCustomHeader(api, level, name) {
             addHeaderLevel(headerLevels, name, n);
             return book`
         ${start(area.key(headerKey).meta({ n, longN }))}
-        ${h(level)(book`
+        ${header.level(level)(book`
         ${b(`${longN}`)}. ${book(t, ...list)}
         `)}
         ${end(area)}
@@ -157,32 +153,32 @@ export function registerHeaders() {
     headerLevels = [];
 }
 
-export function getCustomElements(api) {
+export function getCustomElements(api: BookApi) {
     return {
         problem: getProblem(api),
         theorem: getTheorem(api),
         chapter: getCustomHeader(api, 2, 'chapter'),
         paragraph: getCustomHeader(api, 3, 'paragraph'),
         proof: {
-            start: api.math.$('\\vartriangleleft'),
-            end: api.math.$('\\vartriangleright'),
+            start: api.math('\\vartriangleleft'),
+            end: api.math('\\vartriangleright'),
         },
-        enote: api.text.tooltip.text('Примечание к электронному изданию')`@`,
+        enote: api.tooltip.content('Примечание к электронному изданию')`@`,
         n: {
-            problem: (key) => api.use`problem_${key}`((e) => e.n),
-            theorem: (key) => api.use`theorem_${key}`((e) => e.n),
-            chapter: (key) => api.use`chapter_${key}`((e) => e.longN),
-            paragraph: (key) => api.use`paragraph_${key}`((e) => e.longN),
+            problem: (key: string) => api.use.ref(`problem_${key}`).path`n`,
+            theorem: (key: string) => api.use.ref(`theorem_${key}`).path`n`,
+            chapter: (key: string) => api.use.ref(`chapter_${key}`).path`longN`,
+            paragraph: (key: string) => api.use.ref(`paragraph_${key}`).path`longN`,
         },
-        A: api.math.$`A`,
-        B: api.math.$`B`,
-        C: api.math.$`C`,
-        X: api.math.$`X`,
-        Y: api.math.$`Y`,
-        Z: api.math.$`Z`,
-        M: api.math.$`M`,
+        A: api.math`A`,
+        B: api.math`B`,
+        C: api.math`C`,
+        X: api.math`X`,
+        Y: api.math`Y`,
+        Z: api.math`Z`,
+        M: api.math`M`,
         printNote: container(() => (t) => {
-            return api.text.tooltip.text(
+            return api.tooltip.content(
                 `Оригинальный текст приводится без изменений.
 
 

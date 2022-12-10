@@ -1,13 +1,14 @@
 import './Post.less';
 
-import { Breadcrumbs, Page404 } from '../../../components';
+import { Breadcrumbs, Page404, BookBox } from '../../../components';
 import { Component, E, block, RouteLink, textWithLink } from '../../../utils';
 
 import { Button, Lang, Spin } from '../../../blocks';
 import blog from '../../../data/blog';
-import { createBook } from '../../../services/book/book.js';
 import { postList, postOrder } from '../model';
 import { GithubApi } from '../../../services/api';
+import { createHtmlBook } from '@bookbox/preset-web';
+import { DOM } from '../../../utils/element';
 
 const b = block('post');
 
@@ -19,13 +20,13 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
 
     didMount(() => {
         const { id } = props();
-        if (!blog.hasOwnProperty(id)) {
-            return;
-        }
+        if (!blog.hasOwnProperty(id)) return;
+
         const { type, comments } = blog[id];
-        const path = `../data/blog/data/${id}/index.${type}?r=${window.appVersion}`;
+        const path = (file) =>
+            `../data/blog/data/${id}/${file}?r=${window.appVersion}`;
         if (type === 'html') {
-            fetch(path)
+            fetch(path('index.html'))
                 .then((e) => {
                     // console.log(e.clone().blob());
                     return e.blob();
@@ -37,11 +38,40 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                     // console.log(text);
                     state.set({ text: text });
                 });
-        } else if (type === 'js') {
-            import(path)
+        } else if (type === 'bookbox') {
+            fetch(path('schema.json'))
+                .then((data) => data.json())
                 .then((data) => {
                     // console.log(data);
-                    state.set({ text: createBook(data.default).to('html') });
+                    state.set({
+                        text: createHtmlBook({
+                            schema: data,
+                            externalBuilder: {
+                                parvis: {
+                                    local:
+                                        ({ key }) =>
+                                        ({ children, store }) => {
+                                            const rawChildren =
+                                                store.elementsByKeys[key]
+                                                    .children;
+                                            const id = `parvis-${key}`;
+                                            eval(`window.setTimeout(() => {
+                                                const el = document.getElementById(id);
+                                                if (!el || el.childNodes.length > 0) return;
+                                                el.append(
+                                                    DOM(
+                                                        (${rawChildren.join('')})({ E, Component })
+                                                    )
+                                                );
+                                            }, 100);`);
+                                            return `
+                                            <div id="${id}"></div>
+                                        `;
+                                        },
+                                },
+                            },
+                        }),
+                    });
                 })
                 .catch((e) => {
                     console.error(e);
@@ -71,9 +101,8 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
 
     return () => {
         const { id } = props();
-        if (!blog.hasOwnProperty(id)) {
-            return Page404;
-        }
+        if (!blog.hasOwnProperty(id)) return Page404;
+
         const { type, comments: blogComments } = blog[id];
         const { text, comments } = state();
         const { title, creationTime } = blog[id];
@@ -94,8 +123,22 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                     'px';
             }, 300);
             elem = template(iframe);
-        } else if (type === 'js') {
-            elem = template(text);
+        } else if (type === 'bookbox') {
+            console.log({ text });
+            elem = template(
+                text
+                    ? BookBox.bookData(text)
+                          .name(`post-${id}`)
+                          .options({
+                              settingsOptions: {
+                                  viewTumbler: false,
+                                  contents: false,
+                                  design: false,
+                                  media: false,
+                              },
+                          })
+                    : null
+            );
         } else {
             elem = 'Ошибка несоответствия типа контента';
         }
@@ -107,9 +150,11 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
             E.h2(title),
             E.em(prettyDate(new Date(creationTime))),
             E.span.style`margin-left: 16px`,
-            E.a.href(
-                `https://github.com/nikalexxx/nikalexxx.github.io/tree/master/data/blog/data/${id}`
-            ).style('white-space: nowrap;')`Исходный код`,
+            E.a
+                .href(
+                    `https://github.com/nikalexxx/nikalexxx.github.io/tree/master/data/blog/data/${id}`
+                )
+                .style('white-space: nowrap;')`Исходный код`,
             text === null && E.div.class(b('loading'))(Spin.size('xl')),
             E.div.class(b('container'))(elem),
             E.div.class(b('nav'))._forceUpdate(true)(
@@ -155,12 +200,11 @@ const Post = Component.Post(({ props, state, hooks: { didMount } }) => {
                             ),
 
                             E.pre(
-                                textWithLink(
-                                    `\n${comment.body}`
-                                ).map(({ type, body }) =>
-                                    type === 'link'
-                                        ? E.a.href(body)(body)
-                                        : body
+                                textWithLink(`\n${comment.body}`).map(
+                                    ({ type, body }) =>
+                                        type === 'link'
+                                            ? E.a.href(body)(body)
+                                            : body
                                 )
                             )
                         )

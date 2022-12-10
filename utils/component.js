@@ -375,4 +375,6 @@ const Component = new Proxy({}, {
     }
 });
 
+window.Component = Component;
+
 export default Component;

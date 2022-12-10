@@ -1,16 +1,16 @@
+import type { BookApi } from '@bookbox/preset-web';
 import { getCustomElements } from '../../elements.js';
 
-export default (api) => {
-    const { _, text, block, control, math } = api;
-    const { i, label } = text;
-    const { start, end } = control;
-    const { area } = block;
-    const { $, $$ } = math;
+export default (api: BookApi) => {
+    const { book, format, area, start, end, math, label } = api;
+    const { i } = format;
+    const $ = math;
+    const $$ = math.block();
 
     const {paragraph, problem, theorem, proof, A, B, n, printNote} = getCustomElements(api);
 
     const empty = '\\varnothing';
-    return _`
+    return book`
 ${paragraph`Функции`}
 До сих пор мы старались ограничиваться минимумом формальностей и говорили о функциях, их аргументах, значениях, композиции и т.п. без попыток дать определения этих понятий.
 Сейчас мы дадим формальные определения.

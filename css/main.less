@@ -78,6 +78,15 @@ a[href*="wikipedia"]::before {
     background-size: 10px, cover;
 }
 
+a[href*="npmjs"]::before {
+    .link-logo();
+    background-image: url("../assets/images/logo/npm.svg");
+    background-size: cover;
+    width: 2rem;
+    border: none;
+    box-shadow: none;
+}
+
 .logo-github() {
     .link-logo();
     --color: var(--color-black);
@@ -112,32 +121,32 @@ h3 {
 }
 
 pre {
-    white-space: pre-wrap;
-    margin: 1em 0;
-    padding: 0.5em 1em;
-    // padding-top: 0;
-    border-radius: 4px;
-    box-shadow: inset 0 0 0.5em rgba(0, 0, 0, 0.3);
+    // white-space: pre-wrap;
+    // margin: 1em 0;
+    // padding: 0.5em 1em;
+    // // padding-top: 0;
+    // border-radius: 4px;
+    // box-shadow: inset 0 0 0.5em rgba(0, 0, 0, 0.3);
     font-size: 0.8em;
-    font-family: "Menlo", "Courier New", Courier, monospace;
-    overflow: auto;
+    // font-family: "Menlo", "Courier New", Courier, monospace;
+    // overflow: auto;
     // position: relative;
 }
 
 pre code {
-    border-radius: 0;
-    padding: 0;
-    margin: 0;
-    line-height: 13px;
-    border: none;
+    // border-radius: 0;
+    // padding: 0;
+    // margin: 0;
+    // line-height: 13px;
+    // border: none;
 }
 
 code {
-    border-radius: 4px;
-    padding: 1px 4px;
-    margin: 0 2px;
-    line-height: 13px;
-    border: 1px solid var(--color-border);
+    // border-radius: 4px;
+    // padding: 1px 4px;
+    // margin: 0 2px;
+    // line-height: 13px;
+    // border: 1px solid var(--color-border);
 
     // &[data-code-language]::after {
     //     content: attr(data-code-language);

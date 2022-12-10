@@ -21,3 +21,7 @@ quote_type = single
 
 [*.ts]
 quote_type = single
+
+[*.bbx.tsx]
+indent_size = 0
+trim_trailing_whitespace = false
