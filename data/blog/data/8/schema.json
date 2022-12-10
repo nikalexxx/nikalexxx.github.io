@@ -1,0 +1,116 @@
+[
+  "\nПосле долгого летнего перерыва возвращаюсь к ведению блога.\nПрежде всего мне надо было обновить движок, сделав нормальные компоненты.\nТеперь компоненты могут обновлять ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "props"
+    ]
+  },
+  ", не меняя ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "state"
+    ]
+  },
+  ".\nМожно писать обертки, плюс это шаг в сторону поддержки аналога контекста из React.\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Что поменялось"
+    ]
+  },
+  "\nТак как теперь свойства компонента могут меняться, они стали вычисляться аналогично состоянию, посредством вызова функции.\n\n\nБыло:\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst Hello = Component.Hello(({props}) => {\n    return () => {\n        const {name} = props;\n        return E.div(`Hello, ${name}`);\n    };\n})\n"
+    ]
+  },
+  "\n\nСтало:\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst Hello = Component.Hello(({props}) => {\n    return () => {\n        const {name} = props();\n        return E.div(`Hello, ${name}`);\n    };\n})\n"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "В действии"
+    ]
+  },
+  "\nДавайте возьмём компонент ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "Hello"
+    ]
+  },
+  ", определенный только что выше, и обернем его в компонент, который будет менять ему имя.\n\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst HelloBox = Component.HelloBox(({state}) => {\n    state.init({name: 'Alex'});\n\n    return () => {\n        const {name} = state();\n        return E.div(\n            Hello.name(name),\n            E.button.onClick(() => state.set({name: prompt('new name') || '—'}))(\n                'Set new name'\n            )\n        );\n    };\n})\n"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "external",
+    "props": {
+      "scope": "parvis"
+    },
+    "children": [
+      "({E, Component}) => {\n    const Hello = Component.Hello(({props}) => {\n        return () => {\n            const {name} = props();\n            return E.div(`Hello, ${name}`);\n        };\n    });\n    const HelloBox = Component.HelloBox(({state}) => {\n        state.init({name: 'Alex'});\n\n        return () => {\n            const {name} = state();\n            return E.div(\n                Hello.name(name),\n                E.button.onClick(() => state.set({name: prompt('new name') || '—'}))(\n                    'Set new name'\n                )\n            );\n        };\n    });\n\n    return E.div.style`padding: 8px; border: 1px solid var(--color-border)`(HelloBox);\n}"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Как это работает"
+    ]
+  },
+  "\nУ каждого элемента в дереве отслеживаются компоненты, которые являются ему потомками, и до них можно добраться по цепочке элементов.\nВглубь компонента разбор не смотрит, внутреннее дерево компонента разбирается уже внутри него самого.\nКогда компонент в рендер функции возвращает дерево при смене состояния, сравниваются пути до вложенных компонентов.\n\n\nПуть имеет вид ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "[tag].[key]>...>[tag].[key]#[name]"
+    ]
+  },
+  ", где tag — название html тега, key — ключ элемента(если он не указан, то порядковый номер элемента в списке дочерних узлов), name — имя компонента.\nНапример, ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "div.1>div.0#Hello"
+    ]
+  },
+  ".\nБудем считать, что такой путь полностью определяет место компонента в дереве.\nВ будущем это место стоит продумать лучше.\n\n\nИтак, если пути до компонентов совпадают и свойства поменялись, передаём обновление в руки этого вложенного компонента.\nКомпонент верхнего уровня просто пропускает обновление реального dom в этом месте.\nВложенный компонент перерендерит себя с новыми свойствами, не меняя состояние.\n"
+]

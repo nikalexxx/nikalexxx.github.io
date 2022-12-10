@@ -1,0 +1,131 @@
+[
+  "\nНа экранах малой ширины меню отъедает часть полезного пространства.\nПоэтому я решил скрывать его, если ширина экрана меньше 700px.\nВ таком случае появляется кнопка-гамбургер, при нажатии на которую меню всплывает поверх всего.\nМеню скрывается при выборе элемента либо при клике на область вне меню.\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "less"
+    },
+    "children": [
+      "\n&__menu {\n    grid-area: menu;\n    background-color: var(--color-background-second);\n\n    @media (max-width: 700px) {\n        position: fixed;\n        top: 0;\n        bottom: 0;\n        left: -100vw;\n        z-index: 900;\n        padding-top: 1em;\n        box-shadow: 0 0 3em rgba(0,0,0,1);\n        border-right: 1px solid var(--color-border);\n        transition: left .3s;\n\n        .mobile-visible & {\n            left: 0;\n            transition: left .1s;\n        }\n    }\n}\n"
+    ]
+  },
+  "\nВыражение ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "@media (max-width: 700px)"
+    ]
+  },
+  " означает, что правила внутри него будут применяться только когда максимальная ширина страницы 700px, то есть для любой ширины меньше 700px.\n\n\n",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      ".mobile-visible"
+    ]
+  },
+  " — класс на элементе ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "html"
+    ]
+  },
+  "(",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "document.documentElement"
+    ]
+  },
+  ").\nКогда класс есть, меню отображается.\nДля ширины экрана больше 700px меню отображается всегда, так как правило выше определено уже внутри медиа запроса.\n\n\nСкрытие достигается помещением меню за левый край экрана.\nЭто позволяет анимировать появление и скрытие меню, меняя свойство left и выставляя transition.\n\n\nКнопка, показывающая меню, просто переключает класс ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      ".mobile-visible"
+    ]
+  },
+  "\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "javascript"
+    },
+    "children": [
+      "\nE.div.class(b('menu-toggle'))(\n    Button.onClick(() => {\n        document.documentElement.classList.toggle('mobile-visible');\n    })(E.div.style('width: 1em; height: 1em;')(Icon.Bars))\n)\n"
+    ]
+  },
+  "\nСама кнопка становится видимой только при ширине странице меньше 700px\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "less"
+    },
+    "children": [
+      "\n&__menu-toggle {\n    display: none;\n\n    & > * {\n        height: 100%;\n    }\n\n    @media (max-width: 700px) {\n        display: block;\n    }\n}\n"
+    ]
+  },
+  "\nДля того, чтобы работал клик на область вне меню, на слой уровнем ниже я поместил элемент, который растягивается на всю страницу и ловит все клики мимо меню.\nПоявляется он при тех же условиях, что и само меню\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "less"
+    },
+    "children": [
+      "\n&__menu-close-area {\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    z-index: 899;\n    display: none;\n    background-color: rgba(0,0,0,.5);\n\n    @media (max-width: 700px) {\n        .mobile-visible & {\n            display: block;\n        }\n    }\n}\n"
+    ]
+  },
+  "\nКлик просто переключает класс\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "javascript"
+    },
+    "children": [
+      "\nE.div.class(b('menu-close-area'))\n    .onClick(() => document.documentElement\n        .classList.toggle('mobile-visible')\n    )\n"
+    ]
+  },
+  "\nДля удобства была также добавлена кнопка свертывания меню\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "javascript"
+    },
+    "children": [
+      "\nE.div.class(b('collapse-menu'))(Button.onClick(() => {\n    document.documentElement.classList.toggle('mobile-visible');\n})('свернуть меню')),\n"
+    ]
+  },
+  "\nкоторая также появляется только на маленьких экранах\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "less"
+    },
+    "children": [
+      "\n&__collapse-menu {\n    display: none;\n    margin: 4px;\n    padding: 4px;\n    position: sticky;\n    bottom: 1em;\n\n    @media (max-width: 700px) {\n        display: block;\n    }\n}\n"
+    ]
+  },
+  "\n\nДополнительно для маленьких экранов я уменьшаю заголовок, но немного другим способом\n",
+  {
+    "name": "code",
+    "props": {
+      "block": true,
+      "lang": "less"
+    },
+    "children": [
+      "\nh1 {\n    font-size: 2em;\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n\n    @media (max-width: 50em) {\n        font-size: 4vw;\n    }\n\n    @media (max-width: 25em) {\n        font-size: 1em;\n    }\n}\n"
+    ]
+  },
+  "\nПри уменьшении ширина экрана он тоже уменьшается, но в границах от 2em до 1em.\nЗначение 4vw было подобрано опытным путём.\nЧтобы переход был плавный, применяется он только в интервале ширины страницы от 25em(1em = 4vw) до 50em(2em = 4vw).\n"
+]

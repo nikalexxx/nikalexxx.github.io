@@ -1,0 +1,195 @@
+[
+  "\nЯ сразу решил, что сайт должен быть интерактивным.\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Историческое пояснение"
+    ]
+  },
+  "\nЕсть старый подход к созданию сайтов: структура страницы на html, оформление на css, интерактивность на js.\nНо такой подход приводил к запутанному коду, необходимо было самому следить за состоянием страницы.\nВ итоге стали популярны фронтенд фреймворки, которые сами следили за обновлением DOM дерева, такие как ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://reactjs.org"
+    },
+    "children": [
+      "React"
+    ]
+  },
+  ", ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://angular.io"
+    },
+    "children": [
+      "Angular"
+    ]
+  },
+  " и ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://vuejs.org"
+    },
+    "children": [
+      "Vue"
+    ]
+  },
+  ". React и Vue используют концепцию Virtual DOM. Мы держим в памяти облегченную аналог DOM в виде объектов, сравниваем их и при обнаружении изменений обновляем элементы на странице.\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Что выбрать?"
+    ]
+  },
+  "\nФреймворки, не использующие полное сравнение виртуальных моделей, мне не нравились из-за того, что они требуют введения специфического dsl для условий и циклов.\nВ таких фреймворках верстку нельзя генерировать функцией.\nНо благодаря контролю структуры компонентов, можно повысить производительность.\nReact производит полное сравнение, однако он всё равно достаточно быстрый.\nНовые фреймворки вообще не используют виртуальное дерево, например ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://svelte.dev"
+    },
+    "children": [
+      "Svelte"
+    ]
+  },
+  ".\nНо там происходит генерация кода при компиляции, что несомненно хорошо для небольших приложений.\nЯ бы назвал это тупым решением в лоб.\nПри разрастании приложения объём сгенерированного кода превысит объём кода рантайм-машины фреймворка c virtual DOM.\nИ конечно, из-за отсутствия рантайма нельзя генерировать верстку функциями и требуется очередной dsl.\n\n\nПроблема React в его излишней сложности. Поэтому я, как программист, написал свой инструмент.\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Как всё работает?"
+    ]
+  },
+  "\nЯ решил написать минимальную рабочую версию, которая бы решала поставленные задачи и больше ничего.\nБез хитрых оптимизаций. И конечно, чтобы доказать самому себе, что я могу это сделать.\n\n\nВся верстка генерируется скриптами.\nНе стану скрывать, я вдохновлялся react, стараясь брать наиболее привлекательные для меня черты.\n\n\nВот как выглядит элемент в коде:\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst element = E.div.class('container')(\n    E.h4('title'),\n    E.p('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),\n    E.br,\n    E.b('bold '),\n    E.span.style`color: red;`('red text '),\n    E.button.onClick(() => alert('hi!'))('Say \"hi!\"'),\n    E.ul(\n        E.li`A`,\n        E.li`B`,\n        E.li`C`\n    )\n)\n"
+    ]
+  },
+  "\n\n\nНа странице он будет выглядеть так:\n\n\n",
+  {
+    "name": "external",
+    "props": {
+      "scope": "parvis"
+    },
+    "children": [
+      "({E}) => E.div.class('container')(\n    E.h4('title'),\n    E.p('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),\n    E.br,\n    E.b('bold '),\n    E.span.style`color: red;`('red text '),\n    E.button.onClick(() => alert('hi!'))('Say \"hi!\"'),\n    E.ul(\n        E.li`A`,\n        E.li`B`,\n        E.li`C`\n    )\n)"
+    ]
+  },
+  "\n\n\nА так выглядит простейший компонент:\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst SimpleComponent = Component.SimpleComponent(({props, state}) => {\n    state.init({count: 0});\n    return () => {\n        const {color} = props;\n        const {count} = state();\n        return E.div(\n            E.span.style(`color: ${color};`)(String(count)),\n            E.br,\n            E.button.onClick(() => state.set(prevState => ({count: prevState.count - 1})))('-'),\n            E.button.onClick(() => state.set(prevState => ({count: prevState.count + 1})))('+')\n        )\n    }\n});\n"
+    ]
+  },
+  "\n\n\nЕго использование:\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nconst greenCounter = SimpleComponent.color('green');\n"
+    ]
+  },
+  "\n\n\nВ действии:\n",
+  {
+    "name": "external",
+    "props": {
+      "scope": "parvis"
+    },
+    "children": [
+      "({E, Component}) => {\n    const SimpleComponent = Component.SimpleComponent(({props, state}) => {\n        state.init({count: 0});\n        return () => {\n            const {color} = props();\n            const {count} = state();\n            return E.div(\n                E.span.style(`color: ${color};`)(String(count)),\n                E.br,\n                E.button.onClick(() => state.set(prevState => ({count: prevState.count - 1})))('-'),\n                E.button.onClick(() => state.set(prevState => ({count: prevState.count + 1})))('+')\n            )\n        }\n    });\n    return SimpleComponent.color('green');\n}"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Под капотом"
+    ]
+  },
+  "\nВнутри реализация virtual DOM.\nПрокси ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "E"
+    ]
+  },
+  " создаёт абстракцию над html элементом(есть ещё ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "S"
+    ]
+  },
+  " для svg и ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "M"
+    ]
+  },
+  " для MathML).\nПрокси ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "Component"
+    ]
+  },
+  " позволяет использовать такие абстракции, как свойства и состояние.\n\n\nКогда состояние компонента меняется, вычисляется diff между старым и новым объектом.\nДалее рекурсивный проход по DOM на странице и обновление согласно полученному diff.\nПодробнее можно посмотреть в ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://github.com/nikalexxx/nikalexxx.github.io/tree/master/utils"
+    },
+    "children": [
+      "репозитории"
+    ]
+  },
+  " на Github.\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Использование"
+    ]
+  },
+  "\nЭтот сайт полностью работает на этом движке.\nДля иллюстрации я показал использование с большим количеством элементов на странице — ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/projects/unicode"
+    },
+    "children": [
+      "отображение Юникода"
+    ]
+  },
+  ".\nВ будущем попробую привести код в порядок и сделать библиотеку на его основе.\n"
+]
