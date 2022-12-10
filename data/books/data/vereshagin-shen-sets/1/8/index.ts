@@ -1,15 +1,15 @@
+import { BookApi } from '@bookbox/preset-web';
 import { getCustomElements } from '../../elements.js';
 
-export default (api) => {
-    const { _, text, block, control, math } = api;
-    const { i, b, label } = text;
-    const { start, end } = control;
-    const { ul, li } = block;
-    const { $, $$ } = math;
+export default (api: BookApi) => {
+    const { book, format, list, item, start, end, math, label } = api;
+    const { i, b } = format;
+    const $ = math;
+    const $$ = math.block();
 
     const {paragraph, theorem, problem, proof, A, B, C, n, printNote } = getCustomElements(api);
 
-    return _`
+    return book`
 ${paragraph`Операции над мощностями`}
 Мощности конечных множеств — натуральные числа, и их можно складывать, умножать, возводить в степень.
 Эти операции можно обобщить и на мощности бесконечных множеств, и делается это так.
@@ -124,17 +124,17 @@ a^{b + c} &= a^b \\times a^c; \\\\
 
 
 Известные нам свойства счётных множеств можно записать так:
-${start(ul)}
-${li(_`
+${start(list)}
+${item(book`
 ${$`\\alef_0 + n = \\alef_0`} для конечного ${$`n`} (объединение счётного и конечного множеств счётно);
 `)}
-${li(_`
+${item(book`
 ${$`\\alef_0 + \\alef_0 = \\alef_0`} (объединение двух счётных множеств счётно);
 `)}
-${li(_`
+${item(book`
 ${$`\\alef_0 \\times \\alef_0 = \\alef_0`} (объединение счётного числа счётных множеств счётно).
 `)}
-${end(ul)}
+${end(list)}
 Отсюда можно формально получить многие факты манипуляциями с мощностями.
 Например, цепочка равенств
 ${$$`

@@ -1,8 +1,9 @@
+import { BookApi } from '@bookbox/preset-web';
 import { getCustomElements } from './elements.js';
 
-export default (api) => {
-    const { book, text } = api;
-    const { i, code, link } = text;
+export default (api: BookApi) => {
+    const { book, format, link } = api;
+    const { i, pre } = format;
     const {chapter, printNote} = getCustomElements(api);
     return book`
 ${chapter.noIndex(true)`Предисловие`}
@@ -37,7 +38,7 @@ ${book`Оригинал-макет книги был подготовлен В. 
 Наконец, мы благодарим сотрудников, аспирантов и студентов кафедры математической логики мехмата МГУ, а также всех участников наших лекций и семинаров и читателей предварительных вариантов этой книги.
 
 
-Просим сообщать о всех ошибках и опечатках авторам (электронные адреса ${code`ver`} at ${code`mccme`} dot ${code`ru`}, ${code`nikolay`} dot ${code`vereshchagin`} at ${code`gmail`} dot ${code`com`}; ${code`sasha`} dot ${code`shen`} at ${code`gmail`} dot ${code`com`}, ${code`alexander`} dot ${code`shen`} at ${code`lirmm`} dot ${code`fr`}; почтовый адрес: Москва, 119002, Большой Власьевский пер., 11, Московский центр непрерывного математического образования).
+Просим сообщать о всех ошибках и опечатках авторам (электронные адреса ${pre`ver`} at ${pre`mccme`} dot ${pre`ru`}, ${pre`nikolay`} dot ${pre`vereshchagin`} at ${pre`gmail`} dot ${pre`com`}; ${pre`sasha`} dot ${pre`shen`} at ${pre`gmail`} dot ${pre`com`}, ${pre`alexander`} dot ${pre`shen`} at ${pre`lirmm`} dot ${pre`fr`}; почтовый адрес: Москва, 119002, Большой Власьевский пер., 11, Московский центр непрерывного математического образования).
 
 
 Во втором издании исправлено несколько ошибок и добавлено несколько новых задач.

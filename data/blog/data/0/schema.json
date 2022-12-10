@@ -1,0 +1,31 @@
+[
+  "\nСайт написан мной с нуля.\n\n\nПолностью статический.\n\n\nХостинг ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://pages.github.com/"
+    },
+    "children": [
+      "Github Pages"
+    ]
+  },
+  ".\n\n\nВсе данные хранятся как исходный код.\nРепозиторий на Github ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://github.com/nikalexxx/nikalexxx.github.io"
+    },
+    "children": [
+      "здесь"
+    ]
+  },
+  ".\n\n\nИспользую последние возможности ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "javascript"
+    ]
+  },
+  ", поддержкой для старых браузеров пока не занимался.\n\n\nБуду писать о преимущественно о программировании, но не только..\n"
+]

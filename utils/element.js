@@ -608,6 +608,9 @@ export const E = getElement('http://www.w3.org/1999/xhtml');
 export const S = getElement('http://www.w3.org/2000/svg');
 export const M = getElement('http://www.w3.org/1998/Math/MathML');
 
+window.DOM = DOM;
+window.E = E;
+
 
 // // резерв
 // E.$a

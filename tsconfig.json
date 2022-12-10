@@ -16,5 +16,8 @@
     "noEmit": true,
     "experimentalDecorators": true
   },
+  "ts-node": {
+    "esm": true
+  },
   "include": ["."]
 }

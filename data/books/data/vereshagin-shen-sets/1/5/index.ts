@@ -1,17 +1,21 @@
+import { BookApi } from '@bookbox/preset-web';
 import { getCustomElements } from '../../elements.js';
 
-const path = '/data/books/vereshagin-shen-sets/1/5';
+const path = '/data/books/data/vereshagin-shen-sets/1/5';
 
-export default (api) => {
-    const { _, text, block, control, math, book } = api;
-    const { i, label } = text;
-    const { start, end } = control;
-    const { ul, li, area, img, small } = block;
-    const { $, $$ } = math;
+export default (api: BookApi) => {
+    const { format, list, item, area, image, math, book, label, start, end, resource } = api;
+    const { i, small } = format;
+    const $ = math;
+    const $$ = math.block();
 
     const {paragraph, problem, theorem, proof, A, B, C, n, printNote }= getCustomElements(api);
 
     return book`
+${resource.path('/1/5/img1.svg').src(path + '/img1.svg')}
+${resource.path('/1/5/img2.svg').src(path + '/img2.svg')}
+${resource.path('/1/5/img3.svg').src(path + '/img3.svg')}
+${resource.path('/1/5/img4.svg').src(path + '/img4.svg')}
 ${paragraph`Теорема Кантора–Бернштейна`}
 Определение равномощности уточняет интуитивную идею о множествах «одинакового размера».
 А как формально определить, когда одно множество «больше» другого?
@@ -32,36 +36,36 @@ ${problem`
 
 
 Отношение «иметь не большую мощность» обладает многими естественными свойствами:
-${start(ul)}
-${li(_`
+${start(list)}
+${item(book`
 Если ${A} и ${B} равномощны, то ${A} имеет не большую мощность, чем ${B}. (Очевидно.)
 `)}
-${start(li)}
+${start(item)}
 Если ${A} имеет не большую мощность, чем ${B}, а ${B} имеет не большую мощность, чем ${C}, то ${A} имеет не большую мощность, чем ${C}.
 (Тоже несложно.
 Пусть ${A} находится во взаимно однозначном соответствии с ${$`B' \\sub B`}, а ${B} находится во взаимно однозначном соответствии с ${$`C' \\sub C`}.
 Тогда при втором соответствии ${$`B'`} соответствует некоторому множеству ${$`C'' \\sub C' \\sub C`}, как показано на ${label.ref('img_1')`рис. 1`}, и потому ${A} равномощно ${$`C''`}.)
 
 ${start(area.key('img_1'))}
-${img.src(`${path}/img1.svg`).height(0.5)('Рис. 1. Транзитивность сравнения мощностей')}
+${image.src`/1/5/img1.svg`.height`50%`('Рис. 1. Транзитивность сравнения мощностей')}
 ${end(area)}
-${end(li)}
-${start(li)}
+${end(item)}
+${start(item)}
 Если ${A} имеет не большую мощность, чем ${B}, а ${B} имеет не большую мощность, чем ${A}, то они равномощны.
 (Это вовсе не очевидное утверждение составляет содержание теоремы ${label.ref('name_cantor')`Кантора`}–${label.ref('name_bernstein')`Бернштейна`}, которую мы сейчас докажем.)
-${end(li)}
-${start(li)}
+${end(item)}
+${start(item)}
 Для любых двух множеств ${A} и ${B} верно (хотя бы) одно из двух: либо ${A} имеет не большую мощность, чем ${B}, либо ${B} имеет не большую мощность, чем ${A}.
 (Доказательство этого факта требует так называемой «трансфинитной индукции»; ${label.ref('theorem_set=subset')`см. теорема ${n.theorem('set=subset')}`}.)
-${end(li)}
-${end(ul)}
+${end(item)}
+${end(list)}
 
 ${theorem.key('<>=').name('Кантора–Бернштейна')`
 Если множество ${A} равномощно некоторому подмножеству множества ${B}, а ${B} равномощно некоторому подмножеству множества ${A}, то множества ${A} и ${B} равномощны.
 `}
 
 ${start(area.key('img_2'))}
-${img.src(`${path}/img2.svg`).height(0.5)('Рис. 2.')}
+${image.src`/1/5/img2.svg`.height`50%`('Рис. 2.')}
 ${end(area)}
 
 ${proof.start}
@@ -88,7 +92,7 @@ ${end(i)}
 При этом ${$`A_4 \\sub A_3`}, так как ${$`A_2 \\sub A_1`}.
 
 ${start(area.key('img_3'))}
-${img.src(`${path}/img3.svg`).height(0.5)('Рис. 3.')}
+${image.src`/1/5/img3.svg`.height`50%`('Рис. 3.')}
 ${end(area)}
 
 Продолжая эту конструкцию, мы получаем убывающую последовательность множеств
@@ -123,7 +127,7 @@ C_1 \\xrightarrow{f} C_3 \\xrightarrow{f} C_5 \\xrightarrow{f} \\dots
 ${proof.end}
 
 ${start(area.key('img_4'))}
-${img.src(`${path}/img4.svg`).height(0.5)('Рис. 4.')}
+${image.src`/1/5/img4.svg`.height`50%`('Рис. 4.')}
 ${end(area)}
 
 ${small`
@@ -197,26 +201,26 @@ ${problem`
 ${start(area.key('set-size-variants'))}
 Теперь, имея в виду теорему Кантора–Бернштейна, вернёмся к вопросу о сравнении мощностей.
 Для данных множеств ${A} и ${B} теоретически имеются четыре возможности:
-${start(ul)}
-${li(_`
+${start(list)}
+${item(book`
 ${A} равномощно некоторой части ${B}, а ${B} равномощно некоторой части ${A}.
 (В этом случае, как мы знаем, множества равномощны.)
 `)}
-${li(_`
+${item(book`
 ${area.key('set-size<')`
 ${A} равномощно некоторой части ${B}, но ${B} не равномощно никакой части ${A}.
 В этом случае говорят, что ${A} ${i`имеет меньшую мощность, чем`} ${B}.
 `}
 `)}
-${li(_`
+${item(book`
 ${B} равномощно некоторой части ${A}, но ${A} не равномощно никакой части ${B}.
 В этом случае говорят, что ${A} ${i`имеет большую мощность, чем`} ${B}.
 `)}
-${li(_`
+${item(book`
 Ни ${A} не равномощно никакой части ${B}, ни ${B} не равномощно никакой части ${A}.
 Этот случай на самом деле ${label.ref('theorem_set=subset')`невозможен`}, но мы этого пока не знаем.
 `)}
-${end(ul)}
+${end(list)}
 ${end(area)}
 
 ${problem`Докажите, что счётное множество имеет меньшую мощность, чем любое несчётное.`}

@@ -53,7 +53,7 @@ const Menu = Component.Menu(({ state }) => {
             renderLink('video', Lang.token`menu/video`, '🎬', compact),
             renderLink('books', Lang.token`menu/books`, '📚', compact),
             renderLink('physics', Lang.token`menu/physics`, '🔬', compact),
-            renderLink('design', Lang.token`menu/design`, '🎨', compact),
+            renderLink('design', Lang.token`menu/design`, '🚦', compact), // 🎨
             renderLink('travels', Lang.token`menu/travels`, '🌄', compact),
             renderLink('catalog', Lang.token`menu/catalog`, '🔎', compact),
             E.div.class(b('compact'))(
