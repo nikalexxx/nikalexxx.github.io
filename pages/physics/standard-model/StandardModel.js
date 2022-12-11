@@ -7,6 +7,7 @@ import {
 } from '../../../utils';
 
 import { Breadcrumbs } from '../../../components';
+import { Lang } from '../../../blocks';
 
 const b = block('standard-model');
 
@@ -309,7 +310,7 @@ const StandardModel = Component.StandardModel(({state}) => {
     return () => {
         const {interaction, i} = state();
         return E.div(
-            Breadcrumbs.items([['Физика', 'physics'], ['Стандартная модель']]),
+            Breadcrumbs.items([[Lang.token`menu/physics`, 'physics'], [Lang.token`tile/standart-model`]]),
             E.div.class(b())(
                 E.h2('Стандартная модель элементарных частиц'),
                 E.div.class(b('table'))(

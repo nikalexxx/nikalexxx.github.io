@@ -7,25 +7,34 @@
     outline: 0;
     border: 1px solid var(--color-background-accent);
     background-color: var(--color-background-second);
-    box-shadow: 0 0 .2em rgba(0,0,0,.1);
+    box-shadow: 0 0 0.2em rgba(0, 0, 0, 0.1);
 
     &:hover {
         border: 1px solid var(--color-border);
         cursor: pointer;
+        background-color: var(--color-background-prime);
     }
 
     &:active {
-        transform: scale(.95);
+        transform: scale(0.95);
     }
 
     &:focus {
-        box-shadow: 0 0 .2em rgba(0,0,255,.3);
+        box-shadow: 0 0 0.2em rgba(0, 0, 255, 0.3);
     }
 
     &:disabled {
         border: 1px solid var(--color-background-prime);
-        opacity: .5;
+        opacity: 0.5;
         cursor: not-allowed;
         transform: none;
+    }
+
+    &_view {
+        &_flat {
+            border-color: transparent;
+            box-shadow: none;
+            border-radius: 0;
+        }
     }
 }

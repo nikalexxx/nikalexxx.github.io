@@ -16,5 +16,12 @@
     "noEmit": true,
     "experimentalDecorators": true
   },
+<<<<<<< HEAD
   "include": ["*"]
+=======
+  "ts-node": {
+    "esm": true
+  },
+  "include": ["."]
+>>>>>>> master
 }

@@ -42,7 +42,7 @@ list.keys.each do |url|
         href = '/favicon.ico'
     end
     puts max_size
-    icons_data[url] = href[0..3] == 'http' ? href : "https://#{url.sub(/\/$/, '').split('/')[0]}#{href[0] == '/' ? '' : '/' }#{prefix || ''}#{href}"
+    icons_data[url] = (href[0..3] == 'http' || href[0..9] == 'data:image') ? href : "https://#{url.sub(/\/$/, '').split('/')[0]}#{href[0] == '/' ? '' : '/' }#{prefix || ''}#{href}"
 end
 
 $> = File.open('./list.js', 'w')

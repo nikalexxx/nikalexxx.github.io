@@ -25,6 +25,19 @@ const Physics = Component.Physics(() => {
                             )
                         )
                     )
+                ),
+                RouteLink.href('physics/gravitation')(
+                    Tile(
+                        E.div.class(b('tile'))(
+                            Lang.token`tile/gravitation`,
+                            E.div.class(b('space'))(
+                                E.div.class(b('sun')),
+                                E.div.class(b('orbit'))(
+                                    E.div.class(b('planet'))
+                                )
+                            )
+                        )
+                    )
                 )
             )
         );

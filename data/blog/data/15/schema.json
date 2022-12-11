@@ -1,0 +1,135 @@
+[
+  "\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Чем полезна библиотека?"
+    ]
+  },
+  "\n",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://github.com/nikalexxx/fp-magic"
+    },
+    "children": [
+      "fp-magic"
+    ]
+  },
+  " — библиотека для создания функций с размеченными данными.\nБыла написана мной в прошлом году на голом javascript.\n\n\nИспользование описано в README, здесь лишь расскажу основную идею.\nЧтобы создать функцию с метками, вместо самих аргументов нужно передать аргументы, у которых некоторые части будут с метками.\nЧасть аргумента — это любое выражение внутри него (либо весь аргумент целиком).\nНапример в массиве ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "[1, 2]"
+    ]
+  },
+  " мы хотим отметить выражение ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "2"
+    ]
+  },
+  ", чтобы далее при разборе отличать его от обычных выражений.\nЧтобы не оборачивать любое выражение объектом оберткой, сделаем это внутри нашей функции.\n\n\nТак как операции над выражениями с метками должны выполняться штатно, нельзя просто обернуть выражение в объект вида\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\n{\n    value: 2,\n    type: 'label'\n}\n"
+    ]
+  },
+  "\n\n\nОн сломает все операции с выражением.\nПоэтому реализована следующая обертка:\n",
+  {
+    "name": "list",
+    "props": {},
+    "children": [
+      "\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "Для объектов метка это символьное поле"
+        ]
+      },
+      "\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "Для примитивов обрачиваем примитив ",
+          {
+            "name": "format.pre",
+            "props": {},
+            "children": [
+              "x"
+            ]
+          },
+          " в ",
+          {
+            "name": "format.pre",
+            "props": {},
+            "children": [
+              "new Object(x)"
+            ]
+          },
+          " и ставим метку в полученный объект"
+        ]
+      },
+      "\n"
+    ]
+  },
+  "\n\n\nЭтот компромисс не подойдёт тем, кто работает с примитивами и явно проверяет js типы для них c помощью typeof.\nВ остальном примитивы по возможности превращаются обратно в явные значения через valueOf.\nДля объектов символьное поле прекрасно скрыто от использования, кроме совсем уж диких попыток работать со всеми символьными свойствами объекта независимо от их значения.\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Всего лишь добавить типы..."
+    ]
+  },
+  "\nИз-за динамической природы js изначально много информации о типах терялось в результате преобразований функций.\n\n\nТак как цепочки функций при создании функтора и при его использовании должны быть согласованы по типам, эти типы пришлось вынести в параметры функции-дженерика, которую возвращает ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "createFunctor"
+    ]
+  },
+  ".\n\n\nСам ",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "createFunctor"
+    ]
+  },
+  " параметризуется отдельно допустимыми типами для меток.\nЕсли его не параметризовать, то в качестве меток можно ставить любые строки.\n\n\nИтоговая сигнатура такова\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\n<L extends string>() => <T, R>(f: CheckArgument<T, R, L>) => {\n    (argumentFunction: WrapperArgument<T, L>): R;\n    labels: string[];\n}\n"
+    ]
+  },
+  "\n\nВспомогательных типов всего 7, и все они экспортированы для удобства\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "typescript"
+    },
+    "children": [
+      "\nexport type WrapperObject = Record<string | symbol, unknown>;\nexport type CheckFunction = (x: unknown) => boolean;\nexport type WrapperFunction = <T>(x: T) => T & WrapperObject;\nexport type CheckLabels<L extends string> = Record<L, CheckFunction>;\nexport type CheckArgument<T, R, L extends string> = (labels: CheckLabels<L>) => (arg: T) => R;\nexport type WrapperLabels<L extends string> = Record<L, WrapperFunction>;\nexport type WrapperArgument<T, L extends string> = (labels: WrapperLabels<L>) => T;\n"
+    ]
+  },
+  "\n"
+]

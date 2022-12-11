@@ -1,17 +1,29 @@
 .blog {
-    display: grid;
-    grid-template-columns: 1fr minmax(auto, 200px);
-    padding: 8px;
+    &__blog {
+        display: grid;
+        grid-template-columns: 1fr minmax(auto, 200px);
+        grid-template-rows: auto 1fr;
+        padding: 8px;
 
-    @media (max-width: 700px) {
-        display: block;
+        @media (max-width: 700px) {
+            display: block;
+        }
+    }
+
+    &__new {
+        min-height: 20px;
+    }
+
+    &__new-mark {
+        color: var(--color-text-accent);
+        margin-right: 20px;
     }
 
     &__list {
         & a {
             color: var(--color-text);
 
-            &:hover h3{
+            &:hover h3 {
                 color: var(--color-text-accent);
             }
         }
@@ -24,6 +36,33 @@
     &__post-card {
         width: 100%;
         text-align: start;
+        margin-top: -20px;
+    }
+
+    &__image {
+        position: relative;
+        height: 250px;
+        background-size: contain;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin: 0 -20px;
+        margin-bottom: 16px;
+    }
+
+    &__image-opacity {
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            transparent 70%,
+            var(--color-background-prime)
+        );
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
     }
 
     &__title {
@@ -34,11 +73,6 @@
             hyphens: auto;
             font-size: 1.4em;
         }
-    }
-    &__new {
-        font-size: 1rem;
-        color: var(--color-text-active)
-
     }
     &__time {
         font-size: 0.9em;
@@ -127,6 +161,15 @@
             height: 1.1em;
             margin-right: 4px;
             background-image: url("../../assets/images/logo/svg.svg");
+        }
+
+        &[data-tag="site"]::before {
+            display: inline-block;
+            content: "";
+            width: 1.1em;
+            height: 1.1em;
+            margin-right: 4px;
+            background-image: url("../../assets/images/logo/nikalexxx.svg");
         }
     }
     &__read-button {

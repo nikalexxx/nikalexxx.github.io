@@ -1,15 +1,16 @@
 @import '../../css/variables.css';
 
 .app {
+    min-height: 100vh;
     display: grid;
     grid-template-areas:
         'header-menu header-menu'
         'header header'
         'menu content'
+        'menu-space content'
         'footer footer';
     grid-template-columns: auto 1fr;
-    grid-template-rows: 0px auto 1fr auto;
-    min-height: 100vh;
+    grid-template-rows: 0px auto auto 1fr auto;
 
     &__header {
         grid-area: header;
@@ -62,10 +63,19 @@
         grid-template-columns: 1fr auto;
     }
 
+    &__menu-space {
+        grid-area: menu-space;
+        background-color: var(--color-background-second);
+    }
+
     &__menu {
         grid-area: menu;
         background-color: var(--color-background-second);
-        width: 120px;
+        width: 145px;
+        overflow: hidden;
+
+        position: sticky;
+        top: 0;
 
         @media (max-width: 700px) {
             position: fixed;
@@ -83,6 +93,20 @@
                 transition: left .1s;
             }
         }
+
+        &_compact {
+            width: 32px;
+        }
+    }
+
+    &__compact {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__compact-btn {
+        width: 100%;
     }
 
     &__menu-close-area {
@@ -108,9 +132,18 @@
         padding: 4px;
         position: sticky;
         bottom: 1em;
+        justify-content: center;
+
+        * {
+            font-size: 0.95em !important;
+        }
 
         @media (max-width: 700px) {
-            display: block;
+            display: flex;
+        }
+
+        &_compact {
+            display: none;
         }
     }
 
@@ -127,7 +160,11 @@
     }
 
     &__menu-link {
-        padding: 8px 8px;
+        padding: 4px 8px;
+        font-size: 1rem;
+        height: 30px;
+        display: flex;
+        align-items: center;
 
         &:hover {
             background-color: var(--color-background-prime);
@@ -143,6 +180,7 @@
         position: relative;
         overflow-y: auto;
         padding: 8px;
+        min-height: 50vh;
     }
 
     &__footer {

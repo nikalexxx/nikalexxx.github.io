@@ -1,126 +1,12 @@
 .book {
-    position: relative;
-    // font-family: serif;
+    & > div:first-child {
+        padding-bottom: 16px;
+    }
 
     &__loading {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 2em;
-    }
-    &__headers {
-        background-color: var(--color-background-second);
-        // z-index: 9998;
-        // position: fixed;
-        // top: 1rem;
-        // right: 1rem;
-        border-radius: 2px;
-        overflow: hidden;
-        // opacity: .95;
-    }
-
-    &__control-container {
-        position: fixed;
-        color: var(--color-text-active);
-        background-color: var(--color-background-second);
-        border: 1px solid var(--color-border);
-        border-radius: 2px;
-        z-index: 999;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-
-    &__headers-container {
-        bottom: 1rem;
-        right: 1rem;
-    }
-
-    &__images-container {
-        bottom: calc(1rem + 40px + 1rem);
-        right: 1rem;
-    }
-
-    &__control-button {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-
-        &:hover {
-            color: var(--color-text-accent);
-            cursor: pointer;
-        }
-    }
-
-    &__images {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 8px 16px;
-    }
-
-    &__image {
-        padding: 4px;
-        font-size: .7rem;
-        &:hover {
-            cursor: pointer;
-            color: var(--color-text-accent);
-            background-color: var(--color-background-accent);
-        }
-    }
-
-    &__content {
-        line-height: 1.5rem;
-        border-radius: 5px;
-        margin: 5px;
-        padding: 5px 15px;
-        max-width: 900px;
-
-        -ms-hyphens: auto;
-        -webkit-hyphens: auto;
-        hyphens: auto;
-
-        * {
-            -ms-hyphens: none;
-            -webkit-hyphens: none;
-            hyphens: none;
-        }
-
-        @media (max-width: 700px) {
-            padding: 5px;
-        }
-
-        pre {
-            white-space: pre;
-        }
-
-        li {
-            margin: 8px 0;
-        }
-
-        iframe {
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-
-    &__header-link {
-        padding: 4px 8px;
-
-        &:hover {
-            background-color: var(--color-background-prime);
-        }
-
-        &_current {
-            background-color: var(--color-background-accent);
-        }
     }
 }
