@@ -4,11 +4,6 @@ import { Breadcrumbs, Page404, BookBox } from '../../../components';
 import { Component, E, block } from '../../../utils';
 import { Lang, Spin } from '../../../blocks';
 
-<<<<<<< HEAD
-import { DOM } from '../../../utils';
-import { Icon } from '../../../icons';
-=======
->>>>>>> master
 import { booksList } from '../../../data/books';
 import { createHtmlBook } from '@bookbox/preset-web';
 
