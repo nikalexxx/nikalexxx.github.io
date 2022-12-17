@@ -1,21 +1,23 @@
-// function logAdd(element: any) {
-//     console.log(
-//         '%c + ',
-//         style({
-//             color: 'green',
-//             backgroundColor: '#dfd',
-//         }),
-//         element
-//     );
-// }
+import { style } from '../../style';
 
-// function logRemove(element: any) {
-//     console.log(
-//         '%c - ',
-//         style({
-//             color: 'red',
-//             backgroundColor: '#fdd',
-//         }),
-//         element
-//     );
-// }
+export function logAdd(element: any) {
+    console.log(
+        '%c + ',
+        style({
+            color: 'green',
+            backgroundColor: '#dfd',
+        }),
+        element
+    );
+}
+
+export function logRemove(element: any) {
+    console.log(
+        '%c - ',
+        style({
+            color: 'red',
+            backgroundColor: '#fdd',
+        }),
+        element
+    );
+}

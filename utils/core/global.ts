@@ -1,4 +1,5 @@
-import { componentSymbol, elementSymbol } from './symbols';
+import { componentSymbol } from './component/symbols';
+import { elementSymbol } from './symbols';
 import { VDOMElement } from './vdom-model';
 
 declare global {

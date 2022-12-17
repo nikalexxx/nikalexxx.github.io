@@ -1,37 +1,18 @@
 import {
-    VDOMComponent,
     VDOMElement,
-    isComponent,
     Container,
-    Content,
-    isVDOMElement,
     RawContainer,
-    FullEventListeners,
-    FullChildren,
-    FullProps,
+    isVDOMFragment,
 } from './vdom-model';
-import {
-    isObject,
-    isPrimitive,
-    Primitive,
-    setType,
-} from './utils/type-helpers';
-import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
+import { isPrimitive } from './utils/type-helpers';
+import { elementSymbol, vdomNodeSymbol } from './symbols';
 import { namespaceNames } from './namespace';
-import {
-    diff,
-    Diff,
-    DiffByKeys,
-    raw,
-    rawSymbol,
-    metaSymbol,
-    deleteSymbol,
-    arraySymbol,
-} from './utils/diff';
-import { isElement } from './dom';
+import { diff, Diff, DiffByKeys, raw } from './utils/diff';
 import { getFlatNode } from './list';
-import { emptySymbol, diffArray, diffObject, isDiffRaw } from './utils/diff';
+import { emptySymbol, diffArray, diffObject } from './utils/diff';
 import { getNodeKey } from './element';
+import { isComponent } from './component';
+import { componentSymbol, subComponentSymbol } from './component';
 
 /*
 Использовать хэши от пропсов и потомков
@@ -100,6 +81,31 @@ export function diffElements(
         return diffArray(A, B, diffElements);
     }
 
+    if (isVDOMFragment(A)) {
+        if (!isVDOMFragment(B)) {
+            return raw(B);
+        }
+        const diffChildren = diffObject(
+            A.children ?? {},
+            B.children ?? {},
+            diffElements as any
+        );
+        return {
+            props: emptySymbol,
+            eventListeners: emptySymbol,
+            children: diffChildren, // меняются только дети
+            tagName: emptySymbol,
+            namespace: emptySymbol,
+            nodeType: emptySymbol,
+            [elementSymbol]: emptySymbol,
+            [vdomNodeSymbol]: emptySymbol,
+        };
+    }
+
+    if (isVDOMFragment(B)) {
+        return raw(B);
+    }
+
     // A и B элементы
     if (A.nodeType !== B.nodeType) {
         return raw(B);
@@ -153,6 +159,7 @@ export function diffElements(
         namespace: emptySymbol,
         nodeType: emptySymbol,
         [elementSymbol]: emptySymbol,
+        [vdomNodeSymbol]: emptySymbol,
     };
 
     return fDiff;
@@ -178,6 +185,7 @@ export function getNode({
         );
     }
 
+    console.log({node}, isComponent);
     if (!isComponent(node)) {
         // элементы возвращаем как есть
         return typeof node === 'function' ? node() : node;
@@ -223,6 +231,10 @@ export const DOM = (
             fragment.appendChild(DOM(item));
         }
         return fragment;
+    }
+
+    if (isVDOMFragment(elementObject)) {
+        return DOM(Object.values(elementObject.children ?? {}));
     }
 
     if (typeof elementObject === 'function') {

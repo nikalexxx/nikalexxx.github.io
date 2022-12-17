@@ -1,6 +1,7 @@
 import { ReactHTML } from 'react';
+import { VDOMComponent } from './component/model';
 import { DOMNamespace } from './namespace';
-import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
+import { elementSymbol, vdomNodeSymbol } from './symbols';
 import { isObject, Primitive } from './utils/type-helpers';
 
 export type HTML_TAG = keyof ReactHTML;
@@ -37,6 +38,8 @@ export type VDOMNode = {
     subComponents?: Record<string, VDOMComponent>;
 
     component?: VDOMComponent;
+
+    [vdomNodeSymbol]: true;
 };
 
 export type VDOMRefDom = {
@@ -55,6 +58,8 @@ export type VDOMElement<N extends DOMNamespace = DOMNamespace> = VDOMNode & VDOM
     nodeType: number;
     namespace: N;
     tagName: Tags[N];
+
+    /** свойства */
     props?: Record<string, string> & CustomProps;
 
     /** обработчики событий */
@@ -69,8 +74,16 @@ export type FullProps = Required<VDOMElement>['props'];
 export type FullChildren = Required<VDOMElement>['children'];
 export type FullEventListeners = Required<VDOMElement>['eventListeners'];
 
+export function isVDOMNode(e: unknown): e is VDOMNode {
+    return isObject(e) && vdomNodeSymbol in e;
+}
+
 export function isVDOMElement(e: unknown): e is VDOMElement {
-    return isObject(e) && elementSymbol in e;
+    return isVDOMNode(e) && elementSymbol in e;
+}
+
+export function isVDOMFragment(e: unknown): e is VDOMFragment {
+    return isVDOMNode(e) && 'isFragment' in e;
 }
 
 window.vdom = function vdom(e: Node | undefined | null) {

@@ -89,6 +89,7 @@ export function diff<T1 extends unknown, T2 extends unknown>(
     B: T2
 ): Diff<T1, T2> {
     // равенство по значению(для примитивов), либо по ссылке(для объектов)
+    // @ts-ignore
     if (A === B) {
         return D.empty;
     }

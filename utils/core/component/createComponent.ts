@@ -1,7 +1,31 @@
-import { getHandlers } from "./handlers";
-import { MakeComponent } from "./model";
+import { isElement } from '../dom';
+import { isObject } from '../utils/type-helpers';
+import { RawContainer, VDOMFragment } from '../vdom-model';
+import { getHandlerErrors, getHandlers } from './handlers';
+import {
+    ComponentProps,
+    ComponentState,
+    MakeComponent,
+    VDOMComponent,
+} from './model';
+import { getStateClass } from './state';
+import {
+    checkSubComponents,
+    getChildren,
+    getNodes,
+    getSubComponents,
+} from '../element';
+import { diffObject } from '../utils/diff';
+import { componentSymbol } from './symbols';
+import { getComponentChildNodes } from './rerender';
+import { patchChildNodes } from './patchDOM';
+import { diffElements } from '../render';
+import { vdomNodeSymbol } from '../symbols';
 
-export const createComponent = <P, S>(
+export const createComponent = <
+    P extends ComponentProps,
+    S extends ComponentState
+>(
     componentName: string,
     makeComponent: MakeComponent<P, S>,
     initialProps: P,
@@ -22,7 +46,7 @@ export const createComponent = <P, S>(
     // структура цепочки компонентов в элементе
     // [компонент, который возвращает массив] > [аналогично, только вложенный] > возвращает компонент > который возвращает этот элемент
 
-    let element: VDOMFragment = { isFragment: true };
+    let element: VDOMFragment = { isFragment: true, [vdomNodeSymbol]: true };
 
     // вызванные обработчики
     const handlers = getHandlers();
@@ -116,6 +140,7 @@ export const createComponent = <P, S>(
         const nodes = getNodes(renderResult);
 
         const fragment: VDOMFragment = {
+            [vdomNodeSymbol]: true,
             isFragment: true,
             children: getChildren(nodes).children,
             subComponents: getSubComponents(componentName, nodes),
@@ -130,7 +155,11 @@ export const createComponent = <P, S>(
 
         const dom = element.dom!;
         const componentData = element.component;
-        const diffChildren = diffObject(element.children ?? {}, fragment.children ?? {}, diffElements as any);
+        const diffChildren = diffObject(
+            element.children ?? {},
+            fragment.children ?? {},
+            diffElements as any
+        );
 
         // новые элементы создаются без привязки к странице
 
@@ -170,7 +199,6 @@ export const createComponent = <P, S>(
             }
         } else {
             // первый рендер
-
         }
 
         // при наличии субкомпонентов
@@ -208,7 +236,7 @@ export const createComponent = <P, S>(
     componentFunction[componentSymbol] = {
         name: componentName,
         nameSymbol: componentNameSymbol,
-        instance: 0,
+        instance: '0',
         changeProps: (newProps: PropsType) => {
             props = newProps;
             rerender();
@@ -220,5 +248,3 @@ export const createComponent = <P, S>(
 
     return componentFunction;
 };
-
-

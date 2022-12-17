@@ -1,32 +1,24 @@
-import { P_Object } from 'ts-pro';
-
-import { componentSymbol, elementSymbol, subComponentSymbol } from './symbols';
-import { Diff, diff, raw } from './utils/diff';
-import {
-    namespaceNames,
-    namespaceCodes,
-    DOMNamespace,
-    DOMNamespaceName,
-} from './namespace';
+import { elementSymbol, vdomNodeSymbol } from './symbols';
+import { diff } from './utils/diff';
+import { namespaceCodes, DOMNamespaceName } from './namespace';
 import './global';
-import { isObject, isPrimitive, Primitive, setType } from './utils/type-helpers';
+import { isObject, isPrimitive } from './utils/type-helpers';
 import {
-    VDOMComponent,
     Content,
     HTML_TAG,
     VDOMElement,
     Container,
     RawContainer,
-    isComponent,
     RawContent,
     isVDOMElement,
-    VDOMNode,
     VDOMFragment,
 } from './vdom-model';
 import { strToArray, isTemplateString } from './utils/syntax-helpers';
 import { getNode } from './render';
 import { getFlatNode } from './list';
 import { ReactHTML } from 'react';
+import { VDOMComponent, isComponent } from './component/model';
+import { subComponentSymbol, componentSymbol } from './component/symbols';
 
 export function checkSubComponents({
     node,
@@ -90,7 +82,7 @@ export function checkSubComponents({
     }
 
     // получаем разобранное дерево с учётом субкомпонентов
-    const newElement = getNode(node, true);
+    const newElement = getNode({ node, expand: true });
 
     return {
         existSubComponents,
@@ -152,7 +144,7 @@ type ElementBuilder = StringBuilder & {
     [K in HTML_TAG]: PropsBlock<K>;
 };
 
-/** получение пустого элемента без свойст, событий и содержимого */
+/** получение пустого элемента без свойств, событий и содержимого */
 function getEmptyVDOMElement(
     namespace: DOMNamespaceName,
     tagName: HTML_TAG
@@ -166,6 +158,7 @@ function getEmptyVDOMElement(
         subComponents: {},
         nodeType: Node.ELEMENT_NODE,
         [elementSymbol]: true,
+        [vdomNodeSymbol]: true,
     };
 
     return element;
@@ -216,7 +209,7 @@ export function getNodes(children: RawContainer): Content[] {
     const nodes: Content[] = [];
     const childList = Array.isArray(children) ? children : [children];
     for (let node of childList.filter(filterChildren)) {
-        const targetContainer = getNode(node, false);
+        const targetContainer = getNode({ node });
         const targetNodes = Array.isArray(targetContainer)
             ? getFlatNode<[Container, Content]>(targetContainer).filter(
                   filterChildren
@@ -291,7 +284,7 @@ export function getSubComponents(
     return subComponents;
 }
 
-const create = (
+export const createElement = (
     namespace: DOMNamespaceName,
     tagName: HTML_TAG = 'div',
     props: VDOMElement['props'] & VDOMElement['eventListeners'] = {},
@@ -319,7 +312,7 @@ function prepareChildren(items: any[]): any[] {
     return isTemplateString(items) ? strToArray(...items) : items;
 }
 
-function prepareProps(prop: string, items: any): Record<string, any> {
+function prepareProps(prop: string, items: any[]): Record<string, any> {
     if (prop === '_props' && isObject(items[0])) {
         return items[0];
     }
@@ -337,7 +330,7 @@ function stableElement(
 ) {
     return new Proxy(
         (...children: any[]) =>
-            create(namespace, name, props, prepareChildren(children)),
+            createElement(namespace, name, props, prepareChildren(children)),
         {
             get(_, prop: string) {
                 return (...items: any[]) =>

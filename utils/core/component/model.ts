@@ -1,3 +1,4 @@
+import { RawContainer, VDOMFragment } from '../vdom-model';
 import { componentSymbol, subComponentSymbol } from './symbols';
 
 /** общий вид внутреннего состояния компонента */
@@ -50,4 +51,4 @@ export type ComponentParams<P extends ComponentProps, S extends ComponentState> 
 /** рендер функция, возвращается из каждого компонента */
 export type ComponentRender = () => RawContainer;
 
-export type MakeComponent<P, S> = (params?: ComponentParams<P, S>) => ComponentRender;
+export type MakeComponent<P extends ComponentProps, S extends ComponentState> = (params?: ComponentParams<P, S>) => ComponentRender;

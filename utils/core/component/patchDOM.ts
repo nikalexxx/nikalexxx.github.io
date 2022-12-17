@@ -1,3 +1,10 @@
+import { isElement } from "../dom";
+import { DOM } from "../render";
+import { elementSymbol } from "../symbols";
+import { arraySymbol, deleteSymbol, Diff, diff, DiffByKeys, emptySymbol, rawSymbol } from "../utils/diff";
+import { isObject, isPrimitive, setType } from "../utils/type-helpers";
+import { Container, FullChildren, FullEventListeners, FullProps, isVDOMElement, VDOMElement } from "../vdom-model";
+import { getComponentChildNodes } from "./rerender";
 
 /** Точечное изменение dom по diff */
 export function patchDOM(dom: Node, diffObject: Diff<Container, Container>) {
@@ -83,7 +90,7 @@ export function patchDOM(dom: Node, diffObject: Diff<Container, Container>) {
     >;
     patchChildNodes({
         dom,
-        oldNodes: getChildNodes(dom),
+        oldNodes: getComponentChildNodes(dom, dom.firstChild, dom.lastChild),
         diffChildren: children,
     });
 
@@ -214,7 +221,7 @@ export function patchChildNodes({
     }
 
     // добавление новых потомков
-    const newChildren = [];
+    const newChildren: (Element | Text | DocumentFragment)[] = [];
     for (const key in diffChildren) {
         // пропуск уже обработанных
         if (updatedChildKeys.has(key)) {

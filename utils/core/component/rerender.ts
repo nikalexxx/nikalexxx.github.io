@@ -1,7 +1,9 @@
+import { elementSymbol } from "../symbols";
+
 export function getComponentChildNodes(
     parentNode: Node,
-    start: Node,
-    end: Node
+    start: Node | null,
+    end: Node | null
 ): Record<string, Node> {
     let upd = true;
     let current: Node | null = start;

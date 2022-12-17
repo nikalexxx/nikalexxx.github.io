@@ -15,7 +15,7 @@ export const getNewState =
 
 export function getInitState<S>(
     componentName: string,
-    state: S,
+    stateRef: {state: S},
     handlers: Handlers,
     handlerErrors: HandlerErrors
 ) {
@@ -28,7 +28,7 @@ export function getInitState<S>(
             }
         }
         handlers.initState.bump();
-        state = startState;
+        stateRef.state = startState;
     };
 }
 
@@ -42,7 +42,7 @@ export type StateClass<S> = {
     onChange: (...names: (keyof S)[]) => boolean;
 };
 
-export function getStateClass<S>(
+export function getStateClass<S extends ComponentState>(
     componentName: string,
     handlers: Handlers,
     handlerErrors: HandlerErrors,
@@ -52,11 +52,11 @@ export function getStateClass<S>(
     let state: S = {} as S;
 
     // предыдущее состояние
-    let prevState = {};
+    let prevState: S = {} as S;
 
     const initState = getInitState(
         componentName,
-        state,
+        {state},
         handlers,
         handlerErrors
     );
@@ -71,9 +71,7 @@ export function getStateClass<S>(
         );
         state = { ...state, ...newStateObject };
         rerender();
-        if (callback) {
-            callback();
-        }
+        callback?.();
     }
 
     const changeState = (...names: (keyof S)[]) => {

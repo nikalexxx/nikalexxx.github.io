@@ -1,7 +1,18 @@
-type RT = <P, S extends Record<string, any>>(
+import {
+    ComponentNameRegex,
+    ComponentParams,
+    ComponentProps,
+    ComponentState,
+    MakeComponent,
+    VDOMComponent,
+} from './model';
+import { getCounter } from '../utils/counter';
+import { Content, RawContainer } from '../vdom-model';
+import { createComponent } from './createComponent';
+
+type RT = <P extends ComponentProps, S extends Record<string, any>>(
     makeComponent: MakeComponent<P, S>
 ) => VDOMComponentBuilder<P>;
-
 
 const componentCounter = getCounter();
 function componentConstructor<T extends string>(componentName: T) {
@@ -13,12 +24,12 @@ function componentConstructor<T extends string>(componentName: T) {
 
     const componentDefinitionCount = componentCounter.get();
 
-    return function <P, S extends Record<string, any>>(
+    return function <P extends ComponentProps, S extends Record<string, any>>(
         makeComponent: MakeComponent<P, S>
     ) {
         function stableElement(props: Partial<P>) {
             const getComponent = ((...children: Content[]) =>
-                create<P, S>(
+                createComponent<P, S>(
                     componentName,
                     makeComponent,
                     {} as P,
@@ -37,7 +48,7 @@ function componentConstructor<T extends string>(componentName: T) {
                     };
                 },
                 apply(target, thisArg, argArray) {
-                    return create<P, S>(
+                    return createComponent<P, S>(
                         componentName,
                         makeComponent,
                         props as P,
@@ -50,7 +61,7 @@ function componentConstructor<T extends string>(componentName: T) {
     };
 }
 
-type VDOMComponentBuilder<P> = {
+type VDOMComponentBuilder<P extends ComponentProps> = {
     [K in keyof P]: (
         value: P[K] | TemplateStringsArray
     ) => VDOMComponentBuilder<P>;
@@ -59,7 +70,7 @@ type VDOMComponentBuilder<P> = {
 export const Component = new Proxy(
     {} as Record<
         string,
-        <P = any, S = any>(
+        <P extends ComponentProps = any, S extends ComponentState = any>(
             builder: (params: ComponentParams<P, S>) => () => RawContainer
         ) => VDOMComponentBuilder<P>
     >,
