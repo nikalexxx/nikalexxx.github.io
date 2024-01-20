@@ -6,12 +6,12 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build-books; npm run build-blog; vite build",
+    "build": "npm run build-books; npm run build-blog; vite build; cp -R data dist",
     "build-books": "cd data/books; node --experimental-specifier-resolution=node --loader ts-node/esm build.ts",
     "build-blog": "cd data/blog; node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm build.ts",
     "dev-books": "onchange \"./data/books/**/*\" -- node data/books/build.js {{file}} tick.json",
     "dev-blog": "onchange \"./data/blog/**/*.ts\" -- node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm data/blog/dev.ts {{file}}",
-    "deploy": "ENV=prod npm run build",
+    "deploy": "ENV=prod npm run build; gh-pages -d dist",
     "dev": "vite"
   },
   "repository": {
@@ -30,7 +30,7 @@
     "@types/katex": "^0.14.0",
     "@types/mermaid": "^8.2.9",
     "@types/node": "^20.11.0",
-    "gh-pages": "^3.2.0",
+    "gh-pages": "^3.2.3",
     "less": "^3.13.1",
     "onchange": "^7.1.0",
     "ts-node": "^10.2.1",
