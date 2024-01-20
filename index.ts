@@ -1,8 +1,10 @@
-import {logAllLevels, setLogger} from './utils/logger.js';
 
+/// <reference path="./typings.d.ts" />
 
-import {App} from './components/index.js';
-import {DOM} from './utils';
+import { logAllLevels, setLogger } from "./utils/logger.js";
+
+import { App } from "./components/index.js";
+import { debug, render } from "parvis";
 
 setLogger({
     component: {
@@ -12,6 +14,9 @@ setLogger({
         [logAllLevels]: true,
     },
 });
+
 setLogger(false); // for production
 
-document.getElementById('root')!.append(DOM(App));
+debug(true);
+
+render("#root", App);

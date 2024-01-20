@@ -206,4 +206,13 @@ export default {
             githubIssue: 57,
         },
     },
+    22: {
+        type: 'bookbox',
+        creationTime: '2024-01-20T19:55:20',
+        title: 'Я написал UI фреймворк — parvis!',
+        tags: ['typescript', 'npm', 'parvis', 'virtual dom', 'framework'],
+        comments: {
+            githubIssue: 64,
+        },
+    },
 } as const;

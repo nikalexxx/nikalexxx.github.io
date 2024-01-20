@@ -1,0 +1,79 @@
+[
+  "\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Что такое parvis?"
+    ]
+  },
+  "\nЭто фреймворк для построения UI приложений.\nРаботает на технологии virtual dom.\n\nПодробнее про разработку я рассказал в докладе ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://www.youtube.com/watch?v=RFw8P3LsLcE&t=6246s"
+    },
+    "children": [
+      "\"Что я узнал, пока писал убийцу реакта?\""
+    ]
+  },
+  ".\n\n\nИсходный код открыт, можно посмотреть на гитхабе ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://github.com/nikalexxx/parvis"
+    },
+    "children": []
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      "Обновления на сайте"
+    ]
+  },
+  "\nЭтот сайт был полностью переписан на parvis.\n\n\nДобавлен раздел ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/opensource"
+    },
+    "children": [
+      "opensource"
+    ]
+  },
+  ", где я перечислил все открытые библиотеки, которые я написал.\n\n\nПереработал ",
+  {
+    "name": "link",
+    "props": {
+      "href": "/?/video"
+    },
+    "children": [
+      "раздел с видео"
+    ]
+  },
+  ", теперь там плиточный дизайн и добавлены больше видео.\n\n\nВ ",
+  {
+    "name": "link",
+    "props": {
+      "href": "projects/unicode"
+    },
+    "children": [
+      "проект юникода"
+    ]
+  },
+  " добавил подсветку юникод групп (подробнее в тг канале ",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://t.me/nik_alex_flow/365"
+    },
+    "children": []
+  },
+  ").\n\n\n\n"
+]

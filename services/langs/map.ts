@@ -66,6 +66,12 @@ addToken('menu/catalog', {
     it: 'Catalogo',
 });
 
+addToken('menu/opensource', {
+    ru: 'opensource',
+    en: 'opensource',
+    it: 'opensource',
+});
+
 addToken('control/collapse-menu', {
     ru: 'Свернуть меню',
     en: 'Collapse menu',

@@ -14,10 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "experimentalDecorators": true
+    "jsx": "react-jsx",
+    "jsxImportSource": "parvis",
+    "experimentalDecorators": true,
   },
   "ts-node": {
     "esm": true
   },
-  "include": ["."]
+  "include": ["components", "blocks", "pages", "utils", "icons", "index.ts"],
 }

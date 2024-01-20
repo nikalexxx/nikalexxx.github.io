@@ -6,15 +6,13 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "patch-html": "VERSION=${npm_package_version} node html-gen.js",
-    "build": "rm -Rf dist; parcel build index.html; npm run patch-html;",
-    "prepare-books": "cd data/books; node --experimental-specifier-resolution=node --loader ts-node/esm build.ts",
+    "build": "npm run build-books; npm run build-blog; vite build",
+    "build-books": "cd data/books; node --experimental-specifier-resolution=node --loader ts-node/esm build.ts",
     "build-blog": "cd data/blog; node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm build.ts",
-    "dev-books": "OUTPUT=dev-dist onchange \"./data/books/**/*\" -- node data/books/build.js {{file}} tick.json",
+    "dev-books": "onchange \"./data/books/**/*\" -- node data/books/build.js {{file}} tick.json",
     "dev-blog": "onchange \"./data/blog/**/*.ts\" -- node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm data/blog/dev.ts {{file}}",
-    "cp-dev-blog": "cp -R data/blog dev-dist/data",
-    "deploy": "ENV=prod npm run build; cp -R data dist",
-    "dev": "rm -Rf dev-dist; mkdir dev-dist; cp -R data dev-dist/data; INPUT=index.html OUTPUT=dev.html npm run patch-html; parcel -d dev-dist dev.html"
+    "deploy": "ENV=prod npm run build",
+    "dev": "vite"
   },
   "repository": {
     "type": "git",
@@ -28,31 +26,23 @@
   },
   "homepage": "https://github.com/nikalexxx/nikalexxx.github.io#readme",
   "devDependencies": {
-    "@babel/cli": "^7.17.10",
-    "@babel/core": "^7.17.10",
-    "@babel/parser": "^7.17.9",
-    "@babel/plugin-transform-react-jsx": "^7.17.3",
-    "@babel/plugin-transform-runtime": "^7.13.10",
     "@types/gh-pages": "^3.2.0",
     "@types/katex": "^0.14.0",
     "@types/mermaid": "^8.2.9",
-    "@types/node": "^16.9.6",
-    "@types/react": "^17.0.34",
-    "babel-plugin-prismjs": "^2.1.0",
+    "@types/node": "^20.11.0",
     "gh-pages": "^3.2.0",
     "less": "^3.13.1",
     "onchange": "^7.1.0",
-    "parcel-bundler": "^1.12.4",
-    "parcel-plugin-wasm.rs": "^1.3.0",
-    "prismjs": "^1.25.0",
     "ts-node": "^10.2.1",
     "ts-pro": "^1.3.0",
-    "typescript": "^4.6.4"
+    "typescript": "^4.9.4",
+    "vite": "^5.0.12",
+    "vite-plugin-html": "^3.2.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.13.10",
     "@bookbox/preset-web": "^0.1.1",
     "katex": "^0.15.0",
-    "mermaid": "^9.0.1"
+    "mermaid": "^9.0.1",
+    "parvis": "^0.1.4"
   }
 }

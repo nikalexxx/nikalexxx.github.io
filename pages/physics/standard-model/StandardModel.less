@@ -9,7 +9,16 @@
     bottom: 0;
 }
 
+.interaction-tile() {
+    box-shadow: inset 0px 0px 0.3em 0px var(--back-color);
+}
+
 .standard-model {
+    --color-strong: var(--color-red);
+    --color-weak: var(--color-green-light);
+    --color-higgs: var(--color-violet-light);
+    --color-electromagnetic: var(--color-blue);
+
     &__table {
         position: relative;
         display: inline-grid;
@@ -81,8 +90,8 @@
     }
 
     &__weak {
-        background-color: var(--color-green-light);
-        opacity: .2;
+        background-color: var(--color-weak);
+        opacity: 0.5;
         &_part {
             &_1 {
                 .absolute-tile();
@@ -94,14 +103,14 @@
                 grid-row: ~"3 / 4";
                 grid-column: ~"8 / 10";
                 background-color: inherit;
-                border: 3px solid var(--color-green-light);
+                border: 3px solid var(--color-weak);
             }
         }
     }
 
     &__electromagnetic {
-        background-color: var(--color-blue);
-        opacity: .2;
+        background-color: var(--color-electromagnetic);
+        opacity: 0.5;
         &_part {
             &_1 {
                 .absolute-tile();
@@ -118,14 +127,14 @@
                 grid-row: ~"4 / 5";
                 grid-column: ~"8 / 9";
                 background-color: inherit;
-                border: 3px solid var(--color-blue);
+                border: 3px solid var(--color-electromagnetic);
             }
         }
     }
 
     &__strong {
-        background-color: var(--color-red);
-        opacity: .2;
+        background-color: var(--color-strong);
+        opacity: 0.5;
         &_part {
             &_1 {
                 .absolute-tile();
@@ -141,8 +150,8 @@
     }
 
     &__higgs {
-        background-color: var(--color-violet-light);
-        opacity: .2;
+        background-color: var(--color-higgs);
+        opacity: 0.5;
         &_part {
             &_1 {
                 .absolute-tile();
@@ -162,13 +171,13 @@
         padding: 0 4px;
         &_type {
             &_strong {
-                background-color: var(--color-red);
+                background-color: var(--color-strong);
             }
             &_electromagnetic {
-                background-color: var(--color-blue);
+                background-color: var(--color-electromagnetic);
             }
             &_weak {
-                background-color: var(--color-green-light);
+                background-color: var(--color-weak);
             }
         }
     }
@@ -176,7 +185,7 @@
     &__higgs-field {
         color: black;
         padding: 0 4px;
-        background-color: var(--color-violet-light);
+        background-color: var(--color-higgs);
     }
 
     &__big-tile {
@@ -194,13 +203,32 @@
         align-items: stretch;
         z-index: 2;
 
-
         &_mode {
             &_ve {
                 grid-column-start: 5;
             }
-            &_au, &_ad {
+            &_au,
+            &_ad {
                 grid-column-start: 2;
+            }
+        }
+
+        &_interaction {
+            &_strong {
+                .interaction-tile();
+                --back-color: var(--color-strong);
+            }
+            &_weak {
+                .interaction-tile();
+                --back-color: var(--color-weak);
+            }
+            &_electromagnetic {
+                .interaction-tile();
+                --back-color: var(--color-electromagnetic);
+            }
+            &_mass {
+                .interaction-tile();
+                --back-color: var(--color-higgs);
             }
         }
 
@@ -209,9 +237,9 @@
             width: 100%;
             grid-template-rows: auto 1fr auto auto;
             background-color: var(--color-background-second);
-            padding: .2em .5em;
-            margin: .6em;
-            border-radius: .5em;
+            padding: 0.2em 0.5em;
+            margin: 0.6em;
+            border-radius: 0.5em;
         }
     }
 
@@ -226,6 +254,17 @@
         background-color: var(--color-background-accent);
     }
 
+    &__charge {
+        &_plus {
+            color: var(--color-black);
+            color: var(--color-green-light);
+        }
+        &_minus {
+            color: var(--color-black);
+            color: var(--color-red-light);
+        }
+    }
+
     &__colors {
         justify-content: center;
         display: flex;
@@ -234,11 +273,11 @@
     }
 
     &__color {
-        width: .9em;
-        height: .9em;
+        width: 1.2em;
+        height: 1.2em;
         border-radius: 50%;
-        font-size: .7em;
-        line-height: .9em;
+        font-size: 0.7em;
+        line-height: 1.2em;
         text-align: center;
         margin: 2px 4px;
 
@@ -265,22 +304,52 @@
             background-color: var(--color-yellow-light);
         }
         &_red-antiblue {
-            background: linear-gradient(to right, var(--color-red), var(--color-red) 50%, var(--color-yellow-light) 50%);
+            background: linear-gradient(
+                to right,
+                var(--color-red),
+                var(--color-red) 50%,
+                var(--color-yellow-light) 50%
+            );
         }
         &_blue-antigreen {
-            background: linear-gradient(to right, var(--color-blue), var(--color-blue) 50%, var(--color-violet-light) 50%);
+            background: linear-gradient(
+                to right,
+                var(--color-blue),
+                var(--color-blue) 50%,
+                var(--color-violet-light) 50%
+            );
         }
         &_green-antired {
-            background: linear-gradient(to right, var(--color-green-light), var(--color-green-light) 50%, var(--color-cyan) 50%);
+            background: linear-gradient(
+                to right,
+                var(--color-green-light),
+                var(--color-green-light) 50%,
+                var(--color-cyan) 50%
+            );
         }
         &_red-antigreen {
-            background: linear-gradient(to right, var(--color-red), var(--color-red) 50%, var(--color-violet-light) 50%);
+            background: linear-gradient(
+                to right,
+                var(--color-red),
+                var(--color-red) 50%,
+                var(--color-violet-light) 50%
+            );
         }
         &_blue-antired {
-            background: linear-gradient(to right, var(--color-blue), var(--color-blue) 50%, var(--color-cyan) 50%);
+            background: linear-gradient(
+                to right,
+                var(--color-blue),
+                var(--color-blue) 50%,
+                var(--color-cyan) 50%
+            );
         }
         &_green-antiblue {
-            background: linear-gradient(to right, var(--color-green-light), var(--color-green-light) 50%, var(--color-yellow-light) 50%);
+            background: linear-gradient(
+                to right,
+                var(--color-green-light),
+                var(--color-green-light) 50%,
+                var(--color-yellow-light) 50%
+            );
         }
         &_g3 {
             border: 1px solid var(--color-gray);

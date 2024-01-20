@@ -1,7 +1,7 @@
 const SafetyLink = /\bhttps:\/\/([a-z-]+\.)?[a-z-]+\.[a-z-]+(\/[0-9a-z-\.\?]*)*\b/g;
 
 type Item = { type: 'text' | 'link'; body: string };
-export function textWithLink(text: string): any {
+export function textWithLink(text: string): Item[] {
     const result: Item[] = [];
     let currentIndex = 0;
     for (const elem of text.matchAll(SafetyLink)) {
@@ -19,7 +19,7 @@ export function textWithLink(text: string): any {
             }
         );
 
-        currentIndex = index + link.length;
+        currentIndex = (index ?? 0) + link.length;
     }
     if (currentIndex < text.length) {
         result.push({

@@ -52,7 +52,7 @@ ${S.key`export`} ${S.key`function`} ${S.func`consoleStyle`}(${_var('textList')},
     ${_key('return')} [${_var('text')}.${_op('join')}(${_var(`''`)}), ${_var('styles')}];
 }
 `;
-console.log(text, ...styles);
+
 
 export const _b = text => css['font-weight: bold'](text);
 export const _i = text => css['font-style: italic'](text);
@@ -63,5 +63,5 @@ const [text1, styles1] = consoleStyle`${_h(1)('Документация')}
 see http://127.0.0.1:5500/?/blog/1
 ${_b('bold')} and ${_i('italic')} and ${_pre('pre')}
 `;
-// console.log(text1, ...styles1);
+
 
