@@ -7,11 +7,16 @@
         border-top: 1px dashed gray;
         border-left: 1px dashed gray;
         text-align: center;
-        line-height: 40px;
+        // line-height: 40px;
         font-size: 20px;
 
         & > div {
+            vertical-align: middle;
+            display: grid;
+            grid-template-rows: 30px auto;
             height: 40px;
+            max-height: 40px;
+            padding-top: 5px;
             border-bottom: 1px dashed gray;
             border-right: 1px dashed gray;
         }

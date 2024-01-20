@@ -86,7 +86,6 @@ export function getIssueComments(login: string, repo: string, issue: string): Pr
 
 
 В списке выводим каждый комментарий, ${tooltip.content(`
-${`
 E.div.class(b('comment'))(
     E.div.class(b('comment-header'))(
         E.a
@@ -114,7 +113,7 @@ E.div.class(b('comment'))(
         )
     )
 )
-`}`)`так выглядит код компонента`}
+`)`так выглядит код компонента`}
 
 Комментарии в самом гитхабе поддерживают ${link.href(
         'https://guides.github.com/features/mastering-markdown/'

@@ -1,4 +1,4 @@
-@import "./variables";
+@import "./variables.css";
 
 .theme_dark {
     --color-text: var(--color-gray-light);
@@ -83,6 +83,14 @@ a[href*="npmjs"]::before {
     background-image: url("../assets/images/logo/npm.svg");
     background-size: cover;
     width: 2rem;
+    border: none;
+    box-shadow: none;
+}
+
+a[href*="t.me"]::before {
+    .link-logo();
+    background-image: url("../assets/images/logo/telegram.svg");
+    background-size: cover;
     border: none;
     box-shadow: none;
 }

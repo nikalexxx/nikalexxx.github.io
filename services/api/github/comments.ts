@@ -6,10 +6,14 @@ export interface Comment {
         login: string;
         avatar_url: string;
         html_url: string;
-    }
+    };
 }
 
-export function getIssueComments(login: string, repo: string, issue: string): Promise<Comment[]> {
+export function getIssueComments(
+    login: string,
+    repo: string,
+    issue: string
+): Promise<Comment[]> {
     return fetch(
         `https://api.github.com/repos/${login}/${repo}/issues/${issue}/comments`
     ).then((response) => response.json());

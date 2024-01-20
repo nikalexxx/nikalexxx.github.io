@@ -1,6 +1,6 @@
 import { memo } from './memo';
 
-const rand = (start, end) => () =>
+const rand = (start: number, end: number) => () =>
     Math.floor(start + Math.random() * (end - start));
 
 export const randInRange = memo((limit: number, end?: number) => {

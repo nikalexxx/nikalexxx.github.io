@@ -1,4 +1,5 @@
 export * from './about';
+export * from './opensource';
 export * from './blog';
 export * from './books';
 export * from './design';

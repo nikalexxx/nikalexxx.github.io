@@ -135,7 +135,7 @@
   {
     "name": "tooltip",
     "props": {
-      "content": "\n\nE.div.class(b('comment'))(\n    E.div.class(b('comment-header'))(\n        E.a\n            .href(comment.user.html_url)\n            .target('_blank')(\n            E.div.class(b('user'))(\n                E.img\n                    .class(b('user-logo'))\n                    .src(comment.user.avatar_url),\n                comment.user.login\n            )\n        ),\n        E.em.class(b('comment-date'))(\n            prettyDate(new Date(comment.created_at))\n        )\n    ),\n\n    E.pre(\n        textWithLink(\n            `\n${comment.body}`\n        ).map(({ type, body }) =>\n            type === 'link'\n                ? E.a.href(body)(body)\n                : body\n        )\n    )\n)\n"
+      "content": "\nE.div.class(b('comment'))(\n    E.div.class(b('comment-header'))(\n        E.a\n            .href(comment.user.html_url)\n            .target('_blank')(\n            E.div.class(b('user'))(\n                E.img\n                    .class(b('user-logo'))\n                    .src(comment.user.avatar_url),\n                comment.user.login\n            )\n        ),\n        E.em.class(b('comment-date'))(\n            prettyDate(new Date(comment.created_at))\n        )\n    ),\n\n    E.pre(\n        textWithLink(\n            `\n${comment.body}`\n        ).map(({ type, body }) =>\n            type === 'link'\n                ? E.a.href(body)(body)\n                : body\n        )\n    )\n)\n"
     },
     "children": [
       "так выглядит код компонента"

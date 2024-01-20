@@ -22,8 +22,8 @@ export type Acceleration = Vector<A>;
 
 export type Body = {
     coords: Coords;
-    speed: Speed;
-    acceleration: Acceleration;
+    speed?: Speed;
+    acceleration?: Acceleration;
     mass: number;
     color: string;
 };
@@ -61,7 +61,7 @@ export function getPosition(
             let L2 = localX ** 2 + localY ** 2;
             const r = mass ** (1 / 3);
             let L = Math.sqrt(L2);
-            L2 = (L + r) ** 2;
+            L2 = (L + Math.max(r, 1)) ** 2;
             L = Math.sqrt(L2);
             const vX = localX / L;
             const vY = localY / L;
@@ -80,8 +80,8 @@ export function getPosition(
     };
 
     const speed = {
-        x: current.speed.x + sumAcceleration.x,
-        y: current.speed.y + sumAcceleration.y,
+        x: (current.speed?.x ?? 0) + sumAcceleration.x,
+        y: (current.speed?.y ?? 0) + sumAcceleration.y,
     };
 
     const coords = {
