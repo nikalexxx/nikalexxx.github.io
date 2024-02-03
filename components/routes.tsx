@@ -24,6 +24,7 @@ import {
     Video,
     BloodTypes,
     Opensource,
+    ColorFunction,
 } from "../pages";
 
 import { Page404 } from "./Page404/Page404";
@@ -55,6 +56,7 @@ export const routes = (params: Record<string, string>) => ({
     "projects/unicode": <Unicode />,
     "projects/game-of-life": <GameOfLife />,
     "projects/blood-types": <BloodTypes />,
+    "projects/color-function": <ColorFunction />,
     physics: <Physics />,
     "physics/standard-model": <StandardModel />,
     "physics/gravitation": <Gravitation />,
