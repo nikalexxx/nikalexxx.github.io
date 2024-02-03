@@ -4,6 +4,7 @@ import { RouteLink, block } from "../../utils";
 import { PageGrid, Tile } from "../../components";
 import { Lang } from "../../blocks";
 import { Component } from "parvis";
+import { ColorFnField } from "./color-function";
 
 const b = block("projects");
 
@@ -49,6 +50,25 @@ const Projects = Component("Projects", () => {
                                 >
                                     💉
                                 </span>
+                            </div>
+                        </Tile>
+                    </RouteLink>
+                    <RouteLink href={"projects/color-function"}>
+                        <Tile>
+                            <div class={b("tile")}>
+                                Цветная функция
+                                <div style="display: flex;align-items: center;justify-content: center;">
+                                    <ColorFnField
+                                        size={{ x: 100, y: 100 }}
+                                        resolution={{ x: 20, y: 20 }}
+                                        x={{ min: 0, max: 100 }}
+                                        y={{ min: 0, max: 100 }}
+                                        value={{ min: -20, max: 20 }}
+                                        fn={(x, y) =>
+                                            Math.sin(x / 17) * 20 - (y - 50)
+                                        }
+                                    />
+                                </div>
                             </div>
                         </Tile>
                     </RouteLink>

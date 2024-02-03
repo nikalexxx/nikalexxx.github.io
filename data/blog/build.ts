@@ -15,10 +15,5 @@ for (const n of Object.keys(blog)) {
             2
         );
         writeFileSync(`./data/${n}/schema.json`, data);
-
-        if (process.env.DEV !== undefined) {
-            writeFileSync(`../../dev-dist/data/blog/data/${n}/schema.json`, data);
-
-        }
     });
 }

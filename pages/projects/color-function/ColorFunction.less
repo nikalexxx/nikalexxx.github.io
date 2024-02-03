@@ -1,0 +1,51 @@
+.color-function {
+    padding: 16px;
+
+    &__container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min-content, 70vh));
+        gap: 1rem;
+    }
+
+    &__settings {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        textarea {
+            font-family: ui-monospace, monospace;
+            resize: vertical;
+        }
+    }
+
+    &__param {
+        display: grid;
+        grid-template-columns: 5rem 1fr;
+        align-items: center;
+    }
+
+    &__pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    &__fn-view {
+        display: grid;
+        grid-template-columns: auto 1fr;
+    }
+
+    &__y-axis {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        padding-right: 4px;
+    }
+
+    &__x-axis {
+        display: flex;
+        justify-content: space-between;
+        width: var(--width);
+        padding-top: 4px;
+    }
+}

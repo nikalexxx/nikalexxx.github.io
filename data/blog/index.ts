@@ -215,4 +215,13 @@ export default {
             githubIssue: 64,
         },
     },
+    23: {
+        type: 'bookbox',
+        creationTime: '2024-02-04T00:30:01',
+        title: 'Цветная функция от двух аргументов с эволюцией во времени',
+        tags: ['math', 'function', 'animation'],
+        comments: {
+            githubIssue: 65,
+        },
+    },
 } as const;
