@@ -224,4 +224,14 @@ export default {
             githubIssue: 65,
         },
     },
+    24: {
+        type: 'bookbox',
+        creationTime: '2024-09-06T19:03:48',
+        title: 'Задача о 9 кругах',
+        tags: ['math', 'geometry'],
+        image: '/data/blog/data/24/8-all.png',
+        comments: {
+            // githubIssue: 65,
+        },
+    },
 } as const;

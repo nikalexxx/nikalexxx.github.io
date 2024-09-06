@@ -52,9 +52,12 @@
         <script>
             window.appVersion = "<%- VERSION %>";
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-        <script>
-            mermaid.initialize({ startOnLoad: true });
+        <script
+            async
+            src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
+        ></script>
+        <script async>
+            if (mermaid) mermaid.initialize({ startOnLoad: true });
         </script>
     </head>
     <body class="theme_dark">
