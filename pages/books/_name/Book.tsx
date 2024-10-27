@@ -30,8 +30,8 @@ const Book = Component<{ name: string }>("Book", ({ props, state, hooks }) => {
             fetch(`/data/books/data/${name}/schema.json`)
                 .then((e) => e.json())
                 .then((value) => {
-                    console.log({ value });
                     const bookData = createHtmlBook({ schema: value });
+                    // console.log({ value, bookData });
                     bookCache.set(name, bookData);
                     setBook(bookData);
                 });

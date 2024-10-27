@@ -254,7 +254,7 @@ const Page = (
             <Switch routes={routes} />
         </main>
         <footer class={b("footer")}>
-            <div>© 2019-2023 Alexandr Nikolaichev</div>
+            <div>© 2019-2024 Alexandr Nikolaichev</div>
             <div style="display: flex; gap: 1em;">
                 <a href={"https://github.com/nikalexxx"} target={"_blank"}>
                     Github
