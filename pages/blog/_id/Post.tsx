@@ -29,7 +29,6 @@ const Post = Component<Props>("Post", ({ props, state, hooks }) => {
         setText(null);
 
         const { type, comments } = blog[id];
-        console.log({type, id});
         const path = (file: string) =>
             `../data/blog/data/${id}/${file}?r=${window.appVersion}`;
         if (type === "html") {
@@ -109,15 +108,14 @@ const Post = Component<Props>("Post", ({ props, state, hooks }) => {
     });
 
     hooks.effect(() => {
-        console.log('change', props.id())
+        console.log("change", props.id());
         loadPost();
     }, [props.id]);
 
     return () => {
         const { id } = props();
         if (!blog.hasOwnProperty(id)) return <Page404 />;
-        console.log('render', props.id())
-
+        console.log("render", props.id());
 
         const { type, comments: blogComments } = blog[id];
         const { title, creationTime } = blog[id];
@@ -246,7 +244,7 @@ const Post = Component<Props>("Post", ({ props, state, hooks }) => {
                                     </em>
                                 </div>
 
-                                <pre>
+                                <pre style="white-space: break-spaces">
                                     {textWithLink(`\n${comment.body}`).map(
                                         ({ type, body }) =>
                                             type === "link" ? (

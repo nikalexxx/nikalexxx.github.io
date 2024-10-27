@@ -1,0 +1,5642 @@
+{
+  "blocks": [
+    {
+      "text": "\nЛЕКЦИИ ПО МАТЕМАТИЧЕСКОЙ ЛОГИКЕ И ТЕОРИИ АЛГОРИТМОВ\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "authors",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "link",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Н. К. Верещагин"
+                    }
+                  ]
+                },
+                "attrList": [
+                  {
+                    "name": "href",
+                    "value": "http://lpcs.math.msu.su/~ver/",
+                    "empty": false
+                  }
+                ],
+                "separator": " "
+              }
+            },
+            {
+              "text": ",\n"
+            },
+            {
+              "tag": {
+                "name": "link",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "А.Шень"
+                    }
+                  ]
+                },
+                "attrList": [
+                  {
+                    "name": "href",
+                    "value": "https://ru.wikipedia.org/wiki/Шень,_Александр_Ханиевич",
+                    "empty": false
+                  }
+                ],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "title",
+        "body": {
+          "blocks": [
+            {
+              "text": "Языки и исчисления"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:chapter",
+        "body": {
+          "blocks": [
+            {
+              "text": "Логика высказываний"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:section",
+        "body": {
+          "blocks": [
+            {
+              "text": "Высказывания и операции"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n«Если число "
+    },
+    {
+      "include": {
+        "value": "\\pi"
+      }
+    },
+    {
+      "text": " рационально, то "
+    },
+    {
+      "include": {
+        "value": "\\pi"
+      }
+    },
+    {
+      "text": " — алгебраическое число.\nНо оно не алгебраическое. Значит, "
+    },
+    {
+      "include": {
+        "value": "\\pi"
+      }
+    },
+    {
+      "text": " не рационально.»\nМы не обязаны знать, что такое число "
+    },
+    {
+      "include": {
+        "value": "\\pi"
+      }
+    },
+    {
+      "text": ", какие числа называют рациональными и какие алгебраическими, чтобы признать, что это рассуждение правильно — в том смысле, что из двух сформулированных посылок действительно вытекает заключение.\nТакого рода ситуации — когда некоторое утверждение верно независимо от смысла входящих в него высказываний — составляют предмет "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "логики высказываний"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Логика высказываний|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n\nТакое начало (особенно если учесть, что курс логики входил в программу философского факультета, где также изучалась «диалектическая логика») настораживает, но на самом деле наши\n"
+    },
+    {
+      "tag": {
+        "name": "#comment",
+        "body": {
+          "blocks": [
+            {
+              "text": "% в каком-то из ленинских музеев висела копия его\n% гимназического табеля: по закону Божьему у него\n% была пятёрка, а по логике - четвёрка...\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\nрассмотрения будут иметь вполне точный математический характер, хотя мы начнём с неформальных мотивировок.\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "Высказывания"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Высказывание|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " могут быть\n"
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "истинными"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Истинное высказывание|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Высказывание!истинное|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nи "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "ложными"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Ложное высказывание|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Высказывание!ложное|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nНапример, «"
+    },
+    {
+      "include": {
+        "value": "2^{16}+1"
+      }
+    },
+    {
+      "text": " — простое число» — истинное высказывание, а «"
+    },
+    {
+      "include": {
+        "value": "2^{32}+1"
+      }
+    },
+    {
+      "text": " — простое число» — ложное (это число делится на "
+    },
+    {
+      "include": {
+        "value": "641"
+      }
+    },
+    {
+      "text": ").\nПро высказывание «существует бесконечно много простых "
+    },
+    {
+      "include": {
+        "value": "p"
+      }
+    },
+    {
+      "text": ", для которых "
+    },
+    {
+      "include": {
+        "value": "p+2"
+      }
+    },
+    {
+      "text": " — также простое» никто не берётся сказать наверняка, истинно оно или ложно.\nЗаметим, что «"
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " делится на "
+    },
+    {
+      "include": {
+        "value": "2"
+      }
+    },
+    {
+      "text": "» в этом смысле не является высказыванием, пока не сказано, чему равно "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": "; при разных "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " получаются разные высказывания, одни истинные (при чётном "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": "), другие — ложные (при нечётном "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": ").\n\n\nВысказывания можно соединять друг с другом с помощью «логических связок».\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Связки (логические)|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Логические связки|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nЭти связки имеют довольно странные, но традиционные названия и обозначения ("
+    },
+    {
+      "tag": {
+        "name": "label",
+        "body": {
+          "blocks": [
+            {
+              "text": "табл. 1.1 "
+            },
+            {
+              "tag": {
+                "name": "def:ref",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "logic-connectives-names"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            }
+          ]
+        },
+        "attrList": [
+          {
+            "name": "ref",
+            "value": "logic-connectives-names",
+            "empty": false
+          }
+        ],
+        "separator": " "
+      }
+    },
+    {
+      "text": ").\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "#start:table",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [
+          {
+            "name": "align",
+            "value": "center",
+            "empty": false
+          },
+          {
+            "name": "key",
+            "value": "logic-connectives-names",
+            "empty": false
+          }
+        ],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "row",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": " связка "
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": " обозначение "
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": " название"
+            }
+          ]
+        },
+        "attrList": [
+          {
+            "name": "head",
+            "value": "",
+            "empty": true
+          }
+        ],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "row",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " и "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "include": {
+                "value": "A\\& B"
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "include": {
+                "value": "A\\land B"
+              }
+            },
+            {
+              "text": "\n\n\n"
+            },
+            {
+              "include": {
+                "value": "A\\texttt{ and }B"
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": "конъюнкция\n"
+            },
+            {
+              "tag": {
+                "name": "def:index",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Конъюнкция|defin"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "row",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " или "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "include": {
+                "value": "A\\lor B"
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "include": {
+                "value": "A\\texttt{ or }B"
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": " дизъюнкция\n"
+            },
+            {
+              "tag": {
+                "name": "def:index",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Дизъюнкция|defin"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "row",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": "не "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " неверно\n"
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "include": {
+                "value": "\\lnot A"
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "include": {
+                "value": "\\sim\\!A"
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "include": {
+                "value": "\\overline{A} "
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "include": {
+                "value": "\\texttt{not} A"
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": "\nотрицание\n"
+            },
+            {
+              "tag": {
+                "name": "def:index",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Отрицание|defin"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "row",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": "из "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " следует "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": "\n\nесли "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": ", то "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " влечёт "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": " — следствие "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "include": {
+                "value": "A\\rightarrow B"
+              }
+            },
+            {
+              "text": " "
+            },
+            {
+              "include": {
+                "value": "A\\Rightarrow B"
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "include": {
+                "value": "A\\supset B"
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "include": {
+                "value": "\\texttt{if }A\\texttt{ then }B"
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "col",
+                "body": {
+                  "blocks": []
+                },
+                "attrList": [],
+                "separator": ""
+              }
+            },
+            {
+              "text": "\nимпликация\n\nследование\n"
+            },
+            {
+              "tag": {
+                "name": "def:index",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Импликация (следование)|defin"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\nТаблица 1.1. Логические связки, обозначения и названия.\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Конъюнкция|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Дизъюнкция|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Отрицание|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Импликация (следование)|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "#end:table",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\n\n\nОтметим также, что в импликации "
+    },
+    {
+      "include": {
+        "value": "A\\Rightarrow B"
+      }
+    },
+    {
+      "text": " высказывание "
+    },
+    {
+      "include": {
+        "value": "A"
+      }
+    },
+    {
+      "text": " называют "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "посылкой"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ",\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Посылка импликации|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nили "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "антецедентом импликации"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ",\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Антецедент импликации|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nа "
+    },
+    {
+      "include": {
+        "value": "B"
+      }
+    },
+    {
+      "text": " — "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "заключением"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ",\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Заключение импликации|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nили "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "консеквентом"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Консеквент импликации|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "#comment",
+        "body": {
+          "blocks": [
+            {
+              "text": "% омонимия с УК: заключение, следствие, посылка - случайна?"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n\nГоворят также, что высказывание имеет "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "истинностное значение"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Истинностное значение высказывания|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Высказывание!истинностное значение|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "И"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " (истина),\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "И (истина)@"
+            },
+            {
+              "tag": {
+                "name": "format:b",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "И"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": " (истина)|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nесли оно истинно, или "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "Л"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " (ложь),\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Л (ложь)@"
+            },
+            {
+              "tag": {
+                "name": "format:b",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Л"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": " (ложь)|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nесли оно ложно.\nИногда вместо "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "И"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " употребляется буква "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "T"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " (true) или число "
+    },
+    {
+      "include": {
+        "value": "1"
+      }
+    },
+    {
+      "text": ",\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "T (true)@"
+            },
+            {
+              "tag": {
+                "name": "format:b",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "T"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": " (true)|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "F (true)@"
+            },
+            {
+              "tag": {
+                "name": "format:b",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "F"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": " (false)|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nа вместо "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "Л"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " — буква "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "F"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " (false) или число "
+    },
+    {
+      "include": {
+        "value": "0"
+      }
+    },
+    {
+      "text": ".\n(С первого взгляда идея произвольным образом выбрать числа "
+    },
+    {
+      "include": {
+        "value": "0"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "1"
+      }
+    },
+    {
+      "text": " кажется дикой — какая бы польза могла быть от, скажем, сложения истинностных значений?\nУдивительным образом в последние годы обнаружилось, что такая польза есть, и если оперировать с истиной и ложью как элементами конечного поля, можно получить много неожиданных результатов.\nНо это выходит за рамки нашей книги.)\n\n\nЛогические связки позволяют составлять сложные высказывания из простых.\nПри этом истинность составного высказывания определяется истинностью его частей в соответствии с "
+    },
+    {
+      "tag": {
+        "name": "label",
+        "body": {
+          "blocks": [
+            {
+              "text": "таблицей 1.2 "
+            },
+            {
+              "tag": {
+                "name": "def:ref",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "truth-tables"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            }
+          ]
+        },
+        "attrList": [
+          {
+            "name": "ref",
+            "value": "truth-tables",
+            "empty": false
+          }
+        ],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "area",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "table",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "include": {
+                                "value": "A"
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "include": {
+                                "value": "B"
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "include": {
+                                "value": "A\\land B"
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "include": {
+                                "value": "A\\lor B"
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "include": {
+                                "value": "A \\to B"
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [
+                          {
+                            "name": "head",
+                            "value": "",
+                            "empty": true
+                          }
+                        ],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": "\n"
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "tag": {
+                "name": "table",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "include": {
+                                "value": "A"
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "include": {
+                                "value": "\\lnot A"
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [
+                          {
+                            "name": "head",
+                            "value": "",
+                            "empty": true
+                          }
+                        ],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "tag": {
+                        "name": "row",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "И"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "col",
+                                "body": {
+                                  "blocks": []
+                                },
+                                "attrList": [],
+                                "separator": ""
+                              }
+                            },
+                            {
+                              "text": " "
+                            },
+                            {
+                              "tag": {
+                                "name": "format:b",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Л"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            }
+                          ]
+                        },
+                        "attrList": [],
+                        "separator": " "
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": "\n"
+              }
+            },
+            {
+              "text": "\n\n"
+            },
+            {
+              "tag": {
+                "name": "area",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "format:small",
+                        "body": {
+                          "blocks": [
+                            {
+                              "tag": {
+                                "name": "format:i",
+                                "body": {
+                                  "blocks": [
+                                    {
+                                      "text": "Таблица 1.2. Таблицы истинности для логических связок"
+                                    }
+                                  ]
+                                },
+                                "attrList": [],
+                                "separator": " "
+                              }
+                            },
+                            {
+                              "text": "\n"
+                            }
+                          ]
+                        },
+                        "attrList": [],
+                        "separator": "\n"
+                      }
+                    }
+                  ]
+                },
+                "attrList": [
+                  {
+                    "name": "position",
+                    "value": "center",
+                    "empty": false
+                  }
+                ],
+                "separator": "\n"
+              }
+            }
+          ]
+        },
+        "attrList": [
+          {
+            "name": "key",
+            "value": "truth-tables",
+            "empty": false
+          }
+        ],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n\nТе же правила можно изложить словесно.\nВысказывание "
+    },
+    {
+      "include": {
+        "value": "A\\land B"
+      }
+    },
+    {
+      "text": " истинно, если оба высказывания "
+    },
+    {
+      "include": {
+        "value": "A"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "B"
+      }
+    },
+    {
+      "text": " истинны.\nВысказывание "
+    },
+    {
+      "include": {
+        "value": "A\\lor B"
+      }
+    },
+    {
+      "text": " истинно, если хотя бы одно из высказываний "
+    },
+    {
+      "include": {
+        "value": "A"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "B"
+      }
+    },
+    {
+      "text": " истинно.\nВысказывание "
+    },
+    {
+      "include": {
+        "value": "A\\to B"
+      }
+    },
+    {
+      "text": " ложно в единственном случае: если "
+    },
+    {
+      "include": {
+        "value": "A"
+      }
+    },
+    {
+      "text": " истинно, а "
+    },
+    {
+      "include": {
+        "value": "B"
+      }
+    },
+    {
+      "text": " ложно.\nНаконец, "
+    },
+    {
+      "include": {
+        "value": "\\lnot A"
+      }
+    },
+    {
+      "text": " истинно в том и только том случае, когда "
+    },
+    {
+      "include": {
+        "value": "A"
+      }
+    },
+    {
+      "text": " ложно.\n\n\nИз всех связок больше всего вопросов вызывает импликация.\nВ самом деле, не очень понятно, почему надо считать, скажем, высказывания «если "
+    },
+    {
+      "include": {
+        "value": "2\\times 2=5"
+      }
+    },
+    {
+      "text": ", то "
+    },
+    {
+      "include": {
+        "value": "2\\times 2=4"
+      }
+    },
+    {
+      "text": "» и «если "
+    },
+    {
+      "include": {
+        "value": "2\\times 2=5"
+      }
+    },
+    {
+      "text": ", то "
+    },
+    {
+      "include": {
+        "value": "3\\times 3=1"
+      }
+    },
+    {
+      "text": "» истинными.\n(Именно так говорят наши таблицы: "
+    },
+    {
+      "include": {
+        "value": "Л\\toИ = Л\\toЛ = И"
+      }
+    },
+    {
+      "text": ".)\nНа самом деле  в таком определении есть свой резон.\nВсе согласны, что если число "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " делится на "
+    },
+    {
+      "include": {
+        "value": "4"
+      }
+    },
+    {
+      "text": ", то оно делится на "
+    },
+    {
+      "include": {
+        "value": "2"
+      }
+    },
+    {
+      "text": ".\nЭто означает, что высказывание\n\n\n("
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " делится на "
+    },
+    {
+      "include": {
+        "value": "4"
+      }
+    },
+    {
+      "text": ") "
+    },
+    {
+      "include": {
+        "value": "\\to"
+      }
+    },
+    {
+      "text": " ("
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " делится на "
+    },
+    {
+      "include": {
+        "value": "2"
+      }
+    },
+    {
+      "text": ")\n\n\nистинно при всех "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": ".\n\nПодставим сюда "
+    },
+    {
+      "include": {
+        "value": "x=5"
+      }
+    },
+    {
+      "text": ": обе части ложны, а утверждение в целом истинно.\nПри "
+    },
+    {
+      "include": {
+        "value": "x=6"
+      }
+    },
+    {
+      "text": " посылка импликации ложна, а заключение истинно, и вся импликация истинна.\nНаконец, при "
+    },
+    {
+      "include": {
+        "value": "x=8"
+      }
+    },
+    {
+      "text": " посылка и заключение истинны и импликация в целом истинна.\nС другой стороны, обратное утверждение (если "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " делится на "
+    },
+    {
+      "include": {
+        "value": "2"
+      }
+    },
+    {
+      "text": ", то "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " делится на "
+    },
+    {
+      "include": {
+        "value": "4"
+      }
+    },
+    {
+      "text": ") неверно, и число "
+    },
+    {
+      "include": {
+        "value": "2"
+      }
+    },
+    {
+      "text": " является контрпримером.\nПри этом посылка импликации истинна, заключение ложно, и сама импликация ложна.\nТаким образом, если считать, что истинность импликации определяется истинностью её частей (а не наличием между ними каких-то причинно-следственных связей), то все строки таблицы истинности обоснованы.\nЧтобы подчеркнуть такое узко-формальное понимание импликации, философски настроенные логики называют её «материальной импликацией».\n\n\nТеперь от неформальных разговоров перейдём к определениям.\nЭлементарные высказывания (из которых составляются более сложные) мы будем обозначать маленькими латинскими буквами и называть "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "пропозициональными переменными"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Пропозициональная переменная|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Переменная!пропозициональная|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nИз них строятся "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "пропозициональные формулы"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Пропозициональная формула|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Формула!пропозициональная|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nпо таким правилам:\n\n"
+    },
+    {
+      "tag": {
+        "name": "#start:list",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "item",
+        "body": {
+          "blocks": [
+            {
+              "text": "Всякая пропозициональная переменная есть формула."
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "item",
+        "body": {
+          "blocks": [
+            {
+              "text": "Если "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " — пропозициональная формула, то "
+            },
+            {
+              "include": {
+                "value": "\\lnot A"
+              }
+            },
+            {
+              "text": " — пропозициональная формула."
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "item",
+        "body": {
+          "blocks": [
+            {
+              "text": "Если "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " и "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": " — пропозициональные формулы, то "
+            },
+            {
+              "include": {
+                "value": "(A\\land B)"
+              }
+            },
+            {
+              "text": ", "
+            },
+            {
+              "include": {
+                "value": "(A\\lor B)"
+              }
+            },
+            {
+              "text": " и "
+            },
+            {
+              "include": {
+                "value": "(A\\to B)"
+              }
+            },
+            {
+              "text": " — пропозициональные формулы."
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "#end:list",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\n\nМожно ещё сказать так: формулы образуют минимальное множество, обладающее указанными свойствами (слово «минимальное» здесь существенно: ведь если бы мы объявили любую последовательность переменных, скобок и связок формулой, то эти три свойства были бы тоже выполнены).\n\n\nПусть формула "
+    },
+    {
+      "include": {
+        "value": "\\varphi"
+      }
+    },
+    {
+      "text": " содержит "
+    },
+    {
+      "include": {
+        "value": "n"
+      }
+    },
+    {
+      "text": " пропозициональных переменных "
+    },
+    {
+      "include": {
+        "value": "p_1,p_2,\\dots,p_n"
+      }
+    },
+    {
+      "text": ".\nЕсли подставить вместо этих переменных истинностные значения ("
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "И"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " или "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "Л"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "), то по таблицам можно вычислить истинностное значение формулы в целом.\nТаким образом, формула задаёт некоторую функцию от "
+    },
+    {
+      "include": {
+        "value": "n"
+      }
+    },
+    {
+      "text": " аргументов, каждый из которых может принимать значения "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "Л"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "И"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\nЗначения функции также лежат в множестве \\{"
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "Л"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ", "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "И"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\\}, которое мы будем обозначать "
+    },
+    {
+      "include": {
+        "value": "\\Bbb{B} "
+      }
+    },
+    {
+      "text": ".\nМы будем следовать уже упоминавшейся традиции и отождествлять "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "И"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " с единицей, а "
+    },
+    {
+      "tag": {
+        "name": "format:b",
+        "body": {
+          "blocks": [
+            {
+              "text": "Л"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": " — с нулём, тем самым "
+    },
+    {
+      "include": {
+        "value": "\\Bbb{B} "
+      }
+    },
+    {
+      "text": " есть "
+    },
+    {
+      "include": {
+        "value": "\\{0,1\\} "
+      }
+    },
+    {
+      "text": ".\nФормула "
+    },
+    {
+      "include": {
+        "value": "\\varphi"
+      }
+    },
+    {
+      "text": " задаёт отображение типа "
+    },
+    {
+      "include": {
+        "value": "\\Bbb{B}^n\\to\\Bbb{B} "
+      }
+    },
+    {
+      "text": ".\nТакие отображения называют также "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "булевыми функциями "
+            },
+            {
+              "include": {
+                "value": "n"
+              }
+            },
+            {
+              "text": " аргументов"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Булева функция!"
+            },
+            {
+              "include": {
+                "value": "n"
+              }
+            },
+            {
+              "text": " аргументов|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Функция!булева|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "format:pre",
+        "body": {
+          "blocks": [
+            {
+              "text": "Пример"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ". Рассмотрим формулу "
+    },
+    {
+      "include": {
+        "value": "(p\\land (q\\land \\lnot r))"
+      }
+    },
+    {
+      "text": ".\nОна истинна в единственном случае — когда "
+    },
+    {
+      "include": {
+        "value": "p"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "q"
+      }
+    },
+    {
+      "text": " истинны, а "
+    },
+    {
+      "include": {
+        "value": "r"
+      }
+    },
+    {
+      "text": " ложно (см. "
+    },
+    {
+      "tag": {
+        "name": "label",
+        "body": {
+          "blocks": [
+            {
+              "text": "таблицу 1.3"
+            }
+          ]
+        },
+        "attrList": [
+          {
+            "name": "ref",
+            "value": "example-conjunct",
+            "empty": false
+          }
+        ],
+        "separator": " "
+      }
+    },
+    {
+      "text": ").\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "table",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "include": {
+                        "value": "p"
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "include": {
+                        "value": "q"
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "include": {
+                        "value": "r"
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "include": {
+                        "value": "\\lnot r"
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "include": {
+                        "value": "(q \\land \\lnot r)"
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "include": {
+                        "value": "(p\\land(q\\land\\lnot r))"
+                      }
+                    },
+                    {
+                      "text": "\n"
+                    }
+                  ]
+                },
+                "attrList": [
+                  {
+                    "name": "head",
+                    "value": "",
+                    "empty": true
+                  }
+                ],
+                "separator": "\n"
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "row",
+                "body": {
+                  "blocks": [
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 1 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0 "
+                    },
+                    {
+                      "tag": {
+                        "name": "col",
+                        "body": {
+                          "blocks": []
+                        },
+                        "attrList": [],
+                        "separator": ""
+                      }
+                    },
+                    {
+                      "text": " 0"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\nТаблица 1.3. Таблица истинности для "
+            },
+            {
+              "include": {
+                "value": "(p\\land(q\\land \\lnot r))"
+              }
+            },
+            {
+              "text": ".\n"
+            }
+          ]
+        },
+        "attrList": [
+          {
+            "name": "key",
+            "value": "example-conjunct",
+            "empty": false
+          }
+        ],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n\nНекоторые формулы выражают логические законы — составные высказывания, истинные независимо от смысла их частей.\nТакие формулы (истинные при всех значениях входящих в них переменных) называют "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "тавтологиями"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Тавтология|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "format:pre",
+        "body": {
+          "blocks": [
+            {
+              "text": "Пример"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ". Формула "
+    },
+    {
+      "include": {
+        "value": "((p \\land q)\\to p)"
+      }
+    },
+    {
+      "text": " является тавтологией (это можно проверить, например, составив таблицу).\nОна выражает такой логический закон: из конъюнкции утверждений следует первое из них.\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:problem",
+        "body": {
+          "blocks": [
+            {
+              "text": "Как выглядит симметричное утверждение для дизъюнкции и какая формула его выражает?\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n\n\nДве формулы называют "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "эквивалентными"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ",\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Эквивалентные формулы|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Формулы!эквивалентные|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nесли они истинны при одних и тех же значениях переменных (другими словами, если они задают одну и ту же булеву функцию).\nНапример, легко проверить, что формула "
+    },
+    {
+      "include": {
+        "value": "(p \\land (p\\to q))"
+      }
+    },
+    {
+      "text": " истинна лишь при "
+    },
+    {
+      "include": {
+        "value": "p=q=И"
+      }
+    },
+    {
+      "text": ", и потому эквивалентна формуле "
+    },
+    {
+      "include": {
+        "value": "(p\\land q)"
+      }
+    },
+    {
+      "text": ".\n\n\nРассмотрим формулу "
+    },
+    {
+      "include": {
+        "value": "((p\\land q)\\lor q)"
+      }
+    },
+    {
+      "text": ".\nОна истинна, если переменная "
+    },
+    {
+      "include": {
+        "value": "q"
+      }
+    },
+    {
+      "text": " истинна, и ложна, если переменная "
+    },
+    {
+      "include": {
+        "value": "q"
+      }
+    },
+    {
+      "text": " ложна.\nХотелось бы сказать, что она эквивалентна формуле "
+    },
+    {
+      "include": {
+        "value": "q"
+      }
+    },
+    {
+      "text": ", но тут есть формальная трудность: она содержит две переменные и потому задаёт функцию от двух аргументов (типа "
+    },
+    {
+      "include": {
+        "value": "\\Bbb{B}\\times\\Bbb{B}\\to\\Bbb{B} "
+      }
+    },
+    {
+      "text": "), в то время как формула "
+    },
+    {
+      "include": {
+        "value": "q"
+      }
+    },
+    {
+      "text": " задаёт функцию одного аргумента.\nМы не будем обращать на это внимания и будем считать эти формулы эквивалентными.\nВообще, если есть список переменных "
+    },
+    {
+      "include": {
+        "value": "p_1,\\dots,p_n"
+      }
+    },
+    {
+      "text": ", содержащий все переменные некоторой формулы "
+    },
+    {
+      "include": {
+        "value": "\\varphi"
+      }
+    },
+    {
+      "text": " (и, возможно, ещё какие-то переменные), можно считать, что формула "
+    },
+    {
+      "include": {
+        "value": "\\varphi"
+      }
+    },
+    {
+      "text": " задаёт функцию от "
+    },
+    {
+      "include": {
+        "value": "n"
+      }
+    },
+    {
+      "text": " аргументов, возможно, на деле зависящую не от всех аргументов (постоянную по некоторым аргументам)\n\n\nПосле сделанных оговорок легко проверить следующий факт: формулы "
+    },
+    {
+      "include": {
+        "value": "\\varphi"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "\\psi"
+      }
+    },
+    {
+      "text": " эквивалентны тогда и только тогда, когда формула "
+    },
+    {
+      "include": {
+        "value": "((\\varphi\\to\\psi)\\land{(\\psi\\to\\varphi))} "
+      }
+    },
+    {
+      "text": " является тавтологией.\nИспользуя сокращение "
+    },
+    {
+      "include": {
+        "value": "(p\\leftrightarrow q)"
+      }
+    },
+    {
+      "text": " для "
+    },
+    {
+      "include": {
+        "value": "((p\\to q)\\land{(q\\to p)})"
+      }
+    },
+    {
+      "text": ", можно записывать утверждения об эквивалентности формул в виде тавтологий.\nВот несколько таких эквивалентностей:\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:theorem",
+        "body": {
+          "blocks": [
+            {
+              "text": "Формулы\n"
+            },
+            {
+              "include": {
+                "value": "\n\\begin{aligned}\n(p\\land q) &\\leftrightarrow (q \\land p);\\\\\n((p\\land q) \\land r) &\\leftrightarrow (p\\land (q \\land r));\\\\\n(p\\lor q) &\\leftrightarrow (q \\lor p);\\\\\n((p\\lor q) \\lor r) &\\leftrightarrow (p\\lor (q \\lor r));\\\\\n(p\\land(q\\lor r)) &\\leftrightarrow ((p\\land q)\\lor (p\\land r));\\\\\n(p\\lor(q\\land r)) &\\leftrightarrow ((p\\lor q)\\land (p\\lor r));\\\\\n\\lnot(p\\land q) &\\leftrightarrow (\\lnot p\\lor \\lnot q);\\\\\n\\lnot(p\\lor q) &\\leftrightarrow (\\lnot p\\land \\lnot q);\\\\\n(p\\lor (p \\land q)) &\\leftrightarrow p;\\\\\n(p\\land (p \\lor q)) &\\leftrightarrow p;\\\\\n(p\\to q) &\\leftrightarrow (\\lnot q\\to \\lnot p);\\\\\np &\\leftrightarrow \\lnot\\lnot p\n\\end{aligned}\n"
+              }
+            },
+            {
+              "text": "\nявляются тавтологиями.\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "#start:def:proof",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\nПервые четыре эквивалентности выражают коммутативность и ассоциативность конъюнкции и дизъюнкции.\nПроверим, например, вторую: левая и правая части истинны в единственном случае (когда все переменные истинны), и потому эквивалентны.\n(Для дизъюнкции удобнее смотреть, когда она ложна.)\n\nДве следующие эквивалентности означают  дистрибутивность — заметим, что в отличие от сложения и умножения в кольцах здесь верны оба свойства дистрибутивности.\nПроверить эквивалентность легко, если отдельно рассмотреть случаи истинного и ложного "
+    },
+    {
+      "include": {
+        "value": "p"
+      }
+    },
+    {
+      "text": ".\n\n\nСледующие два свойства, "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "законы Де Моргана"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ",\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Законы (правила) Де Моргана|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:glossary",
+        "body": {
+          "blocks": [
+            {
+              "text": "ДеМорган"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nлегко проверить, зная, что конъюнкция истинна, а дизъюнкция ложна лишь в одном случае.\nЭти свойства иногда выражают словами: «конъюнкция двойственна дизъюнкции».\n\n\nДалее следуют два очевидных "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "закона поглощения"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Закон!поглощения|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n(один из них мы уже упоминали).\n\n\nЗа ними идёт правило "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "контрапозиции"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ",\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Правило!контрапозиции|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Контрапозиция|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nкоторое говорит, в частности, что утверждения «если "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " совершенно, то "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " чётно» и «если "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " нечётно, то "
+    },
+    {
+      "include": {
+        "value": "x"
+      }
+    },
+    {
+      "text": " несовершенно»  равносильны.\nХотя оно и очевидно проверяется с помощью таблиц истинности, с ним связаны любопытные парадоксы.\nВот один из них.\n\n\nБиолог А выдвинул гипотезу: все вороны чёрные.\nПроверяя её, он вышел во двор и обнаружил на дереве ворону.\nОна оказалось чёрной.\nБиолог А радуется — гипотеза подтверждается.\nБиолог Б переформулировал гипотезу так: все не-чёрные предметы — не вороны (применив наше правило контрапозиции) и не стал выходить во двор, а открыл холодильник и нашёл там оранжевый предмет.\nОн оказался апельсином, а не вороной.\nБиолог Б обрадовался — гипотеза подтверждается — и позвонил биологу А.\nТот удивляется — у него тоже есть апельсин в холодильнике, но с его точки зрения никакого отношения к его гипотезе апельсин не имеет,"
+    },
+    {
+      "include": {
+        "value": "\\dots"
+      }
+    },
+    {
+      "text": "\n\n\nДругой парадокс: с точки зрения формальной логики утверждения «кто не с нами, тот против нас» и «кто не против нас, тот с нами» равносильны.\n\n\nПоследнее (и очевидное) правило "
+    },
+    {
+      "include": {
+        "value": "p\\leftrightarrow \\lnot\\lnot p"
+      }
+    },
+    {
+      "text": " называется "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "снятием двойного отрицания"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Снятие двойного отрицания|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "#end:def:proof",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:problem",
+        "body": {
+          "blocks": [
+            {
+              "text": "Перечисленные эквивалентности соответствуют свойствам операций на множествах: например, первая гарантирует, что "
+            },
+            {
+              "include": {
+                "value": "P\\cap Q=Q\\cap P"
+              }
+            },
+            {
+              "text": " для любых множеств "
+            },
+            {
+              "include": {
+                "value": "p"
+              }
+            },
+            {
+              "text": " и "
+            },
+            {
+              "include": {
+                "value": "Q"
+              }
+            },
+            {
+              "text": ".\nКакие утверждения соответствуют остальным эквивалентностям?\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:problem",
+        "body": {
+          "blocks": [
+            {
+              "text": "Две формулы, содержащие только переменные и связки "
+            },
+            {
+              "include": {
+                "value": "\\land"
+              }
+            },
+            {
+              "text": ", "
+            },
+            {
+              "include": {
+                "value": "\\lor"
+              }
+            },
+            {
+              "text": " и "
+            },
+            {
+              "include": {
+                "value": "\\lnot"
+              }
+            },
+            {
+              "text": ", эквивалентны.\nДокажите, что они останутся эквивалентными, если всюду заменить "
+            },
+            {
+              "include": {
+                "value": "\\land"
+              }
+            },
+            {
+              "text": " на "
+            },
+            {
+              "include": {
+                "value": "\\lor"
+              }
+            },
+            {
+              "text": " и наоборот.\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n\nДалеко не все тавтологии имеют ясный интуитивный смысл.\nНапример, формула "
+    },
+    {
+      "include": {
+        "value": "(p\\to q)\\lor(q\\to p)"
+      }
+    },
+    {
+      "text": " является тавтологией (если одно из утверждений "
+    },
+    {
+      "include": {
+        "value": "p"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "q"
+      }
+    },
+    {
+      "text": " ложно, то из него следует всё, что угодно; если оба истинны, то тем более формула истинна), хотя и отчасти противоречит нашей интуиции — почему, собственно, из двух никак не связанных утверждений одно влечёт другое?\nЕщё более загадочна тавтология\n"
+    },
+    {
+      "include": {
+        "value": "\n((p\\to q)\\to p)\\to p\n"
+      }
+    },
+    {
+      "text": "\n(хотя её ничего не стоит проверить с помощью таблиц истинности).\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "format:pre",
+        "body": {
+          "blocks": [
+            {
+              "text": "Отступление о пользе скобок"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ".\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Однозначность разбора|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nНа самом деле наше определение истинности содержит серьёзный пробел.\nЧтобы обнаружить его, зададим себе вопрос: зачем нужны скобки в формулах?\nПредставим себе, что мы изменим определение формулы, и будем говорить, что "
+    },
+    {
+      "include": {
+        "value": "P \\land Q"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "P \\lor Q"
+      }
+    },
+    {
+      "text": " являются формулами для любых "
+    },
+    {
+      "include": {
+        "value": "p"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "Q"
+      }
+    },
+    {
+      "text": ".\nОстанутся ли наши рассуждения в силе?\n\n\nЛегко понять, что мы столкнёмся с трудностью при определении булевой функции, соответствующей формуле.\nВ этом определении мы подставляли нули и единицы на место переменных и затем вычисляли значение формулы с помощью таблиц истинности для связок.\nНо теперь, когда мы изменили определение формулы, формула "
+    },
+    {
+      "include": {
+        "value": "p\\land q \\lor r"
+      }
+    },
+    {
+      "text": " может быть получена двумя способами — из формул "
+    },
+    {
+      "include": {
+        "value": "p\\land q"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "r"
+      }
+    },
+    {
+      "text": " с помощью операции "
+    },
+    {
+      "include": {
+        "value": "\\lor"
+      }
+    },
+    {
+      "text": " и из формул "
+    },
+    {
+      "include": {
+        "value": "p"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "q\\lor r"
+      }
+    },
+    {
+      "text": " с помощью операции "
+    },
+    {
+      "include": {
+        "value": "\\land"
+      }
+    },
+    {
+      "text": ".\nЭти два толкования дадут разный результат при попытке вычислить значение "
+    },
+    {
+      "include": {
+        "value": "0 \\land 0 \\lor 1"
+      }
+    },
+    {
+      "text": ".\n\n\nИз сказанного ясно, что скобки нужны, чтобы гарантировать однозначность синтаксического разбора формулы.\nТочнее говоря, верно такое утверждение:\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:theorem",
+        "body": {
+          "blocks": [
+            {
+              "tag": {
+                "name": "def:index",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Теорема!об однозначности разбора|defin"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\nПропозициональная формула, не являющаяся переменной, может быть представлена ровно в одном из четырёх видов "
+            },
+            {
+              "include": {
+                "value": "(A\\land B)"
+              }
+            },
+            {
+              "text": ", "
+            },
+            {
+              "include": {
+                "value": "(A\\lor B)"
+              }
+            },
+            {
+              "text": ", "
+            },
+            {
+              "include": {
+                "value": "(A\\to B)"
+              }
+            },
+            {
+              "text": " или "
+            },
+            {
+              "include": {
+                "value": "\\lnot A"
+              }
+            },
+            {
+              "text": ", где "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " и "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": " — некоторые формулы, причём "
+            },
+            {
+              "include": {
+                "value": "A"
+              }
+            },
+            {
+              "text": " и "
+            },
+            {
+              "include": {
+                "value": "B"
+              }
+            },
+            {
+              "text": " (в первых трёх случаях) восстанавливаются однозначно.\n"
+            }
+          ]
+        },
+        "attrList": [
+          {
+            "name": "name",
+            "value": "однозначность разбора",
+            "empty": false
+          }
+        ],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "tag": {
+        "name": "#start:def:proof",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\nФормальное доказательство можно провести так: назовём "
+    },
+    {
+      "tag": {
+        "name": "em",
+        "body": {
+          "blocks": [
+            {
+              "text": "скобочным итогом"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "tag": {
+        "name": "def:index",
+        "body": {
+          "blocks": [
+            {
+              "text": "Скобочный итог|defin"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": "\nразницу между числом открывающихся и закрывающихся скобок.\nИндукцией по построению формулы легко доказать такую лемму:\n\n"
+    },
+    {
+      "tag": {
+        "name": "format:pre",
+        "body": {
+          "blocks": [
+            {
+              "text": "Лемма"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": " "
+      }
+    },
+    {
+      "text": ". Скобочный итог формулы равен нулю.\nСкобочный итог любого начала формулы неотрицателен и равен нулю, лишь если это начало совпадает со всей формулой, пусто или состоит из одних символов отрицания.\n\nСлова «индукцией по построению» означают, что мы проверяем утверждение для переменных, а также доказываем, что если оно верно для формул "
+    },
+    {
+      "include": {
+        "value": "A"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "B"
+      }
+    },
+    {
+      "text": ", то оно верно и для формул "
+    },
+    {
+      "include": {
+        "value": "(A\\land B)"
+      }
+    },
+    {
+      "text": ", "
+    },
+    {
+      "include": {
+        "value": "(A\\lor B)"
+      }
+    },
+    {
+      "text": ", "
+    },
+    {
+      "include": {
+        "value": "(A\\to B)"
+      }
+    },
+    {
+      "text": " и "
+    },
+    {
+      "include": {
+        "value": "\\lnot A"
+      }
+    },
+    {
+      "text": ".\n\nПосле того как лемма доказана, разбор формулы проводится так: если она начинается с отрицания, то может быть образована лишь по третьему правилу.\nЕсли же она начинается со скобки, то надо скобку удалить, а потом искать непустое начало, имеющее нулевой скобочный итог и не оканчивающееся на знак логической операции.\nТакое начало единственно (как легко проверить, используя лемму).\nЭто начало и будет первой частью формулы.\nТем самым формула разбирается однозначно.\n"
+    },
+    {
+      "tag": {
+        "name": "#end:def:proof",
+        "body": {
+          "blocks": []
+        },
+        "attrList": [],
+        "separator": ""
+      }
+    },
+    {
+      "text": "\n\n\nНет смысла вдаваться в подробности этого (несложного) рассуждения: вообще-то алгоритмы разбора формул — это отдельная большая и практически важная тема (в первую очередь в связи с компиляторами).\nПриведённый нами алгоритм далеко не оптимален.\nС другой стороны, мы вообще можем обойти эту проблему, потребовав, чтобы при записи формул левая и правая скобки, окружающие формулу, связывались линией — тогда однозначность разбора формулы не вызывает вопросов, и больше ничего нам не надо.\n\n\nВ дальнейшем мы будем опускать скобки, если они либо не играют роли (например, можно написать конъюнкцию трёх членов, не указывая порядок действий в силу ассоциативности), либо ясны из контекста.\n\n\n"
+    },
+    {
+      "tag": {
+        "name": "def:problem",
+        "body": {
+          "blocks": [
+            {
+              "text": "Польский логик Лукасевич"
+            },
+            {
+              "tag": {
+                "name": "def:glossary",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Лукасевич"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": " предлагал обходиться без скобок, записывая в формулах сначала знак операции, а потом операнды (без пробелов и разделителей).\nНапример, "
+            },
+            {
+              "include": {
+                "value": "(a+b)\\times(c+(d\\times e))"
+              }
+            },
+            {
+              "text": " в его обозначениях запишется как "
+            },
+            {
+              "tag": {
+                "name": "math",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "\\{\\{\\\\times\\}\\{+\\}ab\\{+\\}c\\{\\\\times\\}\\{d\\} \\{e\\}\\}"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": ".\nЭту запись ещё называют "
+            },
+            {
+              "tag": {
+                "name": "em",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "польской"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "tag": {
+                "name": "def:index",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Польская запись|defin"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": "\nзаписью.\n"
+            },
+            {
+              "tag": {
+                "name": "em",
+                "body": {
+                  "blocks": [
+                    {
+                      "text": "Обратная"
+                    }
+                  ]
+                },
+                "attrList": [],
+                "separator": " "
+              }
+            },
+            {
+              "text": " польская запись отличается от неё тем, что знак операции идёт после операндов.\nПокажите, что в обоих случаях порядок действий восстанавливается однозначно.\n"
+            }
+          ]
+        },
+        "attrList": [],
+        "separator": "\n"
+      }
+    },
+    {
+      "text": "\n"
+    }
+  ]
+}

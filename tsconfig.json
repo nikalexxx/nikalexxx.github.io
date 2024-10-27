@@ -16,10 +16,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "parvis",
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
   "ts-node": {
-    "esm": true
+    "esm": true,
+    // "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
   },
-  "include": ["components", "blocks", "pages", "utils", "icons", "index.ts"],
+  "include": ["components", "blocks", "pages", "utils", "icons", "index.ts"]
 }

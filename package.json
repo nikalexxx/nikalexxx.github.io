@@ -1,6 +1,6 @@
 {
   "name": "nikalexxx.github.io",
-  "version": "1.24.0",
+  "version": "1.25.0",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -9,7 +9,7 @@
     "build": "npm run build-books; npm run build-blog; vite build; cp -R data dist",
     "build-books": "cd data/books; node --experimental-specifier-resolution=node --loader ts-node/esm build.ts",
     "build-blog": "cd data/blog; node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm build.ts",
-    "dev-books": "onchange \"./data/books/**/*\" -- node data/books/build.js {{file}} tick.json",
+    "dev-books": "onchange \"./data/books/**/*\" -- cd data/books; node --loader ts-node/esm build.ts {{file}} tick.json",
     "dev-blog": "onchange \"./data/blog/**/*.ts\" -- node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm data/blog/dev.ts {{file}}",
     "deploy": "ENV=prod npm run build; gh-pages -d dist",
     "dev": "vite"
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/nikalexxx/nikalexxx.github.io#readme",
   "devDependencies": {
+    "@bookbox/markup": "^0.4.0",
     "@types/gh-pages": "^3.2.0",
     "@types/katex": "^0.14.0",
     "@types/mermaid": "^8.2.9",
@@ -40,7 +41,7 @@
     "vite-plugin-html": "^3.2.2"
   },
   "dependencies": {
-    "@bookbox/preset-web": "^0.1.1",
+    "@bookbox/preset-web": "^0.2.0",
     "katex": "^0.15.0",
     "mermaid": "^9.0.1",
     "parvis": "^0.1.4"
