@@ -1,0 +1,3735 @@
+[
+  {
+    "name": "counter",
+    "props": {
+      "start": "chapter",
+      "initial": 1
+    },
+    "children": []
+  },
+  {
+    "name": "counter",
+    "props": {
+      "start": "problem"
+    },
+    "children": []
+  },
+  {
+    "name": "counter",
+    "props": {
+      "start": "theorem",
+      "initial": 1
+    },
+    "children": []
+  },
+  "\nЛЕКЦИИ ПО МАТЕМАТИЧЕСКОЙ ЛОГИКЕ И ТЕОРИИ АЛГОРИТМОВ\n\n\n",
+  {
+    "name": "authors",
+    "props": {},
+    "children": [
+      {
+        "name": "link",
+        "props": {
+          "href": "http://lpcs.math.msu.su/~ver/"
+        },
+        "children": [
+          "Н. К. Верещагин"
+        ]
+      },
+      ",\n",
+      {
+        "name": "link",
+        "props": {
+          "href": "https://ru.wikipedia.org/wiki/Шень,_Александр_Ханиевич"
+        },
+        "children": [
+          "А.Шень"
+        ]
+      },
+      "\n"
+    ]
+  },
+  "\n",
+  {
+    "name": "title",
+    "props": {},
+    "children": [
+      "Языки и исчисления"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 2
+    },
+    "children": [
+      {
+        "name": "counter",
+        "props": {
+          "end": "section"
+        },
+        "children": []
+      },
+      {
+        "name": "counter",
+        "props": {
+          "use": "chapter"
+        },
+        "children": []
+      },
+      {
+        "name": "counter",
+        "props": {
+          "start": "section",
+          "initial": 1
+        },
+        "children": []
+      },
+      ". ",
+      "Логика высказываний"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "header",
+    "props": {
+      "level": 3
+    },
+    "children": [
+      {
+        "name": "counter",
+        "props": {
+          "last": "chapter"
+        },
+        "children": []
+      },
+      ".",
+      {
+        "name": "counter",
+        "props": {
+          "use": "section"
+        },
+        "children": []
+      },
+      ". ",
+      "Высказывания и операции"
+    ]
+  },
+  "\n\n«Если число ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\pi"
+    ]
+  },
+  " рационально, то ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\pi"
+    ]
+  },
+  " — алгебраическое число.\nНо оно не алгебраическое. Значит, ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\pi"
+    ]
+  },
+  " не рационально.»\nМы не обязаны знать, что такое число ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\pi"
+    ]
+  },
+  ", какие числа называют рациональными и какие алгебраическими, чтобы признать, что это рассуждение правильно — в том смысле, что из двух сформулированных посылок действительно вытекает заключение.\nТакого рода ситуации — когда некоторое утверждение верно независимо от смысла входящих в него высказываний — составляют предмет ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "логики высказываний"
+    ]
+  },
+  ".\n",
+  "",
+  "\n\n\nТакое начало (особенно если учесть, что курс логики входил в программу философского факультета, где также изучалась «диалектическая логика») настораживает, но на самом деле наши\n",
+  "",
+  "\nрассмотрения будут иметь вполне точный математический характер, хотя мы начнём с неформальных мотивировок.\n\n\n",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "Высказывания"
+    ]
+  },
+  "",
+  " могут быть\n",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "истинными"
+    ]
+  },
+  "\n",
+  "",
+  "\n",
+  "",
+  "\nи ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "ложными"
+    ]
+  },
+  ".\n",
+  "",
+  "\n",
+  "",
+  "\nНапример, «",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2^{16}+1"
+    ]
+  },
+  " — простое число» — истинное высказывание, а «",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2^{32}+1"
+    ]
+  },
+  " — простое число» — ложное (это число делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "641"
+    ]
+  },
+  ").\nПро высказывание «существует бесконечно много простых ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p"
+    ]
+  },
+  ", для которых ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p+2"
+    ]
+  },
+  " — также простое» никто не берётся сказать наверняка, истинно оно или ложно.\nЗаметим, что «",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  " делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  "» в этом смысле не является высказыванием, пока не сказано, чему равно ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  "; при разных ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  " получаются разные высказывания, одни истинные (при чётном ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  "), другие — ложные (при нечётном ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  ").\n\n\nВысказывания можно соединять друг с другом с помощью «логических связок».\n",
+  "",
+  "\n",
+  "",
+  "\nЭти связки имеют довольно странные, но традиционные названия и обозначения (",
+  {
+    "name": "label",
+    "props": {
+      "ref": "logic-connectives-names"
+    },
+    "children": [
+      "табл. 1.1 ",
+      ""
+    ]
+  },
+  ").\n\n\n",
+  {
+    "name": "table",
+    "props": {
+      "align": "center",
+      "key": "logic-connectives-names"
+    },
+    "children": [
+      "\n",
+      {
+        "name": "row",
+        "props": {
+          "head": true
+        },
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " связка "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " обозначение "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " название"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              " и ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "B"
+                ]
+              },
+              "\n"
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\& B"
+                ]
+              },
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\land B"
+                ]
+              },
+              "\n\n\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\texttt{ and }B"
+                ]
+              },
+              "\n"
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              "конъюнкция\n",
+              "",
+              "\n"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              " или ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "B"
+                ]
+              },
+              " "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\lor B"
+                ]
+              },
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\texttt{ or }B"
+                ]
+              },
+              " "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " дизъюнкция\n",
+              "",
+              "\n"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              "не ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              "\n\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              " неверно\n"
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              "\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "\\lnot A"
+                ]
+              },
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "\\sim\\!A"
+                ]
+              },
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "\\overline{A} "
+                ]
+              },
+              "\n\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "\\texttt{not} A"
+                ]
+              },
+              "\n"
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              "\nотрицание\n",
+              "",
+              "\n"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              "из ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              " следует ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "B"
+                ]
+              },
+              "\n\nесли ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              ", то ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "B"
+                ]
+              },
+              "\n\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              " влечёт ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "B"
+                ]
+              },
+              "\n\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "B"
+                ]
+              },
+              " — следствие ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A"
+                ]
+              },
+              "\n"
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              "\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\rightarrow B"
+                ]
+              },
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\Rightarrow B"
+                ]
+              },
+              "\n\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "A\\supset B"
+                ]
+              },
+              "\n\n",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "\\texttt{if }A\\texttt{ then }B"
+                ]
+              },
+              "\n"
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              "\nимпликация\n\nследование\n",
+              "",
+              "\n"
+            ]
+          }
+        ]
+      },
+      "\nТаблица 1.1. Логические связки, обозначения и названия.\n",
+      "",
+      "\n",
+      "",
+      "\n",
+      "",
+      "\n",
+      "",
+      "\n"
+    ]
+  },
+  "\n\n\nОтметим также, что в импликации ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A\\Rightarrow B"
+    ]
+  },
+  " высказывание ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A"
+    ]
+  },
+  " называют ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "посылкой"
+    ]
+  },
+  ",\n",
+  "",
+  "\nили ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "антецедентом импликации"
+    ]
+  },
+  ",\n",
+  "",
+  "\nа ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "B"
+    ]
+  },
+  " — ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "заключением"
+    ]
+  },
+  ",\n",
+  "",
+  "\nили ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "консеквентом"
+    ]
+  },
+  ".\n",
+  "",
+  "\n",
+  "",
+  "\n\n\nГоворят также, что высказывание имеет ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "истинностное значение"
+    ]
+  },
+  "\n",
+  "",
+  "\n",
+  "",
+  "\n",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "И"
+    ]
+  },
+  " (истина),\n",
+  "",
+  "\nесли оно истинно, или ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "Л"
+    ]
+  },
+  " (ложь),\n",
+  "",
+  "\nесли оно ложно.\nИногда вместо ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "И"
+    ]
+  },
+  " употребляется буква ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "T"
+    ]
+  },
+  " (true) или число ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "1"
+    ]
+  },
+  ",\n",
+  "",
+  "\n",
+  "",
+  "\nа вместо ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "Л"
+    ]
+  },
+  " — буква ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "F"
+    ]
+  },
+  " (false) или число ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "0"
+    ]
+  },
+  ".\n(С первого взгляда идея произвольным образом выбрать числа ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "0"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "1"
+    ]
+  },
+  " кажется дикой — какая бы польза могла быть от, скажем, сложения истинностных значений?\nУдивительным образом в последние годы обнаружилось, что такая польза есть, и если оперировать с истиной и ложью как элементами конечного поля, можно получить много неожиданных результатов.\nНо это выходит за рамки нашей книги.)\n\n\nЛогические связки позволяют составлять сложные высказывания из простых.\nПри этом истинность составного высказывания определяется истинностью его частей в соответствии с ",
+  {
+    "name": "label",
+    "props": {
+      "ref": "truth-tables"
+    },
+    "children": [
+      "таблицей 1.2 ",
+      ""
+    ]
+  },
+  ".\n\n\n",
+  {
+    "name": "area",
+    "props": {
+      "key": "truth-tables"
+    },
+    "children": [
+      {
+        "name": "table",
+        "props": {},
+        "children": [
+          {
+            "name": "row",
+            "props": {
+              "head": true
+            },
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "A"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "B"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "A\\land B"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "A\\lor B"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "A \\to B"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n"
+        ]
+      },
+      "\n\n",
+      {
+        "name": "table",
+        "props": {},
+        "children": [
+          {
+            "name": "row",
+            "props": {
+              "head": true
+            },
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "A"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "\\lnot A"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "И"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "format.b",
+                    "props": {},
+                    "children": [
+                      "Л"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n"
+        ]
+      },
+      "\n\n",
+      {
+        "name": "area",
+        "props": {
+          "position": "center"
+        },
+        "children": [
+          {
+            "name": "format.small",
+            "props": {},
+            "children": [
+              {
+                "name": "format.i",
+                "props": {},
+                "children": [
+                  "Таблица 1.2. Таблицы истинности для логических связок"
+                ]
+              },
+              "\n"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "\n\nТе же правила можно изложить словесно.\nВысказывание ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A\\land B"
+    ]
+  },
+  " истинно, если оба высказывания ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "B"
+    ]
+  },
+  " истинны.\nВысказывание ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A\\lor B"
+    ]
+  },
+  " истинно, если хотя бы одно из высказываний ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "B"
+    ]
+  },
+  " истинно.\nВысказывание ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A\\to B"
+    ]
+  },
+  " ложно в единственном случае: если ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A"
+    ]
+  },
+  " истинно, а ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "B"
+    ]
+  },
+  " ложно.\nНаконец, ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\lnot A"
+    ]
+  },
+  " истинно в том и только том случае, когда ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "A"
+    ]
+  },
+  " ложно.\n\n\nИз всех связок больше всего вопросов вызывает импликация.\nВ самом деле, не очень понятно, почему надо считать, скажем, высказывания «если ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2\\times 2=5"
+    ]
+  },
+  ", то ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2\\times 2=4"
+    ]
+  },
+  "» и «если ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2\\times 2=5"
+    ]
+  },
+  ", то ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "3\\times 3=1"
+    ]
+  },
+  "» истинными.\n(Именно так говорят наши таблицы: ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "Л\\toИ = Л\\toЛ = И"
+    ]
+  },
+  ".)\nНа самом деле  в таком определении есть свой резон.\nВсе согласны, что если число ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  " делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "4"
+    ]
+  },
+  ", то оно делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  ".\nЭто означает, что высказывание\n\n\n(",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  " делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "4"
+    ]
+  },
+  ") ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\to"
+    ]
+  },
+  " (",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  " делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  ")\n\n\nистинно при всех ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  ".\n\nПодставим сюда ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x=5"
+    ]
+  },
+  ": обе части ложны, а утверждение в целом истинно.\nПри ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x=6"
+    ]
+  },
+  " посылка импликации ложна, а заключение истинно, и вся импликация истинна.\nНаконец, при ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x=8"
+    ]
+  },
+  " посылка и заключение истинны и импликация в целом истинна.\nС другой стороны, обратное утверждение (если ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  " делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  ", то ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "x"
+    ]
+  },
+  " делится на ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "4"
+    ]
+  },
+  ") неверно, и число ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  " является контрпримером.\nПри этом посылка импликации истинна, заключение ложно, и сама импликация ложна.\nТаким образом, если считать, что истинность импликации определяется истинностью её частей (а не наличием между ними каких-то причинно-следственных связей), то все строки таблицы истинности обоснованы.\nЧтобы подчеркнуть такое узко-формальное понимание импликации, философски настроенные логики называют её «материальной импликацией».\n\n\nТеперь от неформальных разговоров перейдём к определениям.\nЭлементарные высказывания (из которых составляются более сложные) мы будем обозначать маленькими латинскими буквами и называть ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "пропозициональными переменными"
+    ]
+  },
+  ".\n",
+  "",
+  "\n",
+  "",
+  "\nИз них строятся ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "пропозициональные формулы"
+    ]
+  },
+  "\n",
+  "",
+  "\n",
+  "",
+  "\nпо таким правилам:\n\n",
+  {
+    "name": "list",
+    "props": {},
+    "children": [
+      "\n\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "Всякая пропозициональная переменная есть формула."
+        ]
+      },
+      "\n\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "Если ",
+          {
+            "name": "math",
+            "props": {
+              "block": false
+            },
+            "children": [
+              "A"
+            ]
+          },
+          " — пропозициональная формула, то ",
+          {
+            "name": "math",
+            "props": {
+              "block": false
+            },
+            "children": [
+              "\\lnot A"
+            ]
+          },
+          " — пропозициональная формула."
+        ]
+      },
+      "\n\n",
+      {
+        "name": "item",
+        "props": {},
+        "children": [
+          "Если ",
+          {
+            "name": "math",
+            "props": {
+              "block": false
+            },
+            "children": [
+              "A"
+            ]
+          },
+          " и ",
+          {
+            "name": "math",
+            "props": {
+              "block": false
+            },
+            "children": [
+              "B"
+            ]
+          },
+          " — пропозициональные формулы, то ",
+          {
+            "name": "math",
+            "props": {
+              "block": false
+            },
+            "children": [
+              "(A\\land B)"
+            ]
+          },
+          ", ",
+          {
+            "name": "math",
+            "props": {
+              "block": false
+            },
+            "children": [
+              "(A\\lor B)"
+            ]
+          },
+          " и ",
+          {
+            "name": "math",
+            "props": {
+              "block": false
+            },
+            "children": [
+              "(A\\to B)"
+            ]
+          },
+          " — пропозициональные формулы."
+        ]
+      },
+      "\n\n"
+    ]
+  },
+  "\n\nМожно ещё сказать так: формулы образуют минимальное множество, обладающее указанными свойствами (слово «минимальное» здесь существенно: ведь если бы мы объявили любую последовательность переменных, скобок и связок формулой, то эти три свойства были бы тоже выполнены).\n\n\nПусть формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\varphi"
+    ]
+  },
+  " содержит ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "n"
+    ]
+  },
+  " пропозициональных переменных ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p_1,p_2,\\dots,p_n"
+    ]
+  },
+  ".\nЕсли подставить вместо этих переменных истинностные значения (",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "И"
+    ]
+  },
+  " или ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "Л"
+    ]
+  },
+  "), то по таблицам можно вычислить истинностное значение формулы в целом.\nТаким образом, формула задаёт некоторую функцию от ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "n"
+    ]
+  },
+  " аргументов, каждый из которых может принимать значения ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "Л"
+    ]
+  },
+  " и ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "И"
+    ]
+  },
+  ".\nЗначения функции также лежат в множестве {",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "Л"
+    ]
+  },
+  ", ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "И"
+    ]
+  },
+  "}, которое мы будем обозначать ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\Bbb{B} "
+    ]
+  },
+  ".\nМы будем следовать уже упоминавшейся традиции и отождествлять ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "И"
+    ]
+  },
+  " с единицей, а ",
+  {
+    "name": "format.b",
+    "props": {},
+    "children": [
+      "Л"
+    ]
+  },
+  " — с нулём, тем самым ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\Bbb{B} "
+    ]
+  },
+  " есть ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\{0,1\\} "
+    ]
+  },
+  ".\nФормула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\varphi"
+    ]
+  },
+  " задаёт отображение типа ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\Bbb{B}^n\\to\\Bbb{B} "
+    ]
+  },
+  ".\nТакие отображения называют также ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "булевыми функциями ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "n"
+        ]
+      },
+      " аргументов"
+    ]
+  },
+  ".\n",
+  "",
+  "\n",
+  "",
+  "\n\n\n",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "Пример"
+    ]
+  },
+  ". Рассмотрим формулу ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "(p\\land (q\\land \\lnot r))"
+    ]
+  },
+  ".\nОна истинна в единственном случае — когда ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q"
+    ]
+  },
+  " истинны, а ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "r"
+    ]
+  },
+  " ложно (см. ",
+  {
+    "name": "label",
+    "props": {
+      "ref": "example-conjunct"
+    },
+    "children": [
+      "таблицу 1.3"
+    ]
+  },
+  ").\n\n\n",
+  {
+    "name": "table",
+    "props": {
+      "key": "example-conjunct"
+    },
+    "children": [
+      {
+        "name": "row",
+        "props": {
+          "head": true
+        },
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "p"
+                ]
+              },
+              " "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "q"
+                ]
+              },
+              " "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "r"
+                ]
+              },
+              " "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "\\lnot r"
+                ]
+              },
+              " "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "(q \\land \\lnot r)"
+                ]
+              },
+              " "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " ",
+              {
+                "name": "math",
+                "props": {
+                  "block": false
+                },
+                "children": [
+                  "(p\\land(q\\land\\lnot r))"
+                ]
+              },
+              "\n"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1"
+            ]
+          }
+        ]
+      },
+      "\n",
+      {
+        "name": "row",
+        "props": {},
+        "children": [
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 1 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0 "
+            ]
+          },
+          {
+            "name": "cell",
+            "props": {},
+            "children": [
+              " 0"
+            ]
+          }
+        ]
+      },
+      "\nТаблица 1.3. Таблица истинности для ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(p\\land(q\\land \\lnot r))"
+        ]
+      },
+      ".\n"
+    ]
+  },
+  "\n\nНекоторые формулы выражают логические законы — составные высказывания, истинные независимо от смысла их частей.\nТакие формулы (истинные при всех значениях входящих в них переменных) называют ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "тавтологиями"
+    ]
+  },
+  ".\n",
+  "",
+  "\n\n\n",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "Пример"
+    ]
+  },
+  ". Формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "((p \\land q)\\to p)"
+    ]
+  },
+  " является тавтологией (это можно проверить, например, составив таблицу).\nОна выражает такой логический закон: из конъюнкции утверждений следует первое из них.\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_name"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "Как выглядит симметричное утверждение для дизъюнкции и какая формула его выражает?\n"
+    ]
+  },
+  "\n\n\nДве формулы называют ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "эквивалентными"
+    ]
+  },
+  ",\n",
+  "",
+  "\n",
+  "",
+  "\nесли они истинны при одних и тех же значениях переменных (другими словами, если они задают одну и ту же булеву функцию).\nНапример, легко проверить, что формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "(p \\land (p\\to q))"
+    ]
+  },
+  " истинна лишь при ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p=q=И"
+    ]
+  },
+  ", и потому эквивалентна формуле ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "(p\\land q)"
+    ]
+  },
+  ".\n\n\nРассмотрим формулу ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "((p\\land q)\\lor q)"
+    ]
+  },
+  ".\nОна истинна, если переменная ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q"
+    ]
+  },
+  " истинна, и ложна, если переменная ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q"
+    ]
+  },
+  " ложна.\nХотелось бы сказать, что она эквивалентна формуле ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q"
+    ]
+  },
+  ", но тут есть формальная трудность: она содержит две переменные и потому задаёт функцию от двух аргументов (типа ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\Bbb{B}\\times\\Bbb{B}\\to\\Bbb{B} "
+    ]
+  },
+  "), в то время как формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q"
+    ]
+  },
+  " задаёт функцию одного аргумента.\nМы не будем обращать на это внимания и будем считать эти формулы эквивалентными.\nВообще, если есть список переменных ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p_1,\\dots,p_n"
+    ]
+  },
+  ", содержащий все переменные некоторой формулы ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\varphi"
+    ]
+  },
+  " (и, возможно, ещё какие-то переменные), можно считать, что формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\varphi"
+    ]
+  },
+  " задаёт функцию от ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "n"
+    ]
+  },
+  " аргументов, возможно, на деле зависящую не от всех аргументов (постоянную по некоторым аргументам)\n\n\nПосле сделанных оговорок легко проверить следующий факт: формулы ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\varphi"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\psi"
+    ]
+  },
+  " эквивалентны тогда и только тогда, когда формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "((\\varphi\\to\\psi)\\land{(\\psi\\to\\varphi))} "
+    ]
+  },
+  " является тавтологией.\nИспользуя сокращение ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "(p\\leftrightarrow q)"
+    ]
+  },
+  " для ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "((p\\to q)\\land{(q\\to p)})"
+    ]
+  },
+  ", можно записывать утверждения об эквивалентности формул в виде тавтологий.\nВот несколько таких эквивалентностей:\n\n\n",
+  {
+    "name": "area",
+    "props": {},
+    "children": [
+      {
+        "name": "area",
+        "props": {
+          "inline": true,
+          "key": "_name"
+        },
+        "children": [
+          "Теорема ",
+          {
+            "name": "counter",
+            "props": {
+              "use": "theorem"
+            },
+            "children": []
+          }
+        ]
+      },
+      ". ",
+      "Формулы\n",
+      {
+        "name": "math",
+        "props": {
+          "block": true
+        },
+        "children": [
+          "\n\\begin{aligned}\n(p\\land q) &\\leftrightarrow (q \\land p);\\\\\n((p\\land q) \\land r) &\\leftrightarrow (p\\land (q \\land r));\\\\\n(p\\lor q) &\\leftrightarrow (q \\lor p);\\\\\n((p\\lor q) \\lor r) &\\leftrightarrow (p\\lor (q \\lor r));\\\\\n(p\\land(q\\lor r)) &\\leftrightarrow ((p\\land q)\\lor (p\\land r));\\\\\n(p\\lor(q\\land r)) &\\leftrightarrow ((p\\lor q)\\land (p\\lor r));\\\\\n\\lnot(p\\land q) &\\leftrightarrow (\\lnot p\\lor \\lnot q);\\\\\n\\lnot(p\\lor q) &\\leftrightarrow (\\lnot p\\land \\lnot q);\\\\\n(p\\lor (p \\land q)) &\\leftrightarrow p;\\\\\n(p\\land (p \\lor q)) &\\leftrightarrow p;\\\\\n(p\\to q) &\\leftrightarrow (\\lnot q\\to \\lnot p);\\\\\np &\\leftrightarrow \\lnot\\lnot p\n\\end{aligned}\n"
+        ]
+      },
+      "\nявляются тавтологиями.\n"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "area",
+    "props": {},
+    "children": [
+      "ᐊ ",
+      "\nПервые четыре эквивалентности выражают коммутативность и ассоциативность конъюнкции и дизъюнкции.\nПроверим, например, вторую: левая и правая части истинны в единственном случае (когда все переменные истинны), и потому эквивалентны.\n(Для дизъюнкции удобнее смотреть, когда она ложна.)\n\nДве следующие эквивалентности означают  дистрибутивность — заметим, что в отличие от сложения и умножения в кольцах здесь верны оба свойства дистрибутивности.\nПроверить эквивалентность легко, если отдельно рассмотреть случаи истинного и ложного ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p"
+        ]
+      },
+      ".\n\n\nСледующие два свойства, ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "законы Де Моргана"
+        ]
+      },
+      ",\n",
+      "",
+      "\n",
+      "",
+      "\nлегко проверить, зная, что конъюнкция истинна, а дизъюнкция ложна лишь в одном случае.\nЭти свойства иногда выражают словами: «конъюнкция двойственна дизъюнкции».\n\n\nДалее следуют два очевидных ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "закона поглощения"
+        ]
+      },
+      "\n",
+      "",
+      "\n(один из них мы уже упоминали).\n\n\nЗа ними идёт правило ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "контрапозиции"
+        ]
+      },
+      ",\n",
+      "",
+      "\n",
+      "",
+      "\nкоторое говорит, в частности, что утверждения «если ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x"
+        ]
+      },
+      " совершенно, то ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x"
+        ]
+      },
+      " чётно» и «если ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x"
+        ]
+      },
+      " нечётно, то ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x"
+        ]
+      },
+      " несовершенно»  равносильны.\nХотя оно и очевидно проверяется с помощью таблиц истинности, с ним связаны любопытные парадоксы.\nВот один из них.\n\n\nБиолог А выдвинул гипотезу: все вороны чёрные.\nПроверяя её, он вышел во двор и обнаружил на дереве ворону.\nОна оказалось чёрной.\nБиолог А радуется — гипотеза подтверждается.\nБиолог Б переформулировал гипотезу так: все не-чёрные предметы — не вороны (применив наше правило контрапозиции) и не стал выходить во двор, а открыл холодильник и нашёл там оранжевый предмет.\nОн оказался апельсином, а не вороной.\nБиолог Б обрадовался — гипотеза подтверждается — и позвонил биологу А.\nТот удивляется — у него тоже есть апельсин в холодильнике, но с его точки зрения никакого отношения к его гипотезе апельсин не имеет,",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\dots"
+        ]
+      },
+      "\n\n\nДругой парадокс: с точки зрения формальной логики утверждения «кто не с нами, тот против нас» и «кто не против нас, тот с нами» равносильны.\n\n\nПоследнее (и очевидное) правило ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p\\leftrightarrow \\lnot\\lnot p"
+        ]
+      },
+      " называется ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "снятием двойного отрицания"
+        ]
+      },
+      ".\n",
+      "",
+      "\n",
+      " ᐅ"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_name"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "Перечисленные эквивалентности соответствуют свойствам операций на множествах: например, первая гарантирует, что ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "P\\cap Q=Q\\cap P"
+        ]
+      },
+      " для любых множеств ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "Q"
+        ]
+      },
+      ".\nКакие утверждения соответствуют остальным эквивалентностям?\n"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_name"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "Две формулы, содержащие только переменные и связки ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\land"
+        ]
+      },
+      ", ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lor"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lnot"
+        ]
+      },
+      ", эквивалентны.\nДокажите, что они останутся эквивалентными, если всюду заменить ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\land"
+        ]
+      },
+      " на ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lor"
+        ]
+      },
+      " и наоборот.\n"
+    ]
+  },
+  "\n\nДалеко не все тавтологии имеют ясный интуитивный смысл.\nНапример, формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "(p\\to q)\\lor(q\\to p)"
+    ]
+  },
+  " является тавтологией (если одно из утверждений ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q"
+    ]
+  },
+  " ложно, то из него следует всё, что угодно; если оба истинны, то тем более формула истинна), хотя и отчасти противоречит нашей интуиции — почему, собственно, из двух никак не связанных утверждений одно влечёт другое?\nЕщё более загадочна тавтология\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n((p\\to q)\\to p)\\to p\n"
+    ]
+  },
+  "\n(хотя её ничего не стоит проверить с помощью таблиц истинности).\n\n\n",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "Отступление о пользе скобок"
+    ]
+  },
+  ".\n",
+  "",
+  "\nНа самом деле наше определение истинности содержит серьёзный пробел.\nЧтобы обнаружить его, зададим себе вопрос: зачем нужны скобки в формулах?\nПредставим себе, что мы изменим определение формулы, и будем говорить, что ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "P \\land Q"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "P \\lor Q"
+    ]
+  },
+  " являются формулами для любых ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "Q"
+    ]
+  },
+  ".\nОстанутся ли наши рассуждения в силе?\n\n\nЛегко понять, что мы столкнёмся с трудностью при определении булевой функции, соответствующей формуле.\nВ этом определении мы подставляли нули и единицы на место переменных и затем вычисляли значение формулы с помощью таблиц истинности для связок.\nНо теперь, когда мы изменили определение формулы, формула ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p\\land q \\lor r"
+    ]
+  },
+  " может быть получена двумя способами — из формул ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p\\land q"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "r"
+    ]
+  },
+  " с помощью операции ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\lor"
+    ]
+  },
+  " и из формул ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q\\lor r"
+    ]
+  },
+  " с помощью операции ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\land"
+    ]
+  },
+  ".\nЭти два толкования дадут разный результат при попытке вычислить значение ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "0 \\land 0 \\lor 1"
+    ]
+  },
+  ".\n\n\nИз сказанного ясно, что скобки нужны, чтобы гарантировать однозначность синтаксического разбора формулы.\nТочнее говоря, верно такое утверждение:\n\n\n",
+  {
+    "name": "area",
+    "props": {
+      "name": "однозначность разбора"
+    },
+    "children": [
+      {
+        "name": "area",
+        "props": {
+          "inline": true,
+          "key": "_name"
+        },
+        "children": [
+          "Теорема ",
+          {
+            "name": "counter",
+            "props": {
+              "use": "theorem"
+            },
+            "children": []
+          }
+        ]
+      },
+      ". ",
+      "",
+      "\nПропозициональная формула, не являющаяся переменной, может быть представлена ровно в одном из четырёх видов ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(A\\land B)"
+        ]
+      },
+      ", ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(A\\lor B)"
+        ]
+      },
+      ", ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(A\\to B)"
+        ]
+      },
+      " или ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lnot A"
+        ]
+      },
+      ", где ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "A"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "B"
+        ]
+      },
+      " — некоторые формулы, причём ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "A"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "B"
+        ]
+      },
+      " (в первых трёх случаях) восстанавливаются однозначно.\n"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "area",
+    "props": {},
+    "children": [
+      "ᐊ ",
+      "\nФормальное доказательство можно провести так: назовём ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "скобочным итогом"
+        ]
+      },
+      "\n",
+      "",
+      "\nразницу между числом открывающихся и закрывающихся скобок.\nИндукцией по построению формулы легко доказать такую лемму:\n\n",
+      {
+        "name": "format.pre",
+        "props": {},
+        "children": [
+          "Лемма"
+        ]
+      },
+      ". Скобочный итог формулы равен нулю.\nСкобочный итог любого начала формулы неотрицателен и равен нулю, лишь если это начало совпадает со всей формулой, пусто или состоит из одних символов отрицания.\n\nСлова «индукцией по построению» означают, что мы проверяем утверждение для переменных, а также доказываем, что если оно верно для формул ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "A"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "B"
+        ]
+      },
+      ", то оно верно и для формул ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(A\\land B)"
+        ]
+      },
+      ", ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(A\\lor B)"
+        ]
+      },
+      ", ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(A\\to B)"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lnot A"
+        ]
+      },
+      ".\n\nПосле того как лемма доказана, разбор формулы проводится так: если она начинается с отрицания, то может быть образована лишь по третьему правилу.\nЕсли же она начинается со скобки, то надо скобку удалить, а потом искать непустое начало, имеющее нулевой скобочный итог и не оканчивающееся на знак логической операции.\nТакое начало единственно (как легко проверить, используя лемму).\nЭто начало и будет первой частью формулы.\nТем самым формула разбирается однозначно.\n",
+      " ᐅ"
+    ]
+  },
+  "\n\n\nНет смысла вдаваться в подробности этого (несложного) рассуждения: вообще-то алгоритмы разбора формул — это отдельная большая и практически важная тема (в первую очередь в связи с компиляторами).\nПриведённый нами алгоритм далеко не оптимален.\nС другой стороны, мы вообще можем обойти эту проблему, потребовав, чтобы при записи формул левая и правая скобки, окружающие формулу, связывались линией — тогда однозначность разбора формулы не вызывает вопросов, и больше ничего нам не надо.\n\n\nВ дальнейшем мы будем опускать скобки, если они либо не играют роли (например, можно написать конъюнкцию трёх членов, не указывая порядок действий в силу ассоциативности), либо ясны из контекста.\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_name"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "Польский логик Лукасевич",
+      "",
+      " предлагал обходиться без скобок, записывая в формулах сначала знак операции, а потом операнды (без пробелов и разделителей).\nНапример, ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(a+b)\\times(c+(d\\times e))"
+        ]
+      },
+      " в его обозначениях запишется как ",
+      {
+        "name": "math",
+        "props": {},
+        "children": [
+          "{{\\times}{+}ab{+}c{\\times}{d} {e}}"
+        ]
+      },
+      ".\nЭту запись ещё называют ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "польской"
+        ]
+      },
+      "\n",
+      "",
+      "\nзаписью.\n",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "Обратная"
+        ]
+      },
+      " польская запись отличается от неё тем, что знак операции идёт после операндов.\nПокажите, что в обоих случаях порядок действий восстанавливается однозначно.\n"
+    ]
+  },
+  "\n"
+]
