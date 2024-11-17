@@ -3,22 +3,26 @@
 
     &__table {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
         border-top: 1px dashed gray;
         border-left: 1px dashed gray;
         text-align: center;
-        // line-height: 40px;
-        font-size: 20px;
+        font-size: 16px;
 
         & > div {
             vertical-align: middle;
             display: grid;
-            grid-template-rows: 30px auto;
-            height: 40px;
-            max-height: 40px;
+            grid-template-rows: 20px auto;
+            height: 30px;
+            max-height: 30px;
             padding-top: 5px;
             border-bottom: 1px dashed gray;
             border-right: 1px dashed gray;
+
+            & > span {
+                font-size: 0.4em;
+                color: gray;
+            }
         }
     }
 

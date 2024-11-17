@@ -1,185 +1,10 @@
-import { BookElementProps, Primitive, BookItem } from '@bookbox/core';
+import { BookElementProps, Primitive } from '@bookbox/core';
 import { BookRawItem } from '@bookbox/preset-web';
 import { parse, Body, Block, Attribute } from '@bookbox/markup';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
 
-type Config = {
-    name: string;
-    getProps?(
-        rawProps: BookElementProps,
-        rawChildren: BookItem[]
-    ): BookElementProps;
-    getChildren?(
-        rawProps: BookElementProps,
-        rawChildren: BookItem[]
-    ): BookRawItem[];
-    addtoStart?: () => BookItem[];
-};
-
-export const definitions: Record<string, Config> = {
-    'def.proof': {
-        name: 'area',
-        getChildren: (props, children) => ['ᐊ ', ...children, ' ᐅ'],
-    },
-    'def.theorem': {
-        name: 'area',
-        getChildren: (props, children) => [
-            {
-                name: 'area',
-                props: { inline: true, key: `${props.key ?? ''}_name` },
-                children: [
-                    'Теорема ',
-                    {
-                        name: 'counter',
-                        props: { use: 'theorem' },
-                        children: [],
-                    },
-                ],
-            },
-            '. ',
-            ...children,
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: {
-                    start: 'theorem',
-                    initial: 1,
-                },
-                children: [],
-            },
-        ],
-    },
-    'def.problem': {
-        name: 'format.small',
-        getChildren: (props, children) => [
-            {
-                name: 'format.b',
-                props: {},
-                children: [
-                    {
-                        name: 'area',
-                        props: { inline: true, key: `${props.key ?? ''}_name` },
-                        children: [
-                            {
-                                name: 'counter',
-                                props: { use: 'problem' },
-                                children: [],
-                            },
-                        ],
-                    },
-                    '. ',
-                ],
-            },
-            ...children,
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: {
-                    start: 'problem',
-                },
-                children: [],
-            },
-        ],
-    },
-    'def.chapter': {
-        name: 'header',
-        getProps: (props) => ({
-            ...props,
-            level: 2,
-        }),
-        getChildren: (props, children) => [
-            {
-                name: 'counter',
-                props: {
-                    end: 'section',
-                },
-                children: [],
-            },
-            {
-                name: 'counter',
-                props: {
-                    use: 'chapter',
-                },
-                children: [],
-            },
-            {
-                name: 'counter',
-                props: {
-                    start: 'section',
-                    initial: 1,
-                },
-                children: [],
-            },
-            '. ',
-            ...children,
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: {
-                    start: 'chapter',
-                    initial: 1,
-                },
-                children: [],
-            },
-        ],
-    },
-    'def.section': {
-        name: 'header',
-        getProps: (props) => ({
-            ...props,
-            level: 3,
-        }),
-        getChildren: (props, children) => [
-            {
-                name: 'counter',
-                props: {
-                    last: 'chapter',
-                },
-                children: [],
-            },
-            '.',
-            {
-                name: 'counter',
-                props: {
-                    use: 'section',
-                },
-                children: [],
-            },
-            '. ',
-            ...children,
-        ],
-    },
-    row: {
-        name: 'row',
-        getChildren: (props, children) => [
-            // {
-            //     __start: 'cell',
-            //     props: {},
-            // },
-            ...children,
-            // {
-            //     __end: 'cell',
-            //     props: {},
-            // },
-        ],
-    },
-    col: {
-        name: '',
-        getChildren: (props, children) => [
-            {
-                __end: 'cell',
-                props: {},
-            },
-            {
-                __start: 'cell',
-                props: {},
-            },
-        ],
-    },
-};
+export * from './definitions';
 
 function getProps(attrList: Attribute[]): BookElementProps {
     const props: BookElementProps = {};
@@ -250,11 +75,41 @@ function getRawItem(block: Block): BookRawItem {
     return null;
 }
 
-const text = readFileSync(
-    './data/vereshagin-shen-firstord/1/1/text.bbm'
-).toString('utf-8');
-const markupAst: Body = parse(text);
-writeFileSync('./ast.json', JSON.stringify(markupAst, null, 2));
+function resolveImports(ast: Body, parentPath: string): Body {
+    const resultAst: Body = { blocks: [] };
+    for (const block of ast.blocks) {
+        const name = block.tag?.name;
+        if (name === '#import') {
+            const childPath = block.tag?.body?.blocks
+                .filter((x) => x.text)
+                .map((x) => x.text)
+                .join('');
+            if (!childPath) continue;
+            const childAst = readMakrup(
+                resolve(dirname(parentPath), childPath)
+            );
+            resultAst.blocks.push(...childAst.blocks);
+        } else {
+            resultAst.blocks.push(block);
+        }
+    }
+    return resultAst;
+}
+
+function readMakrup(path: string): Body {
+    const text = readFileSync(path).toString('utf-8');
+    const ast = parse(text);
+
+    return resolveImports(ast, path);
+}
+
+const rootPath = resolve(import.meta.dirname, './book.bbm');
+const markupAst: Body = readMakrup(rootPath);
+
+writeFileSync(
+    resolve(import.meta.dirname, './ast.json'),
+    JSON.stringify(markupAst, null, 2)
+);
 
 const rawSchema: BookRawItem[] = markupAst.blocks.map(getRawItem);
 export default rawSchema;

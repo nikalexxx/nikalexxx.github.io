@@ -1,16 +1,3 @@
-
-ЛЕКЦИИ ПО МАТЕМАТИЧЕСКОЙ ЛОГИКЕ И ТЕОРИИ АЛГОРИТМОВ
-
-
-{authors
-{link.href{http://lpcs.math.msu.su/~ver/} Н. К. Верещагин},
-{link.href{https://ru.wikipedia.org/wiki/Шень,_Александр_Ханиевич} А.Шень}
-}
-{title Языки и исчисления}
-
-
-{def:chapter Логика высказываний}
-
 {def:section Высказывания и операции}
 
 «Если число {{\pi}} рационально, то {{\pi}} — алгебраическое число.
@@ -44,10 +31,10 @@
 Высказывания можно соединять друг с другом с помощью «логических связок».
 {def:index Связки (логические)|defin}
 {def:index Логические связки|defin}
-Эти связки имеют довольно странные, но традиционные названия и обозначения ({label.ref{logic-connectives-names} табл. 1.1 {def:ref logic-connectives-names}}).
+Эти связки имеют довольно странные, но традиционные названия и обозначения (табл. {def:link logic-connectives-names}).
 
 
-{#start:table.align{center}.key{logic-connectives-names}}
+{#start:def:table.align{center}.key{logic-connectives-names}.name{Логические связки, обозначения и названия.}}
 {row.head {col} связка {col} обозначение {col} название}
 {row
 {col}{{A}} и {{B}}
@@ -94,12 +81,11 @@
 следование
 {def:index Импликация (следование)|defin}
 }
-Таблица 1.1. Логические связки, обозначения и названия.
 {def:index Конъюнкция|defin}
 {def:index Дизъюнкция|defin}
 {def:index Отрицание|defin}
 {def:index Импликация (следование)|defin}
-{#end:table}
+{#end:def:table}
 
 
 Отметим также, что в импликации {{A\Rightarrow B}} высказывание {{A}} называют {em посылкой},
@@ -131,7 +117,7 @@
 
 
 Логические связки позволяют составлять сложные высказывания из простых.
-При этом истинность составного высказывания определяется истинностью его частей в соответствии с {label.ref{truth-tables} таблицей 1.2 {def:ref truth-tables}}.
+При этом истинность составного высказывания определяется истинностью его частей в соответствии с таблицей {def:link truth-tables}.
 
 
 {area.key{truth-tables}
@@ -151,7 +137,7 @@
 
 {area.position{center}
 {format:small
-{format:i Таблица 1.2. Таблицы истинности для логических связок}
+{format:i Таблица {area.inline.key{truth-tables_link} {counter.last{chapter}}.{counter.use{table}}}. Таблицы истинности для логических связок}
 }}}
 
 Те же правила можно изложить словесно.
@@ -217,7 +203,7 @@
 
 
 {format:pre Пример}. Рассмотрим формулу {{(p\land (q\land \lnot r))}}.
-Она истинна в единственном случае — когда {{p}} и {{q}} истинны, а {{r}} ложно (см. {label.ref{example-conjunct} таблицу 1.3}).
+Она истинна в единственном случае — когда {{p}} и {{q}} истинны, а {{r}} ложно (см. таблицу {def:link example-conjunct}).
 
 
 {table.key{example-conjunct}
@@ -232,7 +218,7 @@
 {row {col} 1 {col} 0 {col} 1 {col} 0 {col} 0 {col} 0}
 {row {col} 1 {col} 1 {col} 0 {col} 1 {col} 1 {col} 1}
 {row {col} 1 {col} 1 {col} 1 {col} 0 {col} 0 {col} 0}
-Таблица 1.3. Таблица истинности для {{(p\land(q\land \lnot r))}}.
+Таблица {area.inline.key{example-conjunct_link} {counter.last{chapter}}.{counter.use{table}}}. Таблица истинности для {{(p\land(q\land \lnot r))}}.
 }
 
 Некоторые формулы выражают логические законы — составные высказывания, истинные независимо от смысла их частей.

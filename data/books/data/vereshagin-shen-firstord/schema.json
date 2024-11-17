@@ -22,7 +22,7 @@
     },
     "children": []
   },
-  "\nЛЕКЦИИ ПО МАТЕМАТИЧЕСКОЙ ЛОГИКЕ И ТЕОРИИ АЛГОРИТМОВ\n\n\n",
+  "ЛЕКЦИИ ПО МАТЕМАТИЧЕСКОЙ ЛОГИКЕ И ТЕОРИИ АЛГОРИТМОВ\n\n\n",
   {
     "name": "authors",
     "props": {},
@@ -59,6 +59,14 @@
   },
   "\n\n\n",
   {
+    "name": "em",
+    "props": {},
+    "children": [
+      "Электронная версия в процессе адаптации, это предупреждение будет убрано по окончанию (Николаичев А.С.)"
+    ]
+  },
+  "\n\n\n",
+  {
     "name": "header",
     "props": {
       "level": 2
@@ -74,6 +82,13 @@
       {
         "name": "counter",
         "props": {
+          "end": "table"
+        },
+        "children": []
+      },
+      {
+        "name": "counter",
+        "props": {
           "use": "chapter"
         },
         "children": []
@@ -81,8 +96,14 @@
       {
         "name": "counter",
         "props": {
-          "start": "section",
-          "initial": 1
+          "start": "section"
+        },
+        "children": []
+      },
+      {
+        "name": "counter",
+        "props": {
+          "start": "table"
         },
         "children": []
       },
@@ -315,15 +336,20 @@
   "",
   "\n",
   "",
-  "\nЭти связки имеют довольно странные, но традиционные названия и обозначения (",
+  "\nЭти связки имеют довольно странные, но традиционные названия и обозначения (табл. ",
   {
     "name": "label",
     "props": {
       "ref": "logic-connectives-names"
     },
     "children": [
-      "табл. 1.1 ",
-      ""
+      {
+        "name": "use",
+        "props": {
+          "ref": "logic-connectives-names_link"
+        },
+        "children": []
+      }
     ]
   },
   ").\n\n\n",
@@ -331,7 +357,8 @@
     "name": "table",
     "props": {
       "align": "center",
-      "key": "logic-connectives-names"
+      "key": "logic-connectives-names",
+      "name": "Логические связки, обозначения и названия."
     },
     "children": [
       "\n",
@@ -752,15 +779,51 @@
           }
         ]
       },
-      "\nТаблица 1.1. Логические связки, обозначения и названия.\n",
-      "",
       "\n",
       "",
       "\n",
       "",
       "\n",
       "",
-      "\n"
+      "\n",
+      "",
+      "\n",
+      {
+        "name": "area",
+        "props": {
+          "inline": true
+        },
+        "children": [
+          "Таблица ",
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "logic-connectives-names_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "last": "chapter"
+                },
+                "children": []
+              },
+              ".",
+              {
+                "name": "counter",
+                "props": {
+                  "use": "table",
+                  "key": "logic-connectives-names_counter"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". ",
+          "Логические связки, обозначения и названия."
+        ]
+      }
     ]
   },
   "\n\n\nОтметим также, что в импликации ",
@@ -943,15 +1006,20 @@
       "1"
     ]
   },
-  " кажется дикой — какая бы польза могла быть от, скажем, сложения истинностных значений?\nУдивительным образом в последние годы обнаружилось, что такая польза есть, и если оперировать с истиной и ложью как элементами конечного поля, можно получить много неожиданных результатов.\nНо это выходит за рамки нашей книги.)\n\n\nЛогические связки позволяют составлять сложные высказывания из простых.\nПри этом истинность составного высказывания определяется истинностью его частей в соответствии с ",
+  " кажется дикой — какая бы польза могла быть от, скажем, сложения истинностных значений?\nУдивительным образом в последние годы обнаружилось, что такая польза есть, и если оперировать с истиной и ложью как элементами конечного поля, можно получить много неожиданных результатов.\nНо это выходит за рамки нашей книги.)\n\n\nЛогические связки позволяют составлять сложные высказывания из простых.\nПри этом истинность составного высказывания определяется истинностью его частей в соответствии с таблицей ",
   {
     "name": "label",
     "props": {
       "ref": "truth-tables"
     },
     "children": [
-      "таблицей 1.2 ",
-      ""
+      {
+        "name": "use",
+        "props": {
+          "ref": "truth-tables_link"
+        },
+        "children": []
+      }
     ]
   },
   ".\n\n\n",
@@ -1520,7 +1588,32 @@
                 "name": "format.i",
                 "props": {},
                 "children": [
-                  "Таблица 1.2. Таблицы истинности для логических связок"
+                  "Таблица ",
+                  {
+                    "name": "area",
+                    "props": {
+                      "inline": true,
+                      "key": "truth-tables_link"
+                    },
+                    "children": [
+                      {
+                        "name": "counter",
+                        "props": {
+                          "last": "chapter"
+                        },
+                        "children": []
+                      },
+                      ".",
+                      {
+                        "name": "counter",
+                        "props": {
+                          "use": "table"
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  ". Таблицы истинности для логических связок"
                 ]
               },
               "\n"
@@ -2210,14 +2303,20 @@
       "r"
     ]
   },
-  " ложно (см. ",
+  " ложно (см. таблицу ",
   {
     "name": "label",
     "props": {
       "ref": "example-conjunct"
     },
     "children": [
-      "таблицу 1.3"
+      {
+        "name": "use",
+        "props": {
+          "ref": "example-conjunct_link"
+        },
+        "children": []
+      }
     ]
   },
   ").\n\n\n",
@@ -2729,7 +2828,32 @@
           }
         ]
       },
-      "\nТаблица 1.3. Таблица истинности для ",
+      "\nТаблица ",
+      {
+        "name": "area",
+        "props": {
+          "inline": true,
+          "key": "example-conjunct_link"
+        },
+        "children": [
+          {
+            "name": "counter",
+            "props": {
+              "last": "chapter"
+            },
+            "children": []
+          },
+          ".",
+          {
+            "name": "counter",
+            "props": {
+              "use": "table"
+            },
+            "children": []
+          }
+        ]
+      },
+      ". Таблица истинности для ",
       {
         "name": "math",
         "props": {
@@ -2783,7 +2907,7 @@
             "name": "area",
             "props": {
               "inline": true,
-              "key": "_name"
+              "key": "_link"
             },
             "children": [
               {
@@ -2999,7 +3123,7 @@
     "props": {},
     "children": [
       {
-        "name": "area",
+        "name": "format.b",
         "props": {
           "inline": true,
           "key": "_name"
@@ -3009,13 +3133,14 @@
           {
             "name": "counter",
             "props": {
-              "use": "theorem"
+              "use": "theorem",
+              "key": "_link"
             },
             "children": []
-          }
+          },
+          ". "
         ]
       },
-      ". ",
       "Формулы\n",
       {
         "name": "math",
@@ -3166,7 +3291,7 @@
             "name": "area",
             "props": {
               "inline": true,
-              "key": "_name"
+              "key": "_link"
             },
             "children": [
               {
@@ -3227,7 +3352,7 @@
             "name": "area",
             "props": {
               "inline": true,
-              "key": "_name"
+              "key": "_link"
             },
             "children": [
               {
@@ -3473,7 +3598,7 @@
     },
     "children": [
       {
-        "name": "area",
+        "name": "format.b",
         "props": {
           "inline": true,
           "key": "_name"
@@ -3483,13 +3608,17 @@
           {
             "name": "counter",
             "props": {
-              "use": "theorem"
+              "use": "theorem",
+              "key": "_link"
             },
             "children": []
-          }
+          },
+          " (",
+          "однозначность разбора",
+          ")",
+          ". "
         ]
       },
-      ". ",
       "",
       "\nПропозициональная формула, не являющаяся переменной, может быть представлена ровно в одном из четырёх видов ",
       {
@@ -3675,7 +3804,7 @@
             "name": "area",
             "props": {
               "inline": true,
-              "key": "_name"
+              "key": "_link"
             },
             "children": [
               {
@@ -3731,5 +3860,2221 @@
       " польская запись отличается от неё тем, что знак операции идёт после операндов.\nПокажите, что в обоих случаях порядок действий восстанавливается однозначно.\n"
     ]
   },
+  "\n",
+  "\n\n",
+  {
+    "name": "header",
+    "props": {
+      "key": "complete-connectives",
+      "level": 3
+    },
+    "children": [
+      {
+        "name": "counter",
+        "props": {
+          "last": "chapter"
+        },
+        "children": []
+      },
+      ".",
+      {
+        "name": "counter",
+        "props": {
+          "use": "section"
+        },
+        "children": []
+      },
+      ". ",
+      "Полные системы связок"
+    ]
+  },
+  "\n\n\nРассматриваемая нами система пропозициональных связок (в неё входят ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\land"
+    ]
+  },
+  ", ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\lor"
+    ]
+  },
+  ", ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\to"
+    ]
+  },
+  ", ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\lnot"
+    ]
+  },
+  ") ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "полна"
+    ]
+  },
+  "\n",
+  "",
+  "\nв следующем смысле:\n\n\n",
+  {
+    "name": "area",
+    "props": {
+      "name": "Полнота системы связок",
+      "key": "completeness-connectives"
+    },
+    "children": [
+      {
+        "name": "format.b",
+        "props": {
+          "inline": true,
+          "key": "completeness-connectives_name"
+        },
+        "children": [
+          "Теорема ",
+          {
+            "name": "counter",
+            "props": {
+              "use": "theorem",
+              "key": "completeness-connectives_link"
+            },
+            "children": []
+          },
+          " (",
+          "Полнота системы связок",
+          ")",
+          ". "
+        ]
+      },
+      "\n",
+      "",
+      "\nЛюбая булева функция (с любым числом аргументов) может быть записана в виде пропозициональной формулы.\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "area",
+    "props": {},
+    "children": [
+      "ᐊ ",
+      "\nПроще всего пояснить это на примере.\nПусть, например, булева функция ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\varphi(p,q,r)"
+        ]
+      },
+      " задана таблицей ",
+      {
+        "name": "label",
+        "props": {
+          "ref": "sample-truth-table"
+        },
+        "children": [
+          {
+            "name": "use",
+            "props": {
+              "ref": "sample-truth-table_link"
+            },
+            "children": []
+          }
+        ]
+      },
+      ".\n\n\n",
+      {
+        "name": "table",
+        "props": {
+          "key": "sample-truth-table"
+        },
+        "children": [
+          "\n",
+          {
+            "name": "row",
+            "props": {
+              "head": true
+            },
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "p"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "q"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "r"
+                    ]
+                  },
+                  " "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " ",
+                  {
+                    "name": "math",
+                    "props": {
+                      "block": false
+                    },
+                    "children": [
+                      "\\varphi(p,q,r)"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1"
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0"
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0"
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1"
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0"
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0"
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 0"
+                ]
+              }
+            ]
+          },
+          "\n",
+          {
+            "name": "row",
+            "props": {},
+            "children": [
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1 "
+                ]
+              },
+              {
+                "name": "cell",
+                "props": {},
+                "children": [
+                  " 1"
+                ]
+              }
+            ]
+          },
+          "\n\n",
+          {
+            "name": "area",
+            "props": {
+              "align": "center"
+            },
+            "children": [
+              {
+                "name": "math",
+                "props": {
+                  "block": true
+                },
+                "children": [
+                  "\n\\begin{aligned}\n     (\\lnot p \\land \\lnot q \\land \\lnot r) &\\lor\\\\\n  \\lor   (\\lnot p \\land q \\land r) &\\lor\\\\\n  \\lor   (p \\land q       \\land r)& \\phantom{\\lor} \\\\\n\\end{aligned}\n"
+                ]
+              },
+              "\n"
+            ]
+          },
+          "\n\nТаблица ",
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "sample-truth-table_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "last": "chapter"
+                },
+                "children": []
+              },
+              ".",
+              {
+                "name": "counter",
+                "props": {
+                  "use": "table"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". Булева функция и задающая её формула.\n"
+        ]
+      },
+      "\n\n\nВ таблице есть три строки с единицами в правой колонке — три случая, когда булева функция истинна (равна ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "1"
+        ]
+      },
+      ").\nНапишем три конъюнкции, каждая из которых покрывает один случай (а в остальных строках ложна), и соединим их дизъюнкцией.\nНужная формула построена.\n\n\nЯсно, что аналогичная конструкция применима для любой таблицы (с любым числом переменных).\n",
+      " ᐅ"
+    ]
+  },
+  "\n\n\nДля формул подобного вида есть специальное название: формулы в ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "дизъюнктивной нормальной форме"
+    ]
+  },
+  ".\n",
+  "",
+  "\n",
+  "",
+  "\nБолее подробно:\n",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "литералом"
+    ]
+  },
+  "\n",
+  "",
+  "\nназывается переменная или отрицание переменной,\n",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "конъюнктом"
+    ]
+  },
+  "\n",
+  "",
+  "\nназывается произвольная конъюнкция литералов, а дизъюнктивной нормальной формой называется дизъюнкция конъюнктов.\nВ нашем случае в каждый конъюнкт входит ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "n"
+    ]
+  },
+  " литералов (где ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "n"
+    ]
+  },
+  " — число переменных), а число конъюнктов равно числу строк с единицами и может меняться от нуля (тогда, правда, получается не совсем формула, а «пустая дизъюнкция», и её можно заменить какой-нибудь всегда ложной формулой типа ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p\\land \\lnot p"
+    ]
+  },
+  ") до ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2^n"
+    ]
+  },
+  " (если булева функция всегда истинна).\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "\nДлина построенной в доказательстве теоремы ",
+      "",
+      " формулы зависит от числа единиц: формула будет короткой, если единиц в таблице мало.\nА как написать (сравнительно) короткую формулу, если в таблице мало нулей, а в основном единицы?\n"
+    ]
+  },
+  "\n\n\nИногда полезна двойственная ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "конъюнктивная нормальная форма"
+    ]
+  },
+  ",\n",
+  "",
+  "\n",
+  "",
+  "\nкоторая представляет собой конъюнкцию ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "дизъюнктов"
+    ]
+  },
+  ".\n",
+  "",
+  "\nКаждый дизъюнкт состоит из литералов, соединённых дизъюнкциями.\nТеорему ",
+  "",
+  " можно теперь усилить так:\n\n\n",
+  {
+    "name": "area",
+    "props": {
+      "key": "dnf-cnf"
+    },
+    "children": [
+      {
+        "name": "format.b",
+        "props": {
+          "inline": true,
+          "key": "dnf-cnf_name"
+        },
+        "children": [
+          "Теорема ",
+          {
+            "name": "counter",
+            "props": {
+              "use": "theorem",
+              "key": "dnf-cnf_link"
+            },
+            "children": []
+          },
+          ". "
+        ]
+      },
+      "\nВсякая булева функция может быть выражена формулой, находящейся в дизъюнктивной нормальной форме, а также формулой, находящейся в конъюнктивной нормальной форме.\n"
+    ]
+  },
+  "\n\n",
+  {
+    "name": "area",
+    "props": {},
+    "children": [
+      "ᐊ ",
+      "\nПервая часть утверждения уже доказана.\nВторая часть аналогична первой, надо только для каждой строки с нулём написать подходящий дизъюнкт.\n\n\nМожно также представить функцию ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lnot \\varphi"
+        ]
+      },
+      " в дизъюнктивной нормальной форме, а затем воспользоваться законами Де Моргана,\n",
+      "",
+      "\nчтобы внести отрицание внутрь.\n",
+      " ᐅ"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "Проведите второй вариант рассуждения подробно."
+    ]
+  },
+  "\n\n\nВообще говоря, определение нормальной формы не требует, чтобы в каждом конъюнкте (или дизъюнкте) встречались все переменные.\n(Повторять переменную больше одного раза смысла нет; если, например, переменная и её отрицание входят в одну конъюнкцию, то эта конъюнкция всегда ложна и её можно выбросить.)\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "Приведите пример булевой функции ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "n"
+        ]
+      },
+      "~аргументов, у которой любая дизъюнктивная или конъюнктивная нормальная форма содержит лишь члены длины ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "n"
+        ]
+      },
+      ".\n(Указание: рассмотрите функцию, которая меняет своё значение при изменении значения любой переменной.)\n"
+    ]
+  },
+  "\n\n\nЗаметим, что при доказательстве теоремы ",
+  "",
+  " мы обошлись без импликации.\nЭто и не удивительно, так как она выражается через дизъюнкцию и отрицание:\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n(p\\to q) \\ \\leftrightarrow \\ (\\lnot p \\lor q)\n"
+    ]
+  },
+  "\n(проверьте!).\nМы могли бы обойтись только конъюнкцией и отрицанием, так как ",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n(p\\lor q) \\ \\leftrightarrow \\ \\lnot(\\lnot p \\land \\lnot q),\n"
+    ]
+  },
+  "\nили только дизъюнкцией и отрицанием, так как ",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n(p\\land q) \\ \\leftrightarrow \\ \\lnot(\\lnot p \\lor \\lnot q)\n"
+    ]
+  },
+  "\n(обе эквивалентности вытекают из законов Де Моргана; их легко проверить и непосредственно).\nКак говорят, система связок ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\land, \\lnot"
+    ]
+  },
+  ", а также система связок ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\lor, \\lnot"
+    ]
+  },
+  " являются ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "полными"
+    ]
+  },
+  ".\n",
+  "",
+  "\n(По определению это означает, что с их помощью можно записать любую булеву функцию.)\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "Докажите, что система связок ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lnot, \\to"
+        ]
+      },
+      " полна.\n(Указание: как записать через них дизъюнкцию?)\n"
+    ]
+  },
+  "\n\n\nА вот без отрицания обойтись нельзя.\nСистема связок ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "\\land, \\lor,\\to"
+    ]
+  },
+  " неполна — и по очень простой причине: если все переменные истинны, то любая их комбинация, содержащая только указанные связки, истинна.\n(Как говорят, все эти связки «сохраняют единицу».)\n",
+  "",
+  "\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "\nЛюбая формула, составленная только с помощью связок ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\land"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lor"
+        ]
+      },
+      ", задаёт монотонную булеву функцию ",
+      "",
+      "\n",
+      "",
+      "\n(в том смысле, что от увеличения значения любого из аргументов значение функции может только возрасти — или остаться прежним).\nПокажите, что верно и обратное: любая монотонная булева функция либо постоянна (всюду истинна или всюду ложна), либо может быть выражена формулой, содержащей только ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\land"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lor"
+        ]
+      },
+      ".\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "\nПусть ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\varphi\\to\\psi"
+        ]
+      },
+      " — тавтология.\nПокажите, что найдётся формула ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\tau"
+        ]
+      },
+      ", которая включает в себя только общие для ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\varphi"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\psi"
+        ]
+      },
+      " переменные, для которой формулы ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(\\varphi\\to\\tau)"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "(\\tau\\to\\psi)"
+        ]
+      },
+      " являются тавтологиями.\n(Более общий вариант этого утверждения, в котором рассматриваются формулы с кванторами, называется ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "леммой Крейга"
+        ]
+      },
+      ".)\n",
+      "",
+      "\n",
+      "",
+      "\n"
+    ]
+  },
+  "\n\n\nВ принципе мы не обязаны ограничиваться четырьмя рассмотренными связками.\nЛюбая булева функция может играть роль связки.\nНапример, можно рассмотреть связку ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "(p \\texttt{ notand } q)"
+    ]
+  },
+  ",\n",
+  "",
+  "\nзадаваемую эквивалентностью\n",
+  {
+    "name": "math",
+    "props": {
+      "block": true
+    },
+    "children": [
+      "\n(p \\texttt{ notand } q) \\ \\leftrightarrow \\ \\lnot(p\\land q)\n"
+    ]
+  },
+  "\n(словами: ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "(p\\texttt{ notand }q)"
+    ]
+  },
+  " ложно, лишь если ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "q"
+    ]
+  },
+  " истинны).\nЧерез неё выражается отрицание (",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "p \\texttt{ notand }p"
+    ]
+  },
+  "), после чего можно выразить конъюнкцию, а затем, как мы знаем, и вообще любую функцию.\n(Знакомые с цифровыми логическими схемами малого уровня интеграции хорошо знакомы с этим утверждением: достаточно большой запас схем И-НЕ позволяет реализовать любую требуемую зависимость выхода от входов.)\n\n\nДругая интересная полная система связок — сложение по модулю ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  ", конъюнкция и константа ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "1"
+    ]
+  },
+  " (которую можно считать ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "0"
+    ]
+  },
+  "-арной связкой, задающей функцию от нуля аргументов).\nПредставленные в этой системе булевы функции становятся полиномами с коэффициентами в кольце вычетов по модулю ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  ".\nИдея рассматривать булевы функции как полиномы (оказавшаяся неожиданно плодотворной в последние годы) была высказана в 1927~г. российским математиком Иваном Ивановичем Жегалкиным.\n",
+  "",
+  "\n\n\nНазовём ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "мономом"
+    ]
+  },
+  "\n",
+  "",
+  "\nконъюнкцию любого набора переменных или константу ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "1"
+    ]
+  },
+  " (которую естественно рассматривать как конъюнкцию нуля переменных).\nНазвание это естественно, так как при наших соглашениях (",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "1"
+    ]
+  },
+  " обозначает истину, ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "0"
+    ]
+  },
+  " — ложь) конъюнкция соответствует умножению.\n\n\nНазовём ",
+  {
+    "name": "em",
+    "props": {},
+    "children": [
+      "полиномом"
+    ]
+  },
+  "\n",
+  "",
+  "\nсумму таких мономов по модулю ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  " (это значит, что ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "0\\oplus0 =0"
+    ]
+  },
+  ", ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "0\\oplus 1=1\\oplus 0=1"
+    ]
+  },
+  " и ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "1\\oplus1=0"
+    ]
+  },
+  ").\nЯсно, что два повторяющихся монома можно сократить (ведь сложение по модулю ",
+  {
+    "name": "math",
+    "props": {
+      "block": false
+    },
+    "children": [
+      "2"
+    ]
+  },
+  "), так что будем рассматривать только полиномы без повторяющихся мономов.\nПри этом, естественно, порядок членов в мономе (как и порядок мономов в полиноме) роли не играет, их можно переставлять.\n\n\n",
+  {
+    "name": "area",
+    "props": {
+      "name": "о полиномах Жегалкина",
+      "key": "polynomials-boolean-functions"
+    },
+    "children": [
+      {
+        "name": "format.b",
+        "props": {
+          "inline": true,
+          "key": "polynomials-boolean-functions_name"
+        },
+        "children": [
+          "Теорема ",
+          {
+            "name": "counter",
+            "props": {
+              "use": "theorem",
+              "key": "polynomials-boolean-functions_link"
+            },
+            "children": []
+          },
+          " (",
+          "о полиномах Жегалкина",
+          ")",
+          ". "
+        ]
+      },
+      "",
+      "\nВсякая булева функция однозначно представляется таким полиномом."
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "area",
+    "props": {},
+    "children": [
+      "ᐊ ",
+      "\nСуществование искомого полинома следует из теоремы ",
+      "",
+      ", так как конъюнкция есть умножение, отрицание — прибавление единицы, а дизъюнкцию можно через них выразить (получится ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p+q+pq"
+        ]
+      },
+      ").\nНадо только заметить, что степени не нужны: переменные принимают значения ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "0"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "1"
+        ]
+      },
+      ", так что ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x^n"
+        ]
+      },
+      " можно заменить на ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x"
+        ]
+      },
+      ".\n\n\nМожно также сослаться на известное из алгебры утверждение о том, что всякая функция с аргументами из конечного поля (в данном случае это двухэлементное поле вычетов по модулю ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "2"
+        ]
+      },
+      ") задаётся полиномом.\n(Так получается новое доказательство теоремы ",
+      "",
+      ".)\n\n\nДалее можно заметить, что полиномов столько же, сколько булевых функций, а именно ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "2^{2^n} "
+        ]
+      },
+      ".\nВ самом деле, булева функция может принимать любое из двух значений в каждой из ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "2^n"
+        ]
+      },
+      " точек булева куба ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\Bbb{B}^n"
+        ]
+      },
+      ", а многочлен может включать или не включать любой из ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "2^n"
+        ]
+      },
+      " мономов.\n(Мономов ровно ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "2^n"
+        ]
+      },
+      ", потому что каждый моном включает или не включает любую из ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "n"
+        ]
+      },
+      " переменных.)\nПоэтому избытка полиномов нет, и если любая функция представима полиномом, то единственным образом.\n\n\nМожно и не ссылаться на сведения из алгебры и теорему ",
+      "",
+      ", а дать явную конструкцию.\nЭто удобно сделать индукцией по ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "n"
+        ]
+      },
+      ".\nПусть мы уже умеем представлять любую булеву функцию от ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "n-1"
+        ]
+      },
+      " аргументов с помощью полинома.\nТогда ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\varphi(p_1,\\dots,p_n)"
+        ]
+      },
+      " можно представить как\n",
+      {
+        "name": "math",
+        "props": {
+          "block": true
+        },
+        "children": [
+          "\n\\varphi(p_1,\\dots,p_n) =\n\\varphi(0, p_2,\\dots,p_{n})\n+[\\varphi(0,p_2,\\dots,p_{n})+\n\\varphi(1,p_2,\\dots,p_{n})]p_1\n"
+        ]
+      },
+      "\n(проверьте).\nОстаётся заметить, что правую часть можно представить полиномом по предположению индукции.\n\n\nДля единственности также есть другое доказательство: пусть два многочлена (имеющие степень ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "1"
+        ]
+      },
+      " по каждой переменной) равны при всех значениях переменных.\nТогда их сумма (или разность —\nвычисления происходят по модулю ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "2"
+        ]
+      },
+      ") является ненулевым многочленом (содержит какие-то мономы), но тождественно равна нулю.\nТак не бывает, и это легко доказать по индукции.\nВ самом деле, любой многочлен ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "A(p_1,\\dots,p_n)"
+        ]
+      },
+      " можно представить в виде\n",
+      {
+        "name": "math",
+        "props": {
+          "block": true
+        },
+        "children": [
+          "\nA(p_1,\\dots,p_n)=B(p_2,\\dots,p_n)+p_1C(p_2,\\dots,p_n),\n"
+        ]
+      },
+      "\nгде ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "B"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "C"
+        ]
+      },
+      " — многочлены от меньшего числа переменных.\nПодставляя сначала ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1=0"
+        ]
+      },
+      ", а затем ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1=1"
+        ]
+      },
+      ", убеждаемся,\nчто многочлены ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "B"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "C"
+        ]
+      },
+      " равны нулю во всех точках, и потому (согласно предположению индукции) равны нулю как многочлены (не содержат мономов).\n",
+      " ᐅ"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "format.small",
+    "props": {},
+    "children": [
+      {
+        "name": "format.b",
+        "props": {},
+        "children": [
+          {
+            "name": "area",
+            "props": {
+              "inline": true,
+              "key": "_link"
+            },
+            "children": [
+              {
+                "name": "counter",
+                "props": {
+                  "use": "problem"
+                },
+                "children": []
+              }
+            ]
+          },
+          ". "
+        ]
+      },
+      "\nПусть ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "F"
+        ]
+      },
+      " — произвольное поле.\n",
+      "",
+      "\nНазовём ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "мультилинейной"
+        ]
+      },
+      "\n",
+      "",
+      "\n",
+      "",
+      "\nфункцией полином от ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "n"
+        ]
+      },
+      " переменных с коэффициентами из ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "F"
+        ]
+      },
+      ", в котором все показатели степеней равны либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "0"
+        ]
+      },
+      ", либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "1"
+        ]
+      },
+      ".\n(Таким образом, каждый моном в ней есть произведение коэффициента и некоторого набора переменных без повторений.) Будем рассматривать ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\Bbb{B}=\\{0,1\\} "
+        ]
+      },
+      " как подмножество ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "F"
+        ]
+      },
+      ".\nДокажите, что всякая булева функция ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\Bbb{B}^n\\to\\Bbb{B} "
+        ]
+      },
+      " однозначно продолжается до мультилинейной функции ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "F^n\\to F"
+        ]
+      },
+      ", и коэффициенты мультилинейной функции можно считать целыми числами.\n"
+    ]
+  },
+  "\n\n\nЕсли рассматривать произвольные булевы функции в качестве связок, возникает вопрос: в каком случае набор булевых функций образует полный базис? (Это значит, что любая булева функция представляется в виде композиции функций из набора,  —е записывается в виде формулы, где связками служат функции набора.) Подобные вопросы вызывали в своё время большой интерес и были хорошо изучены.\nНачальным этапом явилось такое утверждение:\n\n\n",
+  {
+    "name": "area",
+    "props": {
+      "name": "критерий Поста"
+    },
+    "children": [
+      {
+        "name": "format.b",
+        "props": {
+          "inline": true,
+          "key": "_name"
+        },
+        "children": [
+          "Теорема ",
+          {
+            "name": "counter",
+            "props": {
+              "use": "theorem",
+              "key": "_link"
+            },
+            "children": []
+          },
+          " (",
+          "критерий Поста",
+          ")",
+          ". "
+        ]
+      },
+      "\n",
+      "",
+      "\n",
+      "",
+      "\nНабор булевых функций является полным тогда и только тогда, когда он не содержится целиком ни в одном из пяти следующих « предполных классов»:\n",
+      "",
+      "\n\n\n",
+      {
+        "name": "list",
+        "props": {},
+        "children": [
+          {
+            "name": "item",
+            "props": {},
+            "children": [
+              "монотонные функции;"
+            ]
+          },
+          "\n",
+          {
+            "name": "item",
+            "props": {},
+            "children": [
+              "функции, сохраняющие нуль;"
+            ]
+          },
+          "\n",
+          {
+            "name": "item",
+            "props": {},
+            "children": [
+              "функции, сохраняющие единицу;"
+            ]
+          },
+          "\n",
+          {
+            "name": "item",
+            "props": {},
+            "children": [
+              "линейные функции;"
+            ]
+          },
+          "\n",
+          {
+            "name": "item",
+            "props": {},
+            "children": [
+              "самодвойственные функции."
+            ]
+          },
+          "\n"
+        ]
+      },
+      "\n\n\n(Функция ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f"
+        ]
+      },
+      " ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "монотонна"
+        ]
+      },
+      ",\n",
+      "",
+      "\n",
+      "",
+      "\nесли она монотонно неубывает по каждому из своих аргументов.\nФункция ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f"
+        ]
+      },
+      " ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "сохраняет нуль/единицу"
+        ]
+      },
+      ",\n",
+      "",
+      "\nесли ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f(0,\\dots,0)=0"
+        ]
+      },
+      " (соответственно ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f(1,\\dots,1)=1"
+        ]
+      },
+      ").\nФункция ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f"
+        ]
+      },
+      " ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "линейна"
+        ]
+      },
+      ",\n",
+      "",
+      "\n",
+      "",
+      "\nесли она представима многочленом, в котором все мономы содержат не более одной переменной.\nНаконец, функция ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f"
+        ]
+      },
+      " называется ",
+      {
+        "name": "em",
+        "props": {},
+        "children": [
+          "самодвойственной"
+        ]
+      },
+      ",\n",
+      "",
+      "\n",
+      "",
+      "\nесли ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f(1-p_1,\\dots,1-p_n)=1-f(p_1,\\dots,p_n)"
+        ]
+      },
+      ".)\n"
+    ]
+  },
+  "\n\n\n",
+  {
+    "name": "area",
+    "props": {},
+    "children": [
+      "ᐊ ",
+      "\nЕсли набор содержится в одном из классов, то и все композиции также не выходят за пределы этого класса (легко проверить для каждого из классов в отдельности) и поэтому набор не является полным.\nДокажем обратное утверждение.\nПусть для каждого класса выбрана какая-то функция, в нём не лежащая.\nУбедимся, что с помощью комбинаций выбранных функций можно получить все булевы функции.\n\n\nУ нас есть функция, не сохраняющая нуль.\nПодставим вместо всех аргументов одну и ту же переменную.\nПолучится функция от одного аргумента, отображающая нуль в единицу, то есть либо константа ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "1"
+        ]
+      },
+      ", либо отрицание.\nСделав то же самое с функцией, не сохраняющей единицу, получим либо константу нуль, либо отрицание.\nТаким образом, у нас либо есть отрицание, либо обе константы ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "0"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "1"
+        ]
+      },
+      ".\n\n\nЕсли есть обе константы, то всё равно можно получить отрицание.\nВозьмём немонотонную функцию.\nЛегко понять, что она должна менять значение с единицы на нуль при изменении какого-то одного аргумента с нуля на единицу (в самом деле, будем увеличивать аргументы по одному, в какой-то момент значение функции уменьшится.)\nЗафиксировав значения остальных аргументов (ведь мы считаем, что константы есть), получаем отрицание.\n\n\nИмея отрицание и несамодвойственную функцию, легко получить константы (если их не было).\nВ самом деле, несамодвойственность означает, что ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f(x_1,\\dots,x_n)=f(1-x_1,\\dots,1-x_n)"
+        ]
+      },
+      "\nдля каких-то значений ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x_1,\\dots,x_n\\in\\{0,1\\} "
+        ]
+      },
+      ".\nВместо нулевых значений переменных ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "x_1,\\dots,x_n"
+        ]
+      },
+      " подставим ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p"
+        ]
+      },
+      ",\nвместо единиц подставим ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "\\lnot p"
+        ]
+      },
+      ", получится одна из констант.\nВторая получится отрицанием.\n\n\nТеперь у нас есть константы, отрицание и нелинейная функция ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "f(p_1,\\dots,p_n)"
+        ]
+      },
+      ".\nНелинейность означает, что в её представлении в виде многочлена есть моном, состоящий более чем из одной переменной.\nПусть, например, этот моном содержит переменные ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1"
+        ]
+      },
+      " и ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_2"
+        ]
+      },
+      ".\nСгруппируем члены по четырём группам и получим выражение\n",
+      {
+        "name": "math",
+        "props": {
+          "block": true
+        },
+        "children": [
+          "\np_1p_2 A(p_3,\\dots)+p_1B(p_3,\\dots)+p_2C(p_3,\\dots)+D(p_3,\\dots).\n"
+        ]
+      },
+      "\nПри этом многочлен ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "A(p_3,\\dots)"
+        ]
+      },
+      " заведомо отличен от нуля, поэтому можно так подставить константы вместо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_3,\\dots,p_n"
+        ]
+      },
+      ", чтобы первое слагаемое не обратилось в нуль.\nТогда получим либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2+d"
+        ]
+      },
+      ", либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2 + p_1+d"
+        ]
+      },
+      ", либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2+p_2+d"
+        ]
+      },
+      ", либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2+p_1+p_2+d"
+        ]
+      },
+      ".\nСвободный член ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "d"
+        ]
+      },
+      " можно менять, если нужно (у нас есть отрицание), так что получается либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2"
+        ]
+      },
+      "\n(конъюнкция, и всё доказано), либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2+p_1=p_1(p_2+1)= p_1\\land\\lnot p_2"
+        ]
+      },
+      " (убираем отрицание, получаем конъюнкцию, всё доказано), либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2+p_2"
+        ]
+      },
+      " (аналогично), либо ",
+      {
+        "name": "math",
+        "props": {
+          "block": false
+        },
+        "children": [
+          "p_1p_2+p_1+p_2= (1+p_1)(1+p_2)-1=\\lnot(\\lnot p_1\\land\\lnot p_2)=p_1\\lor p_2"
+        ]
+      },
+      " (дизъюнкция, всё доказано).\n",
+      " ᐅ"
+    ]
+  },
+  "\n",
+  "\n",
   "\n"
 ]
