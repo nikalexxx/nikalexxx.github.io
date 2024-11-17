@@ -81,14 +81,15 @@ const getGradient = (list: number[]) => {
 
 const regexList = knownSets.map((name) => new RegExp(`\\p{${name}}`, "u"));
 
-const limit = 5000;
-const max = 65535;
+const uarea = 65535;
+const limit = uarea;
+const max = 1112064;
 const count = (max - (max % limit)) / limit + 1;
 
 function getUnicodeList(start: number, end: number) {
     const table = [];
     for (let i = start; i < end; i++) {
-        const letter = String.fromCharCode(i);
+        const letter = String.fromCodePoint(i);
         let sets: number[] = [];
         for (let j = 0; j < knownSets.length; j++) {
             if (regexList[j].test(letter)) sets.push(j);
@@ -104,8 +105,8 @@ function getUnicodeList(start: number, end: number) {
                 }
                 data-unicode-sets={unicodeSets}
             >
-                <div>{String.fromCharCode(i)}</div>
-                <span style="font-size: 0.4em; color: gray;">{i}</span>
+                <div>{letter}</div>
+                <span>{i}</span>
             </div>
         );
     }
@@ -132,17 +133,14 @@ const Unicode = Component("Unicode", ({ state }) => {
                     <div>
                         <h2>Юникод</h2>
                         <p>
-                            Пока представлена только{" "}
-                            <a
-                                href={
-                                    "https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane"
-                                }
-                            >
-                                основная многоязычная плоскость
-                            </a>. Цвет показывает принадлежность к некому подмножеству юникода, например к математическим символам или эмоджи. Полный список подмножеств виден при наведении на символ.
+                            Цвет показывает принадлежность к некому подмножеству
+                            юникода, например к математическим символам или
+                            эмоджи. Полный список подмножеств виден при
+                            наведении на символ.
                         </p>
                         <br />
                         <div>
+                            Языковые плоскости{" "}
                             {[...new Array(count).keys()].map((i) => (
                                 <div
                                     class={b("button-container")}
@@ -154,7 +152,7 @@ const Unicode = Component("Unicode", ({ state }) => {
                                                 active: i === start,
                                             })}
                                         >
-                                            {String(i)}
+                                            {String(i + 1)}
                                         </span>
                                     </Button>
                                 </div>
