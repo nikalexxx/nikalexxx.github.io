@@ -1,0 +1,427 @@
+{header.level{2} Литература}
+
+{def:lit.key{aho-hopcroft-ullman}
+А.Ахо, Дж.Ульман, Дж.Хопкрофт. {format:i Построение и анализ
+вычислительных алгоритмов}, пер. с англ. А.О.Слисенко
+под редакцией Ю.В.Матиясевича. М.:Мир, 1979.
+}
+
+
+{def:lit.key{boolos-jeffrey}
+Дж.Булос, Р.Джеффри. {format:i Вычислимость и логика},
+пер. с англ. В.А.Душского и Е.Ю.Ногиной под
+редакцией С.Н.Артёмова.
+М.:Мир, 1994. 396 с.
+{def:comment
+% COMPUTABILITY AND LOGIC
+% Third edition
+% George S. Boolos
+% Professor of Philosophy
+% Massachusetts Institute of Technology
+% Richard C. Jeffrey
+% Professor of Philosophy
+% Princeton University
+% Cambridge University Press
+% Cambridge / New York / Port Chester / Melbourne / Sydney
+}
+}
+
+
+{def:lit.key{bourbaki}
+Н.Бурбаки.  {format:i Начала математики.   Первая часть.  Основные
+структуры анализа. Книга первая. Теория множеств},
+пер. с французского Г.Н.Поварова и
+Ю.А.Шихановича под редакцией В.А.Успенского.
+М.:Мир, 1965.
+
+{def:comment
+% \'El\'ements de math\'ematique par N.Bourbaki
+% XVII, XX, XXII, I
+% Premiere partie
+% Les structures fondamentales de l'analyse
+% livre I
+% TH\'EORIE DES ENSEMBLES
+% Chapitre I. Description de la math\'ematique formelle
+% Chapritre II. Th\'eorie des ensembles. Deuxi\`eme \'edition 1960
+%
+% Chapitre III. Ensembles ordonn'es -- Cardinaux -- Nombres entiers
+% 1956
+%
+% Chapitre IV. Structures
+% 1957
+%
+% Fascicules de r'esultats, Troisi\`eme \'edition, 1958
+%
+%  HERMANN
+}
+}
+
+{def:lit.key{vanderwaerden}
+
+Б.Л. ван дер Варден. {format:i Алгебра}, перевод с немецкого
+А.А.Бельского. Под редакцией Ю.И.Мерзлякова. М.:Наука,
+главная редакция физико-математической литературы, 1976.
+
+{def:comment
+%  B.L. van der Waerden
+%   Algebra I
+%  Achte Auflage der Modernen Algebra
+%
+%  Springer-Verlag
+%  Berlin - Heidelberg - New York
+%  1971
+%
+%  Algebra II
+%  F\"unfte Auflage.
+%
+%  Springer-Verlag
+%  Berlin - Heidelberg - New York
+%  1967
+}
+}
+
+{def:lit.key{computable-functions}
+Н.К.Верещагин, А.Шень. {format:i Лекции по математической логике и
+теории алгоритмов. Часть 3. Вычислимые функции}. 3-е изд.
+М.:МЦНМО, 2008.
+176 с.
+}
+
+
+{def:lit.key{naive-set-theory}
+Н.К.Верещагин, А.Шень. {format:i Лекции по математической логике и
+теории алгоритмов. Часть 1. Начала теории множеств}. 3-изд.
+М.:МЦНМО, 2008. 128 с.
+}
+
+
+{def:lit.key{heyting}
+А.Гейтинг. {format:i Интуиционизм. Введение}, пер. с
+англ. В.А.Янкова под редакцией и с комментариями
+А.А.Маркова. М.:Мир, 1965. 200 с.
+
+{def:comment
+% Intuitionism. An introduction.
+% A.Heyting
+% Professor of Mathematics
+% University of Amsterdam
+% 1956
+% North-Holland Publishing Company
+% Amsterdam
+}
+}
+
+
+{def:lit.key{hilbert-bernays}
+Д.Гильберт, П.Бернайс. {format:i Основания математики.
+Логические исчисления и формализация арифметики}, перевод с
+немецкого Н.М.Нагорного под редакцией С.И.Адяна.
+М.:Наука, главная редакция физико-математической литературы,
+1979. 560 с.
+
+{def:comment
+% D.Hilbert und P.Bernays
+% Grundlagen der Mathematik. I
+% Zweite Auflage. Springer-Verlag
+% Berlin -- Heidelberg -- New york
+% 1968
+}
+}
+
+
+{def:lit.key{gindikin}
+С.Г.Гиндикин. {format:i Алгебра логики в задачах}. М.:Наука,
+главная редакция физико-математической литературы, 1972.
+288 с.
+}
+
+
+{def:lit.key{gladky-textbook}
+А.В.Гладкий. {format:i Математическая логика}. М.:Российский
+государственный гуманитарный университет, 1998. 479 с.
+}
+
+
+{def:lit.key{davis-nonstandard}
+М.Дэвис. {format:i Прикладной нестандартный анализ}, перевод с
+англ. С.Ф.Сопрунова под редакцией и с предисловием
+В.А.Успенского. М.:Мир, 1980. 236 с.
+{def:comment
+% Applied Nonstandard Analysis
+% Martin Davis
+% Courant Institute of Mathematical Sciences
+% New York University
+%
+% A Wiley-Interscience Publication
+% John Wiley & Sons
+% New York - London - Sydney - Toronto
+% 1977
+}
+}
+
+{def:lit.key{ershov-palyutin}
+Ю.Л.Ершов, Е.А.Палютин. {format:i Математическая логика}. 2-е изд.
+М.:Наука, главная редакция физико-математической литературы,
+1987. 336 с.
+}
+
+
+{def:lit.key{keisler-chang}
+Г.Кейслер, Ч.Ч.Чэн. {format:i Теория моделей},
+перевод с англ. С.С.Гончарова, С.Д.Денисова,
+В.А.Душского и Д.И.Свириденко. Под редакцией
+Ю.Л.Ершова и А.Д.Тайманова. М.:Мир, 1977. 614 с.
+
+{def:comment
+%  C.C.Chang
+%       University of California, Los Angeles
+%  H.J.Keisler
+%       University of Wisconsin, Madison
+%  Model  Theory
+%
+%  (Studies in Logic and the Foundations of Mathematics,
+%     volume 73)
+%
+%  North-Holland Publishing Company, Amsterdam - London
+%  American Elsevier Publishing Company, Inc. - New York
+%  1973
+}
+}
+
+
+{def:lit.key{kurosh}
+А.Г.Курош. {format:i Лекции по общей алгебре}, 2-е изд.
+М.:Наука, главная редакция физико-математической литературы,
+1973. 399 с.
+}
+
+
+{def:lit.key{kleene-metamathematics}
+С.К.Клини. {format:i Введение в метаматематику}, перевод с английского
+А.С.Есенина-Вольпина под редакцией В.А.Успенского. М.:Издательство
+иностранной литературы, 1957. 526 с.
+
+{def:comment
+%  Introduction to metamathematics
+%  Stephen Cole Kleene
+%  Profeccor of Mathematics at
+%  the University of Wisconsin, Madison
+%  D. van Nostrand Company, Inc. New York -- Toronto 1952
+}
+}
+
+
+{def:lit.key{kleene-logic}
+С.К.Клини. {format:i Математическая логика}, перевод с английского
+Ю.А.Гастева под редакцией Г.Е.Минца. М.:Мир, 1973. 480 с.
+{def:comment
+%  Mathematical Logic
+%  Stephen Cole Kleene
+%  Cyrus C. MacDuffee Profeccor Of Mathematics
+%  The University of Wisconsin, Madison
+% John Wiley & Sons, Inc. New York -- London -- Sydney, 1967
+}
+}
+
+
+{def:lit.key{kleene-vesley}
+С.Клини, Р.Весли. {format:i Основания интуиционистской
+математики с точки зрения теории рекурсивных функций}, перевод с
+английского Ф.А.Кабакова и Б.А.Кушнера.
+М.:Наука, главная редакция физико-математической литературы,
+1978. 272 с. (Серия: Математическая логика и основания математики.)
+{def:comment
+%  The Foundations of Intuitionistic Mathematics
+%   especially in relation to recursive functions
+%  S.C.Kleene  R.E.Vesley
+%  North-Holland Publishing Company, Amsterdam, 1965
+}
+}
+
+
+{def:lit.key{cormen-leiserson-rivest}
+Т.Кормен, Ч.Лейзерсон, Р.Ривест. {format:i Алгоритмы:
+построение и анализ}, пер. с англ. К.Белова,
+Ю.Боравлёва, Д.Ботина, В.Горелика, Д.Дерягина,
+Ю.Калнишкана, А.Катановой, С.Львовского,
+А.Ромащенко, К.Сонина, К.Трушкина, М.Ушакова,
+А.Шеня, В.Шувалова, М.Юдашкина под ред. А.Шеня,
+В.Ященко. М.:МЦНМО, 1999. 960 с.
+{def:comment
+% Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest
+%  Introduction to Algorithms
+%  The MIT Press (Cambridge, Massachusets / London, England)
+%  McGraw-Hill Book Company
+%    (New York / St.Louis / San Francisco / Montreal / Toronto)
+%  1990
+}
+}
+
+
+{def:lit.key{lavrov-maksimova}
+И.А.Лавров, Л.Л.Максимова. {format:i Задачи по теории
+множеств, математической логике и теории алгоритмов}, издание
+второе. М.:Наука, 1984. 224 с.
+}
+
+
+{def:lit.key{lyndon}
+Р.Линдон. {format:i Заметки по логике}, пер. с английского
+Ю.А.Гастева под редакцией И.М.Яглома. М.:Мир, 1968.
+128 с.
+{def:comment
+%  Notes on Logic
+%       by
+%  Roger C. Lyndon
+%  The University of Michigan
+%  D. van Nostrand Company, Inc.
+%  Princeton, New Jersey
+%  Toronto    New York   London
+%  1966
+}
+}
+
+
+{def:lit.key{manin}
+Ю.И.Манин. {format:i Доказуемое и недоказуемое}.
+М.:Советское радио, 1979. 168 с.
+}
+
+
+{def:lit.key{robinson}
+А.Робинсон. {format:i Введение в теорию моделей и метаматематику
+алгебры}, пер. с англ. А.Б.Волынского под редакцией
+А.Д.Тайманова. М.:Наука, главная редакция физико\д
+математической литературы, 1967. 376 с. (Серия: Математическая
+логика и основания математики.)
+{def:comment
+%  Abraham Robinson
+%   University California, Los Angeles
+%  Introduction to Model Tgeory and to the Metamathematics of Algebra
+%  North-Holland Publishing Company
+%  Amsterdam, 1963
+}
+}
+
+
+{def:lit.key{smullyan-informal}
+Рэймонд М.Смаллиан. {format:i Как же называется эта книга?},
+пер. с англ. Ю.А.Данилова. М.:Мир, 1981. 240 с.
+{def:comment
+% Raymond M. Smullyan
+% WHAT IS THE NAME OF THIS BOOK?
+% Prentice-Hall, Inc.
+% Englewood Cliffs, New Jersey, 1978
+}
+}
+
+
+{def:lit.key{smullyan-formal}
+Р.Смальян.
+{format:i Теория формальных систем}, перевод с английского
+Н.К.Косовского под редакцией Н.А.Шанина. М.:Наука,
+главная редакция физико-математической литературы, 1981.
+207 с. (Серия: Математическая логика и основания математики.)
+{def:comment
+%  THEORY OF FORMAL SYSTEMS,
+%  Raymond M. Smullyan
+%  Revised Edition
+%  Princeton, New Jersey
+%  Princeton University Press, 1962
+}
+}
+
+
+{def:lit.key{handbook-sets}
+{format:i Справочная книга по математической логике в четырёх частях
+под ред. Дж.Барвайса. Часть II. Теория множеств},
+пер. с англ. В.Г.Кановея под редакцией
+В.Н.Гришина. М.:Наука, 1982. 376 с.
+}
+
+
+{def:lit.key{handbook-recursion}
+{format:i Справочная книга по математической логике в четырёх частях под
+ред. Дж.Барвайса. Часть III. Теория рекурсии},
+пер. с английского  С.Г.Дворникова, И.А.Лаврова.
+Под ред. Ю.Л.Ершова.
+М.:Наука, 1982. 360 с.
+}
+
+
+{def:lit.key{uspensky-nonstandard}
+В.А.Успенский. {format:i Что такое нестандартный анализ?}
+М.:Наука, главн. ред. физико-математической литературы,
+1987. 128 с.
+}
+
+
+{def:lit.key{uspensky-nonstandard-small}
+В.А.Успенский.  {format:i Нестандартный, или неархимедов, анализ}.  М.:Знание, 1983. 61 с. (Новое в жизни, науке, технике.
+Математика, кибернетика, №8.)
+}
+
+
+{def:lit.key{freudenthal}
+Х.Фрейденталь. {format:i Язык логики}, перевод с английского Ю.А.Петрова
+под редакцией Ю.А.Гастева. М.:Наука, главная редакция физико\д
+математической литературы, 1969. 136 с.
+{def:comment
+% The Language of Logic
+% Hans Freudenthal
+% Professor of Pure and Applied Mathematics
+% Utrecht University
+% Utrecht, The Netherlands
+% Elsevier Publishing Company
+% Amsterdam -- London -- New York
+% 1966
+}
+}
+
+
+{def:lit.key{church}
+А.Чёрч. {format:i Введение в математическую логику. I},
+перевод с английского В.С.Чернявского под ред.
+В.А.Успенского. М.:Издательство иностранной литературы,
+1960. 484 с.
+{def:comment
+% Introduction to Mathematical Logic
+%    by Alonzo Church
+%     volume I
+%  Princeton, New Jersey
+%  Princeton University Press
+%  1956
+}
+}
+
+
+{def:lit.key{shoenfield}
+Дж.Шенфилд. {format:i Математическая логика},
+перевод с английского И.А.Лаврова и И.А.Мальцева
+под редакцией Ю.Л.Ершова. М.:Наука, 1975. 528 с.
+}
+
+
+{def:lit.key{engeler}
+Э.Энгелер. {format:i Метаматематика элементарной математики},
+перевод с немецкого Г.Е.Минца под редакцией А.О.Слисенко.
+М:Мир, 1987. 128 с.
+{def:comment
+%  E.Engeler. Metamathematik der Elementarmathematik. Mit 29 Abbildungen
+%  (Hochshultext)
+%  Springer-Verlag
+%  Berlin Heidelberg New York 1983
+}
+}
+
+
+{def:lit.key{cyber}
+С.В.Яблонский. {format:i Введение в дискретную математику},
+издание второе. М.:Наука, 1986. 384 с.
+}
+
+
+{def:lit.key{keisler-nonstandard}
+H.J.Keisler. {format:i Elementary Calculus}.
+Weber and Sсhmidt, Prindle, 1976.
+}

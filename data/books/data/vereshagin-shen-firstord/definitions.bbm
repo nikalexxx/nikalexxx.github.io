@@ -1,78 +1,25 @@
-import { BookElementProps, BookItem } from '@bookbox/core';
-import { BookRawItem } from '@bookbox/preset-web';
-
-type Config = {
-    name: string;
-    getProps?(
-        rawProps: BookElementProps,
-        rawChildren: BookItem[]
-    ): BookElementProps;
-    getChildren?(
-        rawProps: BookElementProps,
-        rawChildren: BookItem[]
-    ): BookRawItem[];
-    addtoStart?: () => BookItem[];
-};
-
-function print(rawChildren: BookItem[]): string {
-    return rawChildren
-        .map((x) => (typeof x === 'string' ? x : print(x.children)))
-        .join('');
+{#def.name{proof}.target{area}
+{#prop:children ᐊ {#def:children} ᐅ}
 }
 
-export const definitions: Record<string, Config> = {
-    'def.proof': {
-        name: 'area',
-        getChildren: (props, children) => ['ᐊ ', ...children, ' ᐅ'],
-    },
-    'def.theorem': {
-        name: 'area',
-        getChildren: (props, children) => [
-            {
-                name: 'format.b',
-                props: { inline: true, key: `${props.key ?? ''}_name` },
-                children: [
-                    'Теорема ',
-                    {
-                        name: 'counter',
-                        props: {
-                            use: 'theorem',
-                            key: `${props.key ?? ''}_link`,
-                        },
-                        children: [],
-                    },
-                    ...(props.name ? [' (', String(props.name), ')'] : []),
-                    '. ',
-                ],
-            },
-            ...children,
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: {
-                    start: 'theorem',
-                    initial: 1,
-                },
-                children: [],
-            },
-        ],
-    },
-    'def.link': {
-        name: 'label',
-        getChildren: (props, children) => [
-            {
-                name: 'use',
-                props: {
-                    ref: `${print(children)}_link`,
-                },
-                children: [],
-            },
-        ],
-        getProps: (props, children) => ({
-            ref: print(children),
-        }),
-    },
+
+{#def.name{theorem}.target{area}
+{#prop:children
+{format:b.inline
+{#prop:key {#def:props:key}_name}Теорема
+{counter.use{theorem} {#prop:key {#def:props:key}_link}}
+({#def:props:name}).
+}
+{#def:children}
+}
+{#prop:start {counter.start{theorem}}}
+}
+
+
+{#def.name{link}.target{label}
+{#prop:children {use {#prop.ref {#def:children.string}_link}}}
+}
+
     'def.problem': {
         name: 'format.small',
         getChildren: (props, children) => [
@@ -199,82 +146,6 @@ export const definitions: Record<string, Config> = {
                     '. ',
                     String(props.name),
                 ],
-            },
-        ],
-    },
-    'def.image': {
-        name: 'image',
-        getChildren: (props, children) => [
-            {
-                name: 'area',
-                props: { inline: true },
-                children: [
-                    'Рис. ',
-                    {
-                        name: 'area',
-                        props: {
-                            inline: true,
-                            key: `${props.key ?? ''}_link`,
-                        },
-                        children: [
-                            {
-                                name: 'counter',
-                                props: {
-                                    use: 'image',
-                                    key: `${props.key ?? ''}_counter`,
-                                },
-                                children: [],
-                            },
-                        ],
-                    },
-                    '. ',
-                    ...children,
-                ],
-            },
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: { initial: 'image' },
-                children: [],
-            },
-        ],
-    },
-    'def.lit': {
-        name: 'area',
-        getChildren: (props, children) => [
-            {
-                name: 'area',
-                props: {},
-                children: [
-                    '[',
-                    {
-                        name: 'area',
-                        props: {
-                            inline: true,
-                            key: `${props.key ?? ''}_link`,
-                        },
-                        children: [
-                            {
-                                name: 'counter',
-                                props: {
-                                    use: 'lit',
-                                    key: `${props.key ?? ''}_counter`,
-                                },
-                                children: [],
-                            },
-                        ],
-                    },
-                    '] ',
-                    ...children,
-                ],
-            },
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: { initial: 'lit' },
-                children: [],
             },
         ],
     },
