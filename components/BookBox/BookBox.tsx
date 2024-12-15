@@ -39,7 +39,28 @@ export const BookBox = Component<Props>("BookBox", ({ props, hooks }) => {
         render({
             element,
             bookData,
-            settingsOptions: { design: false },
+            settingsOptions: {
+                design: false,
+                custom: {
+                    theorems: {
+                        icon: "🎓",
+                        getItems: ({ bookData }) => {
+                            const store = bookData.store;
+                            const theorems = Object.entries(
+                                store.elementsByKeys
+                            ).filter(
+                                ([key, element]) =>
+                                    element.props.kind === "theorem"
+                            );
+
+                            return theorems.map(([key]) => ({
+                                key,
+                                value: store.dataByKeys[key],
+                            }));
+                        },
+                    },
+                },
+            },
             ...options,
         });
         if (!document.body.classList.contains("theme_light")) {
@@ -51,6 +72,8 @@ export const BookBox = Component<Props>("BookBox", ({ props, hooks }) => {
 
     return () => {
         const { name } = props();
-        return <div class={b()} id={getId(name)} _ref={el => element = el}/>;
+        return (
+            <div class={b()} id={getId(name)} _ref={(el) => (element = el)} />
+        );
     };
 });

@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build-books; npm run build-blog; vite build; cp -R data dist",
     "build-books": "cd data/books; node --experimental-specifier-resolution=node --loader ts-node/esm build.ts",
+    "prepare-books": "node data/books/tex2bbm.js",
     "build-blog": "cd data/blog; node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm build.ts",
     "dev-books": "onchange \"./data/books/**/*\" -- cd data/books; node --loader ts-node/esm build.ts {{file}} tick.json",
     "dev-blog": "onchange \"./data/blog/**/*.ts\" -- node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm data/blog/dev.ts {{file}}",
@@ -41,9 +42,9 @@
     "vite-plugin-html": "^3.2.2"
   },
   "dependencies": {
-    "@bookbox/preset-web": "^0.2.0",
+    "@bookbox/preset-web": "^0.2.1",
     "katex": "^0.15.0",
     "mermaid": "^9.0.1",
-    "parvis": "^0.1.4"
+    "parvis": "^0.2.1"
   }
 }
