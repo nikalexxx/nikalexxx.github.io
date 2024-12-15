@@ -27,10 +27,16 @@ export const definitions: Record<string, Config> = {
     },
     'def.theorem': {
         name: 'area',
+        getProps(rawProps) {
+            return { ...rawProps, kind: 'theorem' };
+        },
         getChildren: (props, children) => [
             {
                 name: 'format.b',
-                props: { inline: true, key: `${props.key ?? ''}_name` },
+                props: {
+                    inline: true,
+                    key: `${props.key ?? ''}_name`,
+                },
                 children: [
                     'Теорема ',
                     {

@@ -24,9 +24,13 @@ function removeSpace(str) {
 
 function signs(str) {
     return str
-        .replace(/\\т/g, '—')
+        .replace(/\\т/g, ' —')
         .replace(/\\ /g, ' ')
         .replace(/\\,/g, '')
+        .replace(/\\-/g, '')
+        .replace(/\\лк\s*/g, '«')
+        .replace(/\\пк/g, '»')
+        .replace(/\\итд/g, 'и т.д.')
         .replace(/\\д\s?/g, '-');
 }
 
@@ -37,6 +41,7 @@ const knownDefs = [
     'problem',
     'glossary',
     'section',
+    'chapter',
     'cite',
 ];
 function knownDef(str) {
@@ -53,8 +58,9 @@ function knownDef(str) {
 function format(str) {
     return str
         .replaceAll('\\textbf{', '{format:b ')
-        .replaceAll('\\emph{', '{em ');
-        .replaceAll('\\И ', '{format:b И}');
+        .replaceAll('\\textsf{', '{format:pre ')
+        .replaceAll('\\emph{', '{em ')
+        .replaceAll('\\И ', '{format:b И}')
         .replaceAll('\\Л ', '{format:b Л}');
 }
 
