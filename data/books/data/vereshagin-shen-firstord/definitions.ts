@@ -253,7 +253,6 @@ export const definitions: Record<string, Config> = {
                 name: 'area',
                 props: {},
                 children: [
-                    '[',
                     {
                         name: 'area',
                         props: {
@@ -261,6 +260,7 @@ export const definitions: Record<string, Config> = {
                             key: `${props.key ?? ''}_link`,
                         },
                         children: [
+                            '[',
                             {
                                 name: 'counter',
                                 props: {
@@ -269,9 +269,10 @@ export const definitions: Record<string, Config> = {
                                 },
                                 children: [],
                             },
+                            ']',
                         ],
                     },
-                    '] ',
+                    ' ',
                     ...children,
                 ],
             },
@@ -292,19 +293,28 @@ export const definitions: Record<string, Config> = {
         }),
         getChildren: (props, children) => [
             {
-                name: 'counter',
+                name: 'area',
                 props: {
-                    last: 'chapter',
+                    inline: true,
+                    key: `${props.key ?? ''}_link`,
                 },
-                children: [],
-            },
-            '.',
-            {
-                name: 'counter',
-                props: {
-                    use: 'section',
-                },
-                children: [],
+                children: [
+                    {
+                        name: 'counter',
+                        props: {
+                            last: 'chapter',
+                        },
+                        children: [],
+                    },
+                    '.',
+                    {
+                        name: 'counter',
+                        props: {
+                            use: 'section',
+                        },
+                        children: [],
+                    },
+                ],
             },
             '. ',
             ...children,

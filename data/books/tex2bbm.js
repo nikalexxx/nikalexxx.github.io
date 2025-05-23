@@ -64,6 +64,13 @@ function format(str) {
         .replaceAll('\\Л ', '{format:b Л}');
 }
 
+function list(str) {
+    return str
+        .replaceAll('\\item', '{item ')
+        .replaceAll('\\begin{itemize}', '{#start:list}')
+        .replaceAll('\\end{itemize}', '{#end:list}')
+}
+
 function ref(str) {
     return str.replace(/\\ref\{/g, '{def:link ');
 }
@@ -90,6 +97,7 @@ const getBbm = pipe(
     format,
     knownDef,
     ref,
+    list,
     mathlines,
     lines,
     math

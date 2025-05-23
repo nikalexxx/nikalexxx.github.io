@@ -66,7 +66,7 @@ function getTheorem(api: BookApi) {
             const n = theoremCounter();
             const theoremKey = `theorem_${key ?? n}`;
             return book`
-        ${start(area.key(theoremKey).meta({ n }))}
+        ${start((area.key(theoremKey) as any).kind('theorem').meta({ n }))}
         ${b(`Теорема ${n}${name ? ` (${name})` : ''}`)}. ${book(t, ...list)}
         ${end(area)}
         `;

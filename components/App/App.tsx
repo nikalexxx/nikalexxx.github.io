@@ -25,7 +25,10 @@ setLang(localStorage.getItem("lang") || defaultLang);
 const Menu = Component("Menu", ({ state, hooks }) => {
     const path = () => getRouterState(routes).path;
     const [i, setI] = state(0);
-    const [getCompact, setCompact] = state(false);
+    const [getCompact, setCompact] = state(!!localStorage.getItem('compact-menu'));
+    hooks.effect(() => {
+        localStorage.setItem('compact-menu', getCompact() ? 'true' : '');
+    }, [setCompact])
     hooks.mount(() => {
         console.log("Menu", i());
     });
