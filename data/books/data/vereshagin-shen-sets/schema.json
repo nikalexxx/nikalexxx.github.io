@@ -2115,6 +2115,7 @@
     "name": "area",
     "props": {
       "key": "theorem_set_and_or",
+      "kind": "theorem",
       "meta": {
         "n": 1
       }
@@ -3622,6 +3623,7 @@
     "name": "area",
     "props": {
       "key": "theorem_n-sets",
+      "kind": "theorem",
       "meta": {
         "n": 2
       }
@@ -4585,6 +4587,7 @@
     "name": "area",
     "props": {
       "key": "theorem_or-n-set",
+      "kind": "theorem",
       "meta": {
         "n": 3
       }
@@ -5061,6 +5064,7 @@
     "name": "area",
     "props": {
       "key": "theorem_[0,1]",
+      "kind": "theorem",
       "meta": {
         "n": 4
       }
@@ -5252,6 +5256,7 @@
     "name": "area",
     "props": {
       "key": "theorem_square=line",
+      "kind": "theorem",
       "meta": {
         "n": 5
       }
@@ -6050,6 +6055,7 @@
     "name": "area",
     "props": {
       "key": "theorem_<>=",
+      "kind": "theorem",
       "meta": {
         "n": 6
       }
@@ -8207,6 +8213,7 @@
     "name": "area",
     "props": {
       "key": "theorem_01...",
+      "kind": "theorem",
       "meta": {
         "n": 7
       }
@@ -8736,6 +8743,7 @@
     "name": "area",
     "props": {
       "key": "theorem_x!=2^x",
+      "kind": "theorem",
       "meta": {
         "n": 8
       }
@@ -10994,6 +11002,7 @@
     "name": "area",
     "props": {
       "key": "theorem_(x)-(x-y)",
+      "kind": "theorem",
       "meta": {
         "n": 9
       }
@@ -12750,6 +12759,7 @@
     "name": "area",
     "props": {
       "key": "theorem_cartesian-subset",
+      "kind": "theorem",
       "meta": {
         "n": 10
       }
@@ -13463,6 +13473,7 @@
     "name": "area",
     "props": {
       "key": "theorem_eql-classes",
+      "kind": "theorem",
       "meta": {
         "n": 11
       }
@@ -15961,6 +15972,7 @@
     "name": "area",
     "props": {
       "key": "theorem_iso-eql-lin",
+      "kind": "theorem",
       "meta": {
         "n": 12
       }
@@ -17149,6 +17161,7 @@
     "name": "area",
     "props": {
       "key": "theorem_iso-dense-sets",
+      "kind": "theorem",
       "meta": {
         "n": 13
       }
@@ -17400,6 +17413,7 @@
     "name": "area",
     "props": {
       "key": "theorem_iso-sub-Q",
+      "kind": "theorem",
       "meta": {
         "n": 14
       }
@@ -17662,6 +17676,7 @@
     "name": "area",
     "props": {
       "key": "theorem_founded-set",
+      "kind": "theorem",
       "meta": {
         "n": 15
       }
@@ -18187,6 +18202,7 @@
     "name": "area",
     "props": {
       "key": "theorem_founded-mult",
+      "kind": "theorem",
       "meta": {
         "n": 16
       }
@@ -19715,6 +19731,7 @@
     "name": "area",
     "props": {
       "key": "theorem_f(x)>x",
+      "kind": "theorem",
       "meta": {
         "n": 17
       }
@@ -20122,6 +20139,7 @@
     "name": "area",
     "props": {
       "key": "theorem_transfinite-recursion",
+      "kind": "theorem",
       "meta": {
         "n": 18
       }
@@ -20742,6 +20760,7 @@
     "name": "area",
     "props": {
       "key": "theorem_recursive-rule",
+      "kind": "theorem",
       "meta": {
         "n": 19
       }
@@ -21097,6 +21116,7 @@
     "name": "area",
     "props": {
       "key": "theorem_A<>B",
+      "kind": "theorem",
       "meta": {
         "n": 20
       }
@@ -21573,6 +21593,7 @@
     "name": "area",
     "props": {
       "key": "theorem_21",
+      "kind": "theorem",
       "meta": {
         "n": 21
       }
@@ -21893,6 +21914,7 @@
     "name": "area",
     "props": {
       "key": "theorem_set-size",
+      "kind": "theorem",
       "meta": {
         "n": 22
       }
@@ -22058,6 +22080,7 @@
     "name": "area",
     "props": {
       "key": "theorem_min-set",
+      "kind": "theorem",
       "meta": {
         "n": 23
       }
@@ -22271,6 +22294,7 @@
     "name": "area",
     "props": {
       "key": "theorem_set-order",
+      "kind": "theorem",
       "meta": {
         "n": 24
       }
@@ -23076,6 +23100,7 @@
     "name": "area",
     "props": {
       "key": "theorem_set=subset",
+      "kind": "theorem",
       "meta": {
         "n": 25
       }
@@ -23453,6 +23478,7 @@
     "name": "area",
     "props": {
       "key": "theorem_26",
+      "kind": "theorem",
       "meta": {
         "n": 26
       }
@@ -23846,6 +23872,7 @@
     "name": "area",
     "props": {
       "key": "theorem_linear-func",
+      "kind": "theorem",
       "meta": {
         "n": 27
       }
@@ -24091,6 +24118,7 @@
     "name": "area",
     "props": {
       "key": "theorem_28",
+      "kind": "theorem",
       "meta": {
         "n": 28
       }
@@ -24328,6 +24356,7 @@
     "name": "area",
     "props": {
       "key": "theorem_29",
+      "kind": "theorem",
       "meta": {
         "n": 29
       }
@@ -25041,6 +25070,7 @@
     "name": "area",
     "props": {
       "key": "theorem_zorns-lemma",
+      "kind": "theorem",
       "meta": {
         "n": 30
       }
@@ -25667,6 +25697,7 @@
     "name": "area",
     "props": {
       "key": "theorem_31",
+      "kind": "theorem",
       "meta": {
         "n": 31
       }
@@ -26400,6 +26431,7 @@
     "name": "area",
     "props": {
       "key": "theorem_32",
+      "kind": "theorem",
       "meta": {
         "n": 32
       }
@@ -26623,6 +26655,7 @@
     "name": "area",
     "props": {
       "key": "theorem_33",
+      "kind": "theorem",
       "meta": {
         "n": 33
       }
@@ -26717,6 +26750,7 @@
     "name": "area",
     "props": {
       "key": "theorem_34",
+      "kind": "theorem",
       "meta": {
         "n": 34
       }
@@ -27414,6 +27448,7 @@
     "name": "area",
     "props": {
       "key": "theorem_35",
+      "kind": "theorem",
       "meta": {
         "n": 35
       }
@@ -27737,6 +27772,7 @@
     "name": "area",
     "props": {
       "key": "theorem_inf-basis",
+      "kind": "theorem",
       "meta": {
         "n": 36
       }
@@ -28788,6 +28824,7 @@
     "name": "area",
     "props": {
       "key": "theorem_subset-ordinal",
+      "kind": "theorem",
       "meta": {
         "n": 37
       }
@@ -30671,6 +30708,7 @@
     "name": "area",
     "props": {
       "key": "theorem_38",
+      "kind": "theorem",
       "meta": {
         "n": 38
       }
@@ -30882,6 +30920,7 @@
     "name": "area",
     "props": {
       "key": "theorem_39",
+      "kind": "theorem",
       "meta": {
         "n": 39
       }
@@ -31446,6 +31485,7 @@
     "name": "area",
     "props": {
       "key": "theorem_40",
+      "kind": "theorem",
       "meta": {
         "n": 40
       }
@@ -31927,6 +31967,7 @@
     "name": "area",
     "props": {
       "key": "theorem_41",
+      "kind": "theorem",
       "meta": {
         "n": 41
       }
@@ -32641,6 +32682,7 @@
     "name": "area",
     "props": {
       "key": "theorem_42",
+      "kind": "theorem",
       "meta": {
         "n": 42
       }
@@ -33238,6 +33280,7 @@
     "name": "area",
     "props": {
       "key": "theorem_43",
+      "kind": "theorem",
       "meta": {
         "n": 43
       }
@@ -33482,6 +33525,7 @@
     "name": "area",
     "props": {
       "key": "theorem_44",
+      "kind": "theorem",
       "meta": {
         "n": 44
       }
@@ -34442,6 +34486,7 @@
     "name": "area",
     "props": {
       "key": "theorem_45",
+      "kind": "theorem",
       "meta": {
         "n": 45
       }
@@ -35073,6 +35118,7 @@
     "name": "area",
     "props": {
       "key": "theorem_tree-rang",
+      "kind": "theorem",
       "meta": {
         "n": 46
       }
@@ -35252,6 +35298,7 @@
     "name": "area",
     "props": {
       "key": "theorem_47",
+      "kind": "theorem",
       "meta": {
         "n": 47
       }
