@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const {book, code, header, link, format: {pre}} = api;
     return book`
 Когда впервые видишь клеточные автоматы, первая мысль — хочу это запрограммировать.

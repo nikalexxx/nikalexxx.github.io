@@ -1,12 +1,12 @@
 import { Component } from "parvis";
-import { render, browserInit, css, RenderOptions } from "@bookbox/preset-web";
+import { html} from "@bookbox/preset-web";
 import { block } from "../../utils";
 
 import "./BookBox.less";
 
-browserInit();
+html.browserInit();
 
-css.all();
+html.css.all();
 
 const b = block("bookbox-element");
 
@@ -42,15 +42,15 @@ const getId = (name: string) => `bookbox-${name}`;
 
 type Props = {
     name: string;
-    bookData: RenderOptions["bookData"];
-    options?: Partial<RenderOptions>;
+    bookData: html.RenderOptions["bookData"];
+    options?: Partial<html.RenderOptions>;
 };
 
 export const BookBox = Component<Props>("BookBox", ({ props, hooks }) => {
     let element: HTMLElement;
     hooks.mount(() => {
         const { bookData, options = {} } = props();
-        render({
+        html.render({
             element,
             bookData,
             settingsOptions: {

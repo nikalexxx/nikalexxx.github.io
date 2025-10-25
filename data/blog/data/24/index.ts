@@ -1,6 +1,6 @@
-import { BookApi } from '@bookbox/preset-web';
+import { js } from '@bookbox/preset-web';
 
-export default (_: BookApi) => _.book.root`
+export default (_: js.BookApi) => _.book.root`
 ${_.header.level(3)`Суть задачи`}
 На плоскости мы можем рисовать окружности и есть 2 условия:
 ${_.list`

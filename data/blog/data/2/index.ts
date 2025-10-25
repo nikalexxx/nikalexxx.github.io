@@ -1,6 +1,6 @@
-import type { BookApi } from "@bookbox/preset-web";
+import type { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const {book, code, link, header, format: {pre}} = api;
     return book`
 Изначально для построения сайта я использовал нативные es6 модули.

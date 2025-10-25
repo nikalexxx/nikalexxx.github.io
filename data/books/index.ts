@@ -9,4 +9,9 @@ export const booksList = {
         authors: ['Н.К. Верещагин', 'A. Шень'],
         image: '/data/books/data/vereshagin-shen-firstord/part2.png',
     },
+    'programmer-potter': {
+        title: 'Программист Поттер',
+        authors: ['Александр Николаичев'],
+        image: 'data/books/data/programmer-potter/1/chapters/1/air.png',
+    },
 };

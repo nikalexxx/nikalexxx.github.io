@@ -35,47 +35,47 @@
 
 
 {#start:def:table.align{center}.key{logic-connectives-names}.name{Логические связки, обозначения и названия.}}
-{row.head {col} связка {col} обозначение {col} название}
+{row.head {def:col} связка {def:col} обозначение {def:col} название}
 {row
-{col}{{A}} и {{B}}
-{col} {{A\& B}} {{A\land B}}
+{def:col}{{A}} и {{B}}
+{def:col} {{A\& B}} {{A\land B}}
 
 
 {{A\texttt{ and }B}}
-{col}конъюнкция
+{def:col}конъюнкция
 {def:index Конъюнкция|defin}
 }
 {row
-{col}{{A}} или {{B}} {col} {{A\lor B}} {{A\texttt{ or }B}} {col} дизъюнкция
+{def:col}{{A}} или {{B}} {def:col} {{A\lor B}} {{A\texttt{ or }B}} {def:col} дизъюнкция
 {def:index Дизъюнкция|defin}
 }
 {row
-{col}не {{A}}
+{def:col}не {{A}}
 
 {{A}} неверно
-{col}
+{def:col}
 {{\lnot A}} {{\sim\!A}} {{\overline{A} }}
 
 {{\texttt{not} A}}
-{col}
+{def:col}
 отрицание
 {def:index Отрицание|defin}
 }
 {row
-{col}из {{A}} следует {{B}}
+{def:col}из {{A}} следует {{B}}
 
 если {{A}}, то {{B}}
 
 {{A}} влечёт {{B}}
 
 {{B}} — следствие {{A}}
-{col}
+{def:col}
 {{A\rightarrow B}} {{A\Rightarrow B}}
 
 {{A\supset B}}
 
 {{\texttt{if }A\texttt{ then }B}}
-{col}
+{def:col}
 импликация
 
 следование
@@ -122,17 +122,17 @@
 
 {area.key{truth-tables}
 {table
-{row.head {col} {{A}} {col} {{B}} {col} {{A\land B}} {col} {{A\lor B}} {col} {{A \to B}}}
-{row {col} {format:b Л} {col} {format:b Л} {col} {format:b Л} {col} {format:b Л} {col} {format:b И}}
-{row {col} {format:b Л} {col} {format:b И} {col} {format:b Л} {col} {format:b И} {col} {format:b И}}
-{row {col} {format:b И} {col} {format:b Л} {col} {format:b Л} {col} {format:b И} {col} {format:b Л}}
-{row {col} {format:b И} {col} {format:b И} {col} {format:b И} {col} {format:b И} {col} {format:b И}}
+{row.head {def:col} {{A}} {def:col} {{B}} {def:col} {{A\land B}} {def:col} {{A\lor B}} {def:col} {{A \to B}}}
+{row {def:col} {format:b Л} {def:col} {format:b Л} {def:col} {format:b Л} {def:col} {format:b Л} {def:col} {format:b И}}
+{row {def:col} {format:b Л} {def:col} {format:b И} {def:col} {format:b Л} {def:col} {format:b И} {def:col} {format:b И}}
+{row {def:col} {format:b И} {def:col} {format:b Л} {def:col} {format:b Л} {def:col} {format:b И} {def:col} {format:b Л}}
+{row {def:col} {format:b И} {def:col} {format:b И} {def:col} {format:b И} {def:col} {format:b И} {def:col} {format:b И}}
 }
 
 {table
-{row.head {col} {{A}} {col} {{\lnot A}}}
-{row {col} {format:b Л} {col} {format:b И}}
-{row {col} {format:b И} {col} {format:b Л}}
+{row.head {def:col} {{A}} {def:col} {{\lnot A}}}
+{row {def:col} {format:b Л} {def:col} {format:b И}}
+{row {def:col} {format:b И} {def:col} {format:b Л}}
 }
 
 {area.position{center}
@@ -208,16 +208,16 @@
 
 {table.key{example-conjunct}
 {row.head
-{col} {{p}} {col} {{q}} {col} {{r}} {col} {{\lnot r}} {col} {{(q \land \lnot r)}} {col} {{(p\land(q\land\lnot r))}}
+{def:col} {{p}} {def:col} {{q}} {def:col} {{r}} {def:col} {{\lnot r}} {def:col} {{(q \land \lnot r)}} {def:col} {{(p\land(q\land\lnot r))}}
 }
-{row {col} 0 {col} 0 {col} 0 {col} 1 {col} 0 {col} 0}
-{row {col} 0 {col} 0 {col} 1 {col} 0 {col} 0 {col} 0}
-{row {col} 0 {col} 1 {col} 0 {col} 1 {col} 1 {col} 0}
-{row {col} 0 {col} 1 {col} 1 {col} 0 {col} 0 {col} 0}
-{row {col} 1 {col} 0 {col} 0 {col} 1 {col} 0 {col} 0}
-{row {col} 1 {col} 0 {col} 1 {col} 0 {col} 0 {col} 0}
-{row {col} 1 {col} 1 {col} 0 {col} 1 {col} 1 {col} 1}
-{row {col} 1 {col} 1 {col} 1 {col} 0 {col} 0 {col} 0}
+{row {def:col} 0 {def:col} 0 {def:col} 0 {def:col} 1 {def:col} 0 {def:col} 0}
+{row {def:col} 0 {def:col} 0 {def:col} 1 {def:col} 0 {def:col} 0 {def:col} 0}
+{row {def:col} 0 {def:col} 1 {def:col} 0 {def:col} 1 {def:col} 1 {def:col} 0}
+{row {def:col} 0 {def:col} 1 {def:col} 1 {def:col} 0 {def:col} 0 {def:col} 0}
+{row {def:col} 1 {def:col} 0 {def:col} 0 {def:col} 1 {def:col} 0 {def:col} 0}
+{row {def:col} 1 {def:col} 0 {def:col} 1 {def:col} 0 {def:col} 0 {def:col} 0}
+{row {def:col} 1 {def:col} 1 {def:col} 0 {def:col} 1 {def:col} 1 {def:col} 1}
+{row {def:col} 1 {def:col} 1 {def:col} 1 {def:col} 0 {def:col} 0 {def:col} 0}
 Таблица {area.inline.key{example-conjunct_link} {counter.last{chapter}}.{counter.use{table}}}. Таблица истинности для {{(p\land(q\land \lnot r))}}.
 }
 

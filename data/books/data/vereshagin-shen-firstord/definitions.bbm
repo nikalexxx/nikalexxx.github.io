@@ -1,205 +1,95 @@
-{#def.name{proof}.target{area}
-{#prop:children ᐊ {#def:children} ᐅ}
+{#def.name{proof}
+{#set:name area}
+ᐊ {#get:children} ᐅ
 }
-
-
-{#def.name{theorem}.target{area}
-{#prop:children
+{#def.name{theorem}
+{#set:start {counter.start{theorem}.initial{1}} }
+{#set:name area}
+{#set:props:kind theorem}
 {format:b.inline
-{#prop:key {#def:props:key}_name}Теорема
-{counter.use{theorem} {#prop:key {#def:props:key}_link}}
-({#def:props:name}).
-}
-{#def:children}
-}
-{#prop:start {counter.start{theorem}}}
-}
+{#set:props:key {#get:props:key}_name}
+Теорема
+{counter.use{theorem}
+{#set:props:key {#get:props:key}_link}}{area.inline
 
-
-{#def.name{link}.target{label}
-{#prop:children {use {#prop.ref {#def:children.string}_link}}}
+({#get:props:name})
+{#set:props:hidden {#not {#get:props:name}}}}.
+} {#get:children}}
+{#def.name{link}
+{#set:name label}
+{#set:props:ref {#get:children.string}}
+{use {#set:props:ref {#get:children.string}_link}}
 }
-
-    'def.problem': {
-        name: 'format.small',
-        getChildren: (props, children) => [
-            {
-                name: 'format.b',
-                props: {},
-                children: [
-                    {
-                        name: 'area',
-                        props: { inline: true, key: `${props.key ?? ''}_link` },
-                        children: [
-                            {
-                                name: 'counter',
-                                props: { use: 'problem' },
-                                children: [],
-                            },
-                        ],
-                    },
-                    '. ',
-                ],
-            },
-            ...children,
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: {
-                    start: 'problem',
-                },
-                children: [],
-            },
-        ],
-    },
-    'def.chapter': {
-        name: 'header',
-        getProps: (props) => ({
-            ...props,
-            level: 2,
-        }),
-        getChildren: (props, children) => [
-            {
-                name: 'counter',
-                props: {
-                    end: 'section',
-                },
-                children: [],
-            },
-            {
-                name: 'counter',
-                props: {
-                    end: 'table',
-                },
-                children: [],
-            },
-            {
-                name: 'counter',
-                props: {
-                    use: 'chapter',
-                },
-                children: [],
-            },
-            {
-                name: 'counter',
-                props: {
-                    start: 'section',
-                },
-                children: [],
-            },
-            {
-                name: 'counter',
-                props: {
-                    start: 'table',
-                },
-                children: [],
-            },
-            '. ',
-            ...children,
-        ],
-        addtoStart: () => [
-            {
-                name: 'counter',
-                props: {
-                    start: 'chapter',
-                    initial: 1,
-                },
-                children: [],
-            },
-        ],
-    },
-    'def.table': {
-        name: 'table',
-        getChildren: (props, children) => [
-            ...children,
-            {
-                name: 'area',
-                props: { inline: true },
-                children: [
-                    'Таблица ',
-                    {
-                        name: 'area',
-                        props: {
-                            inline: true,
-                            key: `${props.key ?? ''}_link`,
-                        },
-                        children: [
-                            {
-                                name: 'counter',
-                                props: {
-                                    last: 'chapter',
-                                },
-                                children: [],
-                            },
-                            '.',
-                            {
-                                name: 'counter',
-                                props: {
-                                    use: 'table',
-                                    key: `${props.key ?? ''}_counter`,
-                                },
-                                children: [],
-                            },
-                        ],
-                    },
-                    '. ',
-                    String(props.name),
-                ],
-            },
-        ],
-    },
-    'def.section': {
-        name: 'header',
-        getProps: (props) => ({
-            ...props,
-            level: 3,
-        }),
-        getChildren: (props, children) => [
-            {
-                name: 'counter',
-                props: {
-                    last: 'chapter',
-                },
-                children: [],
-            },
-            '.',
-            {
-                name: 'counter',
-                props: {
-                    use: 'section',
-                },
-                children: [],
-            },
-            '. ',
-            ...children,
-        ],
-    },
-    row: {
-        name: 'row',
-        getChildren: (props, children) => [
-            // {
-            //     __start: 'cell',
-            //     props: {},
-            // },
-            ...children,
-            // {
-            //     __end: 'cell',
-            //     props: {},
-            // },
-        ],
-    },
-    col: {
-        name: '',
-        getChildren: (props, children) => [
-            {
-                __end: 'cell',
-                props: {},
-            },
-            {
-                __start: 'cell',
-                props: {},
-            },
-        ],
-    },
-};
+{#def.name{chapter}
+{#set:name header}
+{#set:props:level 2}
+{#set:start {counter.start{chapter}.initial{1}} }
+{counter.end{section}}
+{counter.end{table}}
+{counter.use{chapter}}
+{counter.start{section}}
+{counter.start{table}}.
+{#get:children}
+}
+{#def.name{table}
+{#set:name table}
+{#get:children}
+{area.inline
+Таблица
+{area.inline
+{#set:props:key {#get:props:key}_link}
+{counter.last{chapter}}.{counter.use{table}
+{#set:props:key {#get:props:key}_counter}
+}
+}.
+{#get:props:name}
+}
+}
+{#def.name{problem}
+{#set:name format.small}
+{#set:start {counter.start{problem}} }
+{format:b
+{area.inline
+{#set:props:key {#get:props:key}_link}
+{counter.use{problem}}}.
+}{#get:children}
+}
+{#def.name{image}
+{#set:name image}
+{#set:start {counter.start{image}} }
+{area.inline
+Рис.
+{area.inline
+{#set:props:key {#get:props:key}_link}
+{counter.use{image}
+{#set:props:key {#get:props:key}_counter}
+}
+}.
+{#get:children}
+}
+}
+{#def.name{lit}
+{#set:name area}
+{#set:start {counter.start{lit}} }
+{area.inline
+{#set:props:key {#get:props:key}_link}
+[{counter.use{lit}
+{#set:props:key {#get:props:key}_counter}
+}]
+}
+{#get:children}
+}
+{#def.name{section}
+{#set:name header}
+{#set:props:level 3}
+{area.inline
+{#set:props:key {#get:props:key}_link}
+{counter.last{chapter}}.{counter.use{section}}
+}.
+{#get:children}
+}
+{#def.name{col}
+{#set:name}
+{#end:cell}
+{#start:cell}
+}

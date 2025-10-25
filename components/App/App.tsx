@@ -238,6 +238,8 @@ const Header = Component("Header", ({ state, hooks }) => {
     };
 });
 
+const year = (new Date()).getFullYear();
+
 const Page = (
     <div class={b()}>
         {/* E.div.class(b('header-menu'))(
@@ -257,7 +259,7 @@ const Page = (
             <Switch routes={routes} />
         </main>
         <footer class={b("footer")}>
-            <div>© 2019-2024 Alexandr Nikolaichev</div>
+            <div>© 2019-{year} Alexandr Nikolaichev</div>
             <div style="display: flex; gap: 1em;">
                 <a href={"https://github.com/nikalexxx"} target={"_blank"}>
                     Github
