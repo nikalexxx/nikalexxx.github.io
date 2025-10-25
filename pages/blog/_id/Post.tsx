@@ -7,8 +7,7 @@ import { Button, Lang, Spin } from "../../../blocks";
 import blog from "../../../data/blog";
 import { PostId, postList, postOrder } from "../model";
 import { GithubApi } from "../../../services/api";
-import { createHtmlBook } from "@bookbox/preset-web";
-import { BookData } from "@bookbox/core";
+import { core, html } from "@bookbox/preset-web";
 import { Component, TemplateTree } from "parvis";
 import { Comment } from "../../../services/api/github/comments";
 
@@ -19,7 +18,7 @@ interface Props {
 }
 
 const Post = Component<Props>("Post", ({ props, state, hooks }) => {
-    const [getText, setText] = state<string | null | BookData<string>>(null);
+    const [getText, setText] = state<string | null | core.BookData<string>>(null);
     const [getComments, setComments] = state<Comment[] | null | string>(null);
 
     function loadPost() {
@@ -50,7 +49,7 @@ const Post = Component<Props>("Post", ({ props, state, hooks }) => {
                 .then((data) => {
                     console.log("book loaded", data);
                     setText(
-                        createHtmlBook({
+                        html.createHtmlBook({
                             schema: data,
                             externalBuilder: {
                                 parvis: {
@@ -156,6 +155,7 @@ const Post = Component<Props>("Post", ({ props, state, hooks }) => {
                         options={{
                             settingsOptions: {
                                 viewTumbler: false,
+                                viewItems: false,
                                 contents: false,
                                 design: false,
                                 media: false,

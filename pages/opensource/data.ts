@@ -23,6 +23,8 @@ export const codeList: CodeData[] = [
         codeLinks: ['https://github.com/bookbox-format/bookbox'],
         artefactLinks: [
             'https://www.npmjs.com/package/@bookbox/core',
+            'https://www.npmjs.com/package/@bookbox/markup',
+            'https://www.npmjs.com/package/@bookbox/generator-bbm',
             'https://www.npmjs.com/package/@bookbox/generator-js',
             'https://www.npmjs.com/package/@bookbox/view-html',
             'https://www.npmjs.com/package/@bookbox/preset-web',

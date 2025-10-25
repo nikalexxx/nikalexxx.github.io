@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const {book, code, format: {pre}} = api;
     return book`
 На экранах малой ширины меню отъедает часть полезного пространства.

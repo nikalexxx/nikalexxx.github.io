@@ -234,4 +234,12 @@ export default {
             // githubIssue: 65,
         },
     },
+    // 25: {
+    //     type: 'bookbox',
+    //     creationTime: '2025-07-07T21:30:08',
+    //     title: 'Язык разметки bookbox и новые возможности книжного формата',
+    //     tags: ['book', 'bookbox', ''],
+    //     comments: {
+    //     },
+    // },
 } as const;

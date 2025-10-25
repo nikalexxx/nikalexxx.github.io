@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const { book, format: {pre}, image, list, item, header, link, code, tooltip, start, end } = api;
     return book`
 ${header.level(3)`Github как сервис комментариев`}

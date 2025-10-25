@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const {book, code, link, header, format: {pre}} = api;
     return book`
 Изначально тёмная тема была, потому что я вдохновлялся тёмными темами VSCode.

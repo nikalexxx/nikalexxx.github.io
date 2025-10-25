@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const { book, math, format: {pre},image, header, link, code } = api;
     return book.root`
 TL;DR планеты вращаются вокруг светил согласно классической теории гравитации и показывают свою скорость и ускорение.

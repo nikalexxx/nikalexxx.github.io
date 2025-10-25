@@ -1,9 +1,9 @@
-import { BookApi } from '@bookbox/preset-web';
+import { js } from '@bookbox/preset-web';
 import { getCustomElements } from '../../elements.js';
 
 const path = '/data/books/data/vereshagin-shen-sets/2/2';
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const { book, start,end, math, label, format, area, image, list, item, resource } = api;
     const { i, b} = format;
 

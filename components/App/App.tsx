@@ -25,7 +25,10 @@ setLang(localStorage.getItem("lang") || defaultLang);
 const Menu = Component("Menu", ({ state, hooks }) => {
     const path = () => getRouterState(routes).path;
     const [i, setI] = state(0);
-    const [getCompact, setCompact] = state(false);
+    const [getCompact, setCompact] = state(!!localStorage.getItem('compact-menu'));
+    hooks.effect(() => {
+        localStorage.setItem('compact-menu', getCompact() ? 'true' : '');
+    }, [setCompact])
     hooks.mount(() => {
         console.log("Menu", i());
     });
@@ -235,6 +238,8 @@ const Header = Component("Header", ({ state, hooks }) => {
     };
 });
 
+const year = (new Date()).getFullYear();
+
 const Page = (
     <div class={b()}>
         {/* E.div.class(b('header-menu'))(
@@ -254,7 +259,7 @@ const Page = (
             <Switch routes={routes} />
         </main>
         <footer class={b("footer")}>
-            <div>© 2019-2024 Alexandr Nikolaichev</div>
+            <div>© 2019-{year} Alexandr Nikolaichev</div>
             <div style="display: flex; gap: 1em;">
                 <a href={"https://github.com/nikalexxx"} target={"_blank"}>
                     Github

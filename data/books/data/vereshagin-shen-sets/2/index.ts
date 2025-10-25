@@ -1,4 +1,4 @@
-import { BookApi } from '@bookbox/preset-web';
+import { js } from '@bookbox/preset-web';
 import { getCustomElements } from '../elements.js';
 import paragraph1 from './1/index.js';
 import paragraph10 from './10/index.js';
@@ -14,7 +14,7 @@ import paragraph7 from './7/index.js';
 import paragraph8 from './8/index.js';
 import paragraph9 from './9/index.js';
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const { book } = api;
 
     const {chapter} = getCustomElements(api);

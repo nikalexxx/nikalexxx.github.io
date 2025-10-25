@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const {book, header, external, code, format: {pre}} = api;
     return book`
 После долгого летнего перерыва возвращаюсь к ведению блога.

@@ -5,9 +5,8 @@ import { block } from "../../../utils";
 import { Lang, Spin } from "../../../blocks";
 
 import { booksList } from "../../../data/books";
-import { createHtmlBook } from "@bookbox/preset-web";
+import { core, html } from "@bookbox/preset-web";
 import { Component } from "parvis";
-import { BookData } from "@bookbox/core";
 
 const b = block("book");
 
@@ -17,7 +16,7 @@ function isExistBook(name: string): name is keyof typeof booksList {
 const bookCache = new Map();
 
 const Book = Component<{ name: string }>("Book", ({ props, state, hooks }) => {
-    const [getBook, setBook] = state<null | BookData<string>>(null);
+    const [getBook, setBook] = state<null | core.BookData<string>>(null);
 
     hooks.mount(() => {
         const { name } = props();
@@ -30,7 +29,7 @@ const Book = Component<{ name: string }>("Book", ({ props, state, hooks }) => {
             fetch(`/data/books/data/${name}/schema.json`)
                 .then((e) => e.json())
                 .then((value) => {
-                    const bookData = createHtmlBook({ schema: value });
+                    const bookData = html.createHtmlBook({ schema: value });
                     // console.log({ value, bookData });
                     bookCache.set(name, bookData);
                     setBook(bookData);

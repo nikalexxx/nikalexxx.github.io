@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const {book, start, end, header, link, code, format: {pre}, list, item, image} = api;
     return book`
 ${header.level(3)`Чем полезна библиотека?`}

@@ -63,89 +63,113 @@
   {
     "name": "list",
     "props": {},
+    "marker": "start",
+    "children": []
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "marker": "start",
+    "children": []
+  },
+  "\nГиперссылки — внешние ссылки, ведут на другие документы или сайты.\n",
+  {
+    "name": "format.pre",
+    "props": {},
     "children": [
-      "\n",
-      {
-        "name": "item",
-        "props": {},
-        "children": [
-          "\nГиперссылки — внешние ссылки, ведут на другие документы или сайты.\n",
-          {
-            "name": "format.pre",
-            "props": {},
-            "children": [
-              "\na.href('https://wikipedia.org')`википедия`\n"
-            ]
-          },
-          "\n",
-          {
-            "name": "link",
-            "props": {
-              "href": "https://wikipedia.org"
-            },
-            "children": [
-              "википедия"
-            ]
-          },
-          "\n"
-        ]
-      },
-      "\n",
-      {
-        "name": "item",
-        "props": {},
-        "children": [
-          "\nВнутренние ссылки, по которым можно перейти в другие части книги.\n",
-          {
-            "name": "format.pre",
-            "props": {},
-            "children": [
-              "\nlink.ref('2')`второй абзац`\n"
-            ]
-          },
-          "\n",
-          {
-            "name": "link",
-            "props": {
-              "ref": "2"
-            },
-            "children": [
-              "второй абзац"
-            ]
-          },
-          "\n"
-        ]
-      },
-      "\n",
-      {
-        "name": "item",
-        "props": {},
-        "children": [
-          "\nВнутренние ссылки на другие области, при использовании создаётся лейбл, при нажатии на который можно посмотреть выделенную область из другой части книги, и при необходимости перейти к ней.\n",
-          {
-            "name": "code",
-            "props": {
-              "lang": "javascript"
-            },
-            "children": [
-              "\nlabel.ref('3')`третий абзац`\n"
-            ]
-          },
-          "\n",
-          {
-            "name": "label",
-            "props": {
-              "ref": "3"
-            },
-            "children": [
-              "третий абзац"
-            ]
-          },
-          "\n"
-        ]
-      },
-      "\n"
+      "\na.href('https://wikipedia.org')`википедия`\n"
     ]
+  },
+  "\n",
+  {
+    "name": "link",
+    "props": {
+      "href": "https://wikipedia.org"
+    },
+    "children": [
+      "википедия"
+    ]
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "marker": "end",
+    "children": []
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "marker": "start",
+    "children": []
+  },
+  "\nВнутренние ссылки, по которым можно перейти в другие части книги.\n",
+  {
+    "name": "format.pre",
+    "props": {},
+    "children": [
+      "\nlink.ref('2')`второй абзац`\n"
+    ]
+  },
+  "\n",
+  {
+    "name": "link",
+    "props": {
+      "ref": "2"
+    },
+    "children": [
+      "второй абзац"
+    ]
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "marker": "end",
+    "children": []
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "marker": "start",
+    "children": []
+  },
+  "\nВнутренние ссылки на другие области, при использовании создаётся лейбл, при нажатии на который можно посмотреть выделенную область из другой части книги, и при необходимости перейти к ней.\n",
+  {
+    "name": "code",
+    "props": {
+      "lang": "javascript"
+    },
+    "children": [
+      "\nlabel.ref('3')`третий абзац`\n"
+    ]
+  },
+  "\n",
+  {
+    "name": "label",
+    "props": {
+      "ref": "3"
+    },
+    "children": [
+      "третий абзац"
+    ]
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "marker": "end",
+    "children": []
+  },
+  "\n",
+  {
+    "name": "list",
+    "props": {},
+    "marker": "end",
+    "children": []
   },
   "\n\n",
   {

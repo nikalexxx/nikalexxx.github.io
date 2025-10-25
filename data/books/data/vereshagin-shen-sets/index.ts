@@ -1,4 +1,4 @@
-import type { BookApi } from '@bookbox/preset-web';
+import { js } from '@bookbox/preset-web';
 import { counterKeys, registerCounter, registerHeaders } from './elements.js';
 
 import chapter1 from './1/index.js';
@@ -8,7 +8,7 @@ import names from './names.js';
 import prefaceAuthors from './preface-authors.js';
 import prefaceEbook from './preface-ebook.js';
 
-export default (api: BookApi) => {
+const book = (api: js.BookApi) => {
     const { book, link, authors, title } = api;
     registerCounter(counterKeys.problem);
     registerCounter(counterKeys.theorem);
@@ -44,3 +44,5 @@ ${names(api)}
 
 `;
 };
+
+export default js.getBookSchema({ book }).schema;

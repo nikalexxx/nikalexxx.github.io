@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@bookbox/preset-web": "^0.2.1",
+    "@bookbox/preset-web": "../bookbox/typescript-packages/preset-web",
     "katex": "^0.15.0",
     "mermaid": "^9.0.1",
     "parvis": "^0.2.1"
