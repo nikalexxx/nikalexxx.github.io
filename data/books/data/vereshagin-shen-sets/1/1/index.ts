@@ -1,7 +1,7 @@
-import { BookApi } from '@bookbox/preset-web';
+import { js } from '@bookbox/preset-web';
 import { getCustomElements } from '../../elements.js';
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const { book, start, end, format, list, item, math, label, link, area } = api;
     const { i, b } = format;
     const $ = math;

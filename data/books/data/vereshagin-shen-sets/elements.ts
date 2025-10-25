@@ -1,4 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
+
+type BookApi = js.BookApi;
 
 export const ttt = '\\mathellipsis';
 

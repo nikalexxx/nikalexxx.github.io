@@ -1,6 +1,6 @@
-import { BookApi } from "@bookbox/preset-web";
+import { js } from "@bookbox/preset-web";
 
-export default (api: BookApi) => {
+export default (api: js.BookApi) => {
     const {book, header, link, code, format: {pre}} = api;
     return book`
 Для облегчения работы с ${pre`typescript`} решил написать библиотеку для манипуляции типами.

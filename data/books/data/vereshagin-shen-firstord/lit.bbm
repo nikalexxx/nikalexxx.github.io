@@ -12,7 +12,7 @@
 пер. с англ. В.А.Душского и Е.Ю.Ногиной под
 редакцией С.Н.Артёмова.
 М.:Мир, 1994. 396 с.
-{def:comment
+{#comment
 % COMPUTABILITY AND LOGIC
 % Third edition
 % George S. Boolos
@@ -34,7 +34,7 @@
 Ю.А.Шихановича под редакцией В.А.Успенского.
 М.:Мир, 1965.
 
-{def:comment
+{#comment
 % \'El\'ements de math\'ematique par N.Bourbaki
 % XVII, XX, XXII, I
 % Premiere partie
@@ -62,7 +62,7 @@
 А.А.Бельского. Под редакцией Ю.И.Мерзлякова. М.:Наука,
 главная редакция физико-математической литературы, 1976.
 
-{def:comment
+{#comment
 %  B.L. van der Waerden
 %   Algebra I
 %  Achte Auflage der Modernen Algebra
@@ -100,7 +100,7 @@
 англ. В.А.Янкова под редакцией и с комментариями
 А.А.Маркова. М.:Мир, 1965. 200 с.
 
-{def:comment
+{#comment
 % Intuitionism. An introduction.
 % A.Heyting
 % Professor of Mathematics
@@ -119,7 +119,7 @@
 М.:Наука, главная редакция физико-математической литературы,
 1979. 560 с.
 
-{def:comment
+{#comment
 % D.Hilbert und P.Bernays
 % Grundlagen der Mathematik. I
 % Zweite Auflage. Springer-Verlag
@@ -146,7 +146,7 @@
 М.Дэвис. {format:i Прикладной нестандартный анализ}, перевод с
 англ. С.Ф.Сопрунова под редакцией и с предисловием
 В.А.Успенского. М.:Мир, 1980. 236 с.
-{def:comment
+{#comment
 % Applied Nonstandard Analysis
 % Martin Davis
 % Courant Institute of Mathematical Sciences
@@ -172,7 +172,7 @@
 В.А.Душского и Д.И.Свириденко. Под редакцией
 Ю.Л.Ершова и А.Д.Тайманова. М.:Мир, 1977. 614 с.
 
-{def:comment
+{#comment
 %  C.C.Chang
 %       University of California, Los Angeles
 %  H.J.Keisler
@@ -201,7 +201,7 @@
 А.С.Есенина-Вольпина под редакцией В.А.Успенского. М.:Издательство
 иностранной литературы, 1957. 526 с.
 
-{def:comment
+{#comment
 %  Introduction to metamathematics
 %  Stephen Cole Kleene
 %  Profeccor of Mathematics at
@@ -214,7 +214,7 @@
 {def:lit.key{kleene-logic}
 С.К.Клини. {format:i Математическая логика}, перевод с английского
 Ю.А.Гастева под редакцией Г.Е.Минца. М.:Мир, 1973. 480 с.
-{def:comment
+{#comment
 %  Mathematical Logic
 %  Stephen Cole Kleene
 %  Cyrus C. MacDuffee Profeccor Of Mathematics
@@ -230,7 +230,7 @@
 английского Ф.А.Кабакова и Б.А.Кушнера.
 М.:Наука, главная редакция физико-математической литературы,
 1978. 272 с. (Серия: Математическая логика и основания математики.)
-{def:comment
+{#comment
 %  The Foundations of Intuitionistic Mathematics
 %   especially in relation to recursive functions
 %  S.C.Kleene  R.E.Vesley
@@ -247,7 +247,7 @@
 А.Ромащенко, К.Сонина, К.Трушкина, М.Ушакова,
 А.Шеня, В.Шувалова, М.Юдашкина под ред. А.Шеня,
 В.Ященко. М.:МЦНМО, 1999. 960 с.
-{def:comment
+{#comment
 % Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest
 %  Introduction to Algorithms
 %  The MIT Press (Cambridge, Massachusets / London, England)
@@ -269,7 +269,7 @@
 Р.Линдон. {format:i Заметки по логике}, пер. с английского
 Ю.А.Гастева под редакцией И.М.Яглома. М.:Мир, 1968.
 128 с.
-{def:comment
+{#comment
 %  Notes on Logic
 %       by
 %  Roger C. Lyndon
@@ -294,7 +294,7 @@
 А.Д.Тайманова. М.:Наука, главная редакция физико\д
 математической литературы, 1967. 376 с. (Серия: Математическая
 логика и основания математики.)
-{def:comment
+{#comment
 %  Abraham Robinson
 %   University California, Los Angeles
 %  Introduction to Model Tgeory and to the Metamathematics of Algebra
@@ -307,7 +307,7 @@
 {def:lit.key{smullyan-informal}
 Рэймонд М.Смаллиан. {format:i Как же называется эта книга?},
 пер. с англ. Ю.А.Данилова. М.:Мир, 1981. 240 с.
-{def:comment
+{#comment
 % Raymond M. Smullyan
 % WHAT IS THE NAME OF THIS BOOK?
 % Prentice-Hall, Inc.
@@ -322,7 +322,7 @@
 Н.К.Косовского под редакцией Н.А.Шанина. М.:Наука,
 главная редакция физико-математической литературы, 1981.
 207 с. (Серия: Математическая логика и основания математики.)
-{def:comment
+{#comment
 %  THEORY OF FORMAL SYSTEMS,
 %  Raymond M. Smullyan
 %  Revised Edition
@@ -366,7 +366,7 @@
 Х.Фрейденталь. {format:i Язык логики}, перевод с английского Ю.А.Петрова
 под редакцией Ю.А.Гастева. М.:Наука, главная редакция физико\д
 математической литературы, 1969. 136 с.
-{def:comment
+{#comment
 % The Language of Logic
 % Hans Freudenthal
 % Professor of Pure and Applied Mathematics
@@ -384,7 +384,7 @@
 перевод с английского В.С.Чернявского под ред.
 В.А.Успенского. М.:Издательство иностранной литературы,
 1960. 484 с.
-{def:comment
+{#comment
 % Introduction to Mathematical Logic
 %    by Alonzo Church
 %     volume I
@@ -406,7 +406,7 @@
 Э.Энгелер. {format:i Метаматематика элементарной математики},
 перевод с немецкого Г.Е.Минца под редакцией А.О.Слисенко.
 М:Мир, 1987. 128 с.
-{def:comment
+{#comment
 %  E.Engeler. Metamathematik der Elementarmathematik. Mit 29 Abbildungen
 %  (Hochshultext)
 %  Springer-Verlag

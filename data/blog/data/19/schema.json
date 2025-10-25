@@ -289,83 +289,89 @@
   {
     "name": "list",
     "props": {},
+    "marker": "start",
+    "children": []
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
     "children": [
-      "\n",
+      "",
       {
-        "name": "item",
+        "name": "format.pre",
         "props": {},
         "children": [
-          "",
-          {
-            "name": "format.pre",
-            "props": {},
-            "children": [
-              "d"
-            ]
-          },
-          " — смещение по оси x"
+          "d"
         ]
       },
-      "\n",
-      {
-        "name": "item",
-        "props": {},
-        "children": [
-          "",
-          {
-            "name": "format.pre",
-            "props": {},
-            "children": [
-              "c"
-            ]
-          },
-          " — смещение по оси y"
-        ]
-      },
-      "\n",
-      {
-        "name": "item",
-        "props": {},
-        "children": [
-          "",
-          {
-            "name": "format.pre",
-            "props": {},
-            "children": [
-              "1"
-            ]
-          },
-          " — диаметр круга"
-        ]
-      },
-      "\n",
-      {
-        "name": "item",
-        "props": {},
-        "children": [
-          "",
-          {
-            "name": "format.pre",
-            "props": {},
-            "children": [
-              "e"
-            ]
-          },
-          " — цвет круга как угол в модели ",
-          {
-            "name": "link",
-            "props": {
-              "href": "https://ru.wikipedia.org/wiki/HSL"
-            },
-            "children": [
-              "HSL"
-            ]
-          },
-          ""
-        ]
-      },
-      "\n"
+      " — смещение по оси x"
     ]
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "children": [
+      "",
+      {
+        "name": "format.pre",
+        "props": {},
+        "children": [
+          "c"
+        ]
+      },
+      " — смещение по оси y"
+    ]
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "children": [
+      "",
+      {
+        "name": "format.pre",
+        "props": {},
+        "children": [
+          "1"
+        ]
+      },
+      " — диаметр круга"
+    ]
+  },
+  "\n",
+  {
+    "name": "item",
+    "props": {},
+    "children": [
+      "",
+      {
+        "name": "format.pre",
+        "props": {},
+        "children": [
+          "e"
+        ]
+      },
+      " — цвет круга как угол в модели ",
+      {
+        "name": "link",
+        "props": {
+          "href": "https://ru.wikipedia.org/wiki/HSL"
+        },
+        "children": [
+          "HSL"
+        ]
+      },
+      ""
+    ]
+  },
+  "\n",
+  {
+    "name": "list",
+    "props": {},
+    "marker": "end",
+    "children": []
   },
   "\n\nКаждый символ переводится в десятичную дробь функцией\n",
   {

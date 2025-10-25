@@ -19,15 +19,15 @@
 
 
 {#start:table.key{sample-truth-table}}
-{row.head {col} {{p}} {col} {{q}} {col} {{r}} {col} {{\varphi(p,q,r)}}}
-{row {col} 0 {col} 0 {col} 0 {col} 1}
-{row {col} 0 {col} 0 {col} 1 {col} 0}
-{row {col} 0 {col} 1 {col} 0 {col} 0}
-{row {col} 0 {col} 1 {col} 1 {col} 1}
-{row {col} 1 {col} 0 {col} 0 {col} 0}
-{row {col} 1 {col} 0 {col} 1 {col} 0}
-{row {col} 1 {col} 1 {col} 0 {col} 0}
-{row {col} 1 {col} 1 {col} 1 {col} 1}
+{row.head {def:col} {{p}} {def:col} {{q}} {def:col} {{r}} {def:col} {{\varphi(p,q,r)}}}
+{row {def:col} 0 {def:col} 0 {def:col} 0 {def:col} 1}
+{row {def:col} 0 {def:col} 0 {def:col} 1 {def:col} 0}
+{row {def:col} 0 {def:col} 1 {def:col} 0 {def:col} 0}
+{row {def:col} 0 {def:col} 1 {def:col} 1 {def:col} 1}
+{row {def:col} 1 {def:col} 0 {def:col} 0 {def:col} 0}
+{row {def:col} 1 {def:col} 0 {def:col} 1 {def:col} 0}
+{row {def:col} 1 {def:col} 1 {def:col} 0 {def:col} 0}
+{row {def:col} 1 {def:col} 1 {def:col} 1 {def:col} 1}
 
 {area.align{center}
 {{
