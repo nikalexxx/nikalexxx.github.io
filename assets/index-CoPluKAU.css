@@ -1,0 +1,1 @@
+.game-of-life{padding:16px}.game-of-life__paint_active{color:var(--color-text-accent)}.game-of-life__canvas_paint{cursor:crosshair}.game-of-life__actions{display:inline-grid;grid-template-columns:repeat(5,auto);gap:8px;margin:.5em 0;align-items:center}

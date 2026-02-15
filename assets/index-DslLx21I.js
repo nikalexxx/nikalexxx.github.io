@@ -1,0 +1,1 @@
+import{D as r,_ as s,e,b as t,L as n,R as o}from"./index-ByZj_pOb.js";const a=t("reports"),i=r("Reports",()=>()=>s("div",{class:a(),children:[e("h2",{children:e(n,{token:"menu/reports"})}),e("p",{children:"Видео доклады перемещены в раздел "}),e(o,{href:"video",children:"Видео"})]}));export{i as Reports};
