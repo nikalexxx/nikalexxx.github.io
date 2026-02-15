@@ -1,4 +1,5 @@
-import { Component } from "parvis";
+import { Component, TemplateTree } from "parvis";
+import { Spin } from "../blocks";
 
 const historyUpdate = new CustomEvent("historyUpdate");
 
@@ -18,7 +19,7 @@ window.addEventListener("popstate", () => window.dispatchEvent(historyUpdate));
 
 export const getRouterState = (routes: any) => {
     if (!document.location.search) {
-        return { params: {}, path: "/", routes: routes("") };
+        return { params: {}, path: "/", routes: routes };
     }
     const params = new URLSearchParams(document.location.search);
     const stack: string[] = [];
@@ -30,7 +31,7 @@ export const getRouterState = (routes: any) => {
     let resultParams = {};
     let resultPath: string | null | symbol = null;
     let equal = false;
-    for (const path in routes({})) {
+    for (const path in routes) {
         const pathStack = path.split("/");
         const params: Record<string, string> = {};
         for (let i = 0; i < stack.length; i++) {
@@ -61,7 +62,7 @@ export const getRouterState = (routes: any) => {
     return {
         params: resultParams,
         path: resultPath,
-        routes: routes(resultParams),
+        routes: routes,
     };
 };
 
@@ -108,15 +109,28 @@ export const Switch = Component<{ routes: any }>(
     ({ props, state, hooks }) => {
         const { routes } = props();
         const [routeState, setRouteState] = state(getRouterState(routes));
+        const loading = () => <Spin size={'xl'} />;
+        const [el, setEl] = state<TemplateTree>(loading());
+
+        const update = () => {
+            const { path, params, routes } = routeState();
+            setEl(loading());
+            routes[path](params).then(x => {
+                console.log({ x });
+                setEl(x)
+            });
+        }
 
         const listener: EventListener = function () {
             const newState = getRouterState(routes);
             // console.log({newState});
             setRouteState(newState);
+            update()
         };
+
         hooks.mount(() => {
-            console.log("Switch", routeState());
             window.addEventListener("historyUpdate", listener);
+            update();
         });
 
         hooks.destroy(() => {
@@ -124,13 +138,14 @@ export const Switch = Component<{ routes: any }>(
         });
 
         return () => {
-            const { path, routes } = routeState();
+            const { path } = routeState();
+
             return (
                 <div
                     class={"route"}
                     data-path={String(path)}
                 >
-                    {routes[path]}
+                    {el()}
                 </div>
             );
         };

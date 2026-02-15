@@ -27,25 +27,25 @@
   },
   "homepage": "https://github.com/nikalexxx/nikalexxx.github.io#readme",
   "devDependencies": {
-    "@bookbox/markup": "^0.4.0",
+    "@bookbox/markup": "^0.5.0",
     "@types/gh-pages": "^3.2.0",
-    "@types/katex": "^0.14.0",
+    "@types/katex": "^0.16.0",
     "@types/mermaid": "^8.2.9",
     "@types/node": "^20.11.0",
-    "gh-pages": "^3.2.3",
-    "less": "^3.13.1",
+    "gh-pages": "^6.3.0",
+    "less": "^4.4.2",
     "onchange": "^7.1.0",
     "ts-node": "^10.2.1",
     "ts-pro": "^1.3.0",
     "typescript": "^4.9.4",
-    "vite": "^5.0.12",
+    "vite": "^7.2.4",
+    "vite-plugin-glsl": "^1.5.5",
     "vite-plugin-html": "^3.2.2"
   },
   "dependencies": {
-    "@bookbox/preset-web": "^0.2.1",
-    "@bookbox/preset-web": "../bookbox/typescript-packages/preset-web",
-    "katex": "^0.15.0",
-    "mermaid": "^9.0.1",
+    "@bookbox/preset-web": "^0.3.0",
+    "katex": "^0.16.0",
+    "mermaid": "^11.12.1",
     "parvis": "^0.2.1"
   }
 }
