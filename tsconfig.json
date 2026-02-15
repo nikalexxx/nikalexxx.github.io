@@ -16,7 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "parvis",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "types": ["vite-plugin-glsl/ext"]
   },
   "ts-node": {
     "esm": true,

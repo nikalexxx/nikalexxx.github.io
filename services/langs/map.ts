@@ -107,3 +107,10 @@ addToken('tile/gravitation', {
     en: 'Gravitation',
     it: 'Gravitazione',
 });
+
+addToken('tile/qcd', {
+    ru: 'Квантовая хромодинамика',
+    en: 'Quantum chromodynamics',
+    it: 'Cromodinamica quantistica',
+});
+

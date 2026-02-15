@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 
 import { createHtmlPlugin } from 'vite-plugin-html';
+import glsl from 'vite-plugin-glsl';
 
 import packageData from './package.json';
 
@@ -28,6 +29,7 @@ export default defineConfig({
         target: 'esnext',
     },
     plugins: [
+        glsl(),
         createHtmlPlugin({
             template: 'assets/index.html',
             inject: {

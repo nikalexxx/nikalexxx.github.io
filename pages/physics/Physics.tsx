@@ -19,10 +19,7 @@ const Physics = Component("Physics", () => {
           <RouteLink href={"physics/standard-model"}>
             <Tile>
               <div>
-                <Lang
-                  token={`tile/standart-model`}
-                  view={(e) => <div style={`text-align: center`}>{e}</div>}
-                />
+                <Lang token={`tile/standart-model`}/>
                 <div class={b("particles")}>
                   e<sup>–</sup>, γ, H
                 </div>
@@ -42,6 +39,16 @@ const Physics = Component("Physics", () => {
               </div>
             </Tile>
           </RouteLink>
+          {/* <RouteLink href={"physics/qcd"}>
+            <Tile>
+              <div>
+                <Lang token={`tile/qcd`} />
+                <div class={b("particles")} style="font-size: 2em;">
+                  u, d, c, s, t, b
+                </div>
+              </div>
+            </Tile>
+          </RouteLink> */}
         </PageGrid>
       </div>
     );

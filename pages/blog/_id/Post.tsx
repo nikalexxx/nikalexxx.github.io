@@ -14,7 +14,7 @@ import { Comment } from "../../../services/api/github/comments";
 const b = block("post");
 
 interface Props {
-    id: PostId;
+    id: string;
 }
 
 const Post = Component<Props>("Post", ({ props, state, hooks }) => {
@@ -27,7 +27,7 @@ const Post = Component<Props>("Post", ({ props, state, hooks }) => {
 
         setText(null);
 
-        const { type, comments } = blog[id];
+        const { type, comments } = blog[id as PostId];
         const path = (file: string) =>
             `../data/blog/data/${id}/${file}?r=${window.appVersion}`;
         if (type === "html") {
@@ -112,7 +112,8 @@ const Post = Component<Props>("Post", ({ props, state, hooks }) => {
     }, [props.id]);
 
     return () => {
-        const { id } = props();
+        const { id: rawId } = props();
+        const id = rawId as PostId;
         if (!blog.hasOwnProperty(id)) return <Page404 />;
         console.log("render", props.id());
 
