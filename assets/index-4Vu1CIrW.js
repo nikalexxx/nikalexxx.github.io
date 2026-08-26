@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-wIyhfe3Q.js","assets/index-ByZj_pOb.js","assets/index-DMc-sK6P.css"])))=>i.map(i=>d[i]);
-import{D as e,a as i,_ as n,e as a}from"./index-ByZj_pOb.js";const s=e("QCD",({hooks:t})=>(t.mount(()=>{i(()=>import("./index-wIyhfe3Q.js"),__vite__mapDeps([0,1,2]))}),()=>n("div",{children:[a("h2",{children:"Визуализация квантовой хромодинамики"}),a("canvas",{id:"glCanvas"}),a("canvas",{id:"expCanvas",height:300,width:600}),a("canvas",{id:"expCanvas2",height:300,width:500})]})));export{s as QCD};
