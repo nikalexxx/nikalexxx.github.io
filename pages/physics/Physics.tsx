@@ -5,6 +5,7 @@ import { PageGrid, Tile } from "../../components";
 
 import { Lang } from "../../blocks";
 import { Component } from "parvis";
+import { ColorTriangle } from "./qcd/ColorTriangle";
 
 const b = block("physics");
 
@@ -39,16 +40,16 @@ const Physics = Component("Physics", () => {
               </div>
             </Tile>
           </RouteLink>
-          {/* <RouteLink href={"physics/qcd"}>
+          <RouteLink href={"physics/qcd"}>
             <Tile>
               <div>
                 <Lang token={`tile/qcd`} />
-                <div class={b("particles")} style="font-size: 2em;">
-                  u, d, c, s, t, b
+                <div class={b("qcd-logo")}>
+                  <ColorTriangle variant="logo" labels={true} showMarker={false} />
                 </div>
               </div>
             </Tile>
-          </RouteLink> */}
+          </RouteLink>
         </PageGrid>
       </div>
     );
