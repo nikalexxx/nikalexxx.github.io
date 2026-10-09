@@ -3,18 +3,19 @@ import { Component } from "parvis";
 import { block } from "../../../utils";
 import { ColorProbabilities, TAU, wrapPhase } from "./model";
 import { GluonTransition } from "./transition";
-import { clamp, displayColor, rgbCss, Rgb } from "./visual";
+import { clamp, displayColor, rgbCss } from "./visual";
+import { drawFieldArrow, makeFieldArrow } from "./fieldArrows";
+import { phaseTorusFrame } from "./PhaseTorusFrame";
+import { TORUS_EDGE, TORUS_SIZE, TORUS_SPAN } from "./torusGeometry";
 
 const b = block("qcd");
 
-const CANVAS_WIDTH = 500;
-const CANVAS_HEIGHT = 500;
-const FIELD_X = 2;
-const FIELD_Y = 2;
-const FIELD_SIZE = 496;
+const CANVAS_WIDTH = TORUS_SIZE;
+const CANVAS_HEIGHT = TORUS_SIZE;
+const FIELD_X = TORUS_EDGE;
+const FIELD_Y = TORUS_EDGE;
+const FIELD_SIZE = TORUS_SPAN;
 const QUARK_RADIUS = 12;
-const ARROW_START_GAP = 3;
-const MIN_ARROW_TIP_DISTANCE = 48;
 
 type GluonHitRegion = {
     index: number;
@@ -22,6 +23,8 @@ type GluonHitRegion = {
     y1: number;
     x2: number;
     y2: number;
+    labelX: number;
+    labelY: number;
 };
 
 type Props = {
@@ -31,68 +34,12 @@ type Props = {
     commonPhase: number;
     anti: boolean;
     hoveredGluon: number | null;
+    selectedGluon: number;
     showGluons: boolean;
     getTransition: (index: number) => GluonTransition;
     onPhaseChange: (deltaGreen: number, deltaBlue: number) => void;
     onHoverGluon: (index: number | null) => void;
     onApplyGluon: (index: number) => void;
-};
-
-const drawArrow = (
-    context: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    dx: number,
-    dy: number,
-    loss: Rgb,
-    gain: Rgb,
-    label: string,
-    active: boolean
-) => {
-    const x2 = x + dx;
-    const y2 = y + dy;
-    if (Math.hypot(dx, dy) < 2) return;
-
-    const gradient = context.createLinearGradient(x, y, x2, y2);
-    gradient.addColorStop(0, rgbCss(loss));
-    gradient.addColorStop(1, rgbCss(gain));
-
-    context.save();
-    context.lineCap = "round";
-    context.lineWidth = active ? 9 : 5;
-    context.strokeStyle = gradient;
-    context.shadowColor = active ? rgbCss(gain, 0.55) : "transparent";
-    context.shadowBlur = active ? 12 : 0;
-    const angle = Math.atan2(dy, dx);
-    const head = active ? 18 : 13;
-    const shaftX = x2 - Math.cos(angle) * head * 0.82;
-    const shaftY = y2 - Math.sin(angle) * head * 0.82;
-    context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(shaftX, shaftY);
-    context.stroke();
-
-    context.fillStyle = rgbCss(gain);
-    context.beginPath();
-    context.moveTo(x2, y2);
-    context.lineTo(
-        x2 - Math.cos(angle - Math.PI / 6) * head,
-        y2 - Math.sin(angle - Math.PI / 6) * head
-    );
-    context.lineTo(
-        x2 - Math.cos(angle + Math.PI / 6) * head,
-        y2 - Math.sin(angle + Math.PI / 6) * head
-    );
-    context.closePath();
-    context.fill();
-    context.shadowBlur = 0;
-    context.font = active ? "bold 13px Arial" : "11px Arial";
-    context.fillStyle = "rgba(255, 255, 255, 0.92)";
-    context.strokeStyle = "rgba(0, 0, 0, 0.72)";
-    context.lineWidth = 3;
-    context.strokeText(label, x2 + Math.cos(angle) * 7, y2 + Math.sin(angle) * 7);
-    context.fillText(label, x2 + Math.cos(angle) * 7, y2 + Math.sin(angle) * 7);
-    context.restore();
 };
 
 const drawClockHand = (
@@ -219,6 +166,7 @@ export const PhaseTorus = Component<Props>("PhaseTorus", ({ props, hooks }) => {
         for (let index = gluonHitRegions.length - 1; index >= 0; index--) {
             const region = gluonHitRegions[index];
             if (
+                Math.hypot(point.x - region.labelX, point.y - region.labelY) <= 10 ||
                 distanceToSegment(
                     point.x,
                     point.y,
@@ -365,40 +313,24 @@ export const PhaseTorus = Component<Props>("PhaseTorus", ({ props, hooks }) => {
                 const transition = state.getTransition(index);
                 const dx = (transition.deltaGreen / TAU) * FIELD_SIZE;
                 const dy = (-transition.deltaBlue / TAU) * FIELD_SIZE;
-                const actualLength = Math.hypot(dx, dy);
-                const fallbackAngle = -Math.PI / 2 + (TAU * index) / 8;
-                const ux =
-                    actualLength > 0.5 ? dx / actualLength : Math.cos(fallbackAngle);
-                const uy =
-                    actualLength > 0.5 ? dy / actualLength : Math.sin(fallbackAngle);
-                const tipDistance = Math.max(actualLength, MIN_ARROW_TIP_DISTANCE);
-                const startDistance = QUARK_RADIUS + ARROW_START_GAP;
-                const startDx = ux * startDistance;
-                const startDy = uy * startDistance;
-                const visualDx = ux * (tipDistance - startDistance);
-                const visualDy = uy * (tipDistance - startDistance);
+                const arrow = makeFieldArrow(markerX, markerY, dx, dy, index,
+                    rgbCss(transition.colors.loss), rgbCss(transition.colors.gain));
 
                 for (let shiftX = -1; shiftX <= 1; shiftX++) {
                     for (let shiftY = -1; shiftY <= 1; shiftY++) {
-                        const x = markerX + shiftX * FIELD_SIZE + startDx;
-                        const y = markerY + shiftY * FIELD_SIZE + startDy;
-                        drawArrow(
-                            context,
-                            x,
-                            y,
-                            visualDx,
-                            visualDy,
-                            transition.colors.loss,
-                            transition.colors.gain,
-                            `g${index + 1}`,
-                            state.hoveredGluon === index
-                        );
+                        const offsetX = shiftX * FIELD_SIZE;
+                        const offsetY = shiftY * FIELD_SIZE;
+                        drawFieldArrow(context, arrow,
+                            (state.hoveredGluon ?? state.selectedGluon) === index,
+                            offsetX, offsetY);
                         gluonHitRegions.push({
                             index,
-                            x1: x,
-                            y1: y,
-                            x2: x + visualDx,
-                            y2: y + visualDy,
+                            x1: arrow.x1 + offsetX,
+                            y1: arrow.y1 + offsetY,
+                            x2: arrow.x2 + offsetX,
+                            y2: arrow.y2 + offsetY,
+                            labelX: arrow.labelX + offsetX,
+                            labelY: arrow.labelY + offsetY,
                         });
                     }
                 }
@@ -450,15 +382,8 @@ export const PhaseTorus = Component<Props>("PhaseTorus", ({ props, hooks }) => {
     return () => {
         scheduleDraw();
         return (
-            <div class={b("diagram-card")}>
-                <div class={b("phase-plot")}>
-                    <div class={b("phase-y-title")}>
-                        относительная фаза синего Δφb
-                    </div>
-                    <div class={b("phase-y-values")}>
-                        <span>2π ≡ 0</span>
-                        <span>0</span>
-                    </div>
+            <div class={b("torus-content")}>
+                {phaseTorusFrame(
                     <canvas
                         width={CANVAS_WIDTH}
                         height={CANVAS_HEIGHT}
@@ -466,17 +391,7 @@ export const PhaseTorus = Component<Props>("PhaseTorus", ({ props, hooks }) => {
                         _ref={(element) => (canvas = element)}
                         aria-label="Фазовый тор цветового состояния кварка"
                     />
-                    <div class={b("phase-x-values")}>
-                        <span>Δφg = 0</span>
-                        <span>2π ≡ 0</span>
-                    </div>
-                    <div class={b("phase-x-title")}>
-                        относительная фаза зелёного Δφg
-                    </div>
-                </div>
-                <div class={b("boundary-note")}>
-                    ↔ противоположные стороны квадрата склеены
-                </div>
+                )}
             </div>
         );
     };

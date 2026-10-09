@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build-books; npm run build-blog; vite build; cp -R data dist",
+    "build": "npm run build-books && npm run build-blog && vite build && cp -R data dist",
     "build-books": "cd data/books; node --experimental-specifier-resolution=node --loader ts-node/esm build.ts",
     "prepare-books": "node data/books/tex2bbm.js",
     "build-blog": "cd data/blog; node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm build.ts",
