@@ -51,6 +51,25 @@ export function normalizeWeights(weights: ColorProbabilities): ColorProbabilitie
     return safe.map((value) => value / sum) as ColorProbabilities;
 }
 
+// A range slider controls one probability directly; the other two retain
+// their ratio so that the thumb does not jump after each normalization.
+export function setColorProbability(
+    probabilities: ColorProbabilities, index: number, value: number
+): ColorProbabilities {
+    const selected = Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0));
+    const others = [0, 1, 2].filter(i => i !== index);
+    const remaining = 1 - selected;
+    const previousRemaining = others.reduce((sum, i) => sum + probabilities[i], 0);
+    const result = [0, 0, 0] as ColorProbabilities;
+    result[index] = selected;
+    for (const i of others) {
+        result[i] = previousRemaining > 1e-12
+            ? remaining * probabilities[i] / previousRemaining
+            : remaining / 2;
+    }
+    return result;
+}
+
 export function createColorState(
     probabilities: ColorProbabilities,
     deltaGreen: number,
@@ -120,7 +139,7 @@ const I = complex(0, 1);
 const MI = complex(0, -1);
 const Z = () => complex();
 
-const gellMann: Matrix[] = [
+export const gellMann: Matrix[] = [
     [[Z(), R, Z()], [R, Z(), Z()], [Z(), Z(), Z()]],
     [[Z(), MI, Z()], [I, Z(), Z()], [Z(), Z(), Z()]],
     [[R, Z(), Z()], [Z(), complex(-1), Z()], [Z(), Z(), Z()]],

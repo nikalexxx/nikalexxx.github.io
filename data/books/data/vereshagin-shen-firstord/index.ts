@@ -1,7 +1,7 @@
 import { bbm } from '@bookbox/preset-web';
-import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const rootPath = resolve(import.meta.dirname, './book.bbm');
+const rootPath = fileURLToPath(new URL('./book.bbm', import.meta.url));
 const schema = await bbm.readBook(rootPath);
 
 export default schema;

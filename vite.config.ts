@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 
 import { createHtmlPlugin } from 'vite-plugin-html';
 import glsl from 'vite-plugin-glsl';
@@ -18,6 +18,19 @@ const metrikaCode = `<!-- Yandex.Metrika counter -->
 
 const METRIKA = process.env.ENV === 'prod' ? metrikaCode : '';
 
+// The HTML template lives under assets/, while the app's public routes use /?/<path>.
+const devIndexAlias: Plugin = {
+    name: 'dev-index-alias',
+    configureServer(server) {
+        server.middlewares.use((request, _response, next) => {
+            if (request.url === '/' || request.url?.startsWith('/?')) {
+                request.url = '/assets/index.html' + request.url.slice(1);
+            }
+            next();
+        });
+    },
+};
+
 export default defineConfig({
     esbuild: {
         charset: 'utf8',
@@ -29,6 +42,7 @@ export default defineConfig({
         target: 'esnext',
     },
     plugins: [
+        devIndexAlias,
         glsl(),
         createHtmlPlugin({
             template: 'assets/index.html',

@@ -1,0 +1,112 @@
+.gluon-field {
+    &__visual { min-width: 0; }
+    &__controls {
+        min-width: 0;
+        padding: 16px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        background: var(--color-background-second);
+    }
+    &__hint { color: var(--color-text-secondary); font-size: .82em; line-height: 1.45; margin: 6px 0; }
+    &__controls { display: grid; gap: 12px; h3 { padding: 0; } }
+    &__state-content { display: grid; gap: 12px; min-width: 0; h3 { padding: 0; } }
+    button:not(.button) {
+        color: var(--color-text); background: var(--color-background);
+        border: 1px solid var(--color-border); border-radius: 6px;
+        padding: 8px; cursor: pointer;
+        &:hover { background: var(--color-background-prime); }
+        &:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; }
+        &.is-selected { border-color: var(--color-blue); background: var(--color-background-prime); }
+    }
+    &__columns {
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
+        button { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 5px 8px; font-size: .8em; }
+        strong { font-size: 1.2em; }
+        span { font-variant-numeric: tabular-nums; }
+    }
+    &__column-detail {
+        display: grid; gap: 12px;
+        p { margin: 5px 0; font-size: .8em; font-variant-numeric: tabular-nums; }
+    }
+    &__generators {
+        display: grid; grid-template-columns: repeat(8, minmax(92px, 1fr)); gap: 6px;
+        overflow-x: auto;
+        button {
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+            min-width: 0; white-space: nowrap;
+            color: var(--color-text); background: var(--color-background);
+            border: 1px solid var(--color-border); border-radius: 6px;
+            padding: 5px 6px; cursor: pointer;
+            &:hover { background: var(--color-background-prime); }
+            &:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; }
+            &.is-selected { border-color: var(--color-blue); background: var(--color-background-prime); }
+        }
+        span { font-size: .8em; color: var(--color-text-secondary); }
+    }
+    &__controls.qcd__field-controls {
+        position: relative;
+        display: grid;
+        gap: 6px;
+        padding: 8px 10px;
+    }
+    &__field-toolbar {
+        display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px;
+        h3 { margin: 0; white-space: nowrap; font-size: 1em; }
+        .gluon-field__angle {
+            display: flex; align-items: center; flex: 1 1 220px; gap: 8px;
+            > span { flex: none; white-space: nowrap; font-size: .85em; }
+            input { flex: 1; }
+        }
+        .gluon-field__actions { flex-wrap: nowrap; }
+    }
+    &__matrix-toggle {
+        padding: 5px 8px; border: 1px solid var(--color-border); border-radius: 6px;
+        background: var(--color-background); color: var(--color-text); cursor: pointer;
+    }
+    &__angle, &__coefficients label {
+        display: grid; gap: 4px; min-width: 0;
+        > span { display: flex; justify-content: space-between; gap: 8px; }
+        input { width: 100%; min-width: 0; accent-color: var(--color-blue); }
+        output { font-variant-numeric: tabular-nums; color: var(--color-text-secondary); }
+    }
+    &__actions {
+        display: flex; flex-wrap: wrap; gap: 8px;
+        .button { display: inline-flex; align-items: center; gap: 5px; }
+    }
+    &__operator {
+        display: flex; justify-content: space-between; gap: 12px; align-items: center;
+        padding: 12px; border-radius: 8px; background: var(--color-background);
+        > div { display: grid; gap: 8px; font-size: .9em; }
+        .qcd__matrix { grid-area: auto; width: max-content; }
+    }
+    &__controls.qcd__field-controls &__operator {
+        position: absolute; z-index: 5; top: calc(100% + 4px); right: 8px;
+        min-width: 285px; max-width: calc(100vw - 32px);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 8px 24px color-mix(in srgb, var(--color-shadow) 25%, transparent);
+    }
+    details { border-top: 1px solid var(--color-border); padding-top: 10px; min-width: 0; }
+    summary { cursor: pointer; font-size: .9em; }
+    &__presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 10px 0; }
+    &__coefficients {
+        display: grid; gap: 12px;
+        > div { display: grid; grid-template-columns: 24px 1fr 1fr; gap: 10px; align-items: center; font-size: .8em; }
+    }
+    &__matrix {
+        width: 100%; margin-top: 12px; border-collapse: collapse; font-size: .73em;
+        td, th { padding: 6px 2px; text-align: center; font-variant-numeric: tabular-nums; }
+    }
+    &__legend {
+        display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; font-size: .82em;
+        color: var(--color-text-secondary);
+        b { color: var(--color-text); }
+        p { flex-basis: 100%; margin: 0; line-height: 1.5; }
+    }
+    @media (max-width: 480px) {
+        &__controls { padding: 10px; }
+        &__column-detail { flex-wrap: wrap; gap: 5px; }
+        &__columns button { padding: 6px 4px; font-size: .75em; }
+        &__operator { flex-wrap: wrap; }
+        &__field-toolbar .gluon-field__angle { order: 3; flex-basis: 100%; }
+    }
+}
